@@ -20,6 +20,8 @@
 
 .idea/
 
+netcoreapp3.1/
+
 *.log
 
 
