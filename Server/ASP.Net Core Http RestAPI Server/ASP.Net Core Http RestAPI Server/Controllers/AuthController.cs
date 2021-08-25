@@ -1,81 +1,823 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net.Mime;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using ASP.NET_Core_RestfulAPI_TestServer.DBContexts;
-using Microsoft.AspNetCore.Http;
+using ASP.Net_Core_Http_RestAPI_Server.DBContexts;
+using ASP.Net_Core_Http_RestAPI_Server.JsonDataModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
+
 
 namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
 {
+    /*
+
+    AuthController
+
+    Auth (인증) 관련 로직을 처리하는 컨트롤러 클래스.
+
+
+    API 리스트
+
+    - 로그인 (계정입력 & OAuth) 및 JWT AccessToken 재발급
+    - 회원가입 (계정입력 & OAuth)
+    - 비밀번호 찾기 (계정입력) - 요청                                                                
+    - 비밀번호 찾기 (계정입력) - 인증번호 인증
+    - 비밀번호 찾기 (계정입력) - 비밀번호 변경요청
+
+
+    */
+
+
+
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private static DBContextPool<aspnetcore_testContext> pool;
+        private static DBContextPoolManager<siogames_mainContext> dbPoolManager;
         private readonly ILogger<AuthController> debugLogger;
 
         public AuthController(ILogger<AuthController> logger)
         {
             this.debugLogger = logger;
-            pool = new DBContextPool<aspnetcore_testContext>();
+            if (dbPoolManager == null)
+                dbPoolManager = new DBContextPoolManager<siogames_mainContext>();
         }
 
+        //이메일 정규식 (aaa@gmail.com)
+        Regex emailPattern = new Regex("^([a-zA-Z0-9-]+\\@[a-zA-Z0-9-]+\\.[a-zA-Z]{2,10})*$");
 
 
-        //추후 수정예정.
-        [HttpPost("Auth/Login")]
-        //[Consumes(MediaTypeNames.Application.Json, MediaTypeNames.Text.Plain)]
-        public async Task<TestLogin> Post_json(TestLogin data)
+
+        #region 로그인 (계정입력 & OAuth) 및 JWT AccessToken 재발급
+
+        //요청 URI
+        // http://serverAddress/auth/login
+        [HttpPost("auth/login")]
+        [Consumes(MediaTypeNames.Application.Json)] // application/json
+        public async Task<Response_Auth_Login> Post(Request_Auth_Login request)
         {
-            var dbContext = pool.Rent();
-            
-            debugLogger.LogInformation($"userLoginData => {data.AccountId}");
+            Response_Auth_Login response = new Response_Auth_Login();
+            var dbContext = dbPoolManager.Rent();
 
-            Random aa = new Random();
-
-            //테스트용 유저.
-            string targetUserName = $"test_{aa.Next(0, 50000)}";
-            
-            //해당 유저가 존재하는지 체크후, 존재한다면 pass, 존재하지 않다면 insert함.
-            var result = dbContext.TestTables
-                .Where((table) =>
-                    table.UserName.Equals(targetUserName))
-                .AsNoTracking()
-                .Count();
-
-            //존재한다면.
-            if (result > 0)
+            if (request == null)
             {
-                debugLogger.LogInformation("11 WeatherForecast Get");
+                response.jwt_access = response.jwt_refresh = null;
+                response.result = "invalid data";
+                dbPoolManager.Return(dbContext);
+                return response;
             }
-            //없다면.
+
+            string authType = request.authType.ToLower();
+
+            //계정정보로 로그인할 경우.
+            if (authType.Equals("account"))
+            {
+                //입력된 값이 이메일 값이 아닌 경우.
+                if (emailPattern.IsMatch(request.account_email) == false)
+                {
+                    response.jwt_access = response.jwt_refresh = null;
+                    response.result = "invalid email address";
+                    dbPoolManager.Return(dbContext);
+                    return response;
+                }
+
+                //전달된 로그인 정보로 db 조회후, 해당 정보를 db에서 가져온다.
+                var result = dbContext.AccountInfos
+                    .Where( table =>
+                        //email주소, 비밀번호가 일치하는 row를 검색.
+                        table.AccountEmail.Equals(request.account_email)
+                        )
+                    .AsNoTracking();
+
+
+                //해당 이메일의 계정이 존재할 경우.
+                if (result.Count() == 1)
+                {
+                    var tableData = result.FirstOrDefault();
+
+                    //비밀번호 정보가 틀린 경우 종료.
+                    if (tableData.AccountPassword.Equals(request.account_password) == false)
+                    {
+                        response.jwt_access = response.jwt_refresh = null;
+                        response.result = "invalid account info.";
+                        dbPoolManager.Return(dbContext);
+                        return response;
+                    }
+
+                    UserData userdata = new UserData()
+                    {
+                        AccountUniqueId = tableData.AccountUniqueId,
+                        AccountEmail = tableData.AccountEmail,
+                        AuthLv = tableData.AccountAuthLv,
+                        //UserLv = (int)tableData.PlayerInfos.FirstOrDefault().PlayerLv,
+                        //UserName = tableData.PlayerInfos.FirstOrDefault().PlayerNickname
+                    };
+
+                    try
+                    {
+                        userdata.UserLv = (int) tableData.PlayerInfo.PlayerLv;
+                        userdata.UserName = tableData.PlayerInfo.PlayerNickname;
+                    }
+                    catch (Exception)
+                    {
+                        userdata.UserLv = 0;
+                        userdata.UserName = null;
+                    }
+
+                    //새로운 jwt토큰 발행후 반환.
+                    response.jwt_access = JWTManager.createNewJWT(userdata, JWTManager.JWTType.AccessToken);
+                    response.jwt_refresh = JWTManager.createNewJWT(userdata, JWTManager.JWTType.RefreshToken);
+                    response.result = "ok";
+
+                    //로그인 과정이 성공적으로 완료되었다면, 로그인 중복방지를 위해 SessionManager에 JWT_AccessToken정보를 등록.
+                    SessionManager.RegisterToken(tableData.AccountUniqueId, response.jwt_access);
+                }
+                //가입된 이메일이 아닌 경우.
+                else if (result.Count() == 0)
+                {
+                    response.jwt_access = response.jwt_refresh = null;
+                    response.result = "need join account";
+                }
+                //잘못된 정보
+                else
+                {
+                    response.jwt_access = response.jwt_refresh = null;
+                    response.result = "invalid account info.";
+                }
+            }
+            //google, apple등의 oauth정보로 로그인할 경우.
+            else if (authType.Contains("oauth"))
+            {
+                //전달된 로그인 정보로 db 조회후, 해당 정보를 db에서 가져온다.
+                IQueryable<AccountInfo> result;
+
+                if (authType.Contains("google"))
+                {
+                    //oauth 토큰이 일치하는 row를 검색.
+                    result = dbContext.AccountInfos
+                        .Where(table => table.AccountOauthTokenGoogle.Equals(request.oauth_token))
+                        .AsNoTracking();
+                }
+                else if (authType.Contains("apple"))
+                {
+                    //oauth 토큰이 일치하는 row를 검색.
+                    result = dbContext.AccountInfos
+                        .Where(table => table.AccountOauthTokenApple.Equals(request.oauth_token))
+                        .AsNoTracking();
+                }
+                else
+                {
+                    response.jwt_access = response.jwt_refresh = null;
+                    response.result = "invalid authType";
+                    dbPoolManager.Return(dbContext);
+                    return response;
+                }
+
+                //로그인 성공
+                if (result.Count() == 1)
+                {
+                    var tableData = result.FirstOrDefault();
+
+                    UserData userdata = new UserData()
+                    {
+                        AccountUniqueId = tableData.AccountUniqueId,
+                        AccountEmail = tableData.AccountEmail,
+                        AuthLv = tableData.AccountAuthLv,
+                        //UserLv = (int)tableData.PlayerInfos.FirstOrDefault().PlayerLv,
+                        //UserName = tableData.PlayerInfos.FirstOrDefault().PlayerNickname
+                    };
+
+                    try
+                    {
+                        userdata.UserLv = (int)tableData.PlayerInfo.PlayerLv;
+                        userdata.UserName = tableData.PlayerInfo.PlayerNickname;
+                    }
+                    catch (Exception)
+                    {
+                        userdata.UserLv = 0;
+                        userdata.UserName = null;
+                    }
+
+                    //새로운 jwt토큰 발행후 반환.
+                    response.jwt_access = JWTManager.createNewJWT(userdata, JWTManager.JWTType.AccessToken);
+                    response.jwt_refresh = JWTManager.createNewJWT(userdata, JWTManager.JWTType.RefreshToken);
+                    response.result = "ok";
+
+                    //로그인 과정이 성공적으로 완료되었다면, 로그인 중복방지를 위해 SessionManager에 JWT_AccessToken정보를 등록.
+                    SessionManager.RegisterToken(tableData.AccountUniqueId, response.jwt_access);
+                }
+                else if (result.Count() == 0)
+                {
+                    response.jwt_access = response.jwt_refresh = null;
+                    response.result = "need join account";
+                }
+                //잘못된 정보
+                else
+                {
+                    response.jwt_access = response.jwt_refresh = null;
+                    response.result = "invalid oauthtoken info.";
+                }
+            }
+            //jwt access token 갱신요청의 경우.
+            else if (authType.Equals("jwt"))
+            {
+                //jwt refresh 토큰 유효성 검사 및, jwt_access 토큰 재발급 준비.
+                SecurityToken tokenInfo = new JwtSecurityToken();
+
+                if (JWTManager.checkValidationJWT(request.jwt_refresh, out tokenInfo))
+                { //유효성 검증이 완료된 토큰 정보.
+                    JwtSecurityToken jwt = tokenInfo as JwtSecurityToken;
+
+                    object AccountUniqueId, AuthLv;
+                    AccountUniqueId = jwt.Payload.GetValueOrDefault("AccountUniqueId");
+                    //AuthLv = jwt.Payload.GetValueOrDefault("AuthLv");
+                    
+                    //전달된 로그인 정보로 db 조회후, 해당 정보를 db에서 가져온다.
+                    var result = dbContext.AccountInfos
+                        .Where(table =>
+                            //jwt 토큰에서 지정된 AccountUniqueId기준으로 테이블 검색.
+                            table.AccountUniqueId.Equals(uint.Parse(AccountUniqueId.ToString()))
+                        )
+                        .AsNoTracking();
+                    
+                    if (result.Count() == 1)
+                    {
+                        var tableData = result.FirstOrDefault();
+
+                        UserData userdata = new UserData()
+                        {
+                            AccountUniqueId = tableData.AccountUniqueId,
+                            AccountEmail = tableData.AccountEmail,
+                            AuthLv = tableData.AccountAuthLv,
+                            //UserLv = (int)tableData.PlayerInfos.FirstOrDefault().PlayerLv,
+                            //UserName = tableData.PlayerInfos.FirstOrDefault().PlayerNickname
+                        };
+
+                        try
+                        {
+                            userdata.UserLv = (int)tableData.PlayerInfo.PlayerLv;
+                            userdata.UserName = tableData.PlayerInfo.PlayerNickname;
+                        }
+                        catch (Exception)
+                        {
+                            userdata.UserLv = 0;
+                            userdata.UserName = null;
+                        }
+
+                        response.jwt_access = JWTManager.createNewJWT(userdata, JWTManager.JWTType.AccessToken);
+                        //기존 jwt_refresh 그대로 적용.
+                        response.jwt_refresh = request.jwt_refresh;
+                        response.result = "ok";
+
+                        //토큰 갱신작업이 완료되었다면, 로그인 중복방지를 위해 SessionManager에 JWT_AccessToken정보를 등록.
+                        SessionManager.RegisterToken(tableData.AccountUniqueId, response.jwt_access);
+                    }
+                    //잘못된 정보
+                    else
+                    {
+                        response.jwt_access = response.jwt_refresh = null;
+                        response.result = "invalid jwt info";
+                    }
+                }
+                //jwt refresh 토큰이 만료되었거나, 유효하지 않다면.
+                else
+                {
+                    response.jwt_access = response.jwt_refresh = null;
+                    response.result = "expiration or invalid jwt info. need login";
+                }
+            }
+            //게스트 로그인의 경우, 일단 임시 발급된 jwt로 계정정보를 판단함.
+            else if (authType.Equals("guest"))
+            {
+                var guestToken = request.oauth_token;
+                
+                //전달된 로그인 정보로 db 조회후, 해당 정보를 db에서 가져온다.
+                var result = dbContext.AccountInfos
+                    .Where(table =>
+                        //jwt 토큰에서 지정된 AccountUniqueId기준으로 테이블 검색.
+                        table.AccountGuestToken.Equals(guestToken)
+                    )
+                    .AsNoTracking();
+
+                //로그인 성공
+                if (result.Count() == 1)
+                {
+                    var tableData = result.FirstOrDefault();
+
+                    UserData userdata = new UserData()
+                    {
+                        AccountUniqueId = tableData.AccountUniqueId,
+                        AccountEmail = tableData.AccountEmail,
+                        AuthLv = tableData.AccountAuthLv,
+                        //UserLv = (int)tableData.PlayerInfos.FirstOrDefault().PlayerLv,
+                        //UserName = tableData.PlayerInfos.FirstOrDefault().PlayerNickname
+                    };
+
+                    try
+                    {
+                        userdata.UserLv = (int)tableData.PlayerInfo.PlayerLv;
+                        userdata.UserName = tableData.PlayerInfo.PlayerNickname;
+                    }
+                    catch (Exception)
+                    {
+                        userdata.UserLv = 0;
+                        userdata.UserName = null;
+                    }
+                    
+                    //새로운 jwt토큰 발행후 반환.
+                    response.jwt_access = JWTManager.createNewJWT(userdata, JWTManager.JWTType.AccessToken);
+                    response.jwt_refresh = JWTManager.createNewJWT(userdata, JWTManager.JWTType.RefreshToken);
+                    response.result = "ok";
+
+                    //토큰 갱신작업이 완료되었다면, 로그인 중복방지를 위해 SessionManager에 JWT_AccessToken정보를 등록.
+                    SessionManager.RegisterToken(tableData.AccountUniqueId, response.jwt_access);
+                }
+                else if (result.Count() == 0)
+                {
+                    response.jwt_access = response.jwt_refresh = null;
+                    response.result = "need join account";
+                }
+                //잘못된 정보
+                else
+                {
+                    response.jwt_access = response.jwt_refresh = null;
+                    response.result = "invalid guest token info";
+                }
+            }
             else
             {
-                var resultData = new TestTable()
-                {
-                    Level = 1,
-                    Exp = aa.Next(0, 50000),
-                    TestString = DateTime.Now.ToString(),
-                    UserName = targetUserName,
-                    UserPassword = "999999asdads!"
-                };
+                response.jwt_access = response.jwt_refresh = null;
+                response.result = "invalid authType";
+            }
+            
+            dbPoolManager.Return(dbContext);
+            return response;
+        }
 
-                await dbContext.TestTables.AddAsync(resultData);
+        #endregion
 
-                dbContext.Entry(resultData).State = EntityState.Added;
+
+        #region 회원가입 (계정입력 & OAuth)
+
+        //요청 URI
+        // http://serverAddress/auth/join
+        [HttpPost("auth/join")]
+        [Consumes(MediaTypeNames.Application.Json)] // application/json
+        public async Task<Response_Auth_Join> Post(Request_Auth_Join request)
+        {
+            Response_Auth_Join response = new Response_Auth_Join();
+            //DB에 접속하여 데이터를 조작하는 DBContext객체.
+            var dbContext = dbPoolManager.Rent();
+
+            if (request == null)
+            {
+                response.jwt_access = response.jwt_refresh = null;
+                response.result = "invalid data";
+                dbPoolManager.Return(dbContext);
+                return response;
             }
 
-            var changedCount = await dbContext.SaveChangesAsync();
+            string authType = request.authType.ToLower();
+            
+            if (authType.Equals("account"))
+            {
+                //입력된 값이 이메일 값이 아닌 경우.
+                if (emailPattern.IsMatch(request.account_email) == false)
+                {
+                    response.jwt_access = response.jwt_refresh = null;
+                    response.result = "invalid email address";
+                    dbPoolManager.Return(dbContext);
+                    return response;
+                }
 
-            pool.Return(dbContext);
+                //MariaDB+EntityFramework조합 에서 Transaction사용시 CreateExecutionStrategy 활용하여 실행해야함.
+                var strategy = dbContext.Database.CreateExecutionStrategy();
 
-            return new TestLogin();
+                Func<Task> db_transaction_operation = async delegate
+                {
+                    using (var transaction = await dbContext.Database.BeginTransactionAsync())
+                    {
+                        AccountInfo newUser = new AccountInfo()
+                        {
+                            AccountEmail = request.account_email,
+                            AccountPassword = request.account_password,
+                            AccountAuthLv = (byte)AuthLv.User_Account
+                        };
+
+                        //전달된 회원가입 정보로 db insert 실행.
+                        try
+                        {
+                            //transaction 내에서 insert시, 
+                            //innodb_autoinc_lock_mode = 0; 의 값을 0으로 해야한다. (AutoIncrement 값 증가 이슈)
+
+                            var result = await dbContext.AccountInfos.AddAsync(newUser);
+                            dbContext.Entry(newUser).State = EntityState.Added;
+                            var changedCount = await dbContext.SaveChangesAsync();
+
+                            //insert 성공시 player 생성.
+                            PlayerInfo newPlayer = new PlayerInfo()
+                            {
+                                AccountUniqueId = newUser.AccountUniqueId,
+                            };
+
+                            var result2 = await dbContext.PlayerInfos.AddAsync(newPlayer);
+                            dbContext.Entry(newPlayer).State = EntityState.Added;
+                            var changedCount2 = await dbContext.SaveChangesAsync();
+
+                            await transaction.CommitAsync();
+
+                            UserData userdata = new UserData()
+                            {
+                                AccountUniqueId = newUser.AccountUniqueId,
+                                AuthLv = newUser.AccountAuthLv
+                            };
+
+                            //새로운 jwt토큰 발행후 반환.
+                            response.jwt_access = JWTManager.createNewJWT(userdata, JWTManager.JWTType.AccessToken);
+                            response.jwt_refresh = JWTManager.createNewJWT(userdata, JWTManager.JWTType.RefreshToken);
+                            response.result = "ok";
+                        }
+                        catch (Exception e)
+                        {
+                            await transaction.RollbackAsync();
+
+                            response.jwt_access = response.jwt_refresh = null;
+
+                            if (e.ToString().Contains("Duplicate entry"))
+                                response.result = "exist account info";
+                            else
+                            {
+                                response.result = "server Error.";
+                                debugLogger.LogError($"Exception = {e}");
+                            }
+                        }
+                    }
+                };
+
+                //transaction 쿼리 실행.
+                await strategy.ExecuteAsync(db_transaction_operation);
+            }
+            else if (authType.Contains("oauth"))
+            {
+                AccountInfo newUser = new AccountInfo()
+                {
+                    AccountAuthLv = (byte)AuthLv.User_Account
+                };
+
+                //로그인한 OAuth 타입에 맞춰 값 입력.
+                if (authType.Contains("google"))
+                {
+                    newUser.AccountOauthTokenGoogle = request.oauth_token;
+                }
+                else if (authType.Contains("apple"))
+                {
+                    newUser.AccountOauthTokenApple = request.oauth_token;
+                }
+                else
+                {
+                    response.jwt_access = response.jwt_refresh = null;
+                    response.result = "invalid authType";
+                    dbPoolManager.Return(dbContext);
+                    return response;
+                }
+
+                //MariaDB+EntityFramework조합 에서 Transaction사용시 CreateExecutionStrategy 활용하여 실행해야함.
+                var strategy = dbContext.Database.CreateExecutionStrategy();
+                Func<Task> db_transaction_operation = async delegate
+                {
+                    using (var transaction = await dbContext.Database.BeginTransactionAsync())
+                    {
+                        //전달된 회원가입 정보로 db insert 실행.
+                        try
+                        {
+                            //transaction 내에서 insert시, 
+                            //innodb_autoinc_lock_mode = 0; 의 값을 0으로 해야한다. (AutoIncrement 값 증가 이슈)
+
+                            var result = await dbContext.AccountInfos.AddAsync(newUser);
+                            var changedCount = await dbContext.SaveChangesAsync();
+                            
+                            //insert 성공시 player 생성.
+                            PlayerInfo newPlayer = new PlayerInfo()
+                            {
+                                AccountUniqueId = newUser.AccountUniqueId,
+                            };
+                            
+                            var result2 = await dbContext.PlayerInfos.AddAsync(newPlayer);
+                            var changedCount2 = await dbContext.SaveChangesAsync();
+
+                            await transaction.CommitAsync();
+
+                            UserData userdata = new UserData()
+                            {
+                                AccountUniqueId = newUser.AccountUniqueId,
+                                AuthLv = newUser.AccountAuthLv
+                            };
+
+                            //새로운 jwt토큰 발행후 반환.
+                            response.jwt_access = JWTManager.createNewJWT(userdata, JWTManager.JWTType.AccessToken);
+                            response.jwt_refresh = JWTManager.createNewJWT(userdata, JWTManager.JWTType.RefreshToken);
+                            response.result = "ok";
+                        }
+                        catch (Exception e)
+                        {
+                            await transaction.RollbackAsync();
+                            
+                            response.jwt_access = response.jwt_refresh = null;
+                            
+                            if (e.ToString().Contains("Duplicate entry"))
+                                response.result = "exist account info";
+                            else
+                            {
+                                response.result = "server Error.";
+                                debugLogger.LogError($"Exception = {e}");
+                            }
+                        }
+                    }
+                };
+
+                //transaction 쿼리 실행.
+                await strategy.ExecuteAsync(db_transaction_operation);
+            }
+            else if (authType.Equals("guest"))
+            {
+                //MariaDB+EntityFramework조합 에서 Transaction사용시 CreateExecutionStrategy 활용하여 실행해야함.
+                var strategy = dbContext.Database.CreateExecutionStrategy();
+                Func<Task> db_transaction_operation = async delegate
+                {
+                    using (var transaction = await dbContext.Database.BeginTransactionAsync())
+                    {
+                        AccountInfo newUser = new AccountInfo()
+                        {
+                            AccountAuthLv = (byte)AuthLv.User_Guest,
+                            AccountGuestToken = request.oauth_token
+                        };
+
+                        //
+                        if (string.IsNullOrEmpty(request.oauth_token))
+                            newUser.AccountGuestToken = Guid.NewGuid().ToString();
+                        
+                        //전달된 회원가입 정보로 db insert 실행.
+                        try
+                        {
+                            var result = await dbContext.AccountInfos.AddAsync(newUser);
+                            dbContext.Entry(newUser).State = EntityState.Added;
+                            var changedCount = await dbContext.SaveChangesAsync();
+
+                            //insert 성공시 player 생성.
+                            PlayerInfo newPlayer = new PlayerInfo()
+                            {
+                                AccountUniqueId = newUser.AccountUniqueId,
+                            };
+                            
+                            var result2 = await dbContext.PlayerInfos.AddAsync(newPlayer);
+                            dbContext.Entry(newPlayer).State = EntityState.Added;
+                            var changedCount2 = await dbContext.SaveChangesAsync();
+
+                            await transaction.CommitAsync();
+
+                            UserData userdata = new UserData()
+                            {
+                                AccountUniqueId = newUser.AccountUniqueId,
+                                AuthLv = newUser.AccountAuthLv
+                            };
+
+                            //새로운 jwt토큰 발행후 반환.
+                            response.jwt_access = JWTManager.createNewJWT(userdata, JWTManager.JWTType.AccessToken);
+                            response.jwt_refresh = JWTManager.createNewJWT(userdata, JWTManager.JWTType.RefreshToken);
+                            response.result = "ok";
+                        }
+                        catch (Exception e)
+                        {
+                            await transaction.RollbackAsync();
+
+                            response.jwt_access = response.jwt_refresh = null;
+
+                            if (e.ToString().Contains("Duplicate entry"))
+                                response.result = "exist account info";
+                            else
+                            {
+                                response.result = "server Error.";
+                                debugLogger.LogError($"Exception = {e}");
+                            }
+                        }
+                    }
+                };
+
+                //transaction 쿼리 실행.
+                await strategy.ExecuteAsync(db_transaction_operation);
+            }
+            else
+            {
+                response.jwt_access = response.jwt_refresh = null;
+                response.result = "invalid authType";
+            }
+
+            dbPoolManager.Return(dbContext);
+            return response;
         }
-        
 
+        #endregion
+
+
+        #region 비밀번호 찾기(계정입력) - 요청
+
+        //요청 URI
+        // http://serverAddress/auth/findpassword/send-request
+        [HttpPost("auth/findpassword/send-request")]
+        [Consumes(MediaTypeNames.Application.Json)] // application/json
+        public async Task<Response_Auth_FindPassword_SendRequest> Post(Request_Auth_FindPassword_SendRequest request)
+        {
+            Response_Auth_FindPassword_SendRequest response = new Response_Auth_FindPassword_SendRequest();
+            //DB에 접속하여 데이터를 조작하는 DBContext객체.
+            var dbContext = dbPoolManager.Rent();
+
+            if (request == null)
+            {
+                response.findpassword_token = null;
+                response.result = "invalid data";
+                dbPoolManager.Return(dbContext);
+                return response;
+            }
+
+            //입력된 값이 이메일 값이 아닌 경우.
+            if (emailPattern.IsMatch(request.account_email) == false)
+            {
+                response.findpassword_token = null;
+                response.result = "invalid email address";
+                dbPoolManager.Return(dbContext);
+                return response;
+            }
+
+            //전달된 정보로 db 조회후, 해당 정보를 db에서 가져온다.
+            var result = dbContext.AccountInfos
+                .Where(table =>
+                    //email주소가 일치하는 row를 검색.
+                    table.AccountEmail.Equals(request.account_email)
+                )
+                .AsNoTracking();
+
+            //이메일이 존재할 경우.
+            if (result.Count() == 1)
+            {
+                EmailValidationInfo info = new EmailValidationInfo();
+
+                //30분간 유효.
+                info.expirateTime = DateTime.UtcNow.AddMinutes(30);
+                //찾기 현재 진행 단계.
+                info.currentStep = 1;
+                info.EmailAddress = request.account_email;
+                info.FindPasswordToken = JWTManager.createNewJWT(new UserData(), JWTManager.JWTType.AccessToken);
+                info.EmailValidateConfirmNumber = new Random().Next(100000, 999998).ToString();
+                
+                EmailManager.RegisterFindPasswordInfo(info.FindPasswordToken, info);
+
+                EmailManager.sendGmail_SMTP(info.EmailAddress
+                    , "siogames 인증메일"
+                    , "비밀번호 찾기 인증 메일 안내"
+                    , $"\n\n\n\n\n인증번호 : {info.EmailValidateConfirmNumber}");
+
+                response.findpassword_token = info.FindPasswordToken;
+                response.result = "ok";
+            }
+            else
+            {
+                response.findpassword_token = null;
+                response.result = "not find email";
+            }
+
+            dbPoolManager.Return(dbContext);
+            return response;
+        }
+
+        #endregion
+
+
+        #region 비밀번호 찾기(계정입력) - 인증번호 인증
+
+        //요청 URI
+        // http://serverAddress/auth/findpassword/send-auth-number
+        [HttpPost("auth/findpassword/send-auth-number")]
+        [Consumes(MediaTypeNames.Application.Json)] // application/json
+        public async Task<Response_Auth_FindPassword_SendAuthNumber> Post(Request_Auth_FindPassword_SendAuthNumber request)
+        {
+            Response_Auth_FindPassword_SendAuthNumber response 
+                = new Response_Auth_FindPassword_SendAuthNumber();
+
+            //DB에 접속하여 데이터를 조작하는 DBContext객체.
+            var dbContext = dbPoolManager.Rent();
+
+            if (request == null)
+            {
+                response.result = "invalid data";
+                dbPoolManager.Return(dbContext);
+                return response;
+            }
+
+            var result = EmailManager.GetFindPasswordInfo(request.findpassword_token);
+
+            //진행단계, 유효기간 체크.
+            if (result != null && result.currentStep == 1 && result.expirateTime > DateTime.UtcNow)
+            {
+                if (result.EmailValidateConfirmNumber.Equals(request.auth_number))
+                {
+                    result.currentStep = 2;
+                    EmailManager.RegisterFindPasswordInfo(request.findpassword_token, result);
+                    response.result = "ok";
+                }
+                else
+                {
+                    //인증번호 재입력 필요.
+                    response.result = "incorrect auth_number";
+                }
+            }
+            //잘못된 데이터
+            else
+            {
+                response.result = "invalid token.";
+            }
+
+
+            dbPoolManager.Return(dbContext);
+            return response;
+        }
+
+        #endregion
+
+
+        #region 비밀번호 찾기(계정입력) - 비밀번호 변경요청
+
+        //요청 URI
+        // http://serverAddress/auth/findpassword/update-account-password
+        [HttpPost("auth/findpassword/update-account-password")]
+        [Consumes(MediaTypeNames.Application.Json)] // application/json
+        public async Task<Response_Auth_FindPassword_UpdateAccountPassword> Post(Request_Auth_FindPassword_UpdateAccountPassword request)
+        {
+            Response_Auth_FindPassword_UpdateAccountPassword response 
+                = new Response_Auth_FindPassword_UpdateAccountPassword();
+
+            //DB에 접속하여 데이터를 조작하는 DBContext객체.
+            var dbContext = dbPoolManager.Rent();
+
+            if (request == null)
+            {
+                response.result = "invalid data";
+                dbPoolManager.Return(dbContext);
+                return response;
+            }
+
+            if (string.IsNullOrEmpty(request.account_password))
+            {
+                response.result = "invalid password value";
+                dbPoolManager.Return(dbContext);
+                return response;
+            }
+
+            var result = EmailManager.GetFindPasswordInfo(request.findpassword_token);
+
+            //진행단계, 유효기간 체크.
+            if (result != null && result.currentStep == 2)
+            {
+                //전달된 정보로 db 조회후, 해당 정보를 db에서 가져온다.
+                var accountData = dbContext.AccountInfos
+                    .Where(table =>
+                        //email주소가 일치하는 row를 검색.
+                        table.AccountEmail.Equals(result.EmailAddress)
+                    )
+                    .AsNoTracking();
+
+                if (accountData.Count() == 1)
+                {
+                    var account = accountData.FirstOrDefault();
+
+                    //비밀번호 변경사항 db에 반영
+                    account.AccountPassword = request.account_password;
+                    dbContext.Entry(account).State = EntityState.Modified;
+                    var changedCount = await dbContext.SaveChangesAsync();
+
+                    response.result = "ok";
+                }
+                else
+                {
+                    response.result = "server Error.";
+                }
+                EmailManager.RemoveFindPasswordInfo(request.findpassword_token);
+            }
+            //잘못된 데이터
+            else
+            {
+                response.result = "invalid token.";
+            }
+
+            dbPoolManager.Return(dbContext);
+            return response;
+        }
+
+        #endregion
 
     }
 }

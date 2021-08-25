@@ -7,7 +7,6 @@ namespace ASP.Net_Core_Http_RestAPI_Server
     {
         //WebApplicationServer 설정
         static string WAS_LISTEN_HTTP_Port = "5001"; //(TCP Port)
-        static string WAS_LISTEN_HTTPS_Port = "5002"; //(TCP Port)
         static string[] WAS_CORS_URL_List = { 
             "https://db.wizard87.com",
             "http://db.wizard87.com"
@@ -19,15 +18,22 @@ namespace ASP.Net_Core_Http_RestAPI_Server
         //연동할 RDBMS관련 접속정보 설정
         static string DBMSAddress = "db.wizard87.com";
         static string DBMSPort = "3333";
-        static string DBMSUser = "aspnet_admin";
+        static string DBMSUser = "siogames_admin";
         static string DBMSPassword = "qwert12345!Q";
-        static string targetDatabaseName = "asp.net core_test";
+        static string targetDatabaseName = "siogames_main";
         static string DBMSMaxConnectionPoolSize = "2000";
 
+
+        //SMTP 인증메일용 Gmail 계정 정보
+        static string GmailAddr = "siogames2020@gmail.com";
+        static string GmailPassword = "siogames!";
+
+     
+       
         //리슨 URL
         public static string getWAS_URLInfo()
         {
-            var WAS_URL = $"http://*:{WAS_LISTEN_HTTP_Port};https://*:{WAS_LISTEN_HTTPS_Port}";
+            var WAS_URL = $"http://*:{WAS_LISTEN_HTTP_Port}";
             return WAS_URL;
         }
 
@@ -58,6 +64,19 @@ namespace ASP.Net_Core_Http_RestAPI_Server
 
             return WebRootDir;
         }
+
+        //SMTP 인증메일용 Gmail 계정
+        public static string getGmailAddr()
+        {
+            return GmailAddr;
+        }
+        public static string getGmailPassword()
+        {
+            return GmailPassword;
+        }
+
+
+
     }
 }
 
@@ -80,7 +99,8 @@ MySQL, MariaDB같은 디비에서 테이블을 생성.
 DBContext 클래스 파일과, RDBMS의 테이블과 매핑되는 C# 클래스 파일을 자동생성.
 MySQL, MariaDB 테이블 -> C# EntityFrameworkCore DBContext 마이그레이션 툴 명령어.
 
-Scaffold-DbContext "server=db.wizard87.com;port=3333;user=aspnet_admin;password=qwert12345!Q;database=asp.net core_test" Pomelo.EntityFrameworkCore.MySql -OutputDir DBContexts -Force
+Scaffold-DbContext "server=db.wizard87.com;port=3333;user=siogames_admin;password=qwert12345!Q;database=siogames_main" Pomelo.EntityFrameworkCore.MySql -OutputDir DBContexts -Force
+
 
 ex) Scaffold-DbContext " [디비접속 문자열] " Pomelo.EntityFrameworkCore.MySql -OutputDir [출력 디렉토리 경로] -Force
 
