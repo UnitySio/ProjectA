@@ -1,11 +1,9 @@
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using ASP.Net_Core_Http_RestAPI_Server.JsonDataModels;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace ASP.Net_Core_Http_RestAPI_Server
 {
@@ -13,6 +11,10 @@ namespace ASP.Net_Core_Http_RestAPI_Server
     {
         public static void Main(string[] args)
         {
+            EmailManager.Initialize();
+            SessionManager.Initialize();
+            JWTManager.Initialize();
+
             CreateHostBuilder(args).Build().Run();
         }
 
