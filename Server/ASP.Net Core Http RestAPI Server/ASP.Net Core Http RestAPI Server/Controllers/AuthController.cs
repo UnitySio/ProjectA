@@ -64,7 +64,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
             Response_Auth_Login response = new Response_Auth_Login();
             var dbContext = dbPoolManager.Rent();
 
-            if (request == null)
+            if (request == null || string.IsNullOrEmpty(request.authType))
             {
                 response.jwt_access = response.jwt_refresh = null;
                 response.result = "invalid data";
@@ -89,7 +89,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                 //전달된 로그인 정보로 db 조회후, 해당 정보를 db에서 가져온다.
                 var result = dbContext.AccountInfos
                     .Where( table =>
-                        //email주소, 비밀번호가 일치하는 row를 검색.
+                        //email주소가 일치하는 row를 검색.
                         table.AccountEmail.Equals(request.account_email)
                         )
                     .AsNoTracking();

@@ -1,9 +1,5 @@
-using System;
-using ASP.Net_Core_Http_RestAPI_Server.JsonDataModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace ASP.Net_Core_Http_RestAPI_Server
 {
