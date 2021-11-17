@@ -77,11 +77,11 @@ namespace ASP.Net_Core_Http_RestAPI_Server
                 Audience = AudienceStr, //대상자
                 Issuer = IssuerStr, //발급자
                 IssuedAt = utcNow, //발급일시
-                NotBefore = utcNow, //토큰 유효 발급일시
+                NotBefore = utcNow, //토큰 효력발휘 시작 일시 
                 SigningCredentials = jwt_signingCredentials, //토큰 암호화 알고리즘
             };
 
-            //타입에 따라 만료기간 지정.
+            //타입에 따라 토큰 효력만료일시 지정.
             switch (type)
             {
                 case JWTType.AccessToken:
@@ -128,6 +128,10 @@ namespace ASP.Net_Core_Http_RestAPI_Server
             {
                 tokenInfo = null;
                 return false;
+            }
+            finally
+            {
+                tokenHandler = null;
             }
         }
 

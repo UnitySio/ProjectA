@@ -121,7 +121,7 @@ public class LoginManager : MonoBehaviour
                 
                 if (errorType.ToLower().Contains("http"))
                 {
-                    popupWindow.text_message.text = $"서버 오류:{responseCode}";
+                    popupWindow.text_message.text = $"server error:{responseCode}";
                     popupWindow.setConfirm();
                     popupWindow.btn_confirm.onClick.AddListener(() =>
                     {
@@ -130,7 +130,7 @@ public class LoginManager : MonoBehaviour
                 }
                 else if (errorType.ToLower().Contains("network"))
                 {
-                    popupWindow.text_message.text = $"네트워크 환경을 확인해주세요.";
+                    popupWindow.text_message.text = $"check network environment";
                     popupWindow.setConfirm();
                     popupWindow.btn_confirm.onClick.AddListener(async () =>
                     {
@@ -142,7 +142,7 @@ public class LoginManager : MonoBehaviour
                 }
                 else
                 {
-                    popupWindow.text_message.text = $"알수 없는 에러";
+                    popupWindow.text_message.text = $"unknown error";
                     popupWindow.setConfirm();
                     popupWindow.btn_confirm.onClick.AddListener(async () =>
                     {
@@ -256,7 +256,7 @@ public class LoginManager : MonoBehaviour
                 
                 if (errorType.ToLower().Contains("http"))
                 {
-                    popupWindow.text_message.text = $"서버 오류:{responseCode}";
+                    popupWindow.text_message.text = $"server error:{responseCode}";
                     popupWindow.setConfirm();
                     popupWindow.btn_confirm.onClick.AddListener(() =>
                     {
@@ -265,7 +265,7 @@ public class LoginManager : MonoBehaviour
                 }
                 else if (errorType.ToLower().Contains("network"))
                 {
-                    popupWindow.text_message.text = $"네트워크 환경을 확인해주세요.";
+                    popupWindow.text_message.text = $"check network environment";
                     popupWindow.setConfirm();
                     popupWindow.btn_confirm.onClick.AddListener(async () =>
                     {
@@ -277,7 +277,7 @@ public class LoginManager : MonoBehaviour
                 }
                 else
                 {
-                    popupWindow.text_message.text = $"알수 없는 에러";
+                    popupWindow.text_message.text = $"unknown error";
                     popupWindow.setConfirm();
                     popupWindow.btn_confirm.onClick.AddListener(async () =>
                     {
@@ -292,8 +292,7 @@ public class LoginManager : MonoBehaviour
                 popupWindow.showwindow();
             };
 
-        var response = await APIManager
-            .SendAPIRequestAsync(API.auth_login, request, failureCallback);
+        var response = await APIManager.SendAPIRequestAsync(API.auth_login, request, failureCallback);
 
         if (response != null)
         {
@@ -313,7 +312,7 @@ public class LoginManager : MonoBehaviour
             {
                 currentStep = LoginSequenceStep.none;
                 //에러 발생.
-                popupWindow.text_message.text = $"오류:{text}";
+                popupWindow.text_message.text = $"error:{text}";
                 popupWindow.setConfirm();
                 popupWindow.btn_confirm.onClick.AddListener(() =>
                 {
@@ -378,11 +377,11 @@ public class LoginManager : MonoBehaviour
             
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(inputfield_login_pw.text))
             {
-                text_loginResult.text = "이메일주소 또는 비밀번호가 공백입니다";
+                text_loginResult.text = "blank";
             }
             else if (!emailPattern.IsMatch(email))
             {
-                text_loginResult.text = "올바른 이메일 형식이 아닙니다";
+                text_loginResult.text = "not validate email type";
             }
             else
             {
@@ -434,15 +433,15 @@ public class LoginManager : MonoBehaviour
                 || string.IsNullOrEmpty(inputfield_join_pw.text)
                 || string.IsNullOrEmpty(inputfield_join_pw_retry.text))
             {
-                text_joinResult.text = "이메일주소 또는 비밀번호가 공백입니다";
+                text_joinResult.text = "blank";
             }
             else if (!emailPattern.IsMatch(email))
             {
-                text_joinResult.text = "올바른 이메일 형식이 아닙니다";
+                text_joinResult.text = "not validate email type";
             }
             else if (!pw.Equals(pw_retry))
             {
-                text_joinResult.text = "비밀번호가 일치하지 않습니다";
+                text_joinResult.text = "not matching password";
             }
             else
             {
@@ -477,11 +476,11 @@ public class LoginManager : MonoBehaviour
             
             if (string.IsNullOrEmpty(email))
             {
-                text_sendemail_findpasswordstatus.text = "이메일주소란이 공백입니다";
+                text_sendemail_findpasswordstatus.text = "email field is blank";
             }
             else if (!emailPattern.IsMatch(email))
             {
-                text_sendemail_findpasswordstatus.text = "올바른 이메일 형식이 아닙니다";
+                text_sendemail_findpasswordstatus.text = "not validate email type";
             }
             else
             {
@@ -514,7 +513,7 @@ public class LoginManager : MonoBehaviour
                 
                 if (errorType.ToLower().Contains("http"))
                 {
-                    popupWindow.text_message.text = $"서버 오류:{responseCode}";
+                    popupWindow.text_message.text = $"server error:{responseCode}";
                     popupWindow.setConfirm();
                     popupWindow.btn_confirm.onClick.AddListener(() =>
                     {
@@ -523,7 +522,7 @@ public class LoginManager : MonoBehaviour
                 }
                 else if (errorType.ToLower().Contains("network"))
                 {
-                    popupWindow.text_message.text = $"네트워크 환경을 확인해주세요.";
+                    popupWindow.text_message.text = $"check network environment";
                     popupWindow.setConfirm();
                     popupWindow.btn_confirm.onClick.AddListener(async () =>
                     {
@@ -532,7 +531,7 @@ public class LoginManager : MonoBehaviour
                 }
                 else
                 {
-                    popupWindow.text_message.text = $"알 수 없는 에러";
+                    popupWindow.text_message.text = $"unknown error";
                     popupWindow.setConfirm();
                     popupWindow.btn_confirm.onClick.AddListener(async () =>
                     {
@@ -573,7 +572,7 @@ public class LoginManager : MonoBehaviour
             {
                 currentStep = LoginSequenceStep.waitingLogin;
                 
-                text_loginResult.text = "올바르지 않은 계정정보입니다";
+                text_loginResult.text = "wrong auth info";
             }
         }
     }
@@ -619,7 +618,7 @@ public class LoginManager : MonoBehaviour
                 
                 if (errorType.ToLower().Contains("http"))
                 {
-                    popupWindow.text_message.text = $"서버 오류:{responseCode}";
+                    popupWindow.text_message.text = $"server error:{responseCode}";
                     popupWindow.setConfirm();
                     popupWindow.btn_confirm.onClick.AddListener(() =>
                     {
@@ -628,7 +627,7 @@ public class LoginManager : MonoBehaviour
                 }
                 else if (errorType.ToLower().Contains("network"))
                 {
-                    popupWindow.text_message.text = $"네트워크 환경을 확인해주세요.";
+                    popupWindow.text_message.text = $"check network environment";
                     popupWindow.setConfirm();
                     popupWindow.btn_confirm.onClick.AddListener(async () =>
                     {
@@ -637,7 +636,7 @@ public class LoginManager : MonoBehaviour
                 }
                 else
                 {
-                    popupWindow.text_message.text = $"알 수 없는 에러";
+                    popupWindow.text_message.text = $"unknown error";
                     popupWindow.setConfirm();
                     popupWindow.btn_confirm.onClick.AddListener(async () =>
                     {
@@ -677,7 +676,7 @@ public class LoginManager : MonoBehaviour
             else
             {
                 currentStep = LoginSequenceStep.none;
-                text_joinResult.text = "이미 존재하는 계정입니다";
+                text_joinResult.text = "already signed account info";
             }
         }
     }
@@ -698,7 +697,7 @@ public class LoginManager : MonoBehaviour
                 
                 if (errorType.ToLower().Contains("http"))
                 {
-                    popupWindow.text_message.text = $"서버 오류:{responseCode}";
+                    popupWindow.text_message.text = $"server error:{responseCode}";
                     popupWindow.setConfirm();
                     popupWindow.btn_confirm.onClick.AddListener(() =>
                     {
@@ -707,7 +706,7 @@ public class LoginManager : MonoBehaviour
                 }
                 else if (errorType.ToLower().Contains("network"))
                 {
-                    popupWindow.text_message.text = $"네트워크 환경을 확인해주세요.";
+                    popupWindow.text_message.text = $"check network environment";
                     popupWindow.setConfirm();
                     popupWindow.btn_confirm.onClick.AddListener(async () =>
                     {
@@ -716,7 +715,7 @@ public class LoginManager : MonoBehaviour
                 }
                 else
                 {
-                    popupWindow.text_message.text = $"알 수 없는 에러";
+                    popupWindow.text_message.text = $"unknown error";
                     popupWindow.setConfirm();
                     popupWindow.btn_confirm.onClick.AddListener(async () =>
                     {
@@ -761,7 +760,7 @@ public class LoginManager : MonoBehaviour
             
                     if (string.IsNullOrEmpty(authnumber))
                     {
-                        text_checkemail_findpasswordstatus.text = "인증번호란이 비어있습니다";
+                        text_checkemail_findpasswordstatus.text = "field is blank";
                     }
                     else
                     {
@@ -776,7 +775,7 @@ public class LoginManager : MonoBehaviour
             else
             {
                 currentStep = LoginSequenceStep.none;
-                text_sendemail_findpasswordstatus.text = "존재하지 않는 계정입니다";
+                text_sendemail_findpasswordstatus.text = "not validate account";
             }
         }
     }
@@ -799,7 +798,7 @@ public class LoginManager : MonoBehaviour
                 
                 if (errorType.ToLower().Contains("http"))
                 {
-                    popupWindow.text_message.text = $"서버 오류:{responseCode}";
+                    popupWindow.text_message.text = $"server error:{responseCode}";
                     popupWindow.setConfirm();
                     popupWindow.btn_confirm.onClick.AddListener(() =>
                     {
@@ -808,7 +807,7 @@ public class LoginManager : MonoBehaviour
                 }
                 else if (errorType.ToLower().Contains("network"))
                 {
-                    popupWindow.text_message.text = $"네트워크 환경을 확인해주세요.";
+                    popupWindow.text_message.text = $"check network environment";
                     popupWindow.setConfirm();
                     popupWindow.btn_confirm.onClick.AddListener(async () =>
                     {
@@ -817,7 +816,7 @@ public class LoginManager : MonoBehaviour
                 }
                 else
                 {
-                    popupWindow.text_message.text = $"알 수 없는 에러";
+                    popupWindow.text_message.text = $"unknown error";
                     popupWindow.setConfirm();
                     popupWindow.btn_confirm.onClick.AddListener(async () =>
                     {
@@ -860,11 +859,11 @@ public class LoginManager : MonoBehaviour
             
                     if (string.IsNullOrEmpty(newpw) || string.IsNullOrEmpty(newpw_retry))
                     {
-                        text_resetpw_findpasswordstatus.text = "비밀번호를 입력해 주세요";
+                        text_resetpw_findpasswordstatus.text = "need input password";
                     }
                     else if (!newpw.Equals(newpw_retry))
                     {
-                        text_resetpw_findpasswordstatus.text = "비밀번호가 일치하지 않습니다";
+                        text_resetpw_findpasswordstatus.text = "not matching password";
                     }
                     else
                     {
@@ -879,7 +878,7 @@ public class LoginManager : MonoBehaviour
             else
             {
                 currentStep = LoginSequenceStep.none;
-                text_checkemail_findpasswordstatus.text = "올바른 인증번호가 아닙니다";
+                text_checkemail_findpasswordstatus.text = "wrong auth number";
             }
         }
     }
@@ -903,7 +902,7 @@ public class LoginManager : MonoBehaviour
                 
                 if (errorType.ToLower().Contains("http"))
                 {
-                    popupWindow.text_message.text = $"서버 오류:{responseCode}";
+                    popupWindow.text_message.text = $"server error:{responseCode}";
                     popupWindow.setConfirm();
                     popupWindow.btn_confirm.onClick.AddListener(() =>
                     {
@@ -912,7 +911,7 @@ public class LoginManager : MonoBehaviour
                 }
                 else if (errorType.ToLower().Contains("network"))
                 {
-                    popupWindow.text_message.text = $"네트워크 환경을 확인해주세요.";
+                    popupWindow.text_message.text = $"check network environment";
                     popupWindow.setConfirm();
                     popupWindow.btn_confirm.onClick.AddListener(async () =>
                     {
@@ -921,7 +920,7 @@ public class LoginManager : MonoBehaviour
                 }
                 else
                 {
-                    popupWindow.text_message.text = $"알 수 없는 에러";
+                    popupWindow.text_message.text = $"unknown error";
                     popupWindow.setConfirm();
                     popupWindow.btn_confirm.onClick.AddListener(async () =>
                     {
@@ -956,7 +955,7 @@ public class LoginManager : MonoBehaviour
             else
             {
                 currentStep = LoginSequenceStep.none;
-                text_resetpw_findpasswordstatus.text = $"서버 에러 : {text}";
+                text_resetpw_findpasswordstatus.text = $"server error : {text}";
             }
         }
     }
@@ -1112,34 +1111,67 @@ public class LoginManager : MonoBehaviour
 
     string getSequenceStepMessage(LoginSequenceStep currentStep)
     {
+        // switch (currentStep)
+        // {
+        //     case LoginSequenceStep.versioncheck:
+        //         return "버전 체크중...";
+        //     case LoginSequenceStep.updatedownloading:
+        //         return "업데이트 다운로드중...";
+        //     case LoginSequenceStep.filehashchecking:
+        //         return "파일 무결성 검사중...";
+        //     case LoginSequenceStep.dataloading:
+        //         return "데이터 로드중...";
+        //     case LoginSequenceStep.confirmJWT:
+        //         return "인증토큰 확인중...";
+        //     case LoginSequenceStep.validateCheckJWT:
+        //         return "인증토큰 유효성 검사중...";
+        //     case LoginSequenceStep.requestrefreshJWT:
+        //         return "인증토큰 갱신 요청중...";
+        //     case LoginSequenceStep.waitingLogin:
+        //         return "로그인 대기";
+        //     case LoginSequenceStep.requestLogin:
+        //         return "로그인 요청";
+        //     case LoginSequenceStep.pendingLogin:
+        //         return "로그인 요청 대기중...";
+        //     case LoginSequenceStep.requestJoin:
+        //         return "계정생성 요청";
+        //     case LoginSequenceStep.pendingJoin:
+        //         return "계정생성 요청 대기중...";
+        //     case LoginSequenceStep.completeAuthenticate:
+        //         return "사용자 인증 완료";
+        //
+        //     default:
+        //         return string.Empty;
+        // }
+        
         switch (currentStep)
         {
             case LoginSequenceStep.versioncheck:
-                return "버전 체크중...";
+                return "version checking...";
             case LoginSequenceStep.updatedownloading:
-                return "업데이트 다운로드중...";
+                return "update...";
             case LoginSequenceStep.filehashchecking:
-                return "파일 무결성 검사중...";
+                return "check file hash...";
             case LoginSequenceStep.dataloading:
-                return "데이터 로드중...";
+                return "loading data...";
             case LoginSequenceStep.confirmJWT:
-                return "인증토큰 확인중...";
+                return "auth token check...";
             case LoginSequenceStep.validateCheckJWT:
-                return "인증토큰 유효성 검사중...";
+                return "auth token validate check...";
             case LoginSequenceStep.requestrefreshJWT:
-                return "인증토큰 갱신 요청중...";
+                return "auth token refreshing...";
             case LoginSequenceStep.waitingLogin:
-                return "로그인 대기";
+                return "stanby login";
             case LoginSequenceStep.requestLogin:
-                return "로그인 요청";
+                return "sign in request";
             case LoginSequenceStep.pendingLogin:
-                return "로그인 요청 대기중...";
+                return "sign in request...";
             case LoginSequenceStep.requestJoin:
-                return "계정생성 요청";
+                return "sign up request";
             case LoginSequenceStep.pendingJoin:
-                return "계정생성 요청 대기중...";
+                return "sign up request...";
             case LoginSequenceStep.completeAuthenticate:
-                return "사용자 인증 완료";
+                return "authentication complete";
 
             default:
                 return string.Empty;
