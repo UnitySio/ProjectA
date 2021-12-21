@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace ASP.Net_Core_Http_RestAPI_Server
 {
@@ -16,13 +17,18 @@ namespace ASP.Net_Core_Http_RestAPI_Server
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .ConfigureLogging(logBuilder => {
+                    //log clear
+                    //logBuilder.ClearProviders();
+                })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.ConfigureKestrel(serverOptions =>
                     {
+                        serverOptions.AllowSynchronousIO = true;
                         serverOptions.Limits.MaxConcurrentConnections = null;
                         serverOptions.Limits.MaxConcurrentUpgradedConnections = null;
-                        serverOptions.Limits.MaxRequestBodySize = 1073741824; //1GB
+                        serverOptions.Limits.MaxRequestBodySize = 1048576*1024; //1MB * 1024
                         /*
                         serverOptions.Limits.MinRequestBodyDataRate =
                             new MinDataRate(bytesPerSecond: 100,

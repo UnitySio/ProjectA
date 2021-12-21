@@ -2,7 +2,7 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <NameOfLastUsedPublishProfile>C:\Users\NoTeShineL\Unity Project\ProjectA\Server\ASP.Net Core Http RestAPI Server\ASP.Net Core Http RestAPI Server\Properties\PublishProfiles\FolderProfile.pubxml</NameOfLastUsedPublishProfile>
-    <ActiveDebugProfile>ASP.Net_Core_Http_RestAPI_Server</ActiveDebugProfile>
+    <ActiveDebugProfile>IIS Express</ActiveDebugProfile>
     <Controller_SelectedScaffolderID>ApiControllerWithContextScaffolder</Controller_SelectedScaffolderID>
     <Controller_SelectedScaffolderCategoryPath>root/Common/Api</Controller_SelectedScaffolderCategoryPath>
     <WebStackScaffolding_ControllerDialogWidth>650</WebStackScaffolding_ControllerDialogWidth>

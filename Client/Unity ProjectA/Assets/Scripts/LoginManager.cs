@@ -44,6 +44,10 @@ public class LoginManager : MonoBehaviour
 
     [Header("Panel_03_CreateAccount_SioGames")]
     public GameObject panel_CreateAccount_SioGames;
+    public GameObject panel_CreateAccount;
+    public GameObject panel_CreateAccount_SendEmail;
+    public GameObject panel_CreateAccount_CheckEmail;
+    
     public Button btn_backaccountlogin;
     public InputField inputfield_join_email;
     public InputField inputfield_join_pw;
@@ -51,6 +55,10 @@ public class LoginManager : MonoBehaviour
     public Text text_joinResult;
     public Button btn_join_request;
 
+    
+    
+    
+    
     [Header("Panel_04_FindAccount_SioGames")]
     public GameObject panel_FindAccount_SioGames;
     public GameObject panel_SendEmail;
@@ -58,7 +66,7 @@ public class LoginManager : MonoBehaviour
     public GameObject panel_ResetPassword;
 
     public Button btn_sendemail_backaccountlogin;
-    public InputField inputfield_sendemail_email;
+    public InputField inputfield_sendemail_email; 
     public Button btn_sendemail;
     public Text text_sendemail_findpasswordstatus;
 
