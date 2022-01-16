@@ -111,8 +111,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
         [Consumes(MediaTypeNames.Application.Json)] // application/json
         public async Task<Response_User_Gamedata_UpdateUserName> Post(Request_User_Gamedata_UpdateUserName request)
         {
-            Response_User_Gamedata_UpdateUserName response
-                = new Response_User_Gamedata_UpdateUserName();
+            Response_User_Gamedata_UpdateUserName response = new Response_User_Gamedata_UpdateUserName();
 
             //DB에 접속하여 데이터를 조작하는 DBContext객체.
             var dbContext = dbPoolManager.Rent();

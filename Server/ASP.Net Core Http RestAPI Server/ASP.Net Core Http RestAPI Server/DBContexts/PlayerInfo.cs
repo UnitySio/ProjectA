@@ -17,7 +17,9 @@ namespace ASP.Net_Core_Http_RestAPI_Server.DBContexts
         public string PlayerNickname { get; set; }
         public string PlayerProfileImageUrl { get; set; }
         public string PlayerGender { get; set; }
-        public string PlayerBirthdate { get; set; }
+        public DateTime? PlayerBirthdate { get; set; }
+        public DateTime? TimestampCreated { get; set; }
+        public DateTime? TimestampLastSignin { get; set; }
 
         public virtual AccountInfo AccountUnique { get; set; }
     }

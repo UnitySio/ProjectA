@@ -39,7 +39,8 @@ namespace ASP.Net_Core_Http_RestAPI_Server
             {
                 return sessionCheck[uniqueID].Equals(token);
             }
-            return sessionCheck.ContainsKey(uniqueID);
+
+            return false;
         }
     }
 }

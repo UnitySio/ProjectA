@@ -8,8 +8,8 @@ namespace ASP.Net_Core_Http_RestAPI_Server
         //WebApplicationServer 설정
         static string WAS_LISTEN_HTTP_Port = "5001"; //(TCP Port)
         static string[] WAS_CORS_URL_List = { 
-            "https://db.wizard87.com",
-            "http://db.wizard87.com"
+            "https://api.wizard87.com",
+            "http://api.wizard87.com"
         };
 
         //WebRootDirectory 경로 설정
@@ -28,8 +28,6 @@ namespace ASP.Net_Core_Http_RestAPI_Server
         static string GmailAddr = "siogames2020@gmail.com";
         static string GmailPassword = "siogames!";
 
-     
-       
         //리슨 URL
         public static string getWAS_URLInfo()
         {

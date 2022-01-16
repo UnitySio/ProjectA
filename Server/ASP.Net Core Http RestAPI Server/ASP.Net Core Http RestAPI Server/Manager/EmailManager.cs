@@ -15,12 +15,16 @@ namespace ASP.Net_Core_Http_RestAPI_Server
         static ConcurrentQueue<MailMessage> mailQueue;
         static ConcurrentQueue<SmtpClient> gmailSmtpList;
 
-        //인증메일 체크용  (findToken, validateInfo)
-        static ConcurrentDictionary<string, EmailValidationInfo> emailValidationCheck;
-        
+        //비밀번호 찾기 인증메일 체크용
+        static ConcurrentDictionary<string, EmailValidationInfo> findPasswordValidationCheck;
+
+        //회원가입 인증메일 체크용
+        static ConcurrentDictionary<string, EmailValidationInfo> joinValidationCheck;
+
         public static async void Initialize()
         {
-            emailValidationCheck = new ConcurrentDictionary<string, EmailValidationInfo>();
+            findPasswordValidationCheck = new ConcurrentDictionary<string, EmailValidationInfo>();
+            joinValidationCheck = new ConcurrentDictionary<string, EmailValidationInfo>();
 
             mailQueue = new ConcurrentQueue<MailMessage>();
             gmailSmtpList = new ConcurrentQueue<SmtpClient>();
@@ -29,7 +33,9 @@ namespace ASP.Net_Core_Http_RestAPI_Server
             {
                 gmailSmtpList.Enqueue(CreateSMTPClient());
             }
-            
+
+            checkValidationListTask();
+
             await Task.Run(async() =>
             {
                 while (true)
@@ -113,27 +119,60 @@ namespace ASP.Net_Core_Http_RestAPI_Server
         }
 
 
+        //만료기간이 1시간 넘는 오래된 항목들이 존재할 경우, 삭제한다.
+        static async void checkValidationListTask()
+        {
+            TimeSpan delay30Minutes = TimeSpan.FromMinutes(30);
+
+            //설정된 주기마다 동작.
+            while (true)
+            {
+                var list = findPasswordValidationCheck.ToArray();
+
+                foreach (var item in list)
+                {
+                    var itemValue = item.Value;
+                    if (itemValue.expirateTime.AddHours(1) <= DateTime.UtcNow)
+                    {
+                        findPasswordValidationCheck.TryRemove(itemValue.ValidateToken, out EmailValidationInfo var);
+                    }
+                }
+
+                var list2 = joinValidationCheck.ToArray();
+
+                foreach (var item in list2)
+                {
+                    var itemValue = item.Value;
+                    if (itemValue.expirateTime.AddHours(1) <= DateTime.UtcNow)
+                    {
+                        joinValidationCheck.TryRemove(itemValue.ValidateToken, out EmailValidationInfo var);
+                    }
+                }
+
+                await Task.Delay(delay30Minutes);
+            }
+        }
 
         
         public static bool RegisterFindPasswordInfo(string findToken, EmailValidationInfo info)
         {
-            if (emailValidationCheck.ContainsKey(findToken))
+            if (findPasswordValidationCheck.ContainsKey(findToken))
             {
-                emailValidationCheck[findToken] = info;
+                findPasswordValidationCheck[findToken] = info;
             }
             else
             {
-                emailValidationCheck.TryAdd(findToken, info);
+                findPasswordValidationCheck.TryAdd(findToken, info);
             }
 
-            return emailValidationCheck.ContainsKey(findToken);
+            return findPasswordValidationCheck.ContainsKey(findToken);
         }
 
         public static EmailValidationInfo GetFindPasswordInfo(string findToken)
         {
-            if (emailValidationCheck.ContainsKey(findToken))
+            if (findPasswordValidationCheck.ContainsKey(findToken))
             {
-                return emailValidationCheck[findToken];
+                return findPasswordValidationCheck[findToken];
             }
             else
             {
@@ -143,18 +182,52 @@ namespace ASP.Net_Core_Http_RestAPI_Server
 
         public static void RemoveFindPasswordInfo(string findToken)
         {
-            if (emailValidationCheck.ContainsKey(findToken))
+            if (findPasswordValidationCheck.ContainsKey(findToken))
             {
-                EmailValidationInfo var;
-                emailValidationCheck.TryRemove(findToken, out var);
+                findPasswordValidationCheck.TryRemove(findToken, out EmailValidationInfo var);
+            }
+        }
+
+
+        public static bool RegisterJoinInfo(string joinToken, EmailValidationInfo info)
+        {
+            if (joinValidationCheck.ContainsKey(joinToken))
+            {
+                joinValidationCheck[joinToken] = info;
+            }
+            else
+            {
+                joinValidationCheck.TryAdd(joinToken, info);
+            }
+
+            return joinValidationCheck.ContainsKey(joinToken);
+        }
+
+        public static EmailValidationInfo GetJoinInfo(string joinToken)
+        {
+            if (joinValidationCheck.ContainsKey(joinToken))
+            {
+                return joinValidationCheck[joinToken];
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public static void RemoveJoinInfo(string joinToken)
+        {
+            if (joinValidationCheck.ContainsKey(joinToken))
+            {
+                joinValidationCheck.TryRemove(joinToken, out EmailValidationInfo var);
             }
         }
     }
 
-    //비밀번호 찾기용 객체 정보.
+    //이메일 인증용 객체 정보.
     public class EmailValidationInfo
     {
-        public string FindPasswordToken;
+        public string ValidateToken;
         public string EmailAddress;
         public string EmailValidateConfirmNumber;
         public DateTime expirateTime;

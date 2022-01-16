@@ -46,6 +46,17 @@ namespace ASP.Net_Core_Http_RestAPI_Server.JsonDataModels
         public string jwt_refresh { get; set; }
     }
 
+    public class Response_Auth_Join_SendRequest : Response_JsonModel
+    {
+        public string join_token { get; set; }
+    }
+
+    public class Response_Auth_Join_SendAuthNumber : Response_JsonModel
+    {
+        
+    }
+
+
     public class Response_Auth_Join : Response_JsonModel
     {
         //JWT Access 토큰. 1시간 내외의 유효시간을 갖는 토큰. 로그인 과정 성공시 반환됨.

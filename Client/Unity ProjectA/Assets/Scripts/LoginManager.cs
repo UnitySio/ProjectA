@@ -11,8 +11,8 @@ using UnityEngine.UI;
 public class LoginManager : MonoBehaviour
 {
     [Header("LoginManager Settings")] 
-    public string serverAddress = "https://db.wizard87.com";
-    public string clientversion = "2021.08.01.121";
+    public string serverAddress = "https://api.wizard87.com"; //default
+    public string clientversion = "0.0.1";
     
     public LoginSequenceStep currentStep;
     public GameObject image_Buffering;
@@ -45,7 +45,6 @@ public class LoginManager : MonoBehaviour
     [Header("Panel_03_CreateAccount_SioGames")]
     public GameObject panel_CreateAccount_SioGames;
     public GameObject panel_CreateAccount;
-    public GameObject panel_CreateAccount_SendEmail;
     public GameObject panel_CreateAccount_CheckEmail;
     
     public Button btn_backaccountlogin;
@@ -174,15 +173,32 @@ public class LoginManager : MonoBehaviour
 
             var text = result.result;
 
-            //업데이트 할 필요가 있다면.
-            if (result.needUpdate)
+            if (text.Equals("ok"))
             {
-                //추후 업데이트 관련 함수 실행.
+                //업데이트 할 필요가 있다면.
+                if (result.needUpdate)
+                {
+                    //추후 업데이트 관련 함수 실행.
+                }
+                //최신버전이어서 업데이트할 필요가 없다면.
+                else
+                {
+                    confirmJWT();
+                }
             }
-            //최신버전이어서 업데이트할 필요가 없다면.
+            //버전데이터에 이상이 있다면.
             else
             {
-                confirmJWT();
+                popupWindow.text_message.text = $"server error:{text}";
+                popupWindow.setConfirm();
+                popupWindow.btn_confirm.onClick.AddListener(() =>
+                {
+                    popupWindow.closewindow();
+
+                    Application.Quit();
+                });
+                
+                popupWindow.showwindow();
             }
         }
     }
@@ -611,13 +627,6 @@ public class LoginManager : MonoBehaviour
     {
         currentStep = LoginSequenceStep.requestJoin;
         
-        var request = new Request_Auth_Join()
-        {
-            authType = "account",
-            account_email = email,
-            account_password = pw_hash
-        };
-
         //에러시 호출되는 콜백함수.
         UnityAction<string, int, string> failureCallback =
             (errorType, responseCode, errorMessage) =>
@@ -658,38 +667,128 @@ public class LoginManager : MonoBehaviour
                 popupWindow.showwindow();
             };
 
-        await UniTask.Delay(333);
-        currentStep = LoginSequenceStep.pendingJoin;
         
-        var response = await APIManager
-            .SendAPIRequestAsync(API.auth_join, request, failureCallback);
-        
-        if (response != null)
+        var request_authNum = new Request_Auth_Join_SendRequest()
         {
-            Response_Auth_Join result = response as Response_Auth_Join;
+            account_email = email
+        };
 
-            var text = result.result;
+        var response_authNum = await APIManager
+                .SendAPIRequestAsync(API.auth_join_sendrequest, request_authNum, failureCallback);
 
-            if (text.Equals("ok"))
-            {
-                var jwt_access = result.jwt_access;
-                var jwt_refresh = result.jwt_refresh;
+        Response_Auth_Join_SendRequest response_authNum_result = response_authNum as Response_Auth_Join_SendRequest;
+        
+        
+        var button_sendAuthNum = panel_CreateAccount_CheckEmail
+            .transform.Find("Button_CheckResetCode").GetComponent<Button>();
+
+        var inputField_sendAuthNum = panel_CreateAccount_CheckEmail
+            .transform.Find("InputField_CheckNum").GetComponent<InputField>();
             
-                SecurityPlayerPrefs.SetString("jwt_access", jwt_access);
-                SecurityPlayerPrefs.SetString("jwt_refresh", jwt_refresh);
-                SecurityPlayerPrefs.Save();
-
-                completeAuthenticate();
-            }
-            else
+        var text_sendAuthNum = panel_CreateAccount_CheckEmail
+            .transform.Find("Text_JoinStatus").GetComponent<Text>();
+        
+        
+        
+        if (response_authNum_result.result.Equals("ok"))
+        {
+            await UniTask.Delay(333);
+            currentStep = LoginSequenceStep.pendingJoin;
+            
+            init_Panel_03_CreateAccount_SioGames();
+            
+            panel_CreateAccount.SetActive(false);
+            panel_CreateAccount_CheckEmail.SetActive(true);
+            
+            var token = response_authNum_result.join_token;
+            
+            button_sendAuthNum.onClick.AddListener(async delegate
             {
-                currentStep = LoginSequenceStep.none;
-                text_joinResult.text = "already signed account info";
-            }
+                button_sendAuthNum.interactable = false;
+                
+                await startSendAuthNum(email, pw_hash, inputField_sendAuthNum.text, token, failureCallback);
+                
+                button_sendAuthNum.interactable = true;
+            });
+        }
+        //중복된 경우 등.
+        else if(response_authNum_result.result.Equals("duplicate email"))
+        {
+            text_sendAuthNum.text = "duplicate email";
+            return;
+        }
+        else
+        {
+            text_sendAuthNum.text = "invalid data";
+            return;
         }
     }
 
 
+    async Task startSendAuthNum(string email, string pw_hash, string authNum, string joinToken, UnityAction<string, int, string> failureCallback)
+    {
+        var request_authNum = new Request_Auth_Join_SendAuthNumber()
+        {
+            join_token = joinToken,
+            auth_number = authNum
+        };
+
+        var response_authNum = await APIManager
+                .SendAPIRequestAsync(API.auth_join_sendauthnumber, request_authNum, failureCallback) 
+            as Response_Auth_Join_SendAuthNumber;
+        
+        if (response_authNum.result.Equals("ok"))
+        {
+            var request = new Request_Auth_Join()
+            {
+                authType = "account",
+                account_email = email,
+                account_password = pw_hash,
+                join_token = joinToken
+            };
+            
+            await UniTask.Delay(333);
+            currentStep = LoginSequenceStep.pendingJoin;
+        
+            var response = await APIManager
+                .SendAPIRequestAsync(API.auth_join, request, failureCallback);
+        
+            if (response != null)
+            {
+                Response_Auth_Join result = response as Response_Auth_Join;
+
+                var text = result.result;
+
+                if (text.Equals("ok"))
+                {
+                    var jwt_access = result.jwt_access;
+                    var jwt_refresh = result.jwt_refresh;
+            
+                    SecurityPlayerPrefs.SetString("jwt_access", jwt_access);
+                    SecurityPlayerPrefs.SetString("jwt_refresh", jwt_refresh);
+                    SecurityPlayerPrefs.Save();
+
+                    completeAuthenticate();
+                }
+                else
+                {
+                    currentStep = LoginSequenceStep.none;
+                    text_joinResult.text = "already signed account info";
+                }
+            }
+        }
+        else
+        {
+            var text_sendAuthNum = panel_CreateAccount_CheckEmail
+                .transform.Find("Text_JoinStatus").GetComponent<Text>();
+
+            
+            text_sendAuthNum.text = "wrong authnumber.";
+        }
+    }
+    
+    
+    
     async UniTask startSiogamesFindPassword(string email)
     {
         var request = new Request_Auth_FindPassword_SendRequest()
@@ -991,6 +1090,13 @@ public class LoginManager : MonoBehaviour
         await UniTask.Delay(333);
         
         panel_StartGame.SetActive(true);
+        
+        //press any screen 터치시 동작할 함수 지정.
+        btn_startgame.onClick.AddListener(delegate
+        {
+            btn_startgame.onClick.RemoveAllListeners();
+            SceneManager.LoadScene("02 Lobby");
+        });
     }
 
     async Task Logout()
@@ -1070,6 +1176,21 @@ public class LoginManager : MonoBehaviour
         inputfield_join_pw_retry.text = string.Empty;
         text_joinResult.text = string.Empty;
         btn_join_request.onClick.RemoveAllListeners();
+        
+        panel_CreateAccount.SetActive(true);
+        panel_CreateAccount_CheckEmail.SetActive(false);
+
+        panel_CreateAccount_CheckEmail.transform.Find("InputField_CheckNum")
+            .GetComponent<InputField>().text = string.Empty;
+        
+        panel_CreateAccount_CheckEmail.transform.Find("Button_CheckResetCode")
+            .GetComponent<Button>().onClick.RemoveAllListeners();
+        
+        panel_CreateAccount_CheckEmail.transform.Find("Text_JoinGuide")
+            .GetComponent<Text>().text = string.Empty;
+        
+        panel_CreateAccount_CheckEmail.transform.Find("Text_JoinStatus")
+            .GetComponent<Text>().text = string.Empty;
     }
 
     void init_Panel_04_FindAccount_SioGames()

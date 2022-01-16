@@ -156,7 +156,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.DBContexts
                     .HasColumnName("account_unique_id");
 
                 entity.Property(e => e.PlayerBirthdate)
-                    .HasMaxLength(11)
+                    .HasColumnType("date")
                     .HasColumnName("player_birthdate");
 
                 entity.Property(e => e.PlayerCashPoint)
@@ -168,7 +168,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.DBContexts
                     .HasColumnName("player_exp");
 
                 entity.Property(e => e.PlayerGender)
-                    .HasMaxLength(5)
+                    .HasMaxLength(6)
                     .HasColumnName("player_gender");
 
                 entity.Property(e => e.PlayerIngamePoint)
@@ -190,6 +190,16 @@ namespace ASP.Net_Core_Http_RestAPI_Server.DBContexts
                 entity.Property(e => e.PlayerStamina)
                     .HasColumnType("int(10) unsigned")
                     .HasColumnName("player_stamina");
+
+                entity.Property(e => e.TimestampCreated)
+                    .HasColumnType("datetime")
+                    .HasColumnName("timestamp_created")
+                    .HasDefaultValueSql("current_timestamp()");
+
+                entity.Property(e => e.TimestampLastSignin)
+                    .HasColumnType("datetime")
+                    .HasColumnName("timestamp_last_signin")
+                    .HasDefaultValueSql("current_timestamp()");
 
                 entity.HasOne(d => d.AccountUnique)
                     .WithOne(p => p.PlayerInfo)

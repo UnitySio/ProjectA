@@ -10,7 +10,7 @@ using Newtonsoft.Json.Linq;
 public class APIManager
 {
     //서버 주소.
-    public static string serverAddress = "https://db.wizard87.com";
+    public static string serverAddress = "https://api.wizard87.com";
 
     
     //API서버와 통신 하는 함수.
@@ -112,6 +112,12 @@ public class ServerAPI
             case API.auth_login:
                 return $"{APIManager.serverAddress}/auth/login";
             
+            case API.auth_join_sendrequest:
+                return $"{APIManager.serverAddress}/auth/join/send-request";
+            
+            case API.auth_join_sendauthnumber:
+                return $"{APIManager.serverAddress}/auth/join/send-auth-number";
+            
             case API.auth_join:
                 return $"{APIManager.serverAddress}/auth/join";
             
@@ -146,9 +152,15 @@ public class ServerAPI
             case API.auth_login:
                 return jsonObject.ToObject<Response_Auth_Login>();
             
+            case API.auth_join_sendrequest:
+                return jsonObject.ToObject<Response_Auth_Join_SendRequest>();
+            
+            case API.auth_join_sendauthnumber:
+                return jsonObject.ToObject<Response_Auth_Join_SendAuthNumber>();
+            
             case API.auth_join:
                 return jsonObject.ToObject<Response_Auth_Join>();
-            
+
             case API.auth_findpassword_sendrequest:
                 return jsonObject.ToObject<Response_Auth_FindPassword_SendRequest>();
             
@@ -175,6 +187,8 @@ public enum API
 {
     versioncheck,
     auth_login,
+    auth_join_sendrequest,
+    auth_join_sendauthnumber,
     auth_join,
     auth_findpassword_sendrequest,
     auth_findpassword_sendauthnumber,

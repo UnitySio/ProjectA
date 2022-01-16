@@ -41,8 +41,10 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                 dbPoolManager = new DBContextPoolManager<siogames_mainContext>();
         }
 
-        //버전 문자열 정규식 (2021.08.01.999)
-        Regex versionPattern = new Regex("[0-2][0-9][0-9][0-9].[0-1][0-9].[0-3][0-9].[0-9][0-9][0-9]");
+
+        //클라버전은 1.0.0 으로 간결하게
+        //버전 문자열 정규식 (1.0.0)
+        Regex versionPattern = new Regex("^([0-9]+.[0-9]+.[0-9]+)$");
 
 
         //요청 URI
@@ -63,7 +65,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
             {
                 responseData.result = "currentClientVersion 의 값이 공백입니다.";
             }
-            //버전 문자열 정규식 검사.  2021.08.01.999 등의 문자열이 아니라면 false 반환.
+            //버전 문자열 정규식 검사.  알맞은 형식의 문자열이 아니라면 false 반환.
             else if (versionPattern.IsMatch(versionData.currentClientVersion))
             {
                 //클라이언트 버전 체크 및 업데이트 대상 파일의 목록, 다운로드 목록 URL등을 가공하여 client로 반환.

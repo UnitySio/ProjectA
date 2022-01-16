@@ -10,7 +10,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.JsonDataModels
     // URL/VersionCheck
     public class Request_VersionCheck : Request_JsonModel
     {
-        //클라 버전 문자열. ex) 2021.08.01.001   yyyy.MM.dd.number
+        //클라 버전 문자열. ex) (1.0.0)
         public string currentClientVersion { get; set; }
     }
 
@@ -34,6 +34,18 @@ namespace ASP.Net_Core_Http_RestAPI_Server.JsonDataModels
         public string jwt_refresh { get; set; }
     }
 
+    public class Request_Auth_Join_SendRequest : Request_JsonModel
+    {
+        public string account_email { get; set; }
+    }
+
+    public class Request_Auth_Join_SendAuthNumber : Request_JsonModel
+    {
+        public string join_token { get; set; }
+
+        public string auth_number { get; set; }
+    }
+
     public class Request_Auth_Join : Request_JsonModel
     {
         //authType을 나타냄. account, oauth 의 2가지.    추후 연동과정 추가시 새로운 타입이 추가될 수 있음.
@@ -49,6 +61,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.JsonDataModels
         //authType이 account일때 송신. hash함수로 추출된 계정 password
         public string account_password { get; set; }
 
+        public string join_token { get; set; }
         /*
         siogames 이메일 계정
 
