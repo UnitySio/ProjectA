@@ -47,7 +47,7 @@
   <PropertyGroup>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <UnityProjectGenerator>Package</UnityProjectGenerator>
-    <UnityProjectGeneratorVersion>2.0.11</UnityProjectGeneratorVersion>
+    <UnityProjectGeneratorVersion>2.0.14</UnityProjectGeneratorVersion>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2021.1.20f1</UnityVersion>
@@ -109,9 +109,9 @@
     <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\Scan.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableStateMachineTrigger.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\OperatorObserverBase.cs" />
-    <Compile Include="Assets\Plugins\UniRx\Scripts\UnityWinRTBridge\Thread.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\ZipLatest.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\System\Tuple.cs" />
+    <Compile Include="Assets\Plugins\UniRx\Scripts\UnityWinRTBridge\Thread.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\ReactiveProperty.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\Empty.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\Subjects\BehaviorSubject.cs" />
@@ -131,8 +131,8 @@
     <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Operators\SubscribeOnMainThread.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\WhereSelect.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\Timer.cs" />
-    <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableInitializePotentialDragTrigger.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\Concat.cs" />
+    <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableInitializePotentialDragTrigger.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\UnityUIComponentExtensions.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\MainThreadDispatcher.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\InternalUtil\ExceptionExtensions.cs" />
@@ -215,8 +215,8 @@
     <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\UnityGraphicExtensions.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\SelectMany.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\Dematerialize.cs" />
-    <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableUpdateSelectedTrigger.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Triggers\ObservablePointerClickTrigger.cs" />
+    <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableUpdateSelectedTrigger.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\Start.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\TakeLast.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\Select.cs" />
@@ -234,8 +234,8 @@
     <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\ToList.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableEnableTrigger.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\InternalUtil\ListObserver.cs" />
-    <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\Throw.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\Disposables\SerialDisposable.cs" />
+    <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\Throw.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\OfType.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\Pair.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableAnimatorTrigger.cs" />
@@ -537,6 +537,12 @@
     <Reference Include="log4netPlastic">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@1.9.0\Lib\Editor\PlasticSCM\log4netPlastic.dll</HintPath>
     </Reference>
+    <Reference Include="clipper_library">
+      <HintPath>Library\PackageCache\com.unity.cinemachine@2.7.9\Runtime\ThirdParty\clipper_library.dll</HintPath>
+    </Reference>
+    <Reference Include="RainbowCore">
+      <HintPath>Assets\Plugins\RainbowAssets\!Core\Assemblies\RainbowCore.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>Library\PackageCache\jillejr.newtonsoft.json-for-unity@13.0.102\Plugins\Newtonsoft.Json Editor\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -557,6 +563,9 @@
     </Reference>
     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
       <HintPath>Library\PackageCache\com.unity.visualscripting@1.6.1\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="RainbowFolders">
+      <HintPath>Assets\Plugins\RainbowAssets\RainbowFolders\Editor\Assemblies\RainbowFolders.dll</HintPath>
     </Reference>
     <Reference Include="unityplastic">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@1.9.0\Lib\Editor\PlasticSCM\unityplastic.dll</HintPath>
