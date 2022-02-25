@@ -57,19 +57,29 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
             var dbContext = dbPoolManager.Rent();
 
             //jwt refresh 토큰 유효성 검사 및, jwt_access 토큰 재발급 준비.
-            SecurityToken tokenInfo = new JwtSecurityToken();
-
-            if (JWTManager.checkValidationJWT(request.jwt_access, out tokenInfo))
+            if (JWTManager.checkValidationJWT(request.jwt_access, out SecurityToken tokenInfo))
             {
                 //유효성 검증이 완료된 토큰 정보.
                 JwtSecurityToken jwt = tokenInfo as JwtSecurityToken;
 
-                object AccountUniqueId = jwt.Payload.GetValueOrDefault("AccountUniqueId");
+                object id = jwt.Payload.GetValueOrDefault("AccountUniqueId");
+
+                uint AccountUniqueId = uint.Parse(id.ToString());
                 
+                if (SessionManager.isDuplicate(AccountUniqueId, request.jwt_access))
+                {
+                    response.result = "Duplicate Session";
+                    dbPoolManager.Return(dbContext);
+                    return response;
+                }
+
                 //전달된 정보로 db 조회후, 해당 정보를 db에서 가져온다.
-                var playerData = from account in dbContext.Set<AccountInfo>() //TableJoin
+                var playerData =
+                    //TableJoin
+                    from account in dbContext.Set<AccountInfo>()
                     join player in dbContext.Set<PlayerInfo>()
-                        on account.AccountUniqueId equals player.AccountUniqueId
+                    on account.AccountUniqueId equals player.AccountUniqueId
+                    where account.AccountUniqueId.Equals(AccountUniqueId)
                     select new { account, player };
 
                 if (playerData.Count() == 1)

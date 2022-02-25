@@ -14,7 +14,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.JsonDataModels
         public int UserLv { get; set; }
     }
 
-    public enum AuthLv : byte
+    public enum AuthLv : int
     {
         User_Guest = 0,
         User_Account = 1,

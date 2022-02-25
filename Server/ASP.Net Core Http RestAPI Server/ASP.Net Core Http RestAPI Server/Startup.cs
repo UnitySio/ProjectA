@@ -18,15 +18,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers()
-                .AddMvcOptions(option =>
-            {
-                //replace Json Formatter. To Utf8Json
-                option.InputFormatters.Clear();
-                option.InputFormatters.Add(new Utf8JsonInputFormatter());
-                option.OutputFormatters.Clear();
-                option.OutputFormatters.Add(new Utf8JsonOutputFormatter());
-            });
+            services.AddControllers();
 
             //CORS(Cross-Origin Resource Sharing) ¼³Á¤
             services.AddCors(options =>

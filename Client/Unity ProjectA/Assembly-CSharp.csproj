@@ -71,6 +71,7 @@
      <Compile Include="Assets\AVProVideo\Scripts\Components\DisplayIMGUI.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Components\AudioChannelMixer.cs" />
      <Compile Include="Assets\Scripts\HttpAPI\JsonModels\Request_JsonModel.cs" />
+     <Compile Include="Assets\Scripts\testManager.cs" />
      <Compile Include="Assets\Scripts\HttpAPI\DBContexts\CharacterInfo.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Internal\Interfaces.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Internal\Resampler.cs" />

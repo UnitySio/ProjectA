@@ -38,11 +38,11 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
     public class AuthController : ControllerBase
     {
         private static DBContextPoolManager<siogames_mainContext> dbPoolManager;
-        private readonly ILogger<AuthController> debugLogger;
+        public static ILogger<AuthController> debugLogger;
 
         public AuthController(ILogger<AuthController> logger)
         {
-            this.debugLogger = logger;
+            debugLogger = logger;
             if (dbPoolManager == null)
                 dbPoolManager = new DBContextPoolManager<siogames_mainContext>();
         }
@@ -122,10 +122,11 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                         userdata.UserLv = (int) tableData.PlayerInfo.PlayerLv;
                         userdata.UserName = tableData.PlayerInfo.PlayerNickname;
                     }
-                    catch (Exception)
+                    catch (Exception e)
                     {
                         userdata.UserLv = 0;
                         userdata.UserName = null;
+                        debugLogger.LogWarning($"login exception : {e}");
                     }
 
                     //새로운 jwt토큰 발행후 반환.
@@ -134,24 +135,25 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                     response.result = "ok";
 
                     //로그인 과정이 성공적으로 완료되었다면, 로그인 중복방지를 위해 SessionManager에 JWT_AccessToken정보를 등록.
-                    SessionManager.RegisterToken(tableData.AccountUniqueId, response.jwt_access);
-
-                    //로그인에 성공한 유저의 로그인 일시를 갱신.
-                    var playerData = dbContext.PlayerInfos
-                        .Where(table =>
-                            //email주소가 일치하는 row를 검색.
-                            table.AccountUniqueId.Equals(userdata.AccountUniqueId)
-                        )
-                        .AsNoTracking();
-
-                    if (playerData.Count() == 1)
+                    if (SessionManager.RegisterToken(tableData.AccountUniqueId, response.jwt_access))
                     {
-                        var player = playerData.FirstOrDefault();
+                        //로그인에 성공한 유저의 로그인 일시를 갱신.
+                        var playerData = dbContext.PlayerInfos
+                            .Where(table =>
+                                //email주소가 일치하는 row를 검색.
+                                table.AccountUniqueId.Equals(userdata.AccountUniqueId)
+                            )
+                            .AsNoTracking();
 
-                        //최종 로그인 일시를 UTC시간 기준으로 갱신.
-                        player.TimestampLastSignin = DateTime.UtcNow;
-                        dbContext.Entry(player).State = EntityState.Modified;
-                        var changedCount = await dbContext.SaveChangesAsync();
+                        if (playerData.Count() == 1)
+                        {
+                            var player = playerData.FirstOrDefault();
+
+                            //최종 로그인 일시를 UTC시간 기준으로 갱신.
+                            player.TimestampLastSignin = DateTime.UtcNow;
+                            dbContext.Entry(player).State = EntityState.Modified;
+                            var changedCount = await dbContext.SaveChangesAsync();
+                        }
                     }
                 }
                 //가입된 이메일이 아닌 경우.
@@ -226,24 +228,25 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                     response.result = "ok";
 
                     //로그인 과정이 성공적으로 완료되었다면, 로그인 중복방지를 위해 SessionManager에 JWT_AccessToken정보를 등록.
-                    SessionManager.RegisterToken(tableData.AccountUniqueId, response.jwt_access);
-
-                    //로그인에 성공한 유저의 로그인 일시를 갱신.
-                    var playerData = dbContext.PlayerInfos
-                        .Where(table =>
-                            //email주소가 일치하는 row를 검색.
-                            table.AccountUniqueId.Equals(userdata.AccountUniqueId)
-                        )
-                        .AsNoTracking();
-
-                    if (playerData.Count() == 1)
+                    if (SessionManager.RegisterToken(tableData.AccountUniqueId, response.jwt_access))
                     {
-                        var player = playerData.FirstOrDefault();
+                        //로그인에 성공한 유저의 로그인 일시를 갱신.
+                        var playerData = dbContext.PlayerInfos
+                            .Where(table =>
+                                //email주소가 일치하는 row를 검색.
+                                table.AccountUniqueId.Equals(userdata.AccountUniqueId)
+                            )
+                            .AsNoTracking();
 
-                        //최종 로그인 일시를 UTC시간 기준으로 갱신.
-                        player.TimestampLastSignin = DateTime.UtcNow;
-                        dbContext.Entry(player).State = EntityState.Modified;
-                        var changedCount = await dbContext.SaveChangesAsync();
+                        if (playerData.Count() == 1)
+                        {
+                            var player = playerData.FirstOrDefault();
+
+                            //최종 로그인 일시를 UTC시간 기준으로 갱신.
+                            player.TimestampLastSignin = DateTime.UtcNow;
+                            dbContext.Entry(player).State = EntityState.Modified;
+                            var changedCount = await dbContext.SaveChangesAsync();
+                        }
                     }
                 }
                 else if (result.Count() == 0)
@@ -311,25 +314,26 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                         response.result = "ok";
 
 
-                        //토큰 갱신작업이 완료되었다면, 로그인 중복방지를 위해 SessionManager에 JWT_AccessToken정보를 등록.
-                        SessionManager.RegisterToken(tableData.AccountUniqueId, response.jwt_access);
-
-                        //로그인에 성공한 유저의 로그인 일시를 갱신.
-                        var playerData = dbContext.PlayerInfos
-                            .Where(table =>
-                                //email주소가 일치하는 row를 검색.
-                                table.AccountUniqueId.Equals(userdata.AccountUniqueId)
-                            )
-                            .AsNoTracking();
-
-                        if (playerData.Count() == 1)
+                        //로그인 과정이 성공적으로 완료되었다면, 로그인 중복방지를 위해 SessionManager에 JWT_AccessToken정보를 등록.
+                        if (SessionManager.RegisterToken(tableData.AccountUniqueId, response.jwt_access))
                         {
-                            var player = playerData.FirstOrDefault();
+                            //로그인에 성공한 유저의 로그인 일시를 갱신.
+                            var playerData = dbContext.PlayerInfos
+                                .Where(table =>
+                                    //email주소가 일치하는 row를 검색.
+                                    table.AccountUniqueId.Equals(userdata.AccountUniqueId)
+                                )
+                                .AsNoTracking();
 
-                            //최종 로그인 일시를 UTC시간 기준으로 갱신.
-                            player.TimestampLastSignin = DateTime.UtcNow;
-                            dbContext.Entry(player).State = EntityState.Modified;
-                            var changedCount = await dbContext.SaveChangesAsync();
+                            if (playerData.Count() == 1)
+                            {
+                                var player = playerData.FirstOrDefault();
+
+                                //최종 로그인 일시를 UTC시간 기준으로 갱신.
+                                player.TimestampLastSignin = DateTime.UtcNow;
+                                dbContext.Entry(player).State = EntityState.Modified;
+                                var changedCount = await dbContext.SaveChangesAsync();
+                            }
                         }
                     }
                     //잘못된 정보
@@ -389,25 +393,26 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                     response.jwt_refresh = JWTManager.createNewJWT(userdata, JWTManager.JWTType.RefreshToken);
                     response.result = "ok";
 
-                    //토큰 갱신작업이 완료되었다면, 로그인 중복방지를 위해 SessionManager에 JWT_AccessToken정보를 등록.
-                    SessionManager.RegisterToken(tableData.AccountUniqueId, response.jwt_access);
-
-                    //로그인에 성공한 유저의 로그인 일시를 갱신.
-                    var playerData = dbContext.PlayerInfos
-                        .Where(table =>
-                            //email주소가 일치하는 row를 검색.
-                            table.AccountUniqueId.Equals(userdata.AccountUniqueId)
-                        )
-                        .AsNoTracking();
-
-                    if (playerData.Count() == 1)
+                    //로그인 과정이 성공적으로 완료되었다면, 로그인 중복방지를 위해 SessionManager에 JWT_AccessToken정보를 등록.
+                    if (SessionManager.RegisterToken(tableData.AccountUniqueId, response.jwt_access))
                     {
-                        var player = playerData.FirstOrDefault();
+                        //로그인에 성공한 유저의 로그인 일시를 갱신.
+                        var playerData = dbContext.PlayerInfos
+                            .Where(table =>
+                                //email주소가 일치하는 row를 검색.
+                                table.AccountUniqueId.Equals(userdata.AccountUniqueId)
+                            )
+                            .AsNoTracking();
 
-                        //최종 로그인 일시를 UTC시간 기준으로 갱신.
-                        player.TimestampLastSignin = DateTime.UtcNow;
-                        dbContext.Entry(player).State = EntityState.Modified;
-                        var changedCount = await dbContext.SaveChangesAsync();
+                        if (playerData.Count() == 1)
+                        {
+                            var player = playerData.FirstOrDefault();
+
+                            //최종 로그인 일시를 UTC시간 기준으로 갱신.
+                            player.TimestampLastSignin = DateTime.UtcNow;
+                            dbContext.Entry(player).State = EntityState.Modified;
+                            var changedCount = await dbContext.SaveChangesAsync();
+                        }
                     }
                 }
                 else if (result.Count() == 0)
@@ -420,6 +425,54 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                 {
                     response.jwt_access = response.jwt_refresh = null;
                     response.result = "invalid guest token info";
+                }
+            }
+            //로그인 일시 갱신.
+            else if (authType.Equals("update"))
+            {
+                //jwt refresh 토큰 유효성 검사 및, jwt_access 토큰 재발급 준비.
+                SecurityToken tokenInfo = new JwtSecurityToken();
+
+                if (JWTManager.checkValidationJWT(request.jwt_refresh, out tokenInfo))
+                {
+                    //유효성 검증이 완료된 토큰 정보.
+                    JwtSecurityToken jwt = tokenInfo as JwtSecurityToken;
+
+                    object AccountUniqueId = jwt.Payload.GetValueOrDefault("AccountUniqueId");
+
+                    //전달된 로그인 정보로 db 조회후, 해당 정보를 db에서 가져온다.
+                    var result = dbContext.PlayerInfos
+                        .Where(table =>
+                            //jwt 토큰에서 지정된 AccountUniqueId기준으로 테이블 검색.
+                            table.AccountUniqueId.Equals(uint.Parse(AccountUniqueId.ToString()))
+                        )
+                        .AsNoTracking();
+
+                    if (result.Count() == 1)
+                    {
+                        var playerData = result.FirstOrDefault();
+
+                        //토큰 갱신작업이 완료되었다면, 로그인 중복방지를 위해 SessionManager에 JWT_AccessToken정보를 등록.
+                        if (SessionManager.RegisterToken(playerData.AccountUniqueId, request.jwt_refresh))
+                        {
+                            //최종 로그인 일시를 UTC시간 기준으로 갱신.
+                            playerData.TimestampLastSignin = DateTime.UtcNow;
+                            dbContext.Entry(playerData).State = EntityState.Modified;
+                            var changedCount = await dbContext.SaveChangesAsync();
+                        }
+                    }
+                    //잘못된 정보
+                    else
+                    {
+                        response.jwt_access = response.jwt_refresh = null;
+                        response.result = "invalid jwt info";
+                    }
+                }
+                //jwt refresh 토큰이 만료되었거나, 유효하지 않다면.
+                else
+                {
+                    response.jwt_access = response.jwt_refresh = null;
+                    response.result = "expiration or invalid jwt info. need login";
                 }
             }
             else
@@ -639,7 +692,8 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                                 PlayerInfo newPlayer = new PlayerInfo()
                                 {
                                     AccountUniqueId = newUser.AccountUniqueId,
-                                    TimestampCreated = DateTime.UtcNow
+                                    TimestampCreated = DateTime.UtcNow,
+                                    TimestampLastSignin = DateTime.UtcNow
                                 };
 
                                 var result2 = await dbContext.PlayerInfos.AddAsync(newPlayer);
@@ -735,7 +789,8 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                             PlayerInfo newPlayer = new PlayerInfo()
                             {
                                 AccountUniqueId = newUser.AccountUniqueId,
-                                TimestampCreated = DateTime.UtcNow
+                                TimestampCreated = DateTime.UtcNow,
+                                TimestampLastSignin = DateTime.UtcNow
                             };
                             
                             var result2 = await dbContext.PlayerInfos.AddAsync(newPlayer);
@@ -803,7 +858,8 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                             PlayerInfo newPlayer = new PlayerInfo()
                             {
                                 AccountUniqueId = newUser.AccountUniqueId,
-                                TimestampCreated = DateTime.UtcNow
+                                TimestampCreated = DateTime.UtcNow,
+                                TimestampLastSignin = DateTime.UtcNow
                             };
                             
                             var result2 = await dbContext.PlayerInfos.AddAsync(newPlayer);
