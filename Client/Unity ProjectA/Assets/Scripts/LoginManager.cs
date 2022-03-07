@@ -1,8 +1,8 @@
 using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using ASP.Net_Core_Http_RestAPI_Server.JsonDataModels;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -143,7 +143,7 @@ public class LoginManager : MonoBehaviour
                     {
                         popupWindow.closewindow();
                         
-                        await UniTask.Delay(1000);
+                        await Task.Delay(1000);
                         checkVersionUpdate();
                     });
                 }
@@ -155,7 +155,7 @@ public class LoginManager : MonoBehaviour
                     {
                         popupWindow.closewindow();
                         
-                        await UniTask.Delay(500);
+                        await Task.Delay(500);
                         Application.Quit();
                     });
                 }
@@ -168,7 +168,7 @@ public class LoginManager : MonoBehaviour
 
         if (response != null)
         {
-            await UniTask.Delay(333);
+            await Task.Delay(333);
             Response_VersionUpdate result = response as Response_VersionUpdate;
 
             var text = result.result;
@@ -211,7 +211,7 @@ public class LoginManager : MonoBehaviour
         var jwt_access = SecurityPlayerPrefs.GetString("jwt_access", null);
         var jwt_refresh = SecurityPlayerPrefs.GetString("jwt_refresh", null);
 
-        await UniTask.Delay(333);
+        await Task.Delay(333);
         
         //토큰이 없으므로 로그인 화면으로 이동..
         if (string.IsNullOrEmpty(jwt_access) || string.IsNullOrEmpty(jwt_refresh))
@@ -232,14 +232,22 @@ public class LoginManager : MonoBehaviour
         var jwt_access = SecurityPlayerPrefs.GetString("jwt_access", null);
         var jwt_refresh = SecurityPlayerPrefs.GetString("jwt_refresh", null);
 
-        var access_token = JWTManager.DecryptJWT(jwt_access);
-        var refresh_token = JWTManager.DecryptJWT(jwt_refresh);
+        JwtSecurityToken access_token = JWTManager.DecryptJWT(jwt_access);
+        JwtSecurityToken refresh_token = JWTManager.DecryptJWT(jwt_refresh);
         
-        await UniTask.Delay(333);
+        await Task.Delay(333);
         
         //아직 access_token이 유효하다면
         if (JWTManager.checkValidateJWT(access_token))
         {
+            //로그인 갱신시간 전달용.
+            var request_completeAuthenticate = new Request_Auth_Login()
+            {
+                authType = "update",
+                jwt_refresh = jwt_access
+            };
+            var result = await APIManager.SendAPIRequestAsync(API.auth_login, request_completeAuthenticate, null);
+            
             //게임 시작 버튼 표시 화면으로 이동.
             completeAuthenticate();
         }
@@ -262,7 +270,7 @@ public class LoginManager : MonoBehaviour
     {
         currentStep = LoginSequenceStep.requestrefreshJWT;
         
-        await UniTask.Delay(333);
+        await Task.Delay(333);
         
         var refresh_token = SecurityPlayerPrefs.GetString("jwt_refresh", null);
         
@@ -295,7 +303,7 @@ public class LoginManager : MonoBehaviour
                     {
                         popupWindow.closewindow();
                         
-                        await UniTask.Delay(1000);
+                        await Task.Delay(1000);
                         refreshJWT();
                     });
                 }
@@ -307,7 +315,7 @@ public class LoginManager : MonoBehaviour
                     {
                         popupWindow.closewindow();
                         
-                        await UniTask.Delay(500);
+                        await Task.Delay(500);
                         Application.Quit();
                     });
                 }
@@ -329,8 +337,6 @@ public class LoginManager : MonoBehaviour
                 SecurityPlayerPrefs.SetString("jwt_access", result.jwt_access);
                 SecurityPlayerPrefs.SetString("jwt_refresh", result.jwt_refresh);
                 SecurityPlayerPrefs.Save();
-                
-                completeAuthenticate();
             }
             else
             {
@@ -361,7 +367,7 @@ public class LoginManager : MonoBehaviour
 
             openSiogamesLoginUI();
 
-            await UniTask.Delay(1000);
+            await Task.Delay(1000);
             btn_login_siogames.interactable = true;
         });
         
@@ -518,7 +524,7 @@ public class LoginManager : MonoBehaviour
     }
     
     
-    async UniTask startSiogamesLogin(string email, string pw_hash)
+    async Task startSiogamesLogin(string email, string pw_hash)
     {
         currentStep = LoginSequenceStep.requestLogin;
         
@@ -561,7 +567,7 @@ public class LoginManager : MonoBehaviour
                     {
                         popupWindow.closewindow();
                         
-                        await UniTask.Delay(500);
+                        await Task.Delay(500);
                         Application.Quit();
                     });
                 }
@@ -569,7 +575,7 @@ public class LoginManager : MonoBehaviour
                 popupWindow.showwindow();
             };
 
-        await UniTask.Delay(333);
+        await Task.Delay(333);
         currentStep = LoginSequenceStep.pendingLogin;
 
         var response = await APIManager
@@ -623,7 +629,7 @@ public class LoginManager : MonoBehaviour
     }
 
 
-    async UniTask startSiogamesJoin(string email, string pw_hash)
+    async Task startSiogamesJoin(string email, string pw_hash)
     {
         currentStep = LoginSequenceStep.requestJoin;
         
@@ -659,7 +665,7 @@ public class LoginManager : MonoBehaviour
                     {
                         popupWindow.closewindow();
                         
-                        await UniTask.Delay(500);
+                        await Task.Delay(500);
                         Application.Quit();
                     });
                 }
@@ -692,7 +698,7 @@ public class LoginManager : MonoBehaviour
         
         if (response_authNum_result.result.Equals("ok"))
         {
-            await UniTask.Delay(333);
+            await Task.Delay(333);
             currentStep = LoginSequenceStep.pendingJoin;
             
             init_Panel_03_CreateAccount_SioGames();
@@ -747,7 +753,7 @@ public class LoginManager : MonoBehaviour
                 join_token = joinToken
             };
             
-            await UniTask.Delay(333);
+            await Task.Delay(333);
             currentStep = LoginSequenceStep.pendingJoin;
         
             var response = await APIManager
@@ -789,7 +795,7 @@ public class LoginManager : MonoBehaviour
     
     
     
-    async UniTask startSiogamesFindPassword(string email)
+    async Task startSiogamesFindPassword(string email)
     {
         var request = new Request_Auth_FindPassword_SendRequest()
         {
@@ -828,7 +834,7 @@ public class LoginManager : MonoBehaviour
                     {
                         popupWindow.closewindow();
                         
-                        await UniTask.Delay(500);
+                        await Task.Delay(500);
                         Application.Quit();
                     });
                 }
@@ -888,7 +894,7 @@ public class LoginManager : MonoBehaviour
     }
 
 
-    async UniTask startSiogamesFindPassword_AuthNumber(string numberText)
+    async Task startSiogamesFindPassword_AuthNumber(string numberText)
     {
         var token = SecurityPlayerPrefs.GetString("findpassword_token", "");
         var request = new Request_Auth_FindPassword_SendAuthNumber()
@@ -929,7 +935,7 @@ public class LoginManager : MonoBehaviour
                     {
                         popupWindow.closewindow();
                         
-                        await UniTask.Delay(500);
+                        await Task.Delay(500);
                         Application.Quit();
                     });
                 }
@@ -992,7 +998,7 @@ public class LoginManager : MonoBehaviour
 
 
 
-    async UniTask startSiogamesFindPassword_ResetPassword(string newPassword)
+    async Task startSiogamesFindPassword_ResetPassword(string newPassword)
     {
         var token = SecurityPlayerPrefs.GetString("findpassword_token", "");
         var request = new Request_Auth_FindPassword_UpdateAccountPassword()
@@ -1033,7 +1039,7 @@ public class LoginManager : MonoBehaviour
                     {
                         popupWindow.closewindow();
                         
-                        await UniTask.Delay(500);
+                        await Task.Delay(500);
                         Application.Quit();
                     });
                 }
@@ -1087,7 +1093,7 @@ public class LoginManager : MonoBehaviour
             panel_StartGame.SetActive(false);
         });
         
-        await UniTask.Delay(333);
+        await Task.Delay(333);
         
         panel_StartGame.SetActive(true);
         
@@ -1102,7 +1108,7 @@ public class LoginManager : MonoBehaviour
     async Task Logout()
     {
         image_Buffering.SetActive(true);
-        await UniTask.Delay(333);
+        await Task.Delay(333);
         
         SecurityPlayerPrefs.DeleteKey("jwt_access");
         SecurityPlayerPrefs.DeleteKey("jwt_refresh");

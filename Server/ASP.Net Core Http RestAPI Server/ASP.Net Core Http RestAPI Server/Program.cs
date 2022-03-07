@@ -28,7 +28,6 @@ namespace ASP.Net_Core_Http_RestAPI_Server
                 {
                     webBuilder.ConfigureKestrel(serverOptions =>
                     {
-                        serverOptions.AllowSynchronousIO = true;
                         serverOptions.Limits.MaxConcurrentConnections = null;
                         serverOptions.Limits.MaxConcurrentUpgradedConnections = null;
                         serverOptions.Limits.MaxRequestBodySize = 1048576*1024; //1MB * 1024

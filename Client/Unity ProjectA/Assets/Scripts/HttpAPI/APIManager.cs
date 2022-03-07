@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using System.Threading.Tasks;
 using ASP.Net_Core_Http_RestAPI_Server.JsonDataModels;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -14,7 +15,7 @@ public class APIManager
 
     
     //API서버와 통신 하는 함수.
-    public static async UniTask<Response_JsonModel> SendAPIRequestAsync
+    public static async Task<Response_JsonModel> SendAPIRequestAsync
         (API apiType, Request_JsonModel request, UnityAction<string, int, string> failureAction)
     {
         Response_JsonModel response = null;
