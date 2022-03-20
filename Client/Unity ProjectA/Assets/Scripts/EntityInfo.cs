@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class EntityInfo : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public int no;
+    public int level;
+    public int hp;
+    public int attack;
+    public int attackCorrection;
+    public int defense;
+    public int dodge;
+    public int hit;
+    [Range(1f, 5f)]
+    public float actionInterval;
 }
