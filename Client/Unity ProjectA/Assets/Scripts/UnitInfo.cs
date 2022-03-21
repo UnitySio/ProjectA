@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EntityInfo : MonoBehaviour
+public class UnitInfo : MonoBehaviour
 {
     public int no;
     public int level;
@@ -12,6 +12,6 @@ public class EntityInfo : MonoBehaviour
     public int defense;
     public int dodge;
     public int hit;
-    [Range(1f, 5f)]
+    [Range(0.2f, 4f)]
     public float actionInterval;
 }

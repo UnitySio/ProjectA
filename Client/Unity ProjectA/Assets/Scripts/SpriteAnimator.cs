@@ -6,21 +6,23 @@ public class SpriteAnimator : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer;
 
+    private Coroutine coroutine;
+
     [SerializeField]
-    private bool play;
-    public bool Play
+    private bool isPlay;
+    public bool IsPlay
     {
-        get { return play; }
+        get { return isPlay; }
         set
         {
-            play = value;
+            isPlay = value;
             currentFrame = 0;
 
             if (coroutine != null)
                 StopCoroutine(coroutine);
 
             if (value == true)
-                coroutine = StartCoroutine(isPlay());
+                coroutine = StartCoroutine(Play());
         }
     }
 
@@ -42,30 +44,28 @@ public class SpriteAnimator : MonoBehaviour
     public int currentFrame;
     public List<AnimClip> animationClips = new List<AnimClip>();
 
-    private Coroutine coroutine = null;
-
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    private IEnumerator isPlay()
+    private IEnumerator Play()
     {
-        while (Play)
+        while (IsPlay)
         {
             spriteRenderer.sprite = animationClips[CurrentClip].animationClip[currentFrame];
+
+            if (!loop && currentFrame == animationClips[CurrentClip].animationClip.Count - 1)
+                IsPlay = false;
             yield return new WaitForSeconds(1 / frameRate);
 
             currentFrame = (currentFrame + 1) % animationClips[CurrentClip].animationClip.Count;
-
-            if (!loop && currentFrame == animationClips[CurrentClip].animationClip.Count - 1)
-                Play = false;
         }
     }
 
-    public void Animate(int clipNumber, bool play)
+    public void Animate(int clipNumber, bool isPlay)
     {
         CurrentClip = clipNumber;
-        Play = play;
+        IsPlay = isPlay;
     }
 }

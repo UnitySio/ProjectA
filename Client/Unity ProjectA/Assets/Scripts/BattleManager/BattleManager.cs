@@ -14,8 +14,8 @@ public partial class BattleManager : MonoBehaviour
         }
     }
 
-    public List<EntityInfo> friendly = new List<EntityInfo>();
-    public List<EntityInfo> enemy = new List<EntityInfo>();
+    public List<UnitInfo> friendly = new List<UnitInfo>();
+    public List<UnitInfo> enemy = new List<UnitInfo>();
 
     public List<GameObject> friendlyList = new List<GameObject>();
     public List<GameObject> enemyList = new List<GameObject>();
