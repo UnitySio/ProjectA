@@ -59,6 +59,7 @@
     <Compile Include="Assets\Scripts\HttpAPI\DBContexts\AccountInfo.cs" />
     <Compile Include="Assets\AVProVideo\Scripts\Components\Support\PlayMaker\Actions\AVProVideoInfo.cs" />
     <Compile Include="Assets\AVProVideo\Scripts\Internal\AudioOutputManager.cs" />
+    <Compile Include="Assets\Scripts\SiroCtrl\States\SiroStates.cs" />
     <Compile Include="Assets\AVProVideo\Scripts\Components\UpdateStereoMaterial.cs" />
     <Compile Include="Assets\Scripts\BattleManager\BattleManager.Fomula.cs" />
     <Compile Include="Assets\AVProVideo\Scripts\Internal\OSXMediaPlayer.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Assets\Scripts\HttpAPI\JsonModels\Response_JsonModel.cs" />
     <Compile Include="Assets\Scripts\Utils\SecurityPlayerPrefs.cs" />
     <Compile Include="Assets\AVProVideo\Scripts\Components\AudioOutput.cs" />
+    <Compile Include="Assets\Scripts\ScoutTypeACtrl.cs" />
     <Compile Include="Assets\AVProVideo\Scripts\Components\DisplayBackground.cs" />
     <Compile Include="Assets\AVProVideo\Scripts\Components\Support\PlayMaker\Actions\AVProVideoControl.cs" />
     <Compile Include="Assets\AVProVideo\Scripts\Internal\BaseMediaPlayer.cs" />
@@ -106,8 +108,9 @@
     <Compile Include="Assets\AVProVideo\Scripts\Internal\NullMediaPlayer.cs" />
     <Compile Include="Assets\AVProVideo\Scripts\Components\PlaylistMediaPlayer.cs" />
     <Compile Include="Assets\AVProVideo\Scripts\Components\Support\PlayMaker\Actions\Internal\AVProVideoActionBase.cs" />
+    <Compile Include="Assets\Scripts\State.cs" />
     <Compile Include="Assets\AVProVideo\Scripts\Components\Support\PlayMaker\Actions\AVProVideoEvent.cs" />
-    <Compile Include="Assets\Scripts\ScoutTypeACtrl.cs" />
+    <Compile Include="Assets\Scripts\StateMachine.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\SpriteShadow.shader" />

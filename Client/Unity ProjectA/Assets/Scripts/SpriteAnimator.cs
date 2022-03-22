@@ -37,7 +37,7 @@ public class SpriteAnimator : MonoBehaviour
         set
         {
             currentClip = value;
-            loop = animationClips[CurrentClip].loop;
+            loop = animationClips[CurrentClip].isLoop;
         }
     }
 
@@ -56,7 +56,12 @@ public class SpriteAnimator : MonoBehaviour
             spriteRenderer.sprite = animationClips[CurrentClip].animationClip[currentFrame];
 
             if (!loop && currentFrame == animationClips[CurrentClip].animationClip.Count - 1)
-                IsPlay = false;
+            {
+                isPlay = false;
+                if (animationClips[CurrentClip].isNextClip) 
+                    Animate(animationClips[CurrentClip].nextClip, true);
+            }
+
             yield return new WaitForSeconds(1 / frameRate);
 
             currentFrame = (currentFrame + 1) % animationClips[CurrentClip].animationClip.Count;

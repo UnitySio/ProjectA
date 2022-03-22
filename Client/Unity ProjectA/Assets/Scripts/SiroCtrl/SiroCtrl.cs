@@ -1,60 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SiroStates;
 
-public enum SIRO_STATUS
+public partial class SiroCtrl : StateMachine
 {
-    IDLE,
-    ATTACK,
-    HIT,
+    public UnitInfo unit;
+    public SpriteAnimator anim;
 
-}
-
-public partial class SiroCtrl : MonoBehaviour
-{
-    private UnitInfo unitInfo;
-    private SpriteAnimator spriteAnimator;
-    public SIRO_STATUS status = SIRO_STATUS.IDLE;
-    public float timer;
+    public State[] states = new State[1];
 
     private void Awake()
     {
-        unitInfo = GetComponent<UnitInfo>();
-        spriteAnimator = GetComponent<SpriteAnimator>();
+        unit = GetComponent<UnitInfo>();
+        anim = GetComponent<SpriteAnimator>();
+
+        states[0] = new Idle(this);
     }
 
-    private void Start()
+    protected override State GetInitState()
     {
-        spriteAnimator.Animate(0, true);
-        StartCoroutine(Attack());
-    }
-
-    private void Update()
-    {
-        switch (status)
-        {
-            case SIRO_STATUS.IDLE:
-                if (spriteAnimator.CurrentClip != 0)
-                {
-                    spriteAnimator.Animate(0, true);
-                    StartCoroutine(Attack());
-                }
-                break;
-
-            case SIRO_STATUS.ATTACK:
-                if (spriteAnimator.CurrentClip != 1)
-                    spriteAnimator.Animate(1, true);
-
-                if (spriteAnimator.CurrentClip == 1 && spriteAnimator.IsPlay == false)
-                    status = SIRO_STATUS.IDLE;
-                break;
-        }
-    }
-
-    IEnumerator Attack()
-    {
-        yield return new WaitForSeconds(unitInfo.actionInterval);
-        status = SIRO_STATUS.ATTACK;
-        //BattleManager.Instance.enemy[0].hp -= BattleManager.Instance.FinalDamage(unitInfo.attack, 1, BattleManager.Instance.enemy[0].defense, unitInfo.attackCorrection, unitInfo.hp, BattleManager.Instance.enemy[0].defense);
+        return states[0];
     }
 }

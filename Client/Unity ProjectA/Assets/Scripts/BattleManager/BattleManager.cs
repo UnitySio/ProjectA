@@ -29,9 +29,4 @@ public partial class BattleManager : MonoBehaviour
         }
         else if (instance != this) Destroy(gameObject);
     }
-
-    private void Start()
-    {
-
-    }
 }

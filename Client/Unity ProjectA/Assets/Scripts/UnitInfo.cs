@@ -6,7 +6,19 @@ public class UnitInfo : MonoBehaviour
 {
     public int no;
     public int level;
-    public int hp;
+
+    [SerializeField]
+    private int healthPoint;
+    public int HP
+    {
+        get { return healthPoint; }
+        set
+        {
+            healthPoint = value;
+            if (healthPoint < 0) healthPoint = 0;
+        }
+    }
+
     public int attack;
     public int attackCorrection;
     public int defense;

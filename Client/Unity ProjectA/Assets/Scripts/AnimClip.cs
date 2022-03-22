@@ -6,6 +6,8 @@ using UnityEngine;
 public class AnimClip
 {
     public string name;
-    public bool loop;
+    public bool isLoop;
+    public bool isNextClip;
+    public int nextClip;
     public List<Sprite> animationClip = new List<Sprite>();
 }
