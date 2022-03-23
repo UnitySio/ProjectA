@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class StateMachine : MonoBehaviour
 {
-    private State currentState;
+    protected State currentState;
 
-    private void Start()
+    protected virtual void Start()
     {
         currentState = GetInitState();
 
@@ -14,7 +14,7 @@ public class StateMachine : MonoBehaviour
             currentState.Enter();
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if (currentState != null)
             currentState.Update();

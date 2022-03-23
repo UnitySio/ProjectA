@@ -1,73 +1,70 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ScoutTypeAStates;
 
-public enum SCOUT_TYPE_A_STATUS
+public class ScoutTypeACtrl : StateMachine
 {
-    IDLE,
-    ATTACK,
-    DEATH
-}
+    [HideInInspector]
+    public UnitInfo unit;
+    [HideInInspector]
+    public SpriteAnimator anim;
 
-public class ScoutTypeACtrl : MonoBehaviour
-{
-    private UnitInfo unitInfo;
-    private SpriteAnimator spriteAnimator;
-    public SCOUT_TYPE_A_STATUS status = SCOUT_TYPE_A_STATUS.IDLE;
+    public Material material;
+    [Range(0f, 1f)]
+    public float fade;
+
+    public State[] states = new State[4];
+
+    public Coroutine coroutine;
+
+    public int hp;
 
     private void Awake()
     {
-        unitInfo = GetComponent<UnitInfo>();
-        spriteAnimator = GetComponent<SpriteAnimator>();
+        unit = GetComponent<UnitInfo>();
+        anim = GetComponent<SpriteAnimator>();
+
+        states[0] = new Create(this);
+        states[1] = new Idle(this);
+        states[2] = new Attack(this);
+        states[3] = new Death(this);
     }
 
-    private void Start()
+    protected override void Start()
     {
-        spriteAnimator.Animate(0, true);
-        StartCoroutine(Attack());
+        base.Start();
+
+        hp = unit.HP;
     }
 
-    private void Update()
+    protected override void Update()
     {
-        if (unitInfo.HP == 0)
-            if (status != SCOUT_TYPE_A_STATUS.DEATH)
-                status = SCOUT_TYPE_A_STATUS.DEATH;
+        base.Update();
 
-        switch (status)
+        if (Input.GetKeyDown(KeyCode.A)) unit.HP -= BattleManager.Instance.FinalDamage(2406, 1, 100, 5, 30, 25);
+
+        /*if (unit.HP < hp && currentState != states[3])
         {
-            case SCOUT_TYPE_A_STATUS.IDLE:
-                if (spriteAnimator.CurrentClip != 0)
-                {
-                    spriteAnimator.Animate(0, true);
-                    StartCoroutine(Attack());
-                }
-                break;
+            hp = unit.HP;
+            ChangeState(states[3]);
+        }*/
 
-            case SCOUT_TYPE_A_STATUS.ATTACK:
-                if (spriteAnimator.CurrentClip != 1)
-                    spriteAnimator.Animate(1, true);
-
-                if (spriteAnimator.CurrentClip == 1 && spriteAnimator.IsPlay == false)
-                    status = SCOUT_TYPE_A_STATUS.IDLE;
-                break;
-
-            case SCOUT_TYPE_A_STATUS.DEATH:
-                if (spriteAnimator.CurrentClip != 2)
-                    spriteAnimator.Animate(2, true);
-
-                if (spriteAnimator.CurrentClip == 2 && spriteAnimator.IsPlay == false)
-                    Destroy(gameObject);
-                break;
-
-            default:
-                break;
+        if (unit.HP == 0 && currentState != states[3])
+        {
+            ChangeState(states[3]);
         }
     }
 
-    IEnumerator Attack()
+    protected override State GetInitState()
     {
-        yield return new WaitForSeconds(unitInfo.actionInterval);
-        status = SCOUT_TYPE_A_STATUS.ATTACK;
-        BattleManager.Instance.friendly[0].HP -= BattleManager.Instance.FinalDamage(unitInfo.attack, 1, BattleManager.Instance.friendly[0].defense, unitInfo.attackCorrection, unitInfo.level, BattleManager.Instance.friendly[0].level);
+        return states[0];
+    }
+
+    public IEnumerator Attack()
+    {
+        yield return new WaitForSeconds(unit.actionInterval);
+        ChangeState(states[2]);
+        BattleManager.Instance.friendly[0].HP -= BattleManager.Instance.FinalDamage(unit.attack, 1, BattleManager.Instance.friendly[0].defense, unit.attackCorrection, unit.level, BattleManager.Instance.friendly[0].level);
     }
 }
