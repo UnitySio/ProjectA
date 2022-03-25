@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using ScoutTypeAStates;
 
-public class ScoutTypeACtrl : StateMachine
+[RequireComponent(typeof(SpriteAnimator))]
+public class ScoutTypeACtrl : Entity
 {
-    [HideInInspector]
-    public UnitInfo unit;
     [HideInInspector]
     public SpriteAnimator anim;
 
+    [HideInInspector]
     public Material material;
     [Range(0f, 1f)]
     public float fade;
@@ -18,11 +18,8 @@ public class ScoutTypeACtrl : StateMachine
 
     public Coroutine coroutine;
 
-    public int hp;
-
     private void Awake()
     {
-        unit = GetComponent<UnitInfo>();
         anim = GetComponent<SpriteAnimator>();
 
         states[0] = new Create(this);
@@ -34,26 +31,12 @@ public class ScoutTypeACtrl : StateMachine
     protected override void Start()
     {
         base.Start();
-
-        hp = unit.HP;
+        Setup();
     }
 
     protected override void Update()
     {
         base.Update();
-
-        if (Input.GetKeyDown(KeyCode.A)) unit.HP -= BattleManager.Instance.FinalDamage(2406, 1, 100, 5, 30, 25);
-
-        /*if (unit.HP < hp && currentState != states[3])
-        {
-            hp = unit.HP;
-            ChangeState(states[3]);
-        }*/
-
-        if (unit.HP == 0 && currentState != states[3])
-        {
-            ChangeState(states[3]);
-        }
     }
 
     protected override State GetInitState()
@@ -61,10 +44,20 @@ public class ScoutTypeACtrl : StateMachine
         return states[0];
     }
 
+    public override void Hit()
+    {
+
+    }
+
+    public override void Death()
+    {
+        BattleManager.Instance.enemy.Remove(this);
+        ChangeState(states[3]);
+    }
+
     public IEnumerator Attack()
     {
-        yield return new WaitForSeconds(unit.actionInterval);
+        yield return new WaitForSeconds(actionInterval);
         ChangeState(states[2]);
-        BattleManager.Instance.friendly[0].HP -= BattleManager.Instance.FinalDamage(unit.attack, 1, BattleManager.Instance.friendly[0].defense, unit.attackCorrection, unit.level, BattleManager.Instance.friendly[0].level);
     }
 }

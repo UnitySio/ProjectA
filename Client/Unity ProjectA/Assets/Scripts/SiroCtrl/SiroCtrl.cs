@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using SiroStates;
 
-public partial class SiroCtrl : StateMachine
+[RequireComponent(typeof(SpriteAnimator))]
+public partial class SiroCtrl : Entity
 {
-    [HideInInspector]
-    public UnitInfo unit;
     [HideInInspector]
     public SpriteAnimator anim;
 
+    [HideInInspector]
     public Material material;
     [Range(0f, 1f)]
     public float fade;
@@ -18,11 +18,8 @@ public partial class SiroCtrl : StateMachine
 
     public Coroutine coroutine;
 
-    public int hp;
-
     private void Awake()
     {
-        unit = GetComponent<UnitInfo>();
         anim = GetComponent<SpriteAnimator>();
 
         states[0] = new Create(this);
@@ -36,23 +33,12 @@ public partial class SiroCtrl : StateMachine
     {
         base.Start();
 
-        hp = unit.HP;
+        Setup();
     }
 
     protected override void Update()
     {
         base.Update();
-
-        if (unit.HP < hp && currentState != states[3])
-        {
-            hp = unit.HP;
-            ChangeState(states[3]);
-        }
-
-        if (unit.HP == 0 && currentState != states[4])
-        {
-            ChangeState(states[4]);
-        }
     }
 
     protected override State GetInitState()
@@ -60,9 +46,20 @@ public partial class SiroCtrl : StateMachine
         return states[0];
     }
 
+    public override void Hit()
+    {
+        ChangeState(states[3]);
+    }
+
+    public override void Death()
+    {
+        BattleManager.Instance.friendly.Remove(this);
+        ChangeState(states[4]);
+    }
+
     public IEnumerator Attack()
     {
-        yield return new WaitForSeconds(unit.actionInterval);
+        yield return new WaitForSeconds(actionInterval);
         ChangeState(states[2]);
     }
 }

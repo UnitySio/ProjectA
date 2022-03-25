@@ -34,8 +34,11 @@ public partial class BattleManager : MonoBehaviour
     // 레벨 편차 가중치(공격자 레벨, 방어자 레벨)
     public float LevelWeight(int level, int defenderLevel)
     {
-        float result = level - defenderLevel > 0 ? 1 + Mathf.Pow(Mathf.Clamp(level - defenderLevel, -levelDifference, levelDifference), 2) * levelCorrection :
-            1 + Mathf.Pow(Mathf.Clamp(level - defenderLevel, -levelDifference, levelDifference), 2) * levelCorrection;
+        float result = 0;
+        if (level - defenderLevel > 0)
+            result = 1 + Mathf.Pow(Mathf.Clamp(level - defenderLevel, level - defenderLevel, levelDifference), 2) * levelCorrection;
+        else
+            result = 1 - Mathf.Pow(Mathf.Clamp(level - defenderLevel, -levelDifference, level - defenderLevel), 2) * levelCorrection;
         return result;
     }
 
@@ -47,9 +50,9 @@ public partial class BattleManager : MonoBehaviour
     }
 
     // 적중률(방어자 회피, 공격자 적중)
-    public float HitRate(int dodge, int hit)
+    public int HitRate(int dodge, int hit)
     {
         float result = ((float)hitDifference / (hitDifference + Mathf.Clamp(dodge - hit, 0, dodge - hit))) * 100;
-        return result;
+        return (int)result;
     }
 }

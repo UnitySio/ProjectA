@@ -14,8 +14,8 @@ public partial class BattleManager : MonoBehaviour
         }
     }
 
-    public List<UnitInfo> friendly = new List<UnitInfo>();
-    public List<UnitInfo> enemy = new List<UnitInfo>();
+    public List<Entity> friendly = new List<Entity>();
+    public List<Entity> enemy = new List<Entity>();
 
     public List<GameObject> friendlyList = new List<GameObject>();
     public List<GameObject> enemyList = new List<GameObject>();
@@ -30,8 +30,10 @@ public partial class BattleManager : MonoBehaviour
         else if (instance != this) Destroy(gameObject);
     }
 
-    private void OnGUI()
+    private void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.S)) Time.timeScale -= 1.0f;
+        if (Input.GetKeyDown(KeyCode.W)) Time.timeScale += 1.0f;
+        Debug.Log(Time.timeScale);
     }
 }

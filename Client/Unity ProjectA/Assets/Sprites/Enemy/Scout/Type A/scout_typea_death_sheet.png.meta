@@ -23,6 +23,9 @@ TextureImporter:
   - first:
       213: 2879767235743693529
     second: scout_typea_death_sheet_6
+  - first:
+      213: 3077728765560071101
+    second: scout_typea_death_sheet_7
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -254,6 +257,27 @@ TextureImporter:
       bones: []
       spriteID: 9dabf421b0df6f720800000000000000
       internalID: 2879767235743693529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: scout_typea_death_sheet_7
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 0
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db3a53a710a46ba20800000000000000
+      internalID: 3077728765560071101
       vertices: []
       indices: 
       edges: []

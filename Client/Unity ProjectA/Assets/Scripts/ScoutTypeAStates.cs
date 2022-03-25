@@ -49,7 +49,8 @@ namespace ScoutTypeAStates
         public override void Enter()
         {
             scoutTypeACtrl.anim.Animate(0, true);
-            scoutTypeACtrl.coroutine = scoutTypeACtrl.StartCoroutine(scoutTypeACtrl.Attack());
+            if (BattleManager.Instance.friendly.Count != 0)
+                scoutTypeACtrl.coroutine = scoutTypeACtrl.StartCoroutine(scoutTypeACtrl.Attack());
         }
 
         public override void Update()
@@ -66,6 +67,7 @@ namespace ScoutTypeAStates
     public class Attack : State
     {
         private ScoutTypeACtrl scoutTypeACtrl;
+        private bool isDamageExecuted;
 
         public Attack(ScoutTypeACtrl stateMachine)
         {
@@ -74,18 +76,30 @@ namespace ScoutTypeAStates
 
         public override void Enter()
         {
+            isDamageExecuted = false;
             scoutTypeACtrl.anim.Animate(1, true);
         }
 
         public override void Update()
         {
+            if (scoutTypeACtrl.anim.currentFrame == 4 && isDamageExecuted == false)
+            {
+                isDamageExecuted = true;
+                if (BattleManager.Instance.friendly.Count != 0)
+                {
+                    Entity _target = BattleManager.Instance.friendly[0];
+                    _target.Hurt(BattleManager.Instance.FinalDamage(scoutTypeACtrl.attack, 1, _target.defense, scoutTypeACtrl.attackCorrection, scoutTypeACtrl.level, _target.level));
+
+                }
+            }
+
             if (scoutTypeACtrl.anim.IsPlay == false)
                 scoutTypeACtrl.ChangeState(scoutTypeACtrl.states[1]);
         }
 
         public override void Exit()
         {
-
+            isDamageExecuted = false;
         }
     }
 
@@ -108,14 +122,17 @@ namespace ScoutTypeAStates
 
         public override void Update()
         {
-            scoutTypeACtrl.fade -= Time.deltaTime;
-
-            if (scoutTypeACtrl.fade <= 0f)
+            if (scoutTypeACtrl.anim.IsPlay == false)
             {
-                scoutTypeACtrl.fade = 0;
-            }
+                scoutTypeACtrl.fade -= Time.deltaTime;
 
-            scoutTypeACtrl.material.SetFloat("_Fade", scoutTypeACtrl.fade);
+                if (scoutTypeACtrl.fade <= 0f)
+                {
+                    scoutTypeACtrl.fade = 0;
+                }
+
+                scoutTypeACtrl.material.SetFloat("_Fade", scoutTypeACtrl.fade);
+            }
         }
 
         public override void Exit()
