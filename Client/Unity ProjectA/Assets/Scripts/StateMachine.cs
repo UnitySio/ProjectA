@@ -8,7 +8,7 @@ public class StateMachine : MonoBehaviour
 
     protected virtual void Start()
     {
-        currentState = GetInitState();
+        currentState = GetInitiateState();
 
         if (currentState != null)
             currentState.Enter();
@@ -29,7 +29,7 @@ public class StateMachine : MonoBehaviour
         currentState.Enter();
     }
 
-    protected virtual State GetInitState()
+    protected virtual State GetInitiateState()
     {
         return null;
     }

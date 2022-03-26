@@ -14,11 +14,14 @@ public partial class BattleManager : MonoBehaviour
         }
     }
 
+    public bool isVictory;
+    public bool isDefeat;
+
     public List<Entity> friendly = new List<Entity>();
     public List<Entity> enemy = new List<Entity>();
 
-    public List<GameObject> friendlyList = new List<GameObject>();
-    public List<GameObject> enemyList = new List<GameObject>();
+    public GameObject floatingDamage;
+    public GameObject hPBar;
 
     private void Awake()
     {
@@ -32,8 +35,10 @@ public partial class BattleManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S)) Time.timeScale -= 1.0f;
-        if (Input.GetKeyDown(KeyCode.W)) Time.timeScale += 1.0f;
-        Debug.Log(Time.timeScale);
+        if (isVictory != true || isDefeat != true)
+            if (enemy.Count == 0)
+                isVictory = true;
+            else if (friendly.Count == 0)
+                isDefeat = true;
     }
 }

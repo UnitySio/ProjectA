@@ -14,7 +14,7 @@ public partial class SiroCtrl : Entity
     [Range(0f, 1f)]
     public float fade;
 
-    public State[] states = new State[5];
+    public State[] states = new State[6];
 
     public Coroutine coroutine;
 
@@ -27,27 +27,31 @@ public partial class SiroCtrl : Entity
         states[2] = new Attack(this);
         states[3] = new Hit(this);
         states[4] = new Death(this);
+        states[5] = new Victory(this);
+
+        Setup(0, "Siro", 30, 1000, 283749000, 5, 100, 20, 15, 0.2f);
     }
 
     protected override void Start()
     {
         base.Start();
-
-        Setup();
     }
 
     protected override void Update()
     {
         base.Update();
+        if (BattleManager.Instance.isVictory && currentState != states[5])
+            Victory();
     }
 
-    protected override State GetInitState()
+    protected override State GetInitiateState()
     {
         return states[0];
     }
 
-    public override void Hit()
+    public override void Hit(int damage)
     {
+        base.Hit(damage);
         ChangeState(states[3]);
     }
 
@@ -57,9 +61,19 @@ public partial class SiroCtrl : Entity
         ChangeState(states[4]);
     }
 
+    public override void Victory()
+    {
+        ChangeState(states[5]);
+    }
+
+    public override void Defeat()
+    {
+
+    }
+
     public IEnumerator Attack()
     {
-        yield return new WaitForSeconds(actionInterval);
+        yield return new WaitForSeconds(interval);
         ChangeState(states[2]);
     }
 }

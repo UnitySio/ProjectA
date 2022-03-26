@@ -26,12 +26,13 @@ public class ScoutTypeACtrl : Entity
         states[1] = new Idle(this);
         states[2] = new Attack(this);
         states[3] = new Death(this);
+
+        Setup(0, "Scout Type A", 25, 1000000000, 30, 5, 100, 20, 15, 4);
     }
 
     protected override void Start()
     {
         base.Start();
-        Setup();
     }
 
     protected override void Update()
@@ -39,14 +40,15 @@ public class ScoutTypeACtrl : Entity
         base.Update();
     }
 
-    protected override State GetInitState()
+    protected override State GetInitiateState()
     {
         return states[0];
     }
 
-    public override void Hit()
+    public override void Hit(int damage)
     {
-
+        base.Hit(damage);
+        // ChangeState(states[3]);
     }
 
     public override void Death()
@@ -55,9 +57,19 @@ public class ScoutTypeACtrl : Entity
         ChangeState(states[3]);
     }
 
+    public override void Victory()
+    {
+
+    }
+
+    public override void Defeat()
+    {
+
+    }
+
     public IEnumerator Attack()
     {
-        yield return new WaitForSeconds(actionInterval);
+        yield return new WaitForSeconds(interval);
         ChangeState(states[2]);
     }
 }

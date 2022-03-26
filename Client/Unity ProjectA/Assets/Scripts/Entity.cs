@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class Entity : StateMachine
 {
+    private Transform hPBarChild;
+
     public int no;
     public string name;
     public int level;
@@ -22,29 +24,57 @@ public abstract class Entity : StateMachine
     public int dodge;
     public int hit;
     [Range(0.2f, 4f)]
-    public float actionInterval;
+    public float interval;
 
-    public void Setup()
+    public void Setup(int no, string name, int level, int hP, int attack, int attackCorrection, int defense, int dodge, int hit, float interval)
     {
-        this.no = 1;
-        this.name = "Entity";
-        this.level = 1;
-        this.HP = 100;
-        this.attack = 1;
-        this.attackCorrection = 5;
-        this.defense = 100;
-        this.dodge = 10;
-        this.hit = 10;
-        this.actionInterval = 1f;
+        this.no = no;
+        this.name = name;
+        this.level = level;
+        this.HP = hP;
+        this.attack = attack;
+        this.attackCorrection = attackCorrection;
+        this.defense = defense;
+        this.dodge = dodge;
+        this.hit = hit;
+        this.interval = interval;
     }
 
     public virtual void Hurt(int damage)
     {
         HP -= damage;
-        if (HP > 0) Hit();
+        if (hPBarChild != null) hPBarChild.GetComponent<HPBar>().HP -= damage;
+        if (HP > 0) Hit(damage);
         else if (HP <= 0) Death();
     }
 
-    public abstract void Hit();
+    public virtual void Hit(int damage)
+    {
+        FloatingDamage(damage.ToString());
+    }
+
     public abstract void Death();
+
+    public abstract void Victory();
+
+    public abstract void Defeat();
+
+    public void CreateHPBar()
+    {
+        GameObject hPBar = Instantiate(BattleManager.Instance.hPBar, transform.position, transform.rotation);
+        hPBarChild = hPBar.transform.GetChild(2);
+
+        hPBar.transform.SetParent(transform);
+        hPBar.transform.localPosition = new Vector3(hPBar.transform.localPosition.x, hPBar.transform.localPosition.y + GetComponent<SpriteRenderer>().bounds.size.y, hPBar.transform.localPosition.z);
+        hPBarChild.GetComponent<HPBar>().Setup(HP);
+    }
+
+    public void FloatingDamage(string damage)
+    {
+        GameObject floatingDamage = Instantiate(BattleManager.Instance.floatingDamage, transform.position, transform.rotation);
+
+        floatingDamage.transform.SetParent(transform);
+        floatingDamage.transform.localPosition = new Vector3(floatingDamage.transform.localPosition.x, floatingDamage.transform.localPosition.y + GetComponent<SpriteRenderer>().bounds.size.y, floatingDamage.transform.localPosition.z);
+        floatingDamage.GetComponent<FloatingDamage>().Setup(damage);
+    }
 }

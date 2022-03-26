@@ -8875,19 +8875,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\NoTeShineL\\.nuget\\packages\\": {}
+    "C:\\Users\\dnwls\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\NoTeShineL\\Unity Project\\ProjectA\\Server\\ASP.Net Core Http RestAPI Server\\ASP.Net Core Http RestAPI Server\\ASP.Net Core Http RestAPI Server.csproj",
+      "projectUniqueName": "C:\\Users\\dnwls\\Documents\\ProjectA\\Server\\ASP.Net Core Http RestAPI Server\\ASP.Net Core Http RestAPI Server\\ASP.Net Core Http RestAPI Server.csproj",
       "projectName": "ASP.Net Core Http RestAPI Server",
-      "projectPath": "C:\\Users\\NoTeShineL\\Unity Project\\ProjectA\\Server\\ASP.Net Core Http RestAPI Server\\ASP.Net Core Http RestAPI Server\\ASP.Net Core Http RestAPI Server.csproj",
-      "packagesPath": "C:\\Users\\NoTeShineL\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\NoTeShineL\\Unity Project\\ProjectA\\Server\\ASP.Net Core Http RestAPI Server\\ASP.Net Core Http RestAPI Server\\obj\\",
+      "projectPath": "C:\\Users\\dnwls\\Documents\\ProjectA\\Server\\ASP.Net Core Http RestAPI Server\\ASP.Net Core Http RestAPI Server\\ASP.Net Core Http RestAPI Server.csproj",
+      "packagesPath": "C:\\Users\\dnwls\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\dnwls\\Documents\\ProjectA\\Server\\ASP.Net Core Http RestAPI Server\\ASP.Net Core Http RestAPI Server\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\NoTeShineL\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\dnwls\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -8968,12 +8968,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.NETCore.App.Host.win-x64",
-            "version": "[3.1.21, 3.1.21]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -8982,7 +8976,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -33,7 +33,7 @@ namespace SiroStates
 
         public override void Exit()
         {
-
+            siroCtrl.CreateHPBar();
         }
     }
 
@@ -140,6 +140,44 @@ namespace SiroStates
         public override void Enter()
         {
             siroCtrl.anim.Animate(3, true);
+
+            if (siroCtrl.coroutine != null)
+                siroCtrl.StopCoroutine(siroCtrl.coroutine);
+        }
+
+        public override void Update()
+        {
+            if (siroCtrl.anim.IsPlay == false)
+            {
+                siroCtrl.fade -= Time.deltaTime;
+
+                if (siroCtrl.fade <= 0f)
+                {
+                    siroCtrl.fade = 0;
+                }
+
+                siroCtrl.material.SetFloat("_Fade", siroCtrl.fade);
+            }
+        }
+
+        public override void Exit()
+        {
+
+        }
+    }
+
+    public class Victory : State
+    {
+        private SiroCtrl siroCtrl;
+
+        public Victory(SiroCtrl stateMachine)
+        {
+            siroCtrl = stateMachine;
+        }
+
+        public override void Enter()
+        {
+            siroCtrl.anim.Animate(4, true);
 
             if (siroCtrl.coroutine != null)
                 siroCtrl.StopCoroutine(siroCtrl.coroutine);

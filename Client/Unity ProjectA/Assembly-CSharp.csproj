@@ -59,7 +59,7 @@
     <Compile Include="Assets\Scripts\HttpAPI\DBContexts\AccountInfo.cs" />
     <Compile Include="Assets\AVProVideo\Scripts\Components\Support\PlayMaker\Actions\AVProVideoInfo.cs" />
     <Compile Include="Assets\AVProVideo\Scripts\Internal\AudioOutputManager.cs" />
-    <Compile Include="Assets\Scripts\SiroCtrl\States\SiroStates.cs" />
+    <Compile Include="Assets\Scripts\SiroCtrl\SiroStates.cs" />
     <Compile Include="Assets\AVProVideo\Scripts\Components\UpdateStereoMaterial.cs" />
     <Compile Include="Assets\Scripts\BattleManager\BattleManager.Fomula.cs" />
     <Compile Include="Assets\AVProVideo\Scripts\Internal\OSXMediaPlayer.cs" />
@@ -84,6 +84,7 @@
     <Compile Include="Assets\AVProVideo\Scripts\Components\MediaPlayer.cs" />
     <Compile Include="Assets\AVProVideo\Scripts\Components\StreamParser.cs" />
     <Compile Include="Assets\AVProVideo\Scripts\Components\ApplyToMesh.cs" />
+    <Compile Include="Assets\Scripts\FloatingDamage.cs" />
     <Compile Include="Assets\Scripts\HttpAPI\JWTManager.cs" />
     <Compile Include="Assets\Scripts\HttpAPI\JsonModels\UserData.cs" />
     <Compile Include="Assets\Scripts\Utils\HashManager.cs" />
@@ -112,6 +113,7 @@
     <Compile Include="Assets\AVProVideo\Scripts\Components\Support\PlayMaker\Actions\Internal\AVProVideoActionBase.cs" />
     <Compile Include="Assets\Scripts\State.cs" />
     <Compile Include="Assets\AVProVideo\Scripts\Components\Support\PlayMaker\Actions\AVProVideoEvent.cs" />
+    <Compile Include="Assets\Scripts\HPBar.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

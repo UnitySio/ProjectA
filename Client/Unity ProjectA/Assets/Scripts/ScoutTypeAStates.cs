@@ -33,7 +33,7 @@ namespace ScoutTypeAStates
 
         public override void Exit()
         {
-
+            scoutTypeACtrl.CreateHPBar();
         }
     }
 

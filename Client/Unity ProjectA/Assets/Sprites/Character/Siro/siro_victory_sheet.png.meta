@@ -1,79 +1,79 @@
 fileFormatVersion: 2
-guid: 38e3844594af23448a9473f18ce34640
+guid: 2c175aee7594a3f4f91e98f94c3d7517
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5864595008579210784
-    second: siro_idle_action_sheet_0
+      213: -7599227691575988151
+    second: siro_victory_sheet_0
   - first:
-      213: -4128217973062621095
-    second: siro_idle_action_sheet_1
+      213: 5864359382116132498
+    second: siro_victory_sheet_1
   - first:
-      213: 6363283600741280493
-    second: siro_idle_action_sheet_2
+      213: 2483760107854056881
+    second: siro_victory_sheet_2
   - first:
-      213: -7726136332428274715
-    second: siro_idle_action_sheet_3
+      213: 192221381079213951
+    second: siro_victory_sheet_3
   - first:
-      213: 7030332507780281979
-    second: siro_idle_action_sheet_4
+      213: 5181695325754570076
+    second: siro_victory_sheet_4
   - first:
-      213: 5470943558777045430
-    second: siro_idle_action_sheet_5
+      213: 2115312482564414685
+    second: siro_victory_sheet_5
   - first:
-      213: 5856656889869920984
-    second: siro_idle_action_sheet_6
+      213: 7501000362929979128
+    second: siro_victory_sheet_6
   - first:
-      213: -4506273510057205390
-    second: siro_idle_action_sheet_7
+      213: 5671976343242503103
+    second: siro_victory_sheet_7
   - first:
-      213: 2836205928650154651
-    second: siro_idle_action_sheet_8
+      213: -8918514797958371708
+    second: siro_victory_sheet_8
   - first:
-      213: 845514999220669244
-    second: siro_idle_action_sheet_9
+      213: 165811432077994933
+    second: siro_victory_sheet_9
   - first:
-      213: -5924515390050972514
-    second: siro_idle_action_sheet_10
+      213: 2888002564889068613
+    second: siro_victory_sheet_10
   - first:
-      213: 5444261821739557876
-    second: siro_idle_action_sheet_11
+      213: -2208814714214148158
+    second: siro_victory_sheet_11
   - first:
-      213: 7963876495228865749
-    second: siro_idle_action_sheet_12
+      213: -8368102040025204761
+    second: siro_victory_sheet_12
   - first:
-      213: 2953680093672491552
-    second: siro_idle_action_sheet_13
+      213: 3905237282626324910
+    second: siro_victory_sheet_13
   - first:
-      213: -588996629076576178
-    second: siro_idle_action_sheet_14
+      213: -7566257498377810599
+    second: siro_victory_sheet_14
   - first:
-      213: -899982040157337094
-    second: siro_idle_action_sheet_15
+      213: -5267964540002371424
+    second: siro_victory_sheet_15
   - first:
-      213: 78238541084022020
-    second: siro_idle_action_sheet_16
+      213: 5036331396802548207
+    second: siro_victory_sheet_16
   - first:
-      213: 502697729217713486
-    second: siro_idle_action_sheet_17
+      213: 6817034039308720840
+    second: siro_victory_sheet_17
   - first:
-      213: 2493726854258111993
-    second: siro_idle_action_sheet_18
+      213: -815220200365686800
+    second: siro_victory_sheet_18
   - first:
-      213: 9204401785552508961
-    second: siro_idle_action_sheet_19
+      213: 7923096245706580835
+    second: siro_victory_sheet_19
   - first:
-      213: 1077959081778298357
-    second: siro_idle_action_sheet_20
+      213: 426943493327597494
+    second: siro_victory_sheet_20
   - first:
-      213: -474133778951494914
-    second: siro_idle_action_sheet_21
+      213: 2024493992007152190
+    second: siro_victory_sheet_21
   - first:
-      213: 3956318940470425079
-    second: siro_idle_action_sheet_22
+      213: -8064463803807324385
+    second: siro_victory_sheet_22
   - first:
-      213: -5868607996890399395
-    second: siro_idle_action_sheet_23
+      213: -1563783544311160918
+    second: siro_victory_sheet_23
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -163,7 +163,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: siro_idle_action_sheet_0
+      name: siro_victory_sheet_0
       rect:
         serializedVersion: 2
         x: 0
@@ -177,14 +177,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0e17b1269e5cc9ea0800000000000000
-      internalID: -5864595008579210784
+      spriteID: 9403d4c4dae1a8690800000000000000
+      internalID: -7599227691575988151
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_action_sheet_1
+      name: siro_victory_sheet_1
       rect:
         serializedVersion: 2
         x: 96
@@ -198,14 +198,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 958283030af95b6c0800000000000000
-      internalID: -4128217973062621095
+      spriteID: 296e24e89c3626150800000000000000
+      internalID: 5864359382116132498
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_action_sheet_2
+      name: siro_victory_sheet_2
       rect:
         serializedVersion: 2
         x: 192
@@ -219,14 +219,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: deaa04388bcee4850800000000000000
-      internalID: 6363283600741280493
+      spriteID: 1bd4de798a6187220800000000000000
+      internalID: 2483760107854056881
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_action_sheet_3
+      name: siro_victory_sheet_3
       rect:
         serializedVersion: 2
         x: 288
@@ -240,14 +240,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5e39f53c0ff37c490800000000000000
-      internalID: -7726136332428274715
+      spriteID: f772671e358eaa200800000000000000
+      internalID: 192221381079213951
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_action_sheet_4
+      name: siro_victory_sheet_4
       rect:
         serializedVersion: 2
         x: 0
@@ -261,14 +261,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b76ff13ea22c09160800000000000000
-      internalID: 7030332507780281979
+      spriteID: c5537e9e17419e740800000000000000
+      internalID: 5181695325754570076
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_action_sheet_5
+      name: siro_victory_sheet_5
       rect:
         serializedVersion: 2
         x: 96
@@ -282,14 +282,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6b10e1f2e22bceb40800000000000000
-      internalID: 5470943558777045430
+      spriteID: ddc9338de791b5d10800000000000000
+      internalID: 2115312482564414685
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_action_sheet_6
+      name: siro_victory_sheet_6
       rect:
         serializedVersion: 2
         x: 192
@@ -303,14 +303,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8da6a045966074150800000000000000
-      internalID: 5856656889869920984
+      spriteID: 8fe748c8618e81860800000000000000
+      internalID: 7501000362929979128
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_action_sheet_7
+      name: siro_victory_sheet_7
       rect:
         serializedVersion: 2
         x: 288
@@ -324,14 +324,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 271a94c2e108671c0800000000000000
-      internalID: -4506273510057205390
+      spriteID: fb37369ce68e6be40800000000000000
+      internalID: 5671976343242503103
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_action_sheet_8
+      name: siro_victory_sheet_8
       rect:
         serializedVersion: 2
         x: 0
@@ -345,14 +345,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b92ac07e34a3c5720800000000000000
-      internalID: 2836205928650154651
+      spriteID: 48660a72b021b3480800000000000000
+      internalID: -8918514797958371708
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_action_sheet_9
+      name: siro_victory_sheet_9
       rect:
         serializedVersion: 2
         x: 96
@@ -366,14 +366,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c3b00dc796fdbbb00800000000000000
-      internalID: 845514999220669244
+      spriteID: 5bb25b47e941d4200800000000000000
+      internalID: 165811432077994933
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_action_sheet_10
+      name: siro_victory_sheet_10
       rect:
         serializedVersion: 2
         x: 192
@@ -387,14 +387,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e9c4da564a4e7cda0800000000000000
-      internalID: -5924515390050972514
+      spriteID: 54441ae080f341820800000000000000
+      internalID: 2888002564889068613
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_action_sheet_11
+      name: siro_victory_sheet_11
       rect:
         serializedVersion: 2
         x: 288
@@ -408,14 +408,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4f3e10d2847ed8b40800000000000000
-      internalID: 5444261821739557876
+      spriteID: 2c71c9068b6b851e0800000000000000
+      internalID: -2208814714214148158
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_action_sheet_12
+      name: siro_victory_sheet_12
       rect:
         serializedVersion: 2
         x: 0
@@ -429,14 +429,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5dc033d5a7f558e60800000000000000
-      internalID: 7963876495228865749
+      spriteID: 7e7731cd7878edb80800000000000000
+      internalID: -8368102040025204761
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_action_sheet_13
+      name: siro_victory_sheet_13
       rect:
         serializedVersion: 2
         x: 96
@@ -450,14 +450,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 02acd7b55649df820800000000000000
-      internalID: 2953680093672491552
+      spriteID: ea9cd822e90323630800000000000000
+      internalID: 3905237282626324910
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_action_sheet_14
+      name: siro_victory_sheet_14
       rect:
         serializedVersion: 2
         x: 192
@@ -471,14 +471,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e48fcfdbfa673d7f0800000000000000
-      internalID: -588996629076576178
+      spriteID: 95d0e0a94e04ff690800000000000000
+      internalID: -7566257498377810599
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_action_sheet_15
+      name: siro_victory_sheet_15
       rect:
         serializedVersion: 2
         x: 288
@@ -492,14 +492,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: af9c0305a1f9283f0800000000000000
-      internalID: -899982040157337094
+      spriteID: 0a8fdc7692e64e6b0800000000000000
+      internalID: -5267964540002371424
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_action_sheet_16
+      name: siro_victory_sheet_16
       rect:
         serializedVersion: 2
         x: 0
@@ -513,14 +513,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 405de01e985f51100800000000000000
-      internalID: 78238541084022020
+      spriteID: fe11095c8b4a4e540800000000000000
+      internalID: 5036331396802548207
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_action_sheet_17
+      name: siro_victory_sheet_17
       rect:
         serializedVersion: 2
         x: 96
@@ -534,14 +534,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e45da6bdbe0f9f600800000000000000
-      internalID: 502697729217713486
+      spriteID: 8ca1ebe2758fa9e50800000000000000
+      internalID: 6817034039308720840
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_action_sheet_18
+      name: siro_victory_sheet_18
       rect:
         serializedVersion: 2
         x: 192
@@ -555,14 +555,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9f538e29c5f7b9220800000000000000
-      internalID: 2493726854258111993
+      spriteID: 0fffa770c81cfa4f0800000000000000
+      internalID: -815220200365686800
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_action_sheet_19
+      name: siro_victory_sheet_19
       rect:
         serializedVersion: 2
         x: 288
@@ -576,14 +576,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 12814dd28aa9cbf70800000000000000
-      internalID: 9204401785552508961
+      spriteID: 363629e9e0e74fd60800000000000000
+      internalID: 7923096245706580835
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_action_sheet_20
+      name: siro_victory_sheet_20
       rect:
         serializedVersion: 2
         x: 0
@@ -597,14 +597,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5fd3dc7d21ea5fe00800000000000000
-      internalID: 1077959081778298357
+      spriteID: 6bfa4fa58decce500800000000000000
+      internalID: 426943493327597494
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_action_sheet_21
+      name: siro_victory_sheet_21
       rect:
         serializedVersion: 2
         x: 96
@@ -618,14 +618,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ef2259117d98b69f0800000000000000
-      internalID: -474133778951494914
+      spriteID: e32bf7b3f82781c10800000000000000
+      internalID: 2024493992007152190
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_action_sheet_22
+      name: siro_victory_sheet_22
       rect:
         serializedVersion: 2
         x: 192
@@ -639,14 +639,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7f5b3e86d1ba7e630800000000000000
-      internalID: 3956318940470425079
+      spriteID: f17a116d5e4451090800000000000000
+      internalID: -8064463803807324385
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_action_sheet_23
+      name: siro_victory_sheet_23
       rect:
         serializedVersion: 2
         x: 288
@@ -660,8 +660,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d5db45bbe148e8ea0800000000000000
-      internalID: -5868607996890399395
+      spriteID: aaf5bb7d6235c4ae0800000000000000
+      internalID: -1563783544311160918
       vertices: []
       indices: 
       edges: []
