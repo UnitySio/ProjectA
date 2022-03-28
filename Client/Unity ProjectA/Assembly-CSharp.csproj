@@ -59,7 +59,7 @@
     <Compile Include="Assets\Scripts\HttpAPI\DBContexts\AccountInfo.cs" />
     <Compile Include="Assets\AVProVideo\Scripts\Components\Support\PlayMaker\Actions\AVProVideoInfo.cs" />
     <Compile Include="Assets\AVProVideo\Scripts\Internal\AudioOutputManager.cs" />
-    <Compile Include="Assets\Scripts\SiroCtrl\SiroStates.cs" />
+    <Compile Include="Assets\Scripts\Kuro\KuroStates.cs" />
     <Compile Include="Assets\AVProVideo\Scripts\Components\UpdateStereoMaterial.cs" />
     <Compile Include="Assets\Scripts\BattleManager\BattleManager.Fomula.cs" />
     <Compile Include="Assets\AVProVideo\Scripts\Internal\OSXMediaPlayer.cs" />
@@ -71,6 +71,7 @@
     <Compile Include="Assets\Scripts\HttpAPI\JsonModels\Response_JsonModel.cs" />
     <Compile Include="Assets\Scripts\Utils\SecurityPlayerPrefs.cs" />
     <Compile Include="Assets\AVProVideo\Scripts\Components\AudioOutput.cs" />
+    <Compile Include="Assets\Scripts\HPBar.cs" />
     <Compile Include="Assets\Scripts\ScoutTypeACtrl.cs" />
     <Compile Include="Assets\AVProVideo\Scripts\Components\DisplayBackground.cs" />
     <Compile Include="Assets\AVProVideo\Scripts\Components\Support\PlayMaker\Actions\AVProVideoControl.cs" />
@@ -93,7 +94,7 @@
     <Compile Include="Assets\Scripts\StateMachine.cs" />
     <Compile Include="Assets\AVProVideo\Scripts\Internal\Stream.cs" />
     <Compile Include="Assets\AVProVideo\Scripts\Components\DisplayIMGUI.cs" />
-    <Compile Include="Assets\Scripts\SiroCtrl\SiroCtrl.cs" />
+    <Compile Include="Assets\Scripts\Kuro\KuroCtrl.cs" />
     <Compile Include="Assets\AVProVideo\Scripts\Components\AudioChannelMixer.cs" />
     <Compile Include="Assets\Scripts\HttpAPI\JsonModels\Request_JsonModel.cs" />
     <Compile Include="Assets\Scripts\HttpAPI\DBContexts\CharacterInfo.cs" />
@@ -102,6 +103,7 @@
     <Compile Include="Assets\AVProVideo\Scripts\Internal\AndroidMediaPlayer.cs" />
     <Compile Include="Assets\Scripts\HttpAPI\DBContexts\PlayerInfo.cs" />
     <Compile Include="Assets\Scripts\HttpAPI\APIManager.cs" />
+    <Compile Include="Assets\Scripts\AnimClipInfo.cs" />
     <Compile Include="Assets\AVProVideo\Scripts\Components\SubtitlesUGUI.cs" />
     <Compile Include="Assets\AVProVideo\Scripts\Components\CubemapCube.cs" />
     <Compile Include="Assets\Scripts\AnimClip.cs" />
@@ -113,7 +115,7 @@
     <Compile Include="Assets\AVProVideo\Scripts\Components\Support\PlayMaker\Actions\Internal\AVProVideoActionBase.cs" />
     <Compile Include="Assets\Scripts\State.cs" />
     <Compile Include="Assets\AVProVideo\Scripts\Components\Support\PlayMaker\Actions\AVProVideoEvent.cs" />
-    <Compile Include="Assets\Scripts\HPBar.cs" />
+    <Compile Include="Assets\Scripts\EntityAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

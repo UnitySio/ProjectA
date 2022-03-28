@@ -1,80 +1,84 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public abstract class Entity : StateMachine
 {
-    private Transform hPBarChild;
+    public GameObject hPBarGroup;
+    public EntityAttribute attribute;
 
-    public int no;
-    public string name;
-    public int level;
-
-    [SerializeField]
-    private int hP;
-    public int HP
+    public void Setup(EntityAttribute attri)
     {
-        get { return hP; }
-        set { hP = value; }
-    }
-
-    public int attack;
-    public int attackCorrection;
-    public int defense;
-    public int dodge;
-    public int hit;
-    [Range(0.2f, 4f)]
-    public float interval;
-
-    public void Setup(int no, string name, int level, int hP, int attack, int attackCorrection, int defense, int dodge, int hit, float interval)
-    {
-        this.no = no;
-        this.name = name;
-        this.level = level;
-        this.HP = hP;
-        this.attack = attack;
-        this.attackCorrection = attackCorrection;
-        this.defense = defense;
-        this.dodge = dodge;
-        this.hit = hit;
-        this.interval = interval;
+        attribute = attri;
     }
 
     public virtual void Hurt(int damage)
     {
-        HP -= damage;
-        if (hPBarChild != null) hPBarChild.GetComponent<HPBar>().HP -= damage;
-        if (HP > 0) Hit(damage);
-        else if (HP <= 0) Death();
+        attribute.hP -= damage;
+        hPBarGroup.GetComponent<HPBar>().HP -= damage;
+
+        if (attribute.hP > 0)
+            Hit(damage);
+        else
+            Death();
     }
 
     public virtual void Hit(int damage)
     {
-        FloatingDamage(damage.ToString());
+        if (damage > 0)
+            FloatingDamage(damage.ToString());
+        else
+            FloatingDamage("MISS!");
     }
 
-    public abstract void Death();
+
+    public virtual void Death()
+    {
+        hPBarGroup.SetActive(false);
+    }
 
     public abstract void Victory();
-
     public abstract void Defeat();
 
-    public void CreateHPBar()
+    public void SetHPBar()
     {
-        GameObject hPBar = Instantiate(BattleManager.Instance.hPBar, transform.position, transform.rotation);
-        hPBarChild = hPBar.transform.GetChild(2);
-
-        hPBar.transform.SetParent(transform);
-        hPBar.transform.localPosition = new Vector3(hPBar.transform.localPosition.x, hPBar.transform.localPosition.y + GetComponent<SpriteRenderer>().bounds.size.y, hPBar.transform.localPosition.z);
-        hPBarChild.GetComponent<HPBar>().Setup(HP);
+        hPBarGroup.SetActive(true);
+        hPBarGroup.transform.localPosition = SetLocalPosition(hPBarGroup.transform);
+        hPBarGroup.GetComponent<HPBar>().Setup(attribute.hP);
     }
 
     public void FloatingDamage(string damage)
     {
-        GameObject floatingDamage = Instantiate(BattleManager.Instance.floatingDamage, transform.position, transform.rotation);
-
-        floatingDamage.transform.SetParent(transform);
-        floatingDamage.transform.localPosition = new Vector3(floatingDamage.transform.localPosition.x, floatingDamage.transform.localPosition.y + GetComponent<SpriteRenderer>().bounds.size.y, floatingDamage.transform.localPosition.z);
+        GameObject floatingDamage = Instantiate(BattleManager.Instance.floatingDamage, transform.position, transform.rotation, transform);
+        floatingDamage.transform.localPosition = SetLocalPosition(floatingDamage.transform);
         floatingDamage.GetComponent<FloatingDamage>().Setup(damage);
+    }
+
+    public Vector3 SetLocalPosition(Transform pos)
+    {
+        return new Vector3(pos.localPosition.x, pos.localPosition.y + GetComponent<SpriteRenderer>().bounds.size.y, pos.localPosition.z);
+    }
+
+    public IEnumerator Attack(State state)
+    {
+        yield return new WaitForSeconds(attribute.interval);
+        ChangeState(state);
+    }
+
+    public IEnumerator HitTimes(int hitTimes, int damage)
+    {
+        if (hitTimes == 0 || hitTimes == 1)
+            Hurt(damage);
+        else
+        {
+            for (int i = 0; i < hitTimes; i++)
+            {
+                if (attribute.hP > 0)
+                    Hurt(damage);
+                else hitTimes = 0;
+
+                yield return new WaitForSeconds(0.2f);
+            }
+        }
     }
 }

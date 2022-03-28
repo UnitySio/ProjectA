@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using SiroStates;
+using KuroStates;
+using System.Threading;
 
 [RequireComponent(typeof(SpriteAnimator))]
-public partial class SiroCtrl : Entity
+public partial class KuroCtrl : Entity
 {
     [HideInInspector]
     public SpriteAnimator anim;
@@ -29,7 +30,16 @@ public partial class SiroCtrl : Entity
         states[4] = new Death(this);
         states[5] = new Victory(this);
 
-        Setup(0, "Siro", 30, 1000, 283749000, 5, 100, 20, 15, 0.2f);
+        // Setup(0, "Kuro", 30, 999999999, 245600, 5, 100, 35, 25, 1f);
+        attribute.no = 0;
+        attribute.name = "Kuro";
+        attribute.level = 30;
+        attribute.hP = 999999999;
+        attribute.attack = 245600;
+        attribute.defense = 100;
+        attribute.dodge = 35;
+        attribute.hit = 25;
+        attribute.interval = 1f;
     }
 
     protected override void Start()
@@ -52,11 +62,14 @@ public partial class SiroCtrl : Entity
     public override void Hit(int damage)
     {
         base.Hit(damage);
-        ChangeState(states[3]);
+        if (damage > 0)
+            if (currentState != states[3])
+                ChangeState(states[3]);
     }
 
     public override void Death()
     {
+        base.Death();
         BattleManager.Instance.friendly.Remove(this);
         ChangeState(states[4]);
     }
@@ -69,11 +82,5 @@ public partial class SiroCtrl : Entity
     public override void Defeat()
     {
 
-    }
-
-    public IEnumerator Attack()
-    {
-        yield return new WaitForSeconds(interval);
-        ChangeState(states[2]);
     }
 }

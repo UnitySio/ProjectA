@@ -12,7 +12,6 @@ public class HPBar : MonoBehaviour
         set
         {
             hP = value;
-
             if (hP < 0) hP = 0;
         }
     }
@@ -21,15 +20,26 @@ public class HPBar : MonoBehaviour
     private float origin;
     private float offset;
 
+    public GameObject hPBar;
+    public GameObject hPBarMask;
+
     private void Awake()
     {
-        origin = transform.localScale.x;
+        origin = hPBarMask.transform.localScale.x;
+    }
+
+    private void Start()
+    {
+        if (gameObject.transform.parent.CompareTag("Friendly"))
+            hPBar.GetComponent<SpriteRenderer>().color = Color.green;
+        else if (gameObject.transform.parent.CompareTag("Enemy"))
+            hPBar.GetComponent<SpriteRenderer>().color = Color.red;
     }
 
     private void Update()
     {
         offset = (hP / maxHP) * origin;
-        transform.localScale = new Vector3(offset, transform.localScale.y, transform.localScale.z);
+        hPBarMask.transform.localScale = new Vector3(offset, hPBarMask.transform.localScale.y, hPBarMask.transform.localScale.z);
     }
 
     public void Setup(int hP)

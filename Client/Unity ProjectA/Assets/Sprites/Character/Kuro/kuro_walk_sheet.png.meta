@@ -1,79 +1,67 @@
 fileFormatVersion: 2
-guid: 2c175aee7594a3f4f91e98f94c3d7517
+guid: 99cb0d26dc779ef42a5e0d783b593ff4
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7599227691575988151
-    second: siro_victory_sheet_0
+      213: 8758310408160904392
+    second: kuro_walk_sheet_0
   - first:
-      213: 5864359382116132498
-    second: siro_victory_sheet_1
+      213: 6905802389699504640
+    second: kuro_walk_sheet_1
   - first:
-      213: 2483760107854056881
-    second: siro_victory_sheet_2
+      213: 64856041123246558
+    second: kuro_walk_sheet_2
   - first:
-      213: 192221381079213951
-    second: siro_victory_sheet_3
+      213: 3606609521382678011
+    second: kuro_walk_sheet_3
   - first:
-      213: 5181695325754570076
-    second: siro_victory_sheet_4
+      213: 2231397665717307110
+    second: kuro_walk_sheet_4
   - first:
-      213: 2115312482564414685
-    second: siro_victory_sheet_5
+      213: -7308725073502074816
+    second: kuro_walk_sheet_5
   - first:
-      213: 7501000362929979128
-    second: siro_victory_sheet_6
+      213: -8028178911950030769
+    second: kuro_walk_sheet_6
   - first:
-      213: 5671976343242503103
-    second: siro_victory_sheet_7
+      213: -3247654230387486389
+    second: kuro_walk_sheet_7
   - first:
-      213: -8918514797958371708
-    second: siro_victory_sheet_8
+      213: 2540863168194830014
+    second: kuro_walk_sheet_8
   - first:
-      213: 165811432077994933
-    second: siro_victory_sheet_9
+      213: -3453364097846704288
+    second: kuro_walk_sheet_9
   - first:
-      213: 2888002564889068613
-    second: siro_victory_sheet_10
+      213: -737800669935553693
+    second: kuro_walk_sheet_10
   - first:
-      213: -2208814714214148158
-    second: siro_victory_sheet_11
+      213: 7956927060638413242
+    second: kuro_walk_sheet_11
   - first:
-      213: -8368102040025204761
-    second: siro_victory_sheet_12
+      213: 8169551392024049089
+    second: kuro_walk_sheet_12
   - first:
-      213: 3905237282626324910
-    second: siro_victory_sheet_13
+      213: -5569856411388570559
+    second: kuro_walk_sheet_13
   - first:
-      213: -7566257498377810599
-    second: siro_victory_sheet_14
+      213: 7720974042428696379
+    second: kuro_walk_sheet_14
   - first:
-      213: -5267964540002371424
-    second: siro_victory_sheet_15
+      213: 4198916012609029171
+    second: kuro_walk_sheet_15
   - first:
-      213: 5036331396802548207
-    second: siro_victory_sheet_16
+      213: -4949218159854464132
+    second: kuro_walk_sheet_16
   - first:
-      213: 6817034039308720840
-    second: siro_victory_sheet_17
+      213: 607350240583977295
+    second: kuro_walk_sheet_17
   - first:
-      213: -815220200365686800
-    second: siro_victory_sheet_18
+      213: -1392127711509109683
+    second: kuro_walk_sheet_18
   - first:
-      213: 7923096245706580835
-    second: siro_victory_sheet_19
-  - first:
-      213: 426943493327597494
-    second: siro_victory_sheet_20
-  - first:
-      213: 2024493992007152190
-    second: siro_victory_sheet_21
-  - first:
-      213: -8064463803807324385
-    second: siro_victory_sheet_22
-  - first:
-      213: -1563783544311160918
-    second: siro_victory_sheet_23
+      213: 8910692205200090158
+    second: kuro_walk_sheet_19
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -163,505 +151,421 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: siro_victory_sheet_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 320
-        width: 96
-        height: 64
-      alignment: 9
-      pivot: {x: 0.495, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9403d4c4dae1a8690800000000000000
-      internalID: -7599227691575988151
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: siro_victory_sheet_1
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 320
-        width: 96
-        height: 64
-      alignment: 9
-      pivot: {x: 0.495, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 296e24e89c3626150800000000000000
-      internalID: 5864359382116132498
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: siro_victory_sheet_2
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 320
-        width: 96
-        height: 64
-      alignment: 9
-      pivot: {x: 0.495, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1bd4de798a6187220800000000000000
-      internalID: 2483760107854056881
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: siro_victory_sheet_3
-      rect:
-        serializedVersion: 2
-        x: 288
-        y: 320
-        width: 96
-        height: 64
-      alignment: 9
-      pivot: {x: 0.495, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f772671e358eaa200800000000000000
-      internalID: 192221381079213951
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: siro_victory_sheet_4
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 256
-        width: 96
-        height: 64
-      alignment: 9
-      pivot: {x: 0.495, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c5537e9e17419e740800000000000000
-      internalID: 5181695325754570076
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: siro_victory_sheet_5
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 256
-        width: 96
-        height: 64
-      alignment: 9
-      pivot: {x: 0.495, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ddc9338de791b5d10800000000000000
-      internalID: 2115312482564414685
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: siro_victory_sheet_6
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 256
-        width: 96
-        height: 64
-      alignment: 9
-      pivot: {x: 0.495, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8fe748c8618e81860800000000000000
-      internalID: 7501000362929979128
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: siro_victory_sheet_7
-      rect:
-        serializedVersion: 2
-        x: 288
-        y: 256
-        width: 96
-        height: 64
-      alignment: 9
-      pivot: {x: 0.495, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fb37369ce68e6be40800000000000000
-      internalID: 5671976343242503103
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: siro_victory_sheet_8
+      name: kuro_walk_sheet_0
       rect:
         serializedVersion: 2
         x: 0
         y: 192
-        width: 96
+        width: 64
         height: 64
       alignment: 9
-      pivot: {x: 0.495, y: 0}
+      pivot: {x: 0.49, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 48660a72b021b3480800000000000000
-      internalID: -8918514797958371708
+      spriteID: 8c48907a9e4cb8970800000000000000
+      internalID: 8758310408160904392
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_victory_sheet_9
+      name: kuro_walk_sheet_1
       rect:
         serializedVersion: 2
-        x: 96
+        x: 64
         y: 192
-        width: 96
+        width: 64
         height: 64
       alignment: 9
-      pivot: {x: 0.495, y: 0}
+      pivot: {x: 0.49, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5bb25b47e941d4200800000000000000
-      internalID: 165811432077994933
+      spriteID: 00a25175fa656df50800000000000000
+      internalID: 6905802389699504640
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_victory_sheet_10
+      name: kuro_walk_sheet_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 192
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.49, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed170bcc93a66e000800000000000000
+      internalID: 64856041123246558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kuro_walk_sheet_3
       rect:
         serializedVersion: 2
         x: 192
         y: 192
-        width: 96
+        width: 64
         height: 64
       alignment: 9
-      pivot: {x: 0.495, y: 0}
+      pivot: {x: 0.49, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 54441ae080f341820800000000000000
-      internalID: 2888002564889068613
+      spriteID: bfd5e8540404d0230800000000000000
+      internalID: 3606609521382678011
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_victory_sheet_11
+      name: kuro_walk_sheet_4
       rect:
         serializedVersion: 2
-        x: 288
+        x: 256
         y: 192
-        width: 96
+        width: 64
         height: 64
       alignment: 9
-      pivot: {x: 0.495, y: 0}
+      pivot: {x: 0.49, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2c71c9068b6b851e0800000000000000
-      internalID: -2208814714214148158
+      spriteID: 6e647b1ca5487fe10800000000000000
+      internalID: 2231397665717307110
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_victory_sheet_12
+      name: kuro_walk_sheet_5
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 192
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.49, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0480be8d441329a90800000000000000
+      internalID: -7308725073502074816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kuro_walk_sheet_6
       rect:
         serializedVersion: 2
         x: 0
         y: 128
-        width: 96
+        width: 64
         height: 64
       alignment: 9
-      pivot: {x: 0.495, y: 0}
+      pivot: {x: 0.49, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7e7731cd7878edb80800000000000000
-      internalID: -8368102040025204761
+      spriteID: f48bfef80dd269090800000000000000
+      internalID: -8028178911950030769
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_victory_sheet_13
+      name: kuro_walk_sheet_7
       rect:
         serializedVersion: 2
-        x: 96
+        x: 64
         y: 128
-        width: 96
+        width: 64
         height: 64
       alignment: 9
-      pivot: {x: 0.495, y: 0}
+      pivot: {x: 0.49, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ea9cd822e90323630800000000000000
-      internalID: 3905237282626324910
+      spriteID: b41957c2fa30ee2d0800000000000000
+      internalID: -3247654230387486389
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_victory_sheet_14
+      name: kuro_walk_sheet_8
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 128
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.49, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ebe5023e695f24320800000000000000
+      internalID: 2540863168194830014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kuro_walk_sheet_9
       rect:
         serializedVersion: 2
         x: 192
         y: 128
-        width: 96
+        width: 64
         height: 64
       alignment: 9
-      pivot: {x: 0.495, y: 0}
+      pivot: {x: 0.49, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 95d0e0a94e04ff690800000000000000
-      internalID: -7566257498377810599
+      spriteID: 06782c356af2310d0800000000000000
+      internalID: -3453364097846704288
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_victory_sheet_15
+      name: kuro_walk_sheet_10
       rect:
         serializedVersion: 2
-        x: 288
+        x: 256
         y: 128
-        width: 96
+        width: 64
         height: 64
       alignment: 9
-      pivot: {x: 0.495, y: 0}
+      pivot: {x: 0.49, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0a8fdc7692e64e6b0800000000000000
-      internalID: -5267964540002371424
+      spriteID: 3633271233ec2c5f0800000000000000
+      internalID: -737800669935553693
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_victory_sheet_16
+      name: kuro_walk_sheet_11
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 128
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.49, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab1bb09010fac6e60800000000000000
+      internalID: 7956927060638413242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kuro_walk_sheet_12
       rect:
         serializedVersion: 2
         x: 0
         y: 64
-        width: 96
+        width: 64
         height: 64
       alignment: 9
-      pivot: {x: 0.495, y: 0}
+      pivot: {x: 0.49, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fe11095c8b4a4e540800000000000000
-      internalID: 5036331396802548207
+      spriteID: 1c534e7f4b3106170800000000000000
+      internalID: 8169551392024049089
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_victory_sheet_17
+      name: kuro_walk_sheet_13
       rect:
         serializedVersion: 2
-        x: 96
+        x: 64
         y: 64
-        width: 96
+        width: 64
         height: 64
       alignment: 9
-      pivot: {x: 0.495, y: 0}
+      pivot: {x: 0.49, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8ca1ebe2758fa9e50800000000000000
-      internalID: 6817034039308720840
+      spriteID: 144904daa15e3b2b0800000000000000
+      internalID: -5569856411388570559
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_victory_sheet_18
+      name: kuro_walk_sheet_14
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.49, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3769feebf8662b60800000000000000
+      internalID: 7720974042428696379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kuro_walk_sheet_15
       rect:
         serializedVersion: 2
         x: 192
         y: 64
-        width: 96
+        width: 64
         height: 64
       alignment: 9
-      pivot: {x: 0.495, y: 0}
+      pivot: {x: 0.49, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0fffa770c81cfa4f0800000000000000
-      internalID: -815220200365686800
+      spriteID: 334c24ddddb854a30800000000000000
+      internalID: 4198916012609029171
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_victory_sheet_19
+      name: kuro_walk_sheet_16
       rect:
         serializedVersion: 2
-        x: 288
+        x: 256
         y: 64
-        width: 96
+        width: 64
         height: 64
       alignment: 9
-      pivot: {x: 0.495, y: 0}
+      pivot: {x: 0.49, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 363629e9e0e74fd60800000000000000
-      internalID: 7923096245706580835
+      spriteID: c7356f14e48d05bb0800000000000000
+      internalID: -4949218159854464132
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_victory_sheet_20
+      name: kuro_walk_sheet_17
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 64
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.49, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f49814073ddbd6800800000000000000
+      internalID: 607350240583977295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kuro_walk_sheet_18
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 96
+        width: 64
         height: 64
       alignment: 9
-      pivot: {x: 0.495, y: 0}
+      pivot: {x: 0.49, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6bfa4fa58decce500800000000000000
-      internalID: 426943493327597494
+      spriteID: d44a581e83b2eace0800000000000000
+      internalID: -1392127711509109683
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_victory_sheet_21
+      name: kuro_walk_sheet_19
       rect:
         serializedVersion: 2
-        x: 96
+        x: 64
         y: 0
-        width: 96
+        width: 64
         height: 64
       alignment: 9
-      pivot: {x: 0.495, y: 0}
+      pivot: {x: 0.49, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e32bf7b3f82781c10800000000000000
-      internalID: 2024493992007152190
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: siro_victory_sheet_22
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 0
-        width: 96
-        height: 64
-      alignment: 9
-      pivot: {x: 0.495, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f17a116d5e4451090800000000000000
-      internalID: -8064463803807324385
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: siro_victory_sheet_23
-      rect:
-        serializedVersion: 2
-        x: 288
-        y: 0
-        width: 96
-        height: 64
-      alignment: 9
-      pivot: {x: 0.495, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: aaf5bb7d6235c4ae0800000000000000
-      internalID: -1563783544311160918
+      spriteID: e242bc9895329ab70800000000000000
+      internalID: 8910692205200090158
       vertices: []
       indices: 
       edges: []

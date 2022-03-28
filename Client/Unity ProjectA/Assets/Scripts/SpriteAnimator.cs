@@ -5,8 +5,11 @@ using UnityEngine;
 public class SpriteAnimator : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer;
+    private AudioSource audioSource;
 
     private Coroutine coroutine;
+
+    public bool isExecute;
 
     [SerializeField]
     private bool isPlay;
@@ -37,34 +40,46 @@ public class SpriteAnimator : MonoBehaviour
         set
         {
             currentClip = value;
+            if (currentFrame != 0) currentFrame = 0;
             loop = animationClips[CurrentClip].isLoop;
         }
     }
 
     public int currentFrame;
-    public List<AnimClip> animationClips = new List<AnimClip>();
+    public List<AnimClipInfo> animationClips = new List<AnimClipInfo>();
 
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private IEnumerator Play()
     {
         while (IsPlay)
         {
-            spriteRenderer.sprite = animationClips[CurrentClip].animationClip[currentFrame];
+            spriteRenderer.sprite = animationClips[CurrentClip].animationClip[currentFrame].sprite;
+
+            if (animationClips[CurrentClip].animationClip[currentFrame].audioClip != null)
+                audioSource.Play();
 
             if (!loop && currentFrame == animationClips[CurrentClip].animationClip.Count - 1)
             {
                 isPlay = false;
-                if (animationClips[CurrentClip].isNextClip) 
+                if (animationClips[CurrentClip].isNextClip)
                     Animate(animationClips[CurrentClip].nextClip, true);
+
+                isExecute = false;
             }
 
             yield return new WaitForSeconds(1 / frameRate);
 
             currentFrame = (currentFrame + 1) % animationClips[CurrentClip].animationClip.Count;
+
+            if (animationClips[CurrentClip].animationClip[currentFrame].audioClip != null)
+                audioSource.clip = animationClips[CurrentClip].animationClip[currentFrame].audioClip;
+
+            isExecute = false;
         }
     }
 

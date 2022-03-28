@@ -1,55 +1,55 @@
 fileFormatVersion: 2
-guid: bafe7c51d5a3e384aaa83ee71a59e1ab
+guid: 5f0b16d0414076641a4bde31e5e6ea08
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1615131992749867396
-    second: siro_idle_sheet_0
+      213: -1181224922238952448
+    second: kuro_idle_sheet_0
   - first:
-      213: -6517687505783321219
-    second: siro_idle_sheet_1
+      213: 2461373347999832131
+    second: kuro_idle_sheet_1
   - first:
-      213: 1486181606665554528
-    second: siro_idle_sheet_2
+      213: -3729813662533967827
+    second: kuro_idle_sheet_2
   - first:
-      213: -8295842879592139892
-    second: siro_idle_sheet_3
+      213: -1126863193630571959
+    second: kuro_idle_sheet_3
   - first:
-      213: -8060244548506270463
-    second: siro_idle_sheet_4
+      213: -1000000749828928978
+    second: kuro_idle_sheet_4
   - first:
-      213: -8758886284561887789
-    second: siro_idle_sheet_5
+      213: -3168038695386975339
+    second: kuro_idle_sheet_5
   - first:
-      213: 4626970940191091297
-    second: siro_idle_sheet_6
+      213: 4488554512112148929
+    second: kuro_idle_sheet_6
   - first:
-      213: 5407960260887357597
-    second: siro_idle_sheet_7
+      213: 6606472412095933656
+    second: kuro_idle_sheet_7
   - first:
-      213: 7004513132884402252
-    second: siro_idle_sheet_8
+      213: 1130476450459117787
+    second: kuro_idle_sheet_8
   - first:
-      213: 1646781121422154192
-    second: siro_idle_sheet_9
+      213: -7526057133574106691
+    second: kuro_idle_sheet_9
   - first:
-      213: -4910174422521146302
-    second: siro_idle_sheet_10
+      213: 8816981961516028734
+    second: kuro_idle_sheet_10
   - first:
-      213: -3380892078688276083
-    second: siro_idle_sheet_11
+      213: -7550603650917315396
+    second: kuro_idle_sheet_11
   - first:
-      213: -5218131167377879010
-    second: siro_idle_sheet_12
+      213: -8830240682180720468
+    second: kuro_idle_sheet_12
   - first:
-      213: 8876275767847767044
-    second: siro_idle_sheet_13
+      213: -3198172293948829966
+    second: kuro_idle_sheet_13
   - first:
-      213: 378104722047050745
-    second: siro_idle_sheet_14
+      213: -3495540518485511262
+    second: kuro_idle_sheet_14
   - first:
-      213: -4613593757166388629
-    second: siro_idle_sheet_15
+      213: 3263439475715132801
+    second: kuro_idle_sheet_15
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -139,7 +139,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: siro_idle_sheet_0
+      name: kuro_idle_sheet_0
       rect:
         serializedVersion: 2
         x: 0
@@ -153,14 +153,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 48189357df91a6610800000000000000
-      internalID: 1615131992749867396
+      spriteID: 00cdb1e01327b9fe0800000000000000
+      internalID: -1181224922238952448
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_sheet_1
+      name: kuro_idle_sheet_1
       rect:
         serializedVersion: 2
         x: 64
@@ -174,14 +174,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d7d88c4eeb58c85a0800000000000000
-      internalID: -6517687505783321219
+      spriteID: 348d423e40e882220800000000000000
+      internalID: 2461373347999832131
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_sheet_2
+      name: kuro_idle_sheet_2
       rect:
         serializedVersion: 2
         x: 128
@@ -195,14 +195,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 06a05011c4aff9410800000000000000
-      internalID: 1486181606665554528
+      spriteID: d20a34e3c3a0d3cc0800000000000000
+      internalID: -3729813662533967827
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_sheet_3
+      name: kuro_idle_sheet_3
       rect:
         serializedVersion: 2
         x: 192
@@ -216,14 +216,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c83f471bade3fdc80800000000000000
-      internalID: -8295842879592139892
+      spriteID: 942003155e39c50f0800000000000000
+      internalID: -1126863193630571959
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_sheet_4
+      name: kuro_idle_sheet_4
       rect:
         serializedVersion: 2
         x: 256
@@ -237,14 +237,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1054183c942442090800000000000000
-      internalID: -8060244548506270463
+      spriteID: e2a8253cd984f12f0800000000000000
+      internalID: -1000000749828928978
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_sheet_5
+      name: kuro_idle_sheet_5
       rect:
         serializedVersion: 2
         x: 320
@@ -258,14 +258,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3ddc5aca45f227680800000000000000
-      internalID: -8758886284561887789
+      spriteID: 59374ce679dd804d0800000000000000
+      internalID: -3168038695386975339
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_sheet_6
+      name: kuro_idle_sheet_6
       rect:
         serializedVersion: 2
         x: 0
@@ -279,14 +279,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 16a252c2e8d463040800000000000000
-      internalID: 4626970940191091297
+      spriteID: 1c1eb612c8c8a4e30800000000000000
+      internalID: 4488554512112148929
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_sheet_7
+      name: kuro_idle_sheet_7
       rect:
         serializedVersion: 2
         x: 64
@@ -300,14 +300,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d98ae95643fec0b40800000000000000
-      internalID: 5407960260887357597
+      spriteID: 8dc656df7a7eeab50800000000000000
+      internalID: 6606472412095933656
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_sheet_8
+      name: kuro_idle_sheet_8
       rect:
         serializedVersion: 2
         x: 128
@@ -321,14 +321,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c4022263597053160800000000000000
-      internalID: 7004513132884402252
+      spriteID: bd86f88975240bf00800000000000000
+      internalID: 1130476450459117787
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_sheet_9
+      name: kuro_idle_sheet_9
       rect:
         serializedVersion: 2
         x: 192
@@ -342,14 +342,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0d9df2574ba8ad610800000000000000
-      internalID: 1646781121422154192
+      spriteID: db1550a69e21e8790800000000000000
+      internalID: -7526057133574106691
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_sheet_10
+      name: kuro_idle_sheet_10
       rect:
         serializedVersion: 2
         x: 256
@@ -363,14 +363,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2441b60c06e8bdbb0800000000000000
-      internalID: -4910174422521146302
+      spriteID: e33903f21663c5a70800000000000000
+      internalID: 8816981961516028734
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_sheet_11
+      name: kuro_idle_sheet_11
       rect:
         serializedVersion: 2
         x: 320
@@ -384,14 +384,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d817ad13198a411d0800000000000000
-      internalID: -3380892078688276083
+      spriteID: cbc4e4bfbfdd63790800000000000000
+      internalID: -7550603650917315396
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_sheet_12
+      name: kuro_idle_sheet_12
       rect:
         serializedVersion: 2
         x: 0
@@ -405,14 +405,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e101c01a9597597b0800000000000000
-      internalID: -5218131167377879010
+      spriteID: ca84a6952eea47580800000000000000
+      internalID: -8830240682180720468
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_sheet_13
+      name: kuro_idle_sheet_13
       rect:
         serializedVersion: 2
         x: 64
@@ -426,14 +426,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 40c49f648cdde2b70800000000000000
-      internalID: 8876275767847767044
+      spriteID: 2fe0fa84e3fcd93d0800000000000000
+      internalID: -3198172293948829966
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_sheet_14
+      name: kuro_idle_sheet_14
       rect:
         serializedVersion: 2
         x: 128
@@ -447,14 +447,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9f3238dcd3c4f3500800000000000000
-      internalID: 378104722047050745
+      spriteID: 2a3bfa92b685d7fc0800000000000000
+      internalID: -3495540518485511262
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_sheet_15
+      name: kuro_idle_sheet_15
       rect:
         serializedVersion: 2
         x: 192
@@ -468,8 +468,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b6a3326fbe839ffb0800000000000000
-      internalID: -4613593757166388629
+      spriteID: 18dccf7a9e01a4d20800000000000000
+      internalID: 3263439475715132801
       vertices: []
       indices: 
       edges: []

@@ -1,55 +1,43 @@
 fileFormatVersion: 2
-guid: bafe7c51d5a3e384aaa83ee71a59e1ab
+guid: d86d69ec72c29bf47ae54054740f94dd
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1615131992749867396
-    second: siro_idle_sheet_0
+      213: 419729993143844154
+    second: kuro_attack_sheet_0
   - first:
-      213: -6517687505783321219
-    second: siro_idle_sheet_1
+      213: -2495196861540946291
+    second: kuro_attack_sheet_1
   - first:
-      213: 1486181606665554528
-    second: siro_idle_sheet_2
+      213: 7757785995743797482
+    second: kuro_attack_sheet_2
   - first:
-      213: -8295842879592139892
-    second: siro_idle_sheet_3
+      213: 1014160973130176767
+    second: kuro_attack_sheet_3
   - first:
-      213: -8060244548506270463
-    second: siro_idle_sheet_4
+      213: -5954674009445976671
+    second: kuro_attack_sheet_4
   - first:
-      213: -8758886284561887789
-    second: siro_idle_sheet_5
+      213: 2918469018954883723
+    second: kuro_attack_sheet_5
   - first:
-      213: 4626970940191091297
-    second: siro_idle_sheet_6
+      213: -1449881731105809775
+    second: kuro_attack_sheet_6
   - first:
-      213: 5407960260887357597
-    second: siro_idle_sheet_7
+      213: 5566553927538794771
+    second: kuro_attack_sheet_7
   - first:
-      213: 7004513132884402252
-    second: siro_idle_sheet_8
+      213: 9211931335387112512
+    second: kuro_attack_sheet_8
   - first:
-      213: 1646781121422154192
-    second: siro_idle_sheet_9
+      213: 3863629501793041437
+    second: kuro_attack_sheet_9
   - first:
-      213: -4910174422521146302
-    second: siro_idle_sheet_10
+      213: 5372771152851155316
+    second: kuro_attack_sheet_10
   - first:
-      213: -3380892078688276083
-    second: siro_idle_sheet_11
-  - first:
-      213: -5218131167377879010
-    second: siro_idle_sheet_12
-  - first:
-      213: 8876275767847767044
-    second: siro_idle_sheet_13
-  - first:
-      213: 378104722047050745
-    second: siro_idle_sheet_14
-  - first:
-      213: -4613593757166388629
-    second: siro_idle_sheet_15
+      213: -6336304803655506075
+    second: kuro_attack_sheet_11
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -139,337 +127,253 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: siro_idle_sheet_0
+      name: kuro_attack_sheet_0
       rect:
         serializedVersion: 2
         x: 0
         y: 128
-        width: 64
+        width: 96
         height: 64
       alignment: 9
-      pivot: {x: 0.49, y: 0}
+      pivot: {x: 0.33, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 48189357df91a6610800000000000000
-      internalID: 1615131992749867396
+      spriteID: a3d7ae6743e23d500800000000000000
+      internalID: 419729993143844154
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_sheet_1
+      name: kuro_attack_sheet_1
       rect:
         serializedVersion: 2
-        x: 64
+        x: 96
         y: 128
-        width: 64
+        width: 96
         height: 64
       alignment: 9
-      pivot: {x: 0.49, y: 0}
+      pivot: {x: 0.33, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d7d88c4eeb58c85a0800000000000000
-      internalID: -6517687505783321219
+      spriteID: d8eae2faca74f5dd0800000000000000
+      internalID: -2495196861540946291
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_sheet_2
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 128
-        width: 64
-        height: 64
-      alignment: 9
-      pivot: {x: 0.49, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 06a05011c4aff9410800000000000000
-      internalID: 1486181606665554528
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: siro_idle_sheet_3
+      name: kuro_attack_sheet_2
       rect:
         serializedVersion: 2
         x: 192
         y: 128
-        width: 64
+        width: 96
         height: 64
       alignment: 9
-      pivot: {x: 0.49, y: 0}
+      pivot: {x: 0.33, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c83f471bade3fdc80800000000000000
-      internalID: -8295842879592139892
+      spriteID: ae02fc7b24139ab60800000000000000
+      internalID: 7757785995743797482
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_sheet_4
+      name: kuro_attack_sheet_3
       rect:
         serializedVersion: 2
-        x: 256
+        x: 288
         y: 128
-        width: 64
+        width: 96
         height: 64
       alignment: 9
-      pivot: {x: 0.49, y: 0}
+      pivot: {x: 0.33, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1054183c942442090800000000000000
-      internalID: -8060244548506270463
+      spriteID: ff81d742806031e00800000000000000
+      internalID: 1014160973130176767
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_sheet_5
-      rect:
-        serializedVersion: 2
-        x: 320
-        y: 128
-        width: 64
-        height: 64
-      alignment: 9
-      pivot: {x: 0.49, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3ddc5aca45f227680800000000000000
-      internalID: -8758886284561887789
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: siro_idle_sheet_6
+      name: kuro_attack_sheet_4
       rect:
         serializedVersion: 2
         x: 0
         y: 64
-        width: 64
+        width: 96
         height: 64
       alignment: 9
-      pivot: {x: 0.49, y: 0}
+      pivot: {x: 0.33, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 16a252c2e8d463040800000000000000
-      internalID: 4626970940191091297
+      spriteID: 1a5b8b1a98fbc5da0800000000000000
+      internalID: -5954674009445976671
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_sheet_7
+      name: kuro_attack_sheet_5
       rect:
         serializedVersion: 2
-        x: 64
+        x: 96
         y: 64
-        width: 64
+        width: 96
         height: 64
       alignment: 9
-      pivot: {x: 0.49, y: 0}
+      pivot: {x: 0.33, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d98ae95643fec0b40800000000000000
-      internalID: 5407960260887357597
+      spriteID: b82e9ca2c1c708820800000000000000
+      internalID: 2918469018954883723
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_sheet_8
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 64
-        width: 64
-        height: 64
-      alignment: 9
-      pivot: {x: 0.49, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c4022263597053160800000000000000
-      internalID: 7004513132884402252
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: siro_idle_sheet_9
+      name: kuro_attack_sheet_6
       rect:
         serializedVersion: 2
         x: 192
         y: 64
-        width: 64
+        width: 96
         height: 64
       alignment: 9
-      pivot: {x: 0.49, y: 0}
+      pivot: {x: 0.33, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0d9df2574ba8ad610800000000000000
-      internalID: 1646781121422154192
+      spriteID: 19a1c135f3cf0ebe0800000000000000
+      internalID: -1449881731105809775
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_sheet_10
+      name: kuro_attack_sheet_7
       rect:
         serializedVersion: 2
-        x: 256
+        x: 288
         y: 64
-        width: 64
+        width: 96
         height: 64
       alignment: 9
-      pivot: {x: 0.49, y: 0}
+      pivot: {x: 0.33, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2441b60c06e8bdbb0800000000000000
-      internalID: -4910174422521146302
+      spriteID: 3116102ed4f504d40800000000000000
+      internalID: 5566553927538794771
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_sheet_11
-      rect:
-        serializedVersion: 2
-        x: 320
-        y: 64
-        width: 64
-        height: 64
-      alignment: 9
-      pivot: {x: 0.49, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d817ad13198a411d0800000000000000
-      internalID: -3380892078688276083
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: siro_idle_sheet_12
+      name: kuro_attack_sheet_8
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 64
+        width: 96
         height: 64
       alignment: 9
-      pivot: {x: 0.49, y: 0}
+      pivot: {x: 0.33, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e101c01a9597597b0800000000000000
-      internalID: -5218131167377879010
+      spriteID: 044e90d1eba57df70800000000000000
+      internalID: 9211931335387112512
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_sheet_13
+      name: kuro_attack_sheet_9
       rect:
         serializedVersion: 2
-        x: 64
+        x: 96
         y: 0
-        width: 64
+        width: 96
         height: 64
       alignment: 9
-      pivot: {x: 0.49, y: 0}
+      pivot: {x: 0.33, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 40c49f648cdde2b70800000000000000
-      internalID: 8876275767847767044
+      spriteID: d1cf71ebf8e5e9530800000000000000
+      internalID: 3863629501793041437
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: siro_idle_sheet_14
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 0
-        width: 64
-        height: 64
-      alignment: 9
-      pivot: {x: 0.49, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9f3238dcd3c4f3500800000000000000
-      internalID: 378104722047050745
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: siro_idle_sheet_15
+      name: kuro_attack_sheet_10
       rect:
         serializedVersion: 2
         x: 192
         y: 0
-        width: 64
+        width: 96
         height: 64
       alignment: 9
-      pivot: {x: 0.49, y: 0}
+      pivot: {x: 0.33, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b6a3326fbe839ffb0800000000000000
-      internalID: -4613593757166388629
+      spriteID: 479b829b5eaef8a40800000000000000
+      internalID: 5372771152851155316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kuro_attack_sheet_11
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 0
+        width: 96
+        height: 64
+      alignment: 9
+      pivot: {x: 0.33, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 567238d2a5ce018a0800000000000000
+      internalID: -6336304803655506075
       vertices: []
       indices: 
       edges: []

@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: EnemyDissolve
+  m_Name: Dissolve
   m_Shader: {fileID: -6465566751694194690, guid: 80e812a126d886f4bb03e8e91a9ccc5f, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -101,7 +101,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _EnvironmentReflections: 1
-    - _Fade: 0.503
+    - _Fade: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
@@ -120,7 +120,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 2436.8022, g: 24.116322, b: 0, a: 1}
+    - _Color: {r: 3253.322, g: 3253.322, b: 3253.322, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []

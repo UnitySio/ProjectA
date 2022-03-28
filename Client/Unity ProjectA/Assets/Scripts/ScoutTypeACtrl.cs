@@ -27,7 +27,16 @@ public class ScoutTypeACtrl : Entity
         states[2] = new Attack(this);
         states[3] = new Death(this);
 
-        Setup(0, "Scout Type A", 25, 1000000000, 30, 5, 100, 20, 15, 4);
+        // Setup(0, "Scout Type A", 25, 999999999, 6140000, 5, 100, 20, 15, 0.2f);
+        attribute.no = 0;
+        attribute.name = "Scout Type A";
+        attribute.level = 25;
+        attribute.hP = 999999999;
+        attribute.attack = 6140000;
+        attribute.defense = 100;
+        attribute.dodge = 20;
+        attribute.hit = 15;
+        attribute.interval = 0.2f;
     }
 
     protected override void Start()
@@ -53,6 +62,7 @@ public class ScoutTypeACtrl : Entity
 
     public override void Death()
     {
+        base.Death();
         BattleManager.Instance.enemy.Remove(this);
         ChangeState(states[3]);
     }
@@ -65,11 +75,5 @@ public class ScoutTypeACtrl : Entity
     public override void Defeat()
     {
 
-    }
-
-    public IEnumerator Attack()
-    {
-        yield return new WaitForSeconds(interval);
-        ChangeState(states[2]);
     }
 }

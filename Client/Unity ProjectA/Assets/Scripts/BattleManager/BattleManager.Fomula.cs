@@ -43,16 +43,16 @@ public partial class BattleManager : MonoBehaviour
     }
 
     // 최좋 데미지(공격자 공격력, 공격자 공격력 배율, 방어자 방어력, 공격자 공격력 보정, 공격자 레벨, 방어자 레벨)
-    public int FinalDamage(int attack, int attackRate, int defense, int attackCorrection, int level, int defenderLevel)
+    public int FinalDamage(Entity attacker, int attackRate, Entity defender)
     {
-        float result = (Damage(attack, attackRate, defense) + DamageCorrection(attack, attackRate, attackCorrection)) * LevelWeight(level, defenderLevel);
+        float result = (Damage(attacker.attribute.attack, attackRate, defender.attribute.defense) + DamageCorrection(attacker.attribute.attack, attackRate, attacker.attribute.attackCorrection)) * LevelWeight(attacker.attribute.level, defender.attribute.level);
         return (int)Mathf.Round(result);
     }
 
     // 적중률(방어자 회피, 공격자 적중)
-    public int HitRate(int dodge, int hit)
+    public int HitRate(Entity attacker, Entity defender)
     {
-        float result = ((float)hitDifference / (hitDifference + Mathf.Clamp(dodge - hit, 0, dodge - hit))) * 100;
+        float result = ((float)hitDifference / (hitDifference + Mathf.Clamp(defender.attribute.dodge - attacker.attribute.hit, 0, defender.attribute.dodge - attacker.attribute.hit))) * 100;
         return (int)result;
     }
 }

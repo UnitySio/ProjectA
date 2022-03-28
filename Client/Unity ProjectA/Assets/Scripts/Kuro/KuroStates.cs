@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ScoutTypeAStates
+namespace KuroStates
 {
     public class Create : State
     {
-        private ScoutTypeACtrl owner;
+        private KuroCtrl owner;
 
-        public Create(ScoutTypeACtrl stateMachine)
+        public Create(KuroCtrl stateMachine)
         {
             owner = stateMachine;
         }
@@ -16,7 +16,7 @@ namespace ScoutTypeAStates
         public override void Enter()
         {
             owner.material = owner.GetComponent<SpriteRenderer>().material;
-            owner.material.color = new Color(191, 2, 0);
+            owner.material.color = new Color(0, 23, 191);
         }
 
         public override void Update()
@@ -40,9 +40,9 @@ namespace ScoutTypeAStates
 
     public class Idle : State
     {
-        private ScoutTypeACtrl owner;
+        private KuroCtrl owner;
 
-        public Idle(ScoutTypeACtrl stateMachine)
+        public Idle(KuroCtrl stateMachine)
         {
             owner = stateMachine;
         }
@@ -50,7 +50,7 @@ namespace ScoutTypeAStates
         public override void Enter()
         {
             owner.anim.Animate(0, true);
-            if (BattleManager.Instance.friendly.Count != 0)
+            if (BattleManager.Instance.enemy.Count != 0)
                 owner.coroutine = owner.StartCoroutine(owner.Attack(owner.states[2]));
         }
 
@@ -67,10 +67,10 @@ namespace ScoutTypeAStates
 
     public class Attack : State
     {
-        private ScoutTypeACtrl owner;
+        private KuroCtrl owner;
         private int hitRate;
 
-        public Attack(ScoutTypeACtrl stateMachine)
+        public Attack(KuroCtrl stateMachine)
         {
             owner = stateMachine;
         }
@@ -83,15 +83,15 @@ namespace ScoutTypeAStates
 
         public override void Update()
         {
-            if ((owner.anim.currentFrame == 10 || owner.anim.currentFrame == 11 || owner.anim.currentFrame == 12 || owner.anim.currentFrame == 13) && owner.anim.isExecute == false)
+            if (owner.anim.currentFrame == 4 && owner.anim.isExecute == false)
             {
                 owner.anim.isExecute = true;
-                if (BattleManager.Instance.friendly.Count != 0)
+                if (BattleManager.Instance.enemy.Count != 0)
                 {
-                    Entity target = BattleManager.Instance.friendly[0];
+                    Entity target = BattleManager.Instance.enemy[0];
                     if (BattleManager.Instance.HitRate(owner, target) > hitRate)
-                        owner.StartCoroutine(target.HitTimes(2, BattleManager.Instance.FinalDamage(owner, 1, target)));
-                    else owner.StartCoroutine(target.HitTimes(2, 0));
+                        owner.StartCoroutine(target.HitTimes(5, BattleManager.Instance.FinalDamage(owner, 1, target)));
+                    else owner.StartCoroutine(target.HitTimes(5, 0));
                 }
             }
 
@@ -105,11 +105,11 @@ namespace ScoutTypeAStates
         }
     }
 
-    public class Death : State
+    public class Hit : State
     {
-        private ScoutTypeACtrl owner;
+        private KuroCtrl owner;
 
-        public Death(ScoutTypeACtrl stateMachine)
+        public Hit(KuroCtrl stateMachine)
         {
             owner = stateMachine;
         }
@@ -117,6 +117,32 @@ namespace ScoutTypeAStates
         public override void Enter()
         {
             owner.anim.Animate(2, true);
+        }
+
+        public override void Update()
+        {
+            if (owner.anim.IsPlay == false)
+                owner.ChangeState(owner.states[1]);
+        }
+
+        public override void Exit()
+        {
+
+        }
+    }
+
+    public class Death : State
+    {
+        private KuroCtrl owner;
+
+        public Death(KuroCtrl stateMachine)
+        {
+            owner = stateMachine;
+        }
+
+        public override void Enter()
+        {
+            owner.anim.Animate(3, true);
 
             if (owner.coroutine != null)
                 owner.StopCoroutine(owner.coroutine);
@@ -135,6 +161,34 @@ namespace ScoutTypeAStates
 
                 owner.material.SetFloat("_Fade", owner.fade);
             }
+        }
+
+        public override void Exit()
+        {
+
+        }
+    }
+
+    public class Victory : State
+    {
+        private KuroCtrl owner;
+
+        public Victory(KuroCtrl stateMachine)
+        {
+            owner = stateMachine;
+        }
+
+        public override void Enter()
+        {
+            owner.anim.Animate(4, true);
+
+            if (owner.coroutine != null)
+                owner.StopCoroutine(owner.coroutine);
+        }
+
+        public override void Update()
+        {
+
         }
 
         public override void Exit()
