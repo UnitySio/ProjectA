@@ -101,6 +101,7 @@
     <Compile Include="Assets\AVProVideo\Scripts\Internal\Interfaces.cs" />
     <Compile Include="Assets\AVProVideo\Scripts\Internal\Resampler.cs" />
     <Compile Include="Assets\AVProVideo\Scripts\Internal\AndroidMediaPlayer.cs" />
+    <Compile Include="Assets\Scripts\EntityAttribute.cs" />
     <Compile Include="Assets\Scripts\HttpAPI\DBContexts\PlayerInfo.cs" />
     <Compile Include="Assets\Scripts\HttpAPI\APIManager.cs" />
     <Compile Include="Assets\Scripts\AnimClipInfo.cs" />
@@ -115,7 +116,8 @@
     <Compile Include="Assets\AVProVideo\Scripts\Components\Support\PlayMaker\Actions\Internal\AVProVideoActionBase.cs" />
     <Compile Include="Assets\Scripts\State.cs" />
     <Compile Include="Assets\AVProVideo\Scripts\Components\Support\PlayMaker\Actions\AVProVideoEvent.cs" />
-    <Compile Include="Assets\Scripts\EntityAttribute.cs" />
+    <Compile Include="Assets\Scripts\ObjectPoolManager.cs" />
+    <Compile Include="Assets\Scripts\Poolable.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

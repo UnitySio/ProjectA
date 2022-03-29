@@ -91,7 +91,8 @@ namespace KuroStates
                     Entity target = BattleManager.Instance.enemy[0];
                     if (BattleManager.Instance.HitRate(owner, target) > hitRate)
                         owner.StartCoroutine(target.HitTimes(5, BattleManager.Instance.FinalDamage(owner, 1, target)));
-                    else owner.StartCoroutine(target.HitTimes(5, 0));
+                    else
+                        owner.StartCoroutine(target.HitTimes(5, 0));
                 }
             }
 
@@ -155,9 +156,7 @@ namespace KuroStates
                 owner.fade -= Time.deltaTime;
 
                 if (owner.fade <= 0f)
-                {
                     owner.fade = 0;
-                }
 
                 owner.material.SetFloat("_Fade", owner.fade);
             }

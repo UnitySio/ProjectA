@@ -91,7 +91,8 @@ namespace ScoutTypeAStates
                     Entity target = BattleManager.Instance.friendly[0];
                     if (BattleManager.Instance.HitRate(owner, target) > hitRate)
                         owner.StartCoroutine(target.HitTimes(2, BattleManager.Instance.FinalDamage(owner, 1, target)));
-                    else owner.StartCoroutine(target.HitTimes(2, 0));
+                    else
+                        owner.StartCoroutine(target.HitTimes(2, 0));
                 }
             }
 
@@ -129,9 +130,7 @@ namespace ScoutTypeAStates
                 owner.fade -= Time.deltaTime;
 
                 if (owner.fade <= 0f)
-                {
                     owner.fade = 0;
-                }
 
                 owner.material.SetFloat("_Fade", owner.fade);
             }

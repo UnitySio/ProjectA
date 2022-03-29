@@ -30,7 +30,8 @@ public partial class BattleManager : MonoBehaviour
             instance = this;
             // DontDestroyOnLoad(gameObject);
         }
-        else if (instance != this) Destroy(gameObject);
+        else if (instance != this)
+            Destroy(gameObject);
     }
 
     private void Update()

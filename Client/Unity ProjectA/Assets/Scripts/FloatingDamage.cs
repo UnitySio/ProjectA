@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class FloatingDamage : MonoBehaviour
+public class FloatingDamage : Poolable
 {
     private TextMeshPro text;
     public float moveSpeed;
@@ -17,16 +17,21 @@ public class FloatingDamage : MonoBehaviour
         alpha = text.color;
     }
 
-    private void Start()
-    {
-        Invoke("Destroy", destroyTime);
-    }
-
     private void Update()
     {
         transform.Translate(new Vector3(0, moveSpeed * Time.deltaTime, 0));
         alpha.a = Mathf.Lerp(alpha.a, 0, alphaSpeed * Time.deltaTime);
         text.color = alpha;
+    }
+
+    private void OnEnable()
+    {
+        Invoke("Destroy", destroyTime);
+    }
+
+    private void OnDisable()
+    {
+        alpha.a = 255;
     }
 
     public void Setup(string damage)
@@ -36,6 +41,6 @@ public class FloatingDamage : MonoBehaviour
 
     public void Destroy()
     {
-        Destroy(gameObject);
+        Push();
     }
 }

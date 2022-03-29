@@ -4,8 +4,32 @@ using System;
 
 public abstract class Entity : StateMachine
 {
-    public GameObject hPBarGroup;
     public EntityAttribute attribute;
+
+    [HideInInspector]
+    public SpriteAnimator anim;
+
+    [HideInInspector]
+    public Material material;
+
+    [HideInInspector]
+    public float fade;
+
+    private GameObject hPBarGroup;
+
+    public Coroutine coroutine;
+
+    protected virtual void Awake()
+    {
+        anim = GetComponent<SpriteAnimator>();
+        hPBarGroup = gameObject.transform.GetChild(0).gameObject;
+    }
+
+    protected override void Start()
+    {
+        base.Start();
+        hPBarGroup.SetActive(false);
+    }
 
     public void Setup(EntityAttribute attri)
     {
@@ -35,6 +59,10 @@ public abstract class Entity : StateMachine
     public virtual void Death()
     {
         hPBarGroup.SetActive(false);
+        if (gameObject.CompareTag("Friendly"))
+            BattleManager.Instance.friendly.Remove(this);
+        else if (gameObject.CompareTag("Enemy"))
+            BattleManager.Instance.enemy.Remove(this);
     }
 
     public abstract void Victory();
@@ -43,20 +71,21 @@ public abstract class Entity : StateMachine
     public void SetHPBar()
     {
         hPBarGroup.SetActive(true);
-        hPBarGroup.transform.localPosition = SetLocalPosition(hPBarGroup.transform);
+        hPBarGroup.transform.localPosition = SetLocalPosition();
         hPBarGroup.GetComponent<HPBar>().Setup(attribute.hP);
     }
 
     public void FloatingDamage(string damage)
     {
-        GameObject floatingDamage = Instantiate(BattleManager.Instance.floatingDamage, transform.position, transform.rotation, transform);
-        floatingDamage.transform.localPosition = SetLocalPosition(floatingDamage.transform);
+        GameObject floatingDamage = ObjectPoolManager.Instance.Pop("Floating Damage", this);
+        floatingDamage.transform.localPosition = SetLocalPosition();
+        floatingDamage.transform.localRotation = Quaternion.identity;
         floatingDamage.GetComponent<FloatingDamage>().Setup(damage);
     }
 
-    public Vector3 SetLocalPosition(Transform pos)
+    public Vector3 SetLocalPosition()
     {
-        return new Vector3(pos.localPosition.x, pos.localPosition.y + GetComponent<SpriteRenderer>().bounds.size.y, pos.localPosition.z);
+        return new Vector3(0, GetComponent<SpriteRenderer>().bounds.size.y, 0);
     }
 
     public IEnumerator Attack(State state)
@@ -67,15 +96,15 @@ public abstract class Entity : StateMachine
 
     public IEnumerator HitTimes(int hitTimes, int damage)
     {
-        if (hitTimes == 0 || hitTimes == 1)
-            Hurt(damage);
+        if (hitTimes == 0 || hitTimes == 1) Hurt(damage);
         else
         {
             for (int i = 0; i < hitTimes; i++)
             {
                 if (attribute.hP > 0)
                     Hurt(damage);
-                else hitTimes = 0;
+                else
+                    hitTimes = 0;
 
                 yield return new WaitForSeconds(0.2f);
             }

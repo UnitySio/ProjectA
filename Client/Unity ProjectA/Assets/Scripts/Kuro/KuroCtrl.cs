@@ -7,22 +7,11 @@ using System.Threading;
 [RequireComponent(typeof(SpriteAnimator))]
 public partial class KuroCtrl : Entity
 {
-    [HideInInspector]
-    public SpriteAnimator anim;
-
-    [HideInInspector]
-    public Material material;
-    [Range(0f, 1f)]
-    public float fade;
-
     public State[] states = new State[6];
 
-    public Coroutine coroutine;
-
-    private void Awake()
+    protected override void Awake()
     {
-        anim = GetComponent<SpriteAnimator>();
-
+        base.Awake();
         states[0] = new Create(this);
         states[1] = new Idle(this);
         states[2] = new Attack(this);
@@ -30,7 +19,6 @@ public partial class KuroCtrl : Entity
         states[4] = new Death(this);
         states[5] = new Victory(this);
 
-        // Setup(0, "Kuro", 30, 999999999, 245600, 5, 100, 35, 25, 1f);
         attribute.no = 0;
         attribute.name = "Kuro";
         attribute.level = 30;
@@ -70,7 +58,6 @@ public partial class KuroCtrl : Entity
     public override void Death()
     {
         base.Death();
-        BattleManager.Instance.friendly.Remove(this);
         ChangeState(states[4]);
     }
 
