@@ -49,7 +49,6 @@ public partial class KuroCtrl : Entity
 
     public override void Hit(int damage)
     {
-        base.Hit(damage);
         if (damage > 0)
             if (currentState != states[3])
                 ChangeState(states[3]);

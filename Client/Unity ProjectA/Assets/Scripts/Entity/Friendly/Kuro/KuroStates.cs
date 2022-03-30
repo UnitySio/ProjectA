@@ -15,8 +15,7 @@ namespace KuroStates
 
         public override void Enter()
         {
-            owner.material = owner.GetComponent<SpriteRenderer>().material;
-            owner.material.color = new Color(0, 23, 191);
+            owner.material.color = new Color(0, 23, 191) * Mathf.Pow(2, 5f);
         }
 
         public override void Update()

@@ -483,7 +483,11 @@ TextureImporter:
     indices: 
     edges: []
     weights: []
-    secondaryTextures: []
+    secondaryTextures:
+    - texture: {fileID: 2800000, guid: c6aedddbced9d6443b14d809985b7ace, type: 3}
+      name: _NormalMap
+    - texture: {fileID: 2800000, guid: 4f02e4d83b0619148b8f3f6d54a76a51, type: 3}
+      name: _EdgeTex
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

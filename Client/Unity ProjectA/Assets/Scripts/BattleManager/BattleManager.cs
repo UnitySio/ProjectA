@@ -20,9 +20,6 @@ public partial class BattleManager : MonoBehaviour
     public List<Entity> friendly = new List<Entity>();
     public List<Entity> enemy = new List<Entity>();
 
-    public GameObject floatingDamage;
-    public GameObject hPBar;
-
     private void Awake()
     {
         if (instance == null)

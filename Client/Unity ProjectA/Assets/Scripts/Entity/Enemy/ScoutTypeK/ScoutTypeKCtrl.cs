@@ -44,7 +44,6 @@ public class ScoutTypeKCtrl : Entity
 
     public override void Hit(int damage)
     {
-        base.Hit(damage);
         // ChangeState(states[3]);
     }
 

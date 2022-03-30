@@ -22,6 +22,7 @@ public abstract class Entity : StateMachine
     protected virtual void Awake()
     {
         anim = GetComponent<SpriteAnimator>();
+        material = GetComponent<SpriteRenderer>().material;
         hPBarGroup = gameObject.transform.GetChild(0).gameObject;
     }
 
@@ -41,19 +42,18 @@ public abstract class Entity : StateMachine
         attribute.hP -= damage;
         hPBarGroup.GetComponent<HPBar>().HP -= damage;
 
+        if (damage > 0)
+            FloatingDamage(damage.ToString());
+        else
+            FloatingDamage("MISS!");
+
         if (attribute.hP > 0)
             Hit(damage);
         else
             Death();
     }
 
-    public virtual void Hit(int damage)
-    {
-        if (damage > 0)
-            FloatingDamage(damage.ToString());
-        else
-            FloatingDamage("MISS!");
-    }
+    public abstract void Hit(int damage);
 
 
     public virtual void Death()

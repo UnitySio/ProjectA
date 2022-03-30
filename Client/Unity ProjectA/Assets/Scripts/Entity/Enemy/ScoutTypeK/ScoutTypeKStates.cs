@@ -15,8 +15,7 @@ namespace ScoutTypeKStates
 
         public override void Enter()
         {
-            owner.material = owner.GetComponent<SpriteRenderer>().material;
-            owner.material.color = new Color(191, 2, 0);
+            owner.material.color = new Color(191, 2, 0) * Mathf.Pow(2, 5f);
         }
 
         public override void Update()
@@ -34,6 +33,7 @@ namespace ScoutTypeKStates
 
         public override void Exit()
         {
+            owner.material.SetColor("_EmissionColor", Color.white * Mathf.Pow(2, 10f));
             owner.SetHPBar();
         }
     }
@@ -117,6 +117,7 @@ namespace ScoutTypeKStates
 
         public override void Enter()
         {
+            owner.material.SetColor("_EmissionColor", Color.black);
             owner.anim.Animate(2, true);
 
             if (owner.coroutine != null)
