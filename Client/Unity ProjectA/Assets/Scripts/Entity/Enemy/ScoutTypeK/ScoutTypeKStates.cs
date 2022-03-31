@@ -106,6 +106,32 @@ namespace ScoutTypeKStates
         }
     }
 
+    public class Hit : State
+    {
+        private ScoutTypeKCtrl owner;
+
+        public Hit(ScoutTypeKCtrl stateMachine)
+        {
+            owner = stateMachine;
+        }
+
+        public override void Enter()
+        {
+            owner.anim.Animate(2, true);
+        }
+
+        public override void Update()
+        {
+            if (owner.anim.IsPlay == false)
+                owner.ChangeState(owner.states[1]);
+        }
+
+        public override void Exit()
+        {
+
+        }
+    }
+
     public class Death : State
     {
         private ScoutTypeKCtrl owner;
@@ -118,7 +144,7 @@ namespace ScoutTypeKStates
         public override void Enter()
         {
             owner.material.SetColor("_EmissionColor", Color.black);
-            owner.anim.Animate(2, true);
+            owner.anim.Animate(3, true);
 
             if (owner.coroutine != null)
                 owner.StopCoroutine(owner.coroutine);

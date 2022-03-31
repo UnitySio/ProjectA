@@ -47,13 +47,11 @@ public abstract class Entity : StateMachine
         else
             FloatingDamage("MISS!");
 
-        if (attribute.hP > 0)
-            Hit(damage);
-        else
+        if (attribute.hP <= 0)
             Death();
     }
 
-    public abstract void Hit(int damage);
+    public abstract void Hit();
 
 
     public virtual void Death()
@@ -64,6 +62,8 @@ public abstract class Entity : StateMachine
         else if (gameObject.CompareTag("Enemy"))
             BattleManager.Instance.enemy.Remove(this);
     }
+
+    public abstract void PlayHitSFX();
 
     public abstract void Victory();
     public abstract void Defeat();
@@ -96,7 +96,11 @@ public abstract class Entity : StateMachine
 
     public IEnumerator HitTimes(int hitTimes, int damage)
     {
-        if (hitTimes == 0 || hitTimes == 1) Hurt(damage);
+        Hit();
+        PlayHitSFX();
+
+        if (hitTimes == 0 || hitTimes == 1)
+            Hurt(damage);
         else
         {
             for (int i = 0; i < hitTimes; i++)

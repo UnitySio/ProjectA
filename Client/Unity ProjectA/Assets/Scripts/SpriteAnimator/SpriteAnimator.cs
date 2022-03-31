@@ -60,8 +60,8 @@ public class SpriteAnimator : MonoBehaviour
         {
             spriteRenderer.sprite = animationClips[CurrentClip].animationClip[currentFrame].sprite;
 
-            if (animationClips[CurrentClip].animationClip[currentFrame].audioClip != null)
-                audioSource.Play();
+            if (animationClips[CurrentClip].animationClip[currentFrame].sFXKey != "")
+                SoundManager.Instance.SFXPlay(animationClips[CurrentClip].animationClip[currentFrame].sFXKey);
 
             if (!loop && currentFrame == animationClips[CurrentClip].animationClip.Count - 1)
             {
@@ -75,9 +75,6 @@ public class SpriteAnimator : MonoBehaviour
             yield return new WaitForSeconds(1 / frameRate);
 
             currentFrame = (currentFrame + 1) % animationClips[CurrentClip].animationClip.Count;
-
-            if (animationClips[CurrentClip].animationClip[currentFrame].audioClip != null)
-                audioSource.clip = animationClips[CurrentClip].animationClip[currentFrame].audioClip;
 
             isExecute = false;
         }

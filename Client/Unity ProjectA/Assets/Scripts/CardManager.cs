@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class CardManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private static CardManager instance;
+    public static CardManager Instance
     {
-        
+        get
+        {
+            if (instance == null) return null;
+            return instance;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
+        if (instance == null)
+        {
+            instance = this;
+            // DontDestroyOnLoad(gameObject);
+        }
+        else if (instance != this)
+            Destroy(instance);
     }
 }

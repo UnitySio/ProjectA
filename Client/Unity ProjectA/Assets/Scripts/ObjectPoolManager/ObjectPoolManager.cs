@@ -64,6 +64,8 @@ public class ObjectPoolManager : MonoBehaviour
     {
         poolable.gameObject.SetActive(false);
         poolable.transform.SetParent(transform);
+        poolable.transform.localPosition = Vector3.zero;
+        poolable.transform.localRotation = Quaternion.identity;
         poolDictionary[key].Push(poolable);
     }
 }

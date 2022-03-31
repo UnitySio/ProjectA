@@ -119,6 +119,8 @@
     <Compile Include="Assets\AVProVideo\Scripts\Components\SubtitlesUGUI.cs" />
     <Compile Include="Assets\Scripts\SpriteAnimator\AnimClip.cs" />
     <Compile Include="Assets\AVProVideo\Scripts\Internal\NullMediaPlayer.cs" />
+    <Compile Include="Assets\Scripts\SoundManager.cs" />
+    <Compile Include="Assets\Scripts\SFX.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

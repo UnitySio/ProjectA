@@ -19,15 +19,16 @@ public partial class KuroCtrl : Entity
         states[4] = new Death(this);
         states[5] = new Victory(this);
 
-        attribute.no = 0;
+        attribute.uID = 0;
         attribute.name = "Kuro";
         attribute.level = 30;
         attribute.hP = 999999999;
         attribute.attack = 6140000;
+        attribute.attackCorrection = 1;
         attribute.defense = 100;
         attribute.dodge = 35;
         attribute.hit = 25;
-        attribute.interval = 1f;
+        attribute.interval = 2f;
     }
 
     protected override void Start()
@@ -47,9 +48,9 @@ public partial class KuroCtrl : Entity
         return states[0];
     }
 
-    public override void Hit(int damage)
+    public override void Hit()
     {
-        if (damage > 0)
+        if (currentState != states[2])
             if (currentState != states[3])
                 ChangeState(states[3]);
     }
@@ -58,6 +59,11 @@ public partial class KuroCtrl : Entity
     {
         base.Death();
         ChangeState(states[4]);
+    }
+
+    public override void PlayHitSFX()
+    {
+
     }
 
     public override void Victory()

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class AnimClip
+public class SFX
 {
-    public Sprite sprite;
-    public string sFXKey;
+    public string key;
+    public AudioClip audioClip;
 }

@@ -6,7 +6,7 @@ using ScoutTypeKStates;
 [RequireComponent(typeof(SpriteAnimator))]
 public class ScoutTypeKCtrl : Entity
 {
-    public State[] states = new State[4];
+    public State[] states = new State[5];
 
     protected override void Awake()
     {
@@ -14,13 +14,15 @@ public class ScoutTypeKCtrl : Entity
         states[0] = new Create(this);
         states[1] = new Idle(this);
         states[2] = new Attack(this);
-        states[3] = new Death(this);
+        states[3] = new Hit(this);
+        states[4] = new Death(this);
 
-        attribute.no = 0;
+        attribute.uID = 0;
         attribute.name = "Scout Type K";
         attribute.level = 25;
         attribute.hP = 999999999;
         attribute.attack = 6140000;
+        attribute.attackCorrection = 1;
         attribute.defense = 100;
         attribute.dodge = 20;
         attribute.hit = 15;
@@ -42,15 +44,23 @@ public class ScoutTypeKCtrl : Entity
         return states[0];
     }
 
-    public override void Hit(int damage)
+    public override void Hit()
     {
-        // ChangeState(states[3]);
+        if (currentState != states[2])
+            if (currentState != states[3])
+                ChangeState(states[3]);
     }
 
     public override void Death()
     {
         base.Death();
-        ChangeState(states[3]);
+        ChangeState(states[4]);
+    }
+
+
+    public override void PlayHitSFX()
+    {
+        SoundManager.Instance.SFXPlay("Drone Hit");
     }
 
     public override void Victory()
