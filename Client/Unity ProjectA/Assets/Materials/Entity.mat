@@ -102,6 +102,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - NormalStrength: 0
     - RimLightPower: 2
     - _AlphaClip: 0
     - _Blend: 0
@@ -115,6 +116,7 @@ Material:
     - _DstBlend: 0
     - _EnvironmentReflections: 1
     - _Fade: 1
+    - _Float: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
@@ -132,7 +134,7 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - RimLightColor: {r: 970.3873, g: 10.722512, b: 0, a: 0}
+    - RimLightColor: {r: 970.3873, g: 10.722512, b: 0, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 3253.322, g: 3253.322, b: 3253.322, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
