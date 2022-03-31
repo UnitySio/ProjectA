@@ -72,6 +72,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -490,6 +491,23 @@ TextureImporter:
       name: _NormalMap
     - texture: {fileID: 2800000, guid: 2a1a4ac0d992b1f4fa462a09e311f877, type: 3}
       name: _EdgeTex
+    nameFileIdTable:
+      scout_typek_attack_sheet_10: -6918745286005531887
+      scout_typek_attack_sheet_3: -5267843145701049052
+      scout_typek_attack_sheet_9: 3646290552720721762
+      scout_typek_attack_sheet_12: 1478775756363441691
+      scout_typek_attack_sheet_6: -5224275307900571046
+      scout_typek_attack_sheet_7: -3792929802160765313
+      scout_typek_attack_sheet_4: 5883510944875339603
+      scout_typek_attack_sheet_1: -2198623165650033755
+      scout_typek_attack_sheet_15: -3723534069710992308
+      scout_typek_attack_sheet_5: -173092966386520230
+      scout_typek_attack_sheet_14: 4056460405156616670
+      scout_typek_attack_sheet_2: -9028193757545249654
+      scout_typek_attack_sheet_0: -1807391444600938858
+      scout_typek_attack_sheet_11: -5803377196464164769
+      scout_typek_attack_sheet_13: -4123777921981526121
+      scout_typek_attack_sheet_8: -1592274934042088640
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

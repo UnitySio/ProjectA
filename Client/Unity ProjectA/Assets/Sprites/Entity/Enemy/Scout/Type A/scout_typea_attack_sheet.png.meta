@@ -48,6 +48,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -292,6 +293,15 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      scout_typea_attack_sheet_3: -1592456568116965344
+      scout_typea_attack_sheet_0: -7161146688504501280
+      scout_typea_attack_sheet_4: -7610127535167066360
+      scout_typea_attack_sheet_6: 4477262430673774388
+      scout_typea_attack_sheet_1: -227202451807748661
+      scout_typea_attack_sheet_2: 6263777266691701949
+      scout_typea_attack_sheet_5: 8378749668325700447
+      scout_typea_attack_sheet_7: 4591389109814709107
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -42,6 +42,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -244,6 +245,13 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      scout_typea_idle_sheet_3: 4111001407665117966
+      scout_typea_idle_sheet_5: -6093466109411289744
+      scout_typea_idle_sheet_1: -5371861605847322638
+      scout_typea_idle_sheet_0: -2503439248124124366
+      scout_typea_idle_sheet_4: 9055719389907496396
+      scout_typea_idle_sheet_2: -7788770524616158416
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
