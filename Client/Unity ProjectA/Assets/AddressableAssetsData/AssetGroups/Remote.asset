@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Remote
+  m_EditorClassIdentifier: 
+  m_GroupName: Remote
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 4f562331edbc7414ab075facceeeb477
+  m_SerializeEntries:
+  - m_GUID: f89dd27708153ef4e8aa23c40658cab8
+    m_Address: Kuro
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Entity
+  - m_GUID: b905f752977e88343b4051aea6412326
+    m_Address: Scout Type A
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Entity
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 8ffeaa1dca798744da341fe2c608c7a7, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: b1b7b30f0791003458f4c4e41b5b4b22, type: 2}
+    - {fileID: 11400000, guid: 46d22dae6f183bf4ebba2fcb7b2edc1d, type: 2}
