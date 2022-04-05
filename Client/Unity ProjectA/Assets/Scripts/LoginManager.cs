@@ -7,10 +7,14 @@ public enum LoginState
     None,
     VersionCheck,
     AssetCheck,
+    JWTConfirm,
+    JWTValidateCheck,
+    JWTRefresh
 }
 
 public partial class LoginManager : MonoBehaviour
 {
+    [Header("LoginManager")]
     public LoginState loginState = LoginState.None;
 
     public string serverAddress = "http://127.0.0.1:5001";

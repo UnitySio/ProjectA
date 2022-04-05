@@ -72,7 +72,7 @@ public partial class LoginManager : MonoBehaviour
                 }
                 else // 최신버전이여서 업데이트할 필요가 없다면
                 {
-                    CheckAsset();
+                    StartCoroutine(CheckAsset());
                 }
             else // 버전 데이터에 이상이 있다면
             {
