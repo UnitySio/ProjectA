@@ -1,6 +1,6 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 public abstract class Entity : StateMachine
 {
@@ -19,11 +19,17 @@ public abstract class Entity : StateMachine
 
     public Coroutine coroutine;
 
+    public List<SFX> sFXClips = new List<SFX>();
+    public Dictionary<string, AudioClip> sFXClipDictionary = new Dictionary<string, AudioClip>();
+
     protected virtual void Awake()
     {
         anim = GetComponent<SpriteAnimator>();
         material = GetComponent<SpriteRenderer>().material;
         hPBarGroup = gameObject.transform.GetChild(0).gameObject;
+
+        foreach (SFX sFX in sFXClips)
+            sFXClipDictionary.Add(sFX.key, sFX.audioClip);
     }
 
     protected override void Start()
@@ -63,8 +69,6 @@ public abstract class Entity : StateMachine
             BattleManager.Instance.enemy.Remove(this);
     }
 
-    public abstract void PlayHitSFX();
-
     public abstract void Victory();
     public abstract void Defeat();
 
@@ -92,12 +96,13 @@ public abstract class Entity : StateMachine
     {
         yield return new WaitForSeconds(attribute.interval);
         ChangeState(state);
+        coroutine = null;
     }
 
     public IEnumerator HitTimes(int hitTimes, int damage)
     {
         Hit();
-        PlayHitSFX();
+        SoundManager.Instance.PlaySFX(sFXClipDictionary["Hit"]);
 
         if (hitTimes == 0 || hitTimes == 1)
             Hurt(damage);
@@ -108,7 +113,7 @@ public abstract class Entity : StateMachine
                 if (attribute.hP > 0)
                     Hurt(damage);
                 else
-                    hitTimes = 0;
+                    yield break;
 
                 yield return new WaitForSeconds(0.2f);
             }

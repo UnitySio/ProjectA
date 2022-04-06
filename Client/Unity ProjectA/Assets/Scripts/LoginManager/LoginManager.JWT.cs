@@ -20,9 +20,7 @@ public partial class LoginManager : MonoBehaviour
 
         // 토큰이 없으므로 로그인 화면으로 이동
         if (string.IsNullOrEmpty(jwtAccess) || string.IsNullOrEmpty(jwtRefresh))
-        {
-
-        }
+            WaitingLogin();
         else // 토큰이 있다면 유효성 체크단계로 이동
             CheckValidateJWT();
     }
@@ -52,13 +50,12 @@ public partial class LoginManager : MonoBehaviour
             var result = await APIManager.SendAPIRequestAsync(API.auth_login, requestCompleteAuthenticate, null);
 
             // 게임 시간 버튼 표시 화면으로 이동
+            SceneManager.LoadScene("BattleScene");
         }
         else if (JWTManager.checkValidateJWT(refreshToken)) // refreshToken이 유효하고 accessToken이 갱신이 필요하다면
             RefreshJWT(); // JWT 토큰 갱신
         else // 모든 토큰이 만료된 경우
-        {
-            // 로그인 버튼 표시
-        }
+            WaitingLogin(); // 로그인 버튼 표시
     }
 
     private async void RefreshJWT()
@@ -82,6 +79,7 @@ public partial class LoginManager : MonoBehaviour
 
             if (errorType.ToLower().Contains("http"))
             {
+                popup.confirm.onClick.RemoveAllListeners();
                 popup.title.text = $"에러";
                 popup.content.text = $"서버 에러: {responseCode}";
                 popup.confirm.onClick.AddListener(() =>
@@ -91,6 +89,7 @@ public partial class LoginManager : MonoBehaviour
             }
             else if (errorType.ToLower().Contains("network"))
             {
+                popup.confirm.onClick.RemoveAllListeners();
                 popup.title.text = $"에러";
                 popup.content.text = $"네트워크를 확인해 주세요.";
                 popup.confirm.onClick.AddListener(async () =>
@@ -103,6 +102,7 @@ public partial class LoginManager : MonoBehaviour
             }
             else
             {
+                popup.confirm.onClick.RemoveAllListeners();
                 popup.title.text = $"에러";
                 popup.content.text = $"알 수 없는 에러";
                 popup.confirm.onClick.AddListener(async () =>

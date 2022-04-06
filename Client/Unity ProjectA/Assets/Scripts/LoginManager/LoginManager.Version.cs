@@ -23,6 +23,7 @@ public partial class LoginManager : MonoBehaviour
 
             if (errorType.ToLower().Contains("http"))
             {
+                popup.confirm.onClick.RemoveAllListeners();
                 popup.title.text = $"에러";
                 popup.content.text = $"서버 에러: {responseCode}";
                 popup.confirm.onClick.AddListener(() =>
@@ -32,6 +33,7 @@ public partial class LoginManager : MonoBehaviour
             }
             else if (errorType.ToLower().Contains("network"))
             {
+                popup.confirm.onClick.RemoveAllListeners();
                 popup.title.text = $"에러";
                 popup.content.text = $"네트워크를 확인해 주세요.";
                 popup.confirm.onClick.AddListener(async () =>
@@ -44,6 +46,7 @@ public partial class LoginManager : MonoBehaviour
             }
             else
             {
+                popup.confirm.onClick.RemoveAllListeners();
                 popup.title.text = $"에러";
                 popup.content.text = $"알 수 없는 에러";
                 popup.confirm.onClick.AddListener(async () =>

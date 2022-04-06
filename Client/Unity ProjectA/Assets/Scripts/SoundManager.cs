@@ -16,8 +16,6 @@ public class SoundManager : MonoBehaviour
 
     public int sFXChannel;
     public AudioSource[] sFXChannels;
-    public List<SFX> sFXClips = new List<SFX>();
-    public Dictionary<string, AudioClip> sFXClipsDictionary = new Dictionary<string, AudioClip>();
 
     private void Awake()
     {
@@ -30,18 +28,12 @@ public class SoundManager : MonoBehaviour
             Destroy(instance);
     }
 
-    private void Start()
-    {
-        foreach (SFX sfx in sFXClips)
-            sFXClipsDictionary.Add(sfx.key, sfx.audioClip);
-    }
-
-    public void SFXPlay(string key)
+    public void PlaySFX(AudioClip audioClip)
     {
         if (sFXChannels[sFXChannel].isPlaying)
             sFXChannel = (sFXChannel + 1) % sFXChannels.Length;
 
-        sFXChannels[sFXChannel].clip = sFXClipsDictionary[key];
+        sFXChannels[sFXChannel].clip = audioClip;
         sFXChannels[sFXChannel].Play();
     }
 }

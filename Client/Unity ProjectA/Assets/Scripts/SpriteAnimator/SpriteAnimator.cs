@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SpriteAnimator : MonoBehaviour
 {
+    private Entity owner;
     private SpriteRenderer spriteRenderer;
     private AudioSource audioSource;
 
@@ -50,6 +51,7 @@ public class SpriteAnimator : MonoBehaviour
 
     private void Awake()
     {
+        owner = GetComponent<Entity>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         audioSource = GetComponent<AudioSource>();
     }
@@ -61,7 +63,7 @@ public class SpriteAnimator : MonoBehaviour
             spriteRenderer.sprite = animationClips[CurrentClip].animationClip[currentFrame].sprite;
 
             if (animationClips[CurrentClip].animationClip[currentFrame].sFXKey != "")
-                SoundManager.Instance.SFXPlay(animationClips[CurrentClip].animationClip[currentFrame].sFXKey);
+                SoundManager.Instance.PlaySFX(owner.sFXClipDictionary[animationClips[CurrentClip].animationClip[currentFrame].sFXKey]);
 
             if (!loop && currentFrame == animationClips[CurrentClip].animationClip.Count - 1)
             {

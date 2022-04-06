@@ -57,12 +57,6 @@ public class ScoutTypeKCtrl : Entity
         ChangeState(states[4]);
     }
 
-
-    public override void PlayHitSFX()
-    {
-        SoundManager.Instance.SFXPlay("Drone Hit");
-    }
-
     public override void Victory()
     {
 

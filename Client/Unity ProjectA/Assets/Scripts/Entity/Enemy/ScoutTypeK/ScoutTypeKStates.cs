@@ -50,7 +50,7 @@ namespace ScoutTypeKStates
         public override void Enter()
         {
             owner.anim.Animate(0, true);
-            if (BattleManager.Instance.friendly.Count != 0)
+            if (BattleManager.Instance.friendly.Count != 0 && owner.coroutine == null)
                 owner.coroutine = owner.StartCoroutine(owner.Attack(owner.states[2]));
         }
 

@@ -7,9 +7,13 @@ public enum LoginState
     None,
     VersionCheck,
     AssetCheck,
+    AssetDownload,
     JWTConfirm,
     JWTValidateCheck,
-    JWTRefresh
+    JWTRefresh,
+    LoginWaiting,
+    LoginRequest,
+    LoginPending
 }
 
 public partial class LoginManager : MonoBehaviour
@@ -33,5 +37,10 @@ public partial class LoginManager : MonoBehaviour
     private void Start()
     {
         CheckVersion();
+
+        Caching.ClearCache();
+
+        SecurityPlayerPrefs.DeleteAll();
+        SecurityPlayerPrefs.Save();
     }
 }

@@ -17,13 +17,13 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 4f562331edbc7414ab075facceeeb477
   m_SerializeEntries:
-  - m_GUID: f89dd27708153ef4e8aa23c40658cab8
-    m_Address: Kuro
+  - m_GUID: b905f752977e88343b4051aea6412326
+    m_Address: Scout Type K
     m_ReadOnly: 0
     m_SerializedLabels:
     - Entity
-  - m_GUID: b905f752977e88343b4051aea6412326
-    m_Address: Scout Type K
+  - m_GUID: f89dd27708153ef4e8aa23c40658cab8
+    m_Address: Kuro
     m_ReadOnly: 0
     m_SerializedLabels:
     - Entity

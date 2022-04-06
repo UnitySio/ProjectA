@@ -61,11 +61,6 @@ public partial class KuroCtrl : Entity
         ChangeState(states[4]);
     }
 
-    public override void PlayHitSFX()
-    {
-
-    }
-
     public override void Victory()
     {
         ChangeState(states[5]);
