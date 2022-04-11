@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 public enum LoginState
@@ -13,7 +14,9 @@ public enum LoginState
     JWTRefresh,
     LoginWaiting,
     LoginRequest,
-    LoginPending
+    LoginPending,
+    RegisterRequest,
+    RegisterPending
 }
 
 public partial class LoginManager : MonoBehaviour
@@ -25,6 +28,8 @@ public partial class LoginManager : MonoBehaviour
     public string clientVersion = "1.0.0";
 
     public Popup popup;
+
+    private Regex emailPattern = new Regex("^([a-zA-Z0-9-]+\\@[a-zA-Z0-9-]+\\.[a-zA-Z]{2,10})*$");
 
     private void Awake()
     {
@@ -38,8 +43,9 @@ public partial class LoginManager : MonoBehaviour
     {
         CheckVersion();
 
-        Caching.ClearCache();
-
+        Caching.ClearCache(); // 다운로드 된 에셋 번들 전부 제거
+        
+        // 토큰 정보 전부 제거
         SecurityPlayerPrefs.DeleteAll();
         SecurityPlayerPrefs.Save();
     }

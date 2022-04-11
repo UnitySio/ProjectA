@@ -17,7 +17,7 @@ public partial class LoginManager : MonoBehaviour
         };
 
         // 에러 발생시 호출
-        UnityAction<string, int, string> failureCallBack = (errorType, responseCode, errorMessage) =>
+        UnityAction<string, int, string> failureCallback = (errorType, responseCode, errorMessage) =>
         {
             loginState = LoginState.None;
 
@@ -61,7 +61,7 @@ public partial class LoginManager : MonoBehaviour
             popup.Show();
         };
 
-        var response = await APIManager.SendAPIRequestAsync(API.versioncheck, request, failureCallBack);
+        var response = await APIManager.SendAPIRequestAsync(API.versioncheck, request, failureCallback);
         if (response != null)
         {
             await Task.Delay(333);

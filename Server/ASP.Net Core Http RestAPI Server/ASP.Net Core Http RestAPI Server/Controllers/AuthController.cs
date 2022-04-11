@@ -536,8 +536,8 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
             {
                 EmailValidationInfo info = new EmailValidationInfo();
 
-                //30분간 유효.
-                info.expirateTime = DateTime.UtcNow.AddMinutes(30);
+                //5분간 유효.
+                info.expirateTime = DateTime.UtcNow.AddMinutes(5);
                 //찾기 현재 진행 단계.
                 info.currentStep = 1;
                 info.EmailAddress = request.account_email;
@@ -954,8 +954,8 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
             {
                 EmailValidationInfo info = new EmailValidationInfo();
 
-                //30분간 유효.
-                info.expirateTime = DateTime.UtcNow.AddMinutes(30);
+                //5분간 유효.
+                info.expirateTime = DateTime.UtcNow.AddMinutes(5);
                 //찾기 현재 진행 단계.
                 info.currentStep = 1;
                 info.EmailAddress = request.account_email;

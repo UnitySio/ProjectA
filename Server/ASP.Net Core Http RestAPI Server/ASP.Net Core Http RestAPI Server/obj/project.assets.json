@@ -8880,11 +8880,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\dnwls\\Documents\\ProjectA\\Server\\ASP.Net Core Http RestAPI Server\\ASP.Net Core Http RestAPI Server\\ASP.Net Core Http RestAPI Server.csproj",
+      "projectUniqueName": "C:\\Users\\dnwls\\Documents\\Unity Projects\\ProjectA\\Server\\ASP.Net Core Http RestAPI Server\\ASP.Net Core Http RestAPI Server\\ASP.Net Core Http RestAPI Server.csproj",
       "projectName": "ASP.Net Core Http RestAPI Server",
-      "projectPath": "C:\\Users\\dnwls\\Documents\\ProjectA\\Server\\ASP.Net Core Http RestAPI Server\\ASP.Net Core Http RestAPI Server\\ASP.Net Core Http RestAPI Server.csproj",
+      "projectPath": "C:\\Users\\dnwls\\Documents\\Unity Projects\\ProjectA\\Server\\ASP.Net Core Http RestAPI Server\\ASP.Net Core Http RestAPI Server\\ASP.Net Core Http RestAPI Server.csproj",
       "packagesPath": "C:\\Users\\dnwls\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\dnwls\\Documents\\ProjectA\\Server\\ASP.Net Core Http RestAPI Server\\ASP.Net Core Http RestAPI Server\\obj\\",
+      "outputPath": "C:\\Users\\dnwls\\Documents\\Unity Projects\\ProjectA\\Server\\ASP.Net Core Http RestAPI Server\\ASP.Net Core Http RestAPI Server\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\dnwls\\AppData\\Roaming\\NuGet\\NuGet.Config",

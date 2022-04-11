@@ -39,6 +39,19 @@ public partial class LoginManager : MonoBehaviour
 
                 Addressables.Release(sizeHandle);
             }
+            else if (sizeHandle.Status == AsyncOperationStatus.Failed)
+            {
+                popup.confirm.onClick.RemoveAllListeners();
+                popup.title.text = $"에러";
+                popup.content.text = $"추가 데이터 파일의 용량을 확인하던 도중 문제가 발생했습니다.";
+                popup.confirm.onClick.AddListener(async () =>
+                {
+                    popup.Close();
+
+                    await Task.Delay(500);
+                    Application.Quit();
+                });
+            }
         }
 
         if (totalSize > 0)
@@ -81,6 +94,19 @@ public partial class LoginManager : MonoBehaviour
                     {
                         if (downloadHandle.Status == AsyncOperationStatus.Succeeded)
                             Addressables.Release(opDownload);
+                        else if (downloadHandle.Status == AsyncOperationStatus.Failed)
+                        {
+                            popup.confirm.onClick.RemoveAllListeners();
+                            popup.title.text = $"에러";
+                            popup.content.text = $"추가 데이터 파일을 다운로드하던 도중 문제가 발생했습니다.";
+                            popup.confirm.onClick.AddListener(async () =>
+                            {
+                                popup.Close();
+
+                                await Task.Delay(500);
+                                Application.Quit();
+                            });
+                        }
                     };
 
                     while (!downloadHandle.IsDone)
@@ -92,6 +118,19 @@ public partial class LoginManager : MonoBehaviour
                 }
 
                 Addressables.Release(sizeHandle);
+            }
+            else if (sizeHandle.Status == AsyncOperationStatus.Failed)
+            {
+                popup.confirm.onClick.RemoveAllListeners();
+                popup.title.text = $"에러";
+                popup.content.text = $"추가 데이터 파일의 용량을 확인하던 도중 문제가 발생했습니다.";
+                popup.confirm.onClick.AddListener(async () =>
+                {
+                    popup.Close();
+
+                    await Task.Delay(500);
+                    Application.Quit();
+                });
             }
         }
 

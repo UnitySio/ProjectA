@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,25 +14,12 @@ public partial class LoginManager : MonoBehaviour
     public GameObject loginType;
     public Button unknown;
 
-    [Header("Login")]
     public GameObject loginGroup;
     public TextMeshProUGUI loginResult;
     public TMP_InputField loginEmail;
     public TMP_InputField loginPassword;
     public Button login;
     public Button loginRegister;
-
-    [Header("Register")]
-    public GameObject registerGroup;
-    public TextMeshProUGUI registerResult;
-    public TMP_InputField registerEmail;
-    public TMP_InputField registerAuthNumber;
-    public TMP_InputField registerPassword;
-    public TMP_InputField registerPasswordCheck;
-    public Button registerAuthNumberRequest;
-    public Button register;
-
-    private Regex emailPattern = new Regex("^([a-zA-Z0-9-]+\\@[a-zA-Z0-9-]+\\.[a-zA-Z]{2,10})*$");
 
     private void WaitingLogin()
     {
@@ -44,9 +30,7 @@ public partial class LoginManager : MonoBehaviour
         unknown.onClick.AddListener(async () =>
         {
             unknown.interactable = false;
-
             OpenUnknownLogin();
-
             await Task.Delay(1000);
             unknown.interactable = true;
         });
@@ -54,8 +38,6 @@ public partial class LoginManager : MonoBehaviour
 
     private void OpenUnknownLogin()
     {
-        loginType.SetActive(false);
-
         loginEmail.text = string.Empty;
         loginPassword.text = string.Empty;
         login.onClick.RemoveAllListeners();
@@ -79,21 +61,23 @@ public partial class LoginManager : MonoBehaviour
             else
             {
                 login.interactable = false;
-                await StartUnknownLogin(email, password);
+                await TryUnknownLogin(email, password);
                 login.interactable = true;
             }
         });
-
+        
         loginRegister.onClick.AddListener(() =>
         {
             loginEmail.text = string.Empty;
             loginPassword.text = string.Empty;
             login.onClick.RemoveAllListeners();
             loginRegister.onClick.RemoveAllListeners();
+            
+            OpenUnknownRegister();
         });
     }
 
-    private async Task StartUnknownLogin(string email, string passwordHash)
+    private async Task TryUnknownLogin(string email, string passwordHash)
     {
         loginState = LoginState.LoginRequest;
 
@@ -105,7 +89,7 @@ public partial class LoginManager : MonoBehaviour
         };
 
         // 에러 발생시 호출
-        UnityAction<string, int, string> failureCallBack = (errorType, responseCode, errorMessage) =>
+        UnityAction<string, int, string> failureCallback = (errorType, responseCode, errorMessage) =>
         {
             loginState = LoginState.None;
 
@@ -150,7 +134,7 @@ public partial class LoginManager : MonoBehaviour
         await Task.Delay(333);
         loginState = LoginState.LoginPending;
 
-        var response = await APIManager.SendAPIRequestAsync(API.auth_login, request, failureCallBack);
+        var response = await APIManager.SendAPIRequestAsync(API.auth_login, request, failureCallback);
 
         if (response != null)
         {
