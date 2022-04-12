@@ -22,6 +22,9 @@ public partial class LoginManager : MonoBehaviour
 
     private void OpenUnknownRegister()
     {
+        var token = "";
+        var email = "";
+        
         registerResult.text = string.Empty;
         registerEmail.text = string.Empty;
         registerAuthNumber.text = string.Empty;
@@ -33,9 +36,6 @@ public partial class LoginManager : MonoBehaviour
         loginGroup.SetActive(false);
         registerGroup.SetActive(true);
 
-        var token = "";
-        var email = "";
-        
         registerAuthNumberRequest.onClick.AddListener(async () =>
         {
             email = registerEmail.text;
@@ -57,7 +57,7 @@ public partial class LoginManager : MonoBehaviour
         
         register.onClick.AddListener(async () =>
         {
-            email = registerEmail.text;
+            var authNumber = registerAuthNumber.text;
             var password = HashManager.HashPassword(registerPassword.text.Trim());
             var passwordCheck = HashManager.HashPassword(registerPasswordCheck.text.Trim());
 
@@ -65,12 +65,14 @@ public partial class LoginManager : MonoBehaviour
                 registerResult.text = "이메일 인증을 해주세요.";
             else
             {
-                if (!password.Equals(passwordCheck))
+                if (string.IsNullOrEmpty(authNumber) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(passwordCheck))
+                    registerResult.text = "모든 항목을 입력해 주세요.";
+                else if (!password.Equals(passwordCheck))
                     registerResult.text = "비밀번호가 일치하지 않습니다.";
                 else
                 {
                     register.interactable = false;
-                    await TryUnknownRegister(email, password, registerAuthNumber.text, token);
+                    await TryUnknownRegister(email, password, authNumber, token);
                     register.interactable = true;
                 }
             }
@@ -201,7 +203,7 @@ public partial class LoginManager : MonoBehaviour
 
             popup.Show();
         };
-        
+
         var requestAuthNumber = new Request_Auth_Join_SendAuthNumber()
         {
             join_token = registerToken,
@@ -252,8 +254,6 @@ public partial class LoginManager : MonoBehaviour
             }
         }
         else
-        {
             registerResult.text = "인증번호를 확인해 주세요.";
-        }
     }
 }

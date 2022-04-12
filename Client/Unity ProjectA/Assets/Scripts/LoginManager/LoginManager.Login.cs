@@ -11,7 +11,7 @@ using UnityEngine.SceneManagement;
 public partial class LoginManager : MonoBehaviour
 {
     [Header("LoginManager.Login")]
-    public GameObject loginType;
+    public GameObject loginTypeGroup;
     public Button unknown;
 
     public GameObject loginGroup;
@@ -20,12 +20,13 @@ public partial class LoginManager : MonoBehaviour
     public TMP_InputField loginPassword;
     public Button login;
     public Button loginRegister;
+    public Button loginPasswordFind;
 
     private void WaitingLogin()
     {
         loginState = LoginState.LoginWaiting;
 
-        loginType.SetActive(true);
+        loginTypeGroup.SetActive(true);
         unknown.onClick.RemoveAllListeners();
         unknown.onClick.AddListener(async () =>
         {
@@ -42,7 +43,9 @@ public partial class LoginManager : MonoBehaviour
         loginPassword.text = string.Empty;
         login.onClick.RemoveAllListeners();
         loginRegister.onClick.RemoveAllListeners();
+        loginPasswordFind.onClick.RemoveAllListeners();
 
+        loginTypeGroup.SetActive(false);
         loginGroup.SetActive(true);
         login.onClick.AddListener(async () =>
         {
@@ -72,8 +75,20 @@ public partial class LoginManager : MonoBehaviour
             loginPassword.text = string.Empty;
             login.onClick.RemoveAllListeners();
             loginRegister.onClick.RemoveAllListeners();
+            loginPasswordFind.onClick.RemoveAllListeners();
             
             OpenUnknownRegister();
+        });
+        
+        loginPasswordFind.onClick.AddListener(() =>
+        {
+            loginEmail.text = string.Empty;
+            loginPassword.text = string.Empty;
+            login.onClick.RemoveAllListeners();
+            loginRegister.onClick.RemoveAllListeners();
+            loginPasswordFind.onClick.RemoveAllListeners();
+            
+            OpenUnknownPasswordFind();
         });
     }
 
