@@ -22,8 +22,6 @@ public partial class LoginManager : MonoBehaviour
 
     private IEnumerator CheckAsset()
     {
-        loginState = LoginState.AssetCheck;
-
         long totalSize = 0;
 
         for (int i = 0; i < assetKeys.Count; i++)
@@ -68,13 +66,11 @@ public partial class LoginManager : MonoBehaviour
             popup.Show();
         }
         else
-            ConfirmJWT();
+            CheckJWT();
     }
 
     private IEnumerator DownloadAsset()
     {
-        loginState = LoginState.AssetDownload;
-
         for (int i = 0; i < assetKeys.Count; i++)
         {
             var assetKey = assetKeys[i];
@@ -137,7 +133,7 @@ public partial class LoginManager : MonoBehaviour
         if (progressBarGroup.activeSelf)
             progressBarGroup.SetActive(false);
 
-        ConfirmJWT();
+        CheckJWT();
     }
 
     private string FomulaBytes(long bytes)

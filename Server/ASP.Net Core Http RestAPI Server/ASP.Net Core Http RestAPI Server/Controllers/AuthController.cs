@@ -108,6 +108,15 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                         return response;
                     }
 
+                    // 계정이 정지 상태일 경우
+                    if (tableData.AccountState == 1)
+                    {
+                        response.jwt_access = response.jwt_refresh = null;
+                        response.result = "banned";
+                        dbPoolManager.Return(dbContext);
+                        return response;
+                    }
+
                     UserData userdata = new UserData()
                     {
                         AccountUniqueId = tableData.AccountUniqueId,

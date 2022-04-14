@@ -9,12 +9,10 @@ using UnityEngine.SceneManagement;
 
 public partial class LoginManager : MonoBehaviour
 {
-    private async void ConfirmJWT()
+    private async void CheckJWT()
     {
-        loginState = LoginState.JWTConfirm;
-
-        var jwtAccess = SecurityPlayerPrefs.GetString("jwt_access", null);
-        var jwtRefresh = SecurityPlayerPrefs.GetString("jwt_refresh", null);
+        var jwtAccess = SecurityPlayerPrefs.GetString("JWTAccess", null);
+        var jwtRefresh = SecurityPlayerPrefs.GetString("JWTRefresh", null);
 
         await Task.Delay(333);
 
@@ -27,10 +25,8 @@ public partial class LoginManager : MonoBehaviour
 
     private async void CheckValidateJWT()
     {
-        loginState = LoginState.JWTValidateCheck;
-
-        var jwtAccess = SecurityPlayerPrefs.GetString("jwt_access", null);
-        var jwtRefresh = SecurityPlayerPrefs.GetString("jwt_refresh", null);
+        var jwtAccess = SecurityPlayerPrefs.GetString("JWTAccess", null);
+        var jwtRefresh = SecurityPlayerPrefs.GetString("JWTRefresh", null);
 
         JwtSecurityToken accessToken = JWTManager.DecryptJWT(jwtAccess);
         JwtSecurityToken refreshToken = JWTManager.DecryptJWT(jwtRefresh);
@@ -49,7 +45,7 @@ public partial class LoginManager : MonoBehaviour
 
             var result = await APIManager.SendAPIRequestAsync(API.auth_login, requestCompleteAuthenticate, null);
 
-            // 게임 시간 버튼 표시 화면으로 이동
+            // 게임 시작 버튼 표시 화면으로 이동
             SceneManager.LoadScene("BattleScene");
         }
         else if (JWTManager.checkValidateJWT(refreshToken)) // refreshToken이 유효하고 accessToken이 갱신이 필요하다면
@@ -60,11 +56,9 @@ public partial class LoginManager : MonoBehaviour
 
     private async void RefreshJWT()
     {
-        loginState = LoginState.JWTRefresh;
-
         await Task.Delay(333);
 
-        var refreshToken = SecurityPlayerPrefs.GetString("jwt_refresh", null);
+        var refreshToken = SecurityPlayerPrefs.GetString("JWTRefresh", null);
 
         var request = new Request_Auth_Login()
         {
@@ -75,17 +69,12 @@ public partial class LoginManager : MonoBehaviour
         // 에러 발생시 호출
         UnityAction<string, int, string> failureCallback = (errorType, responseCode, errorMessage) =>
         {
-            loginState = LoginState.None;
-
             if (errorType.ToLower().Contains("http"))
             {
                 popup.confirm.onClick.RemoveAllListeners();
                 popup.title.text = $"에러";
                 popup.content.text = $"서버 에러: {responseCode}";
-                popup.confirm.onClick.AddListener(() =>
-                {
-                    popup.Close();
-                });
+                popup.confirm.onClick.AddListener(() => popup.Close());
             }
             else if (errorType.ToLower().Contains("network"))
             {
@@ -126,14 +115,12 @@ public partial class LoginManager : MonoBehaviour
 
             if (text.Equals("ok"))
             {
-                SecurityPlayerPrefs.SetString("jwt_access", result.jwt_access);
-                SecurityPlayerPrefs.SetString("jwt_refresh", result.jwt_refresh);
+                SecurityPlayerPrefs.SetString("JWTAccess", result.jwt_access);
+                SecurityPlayerPrefs.SetString("JWTRefresh", result.jwt_refresh);
                 SecurityPlayerPrefs.Save();
             }
             else
             {
-                loginState = LoginState.None;
-
                 // 에러 발생
                 popup.title.text = $"에러";
                 popup.content.text = $"에러: {text}";

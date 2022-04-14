@@ -9,8 +9,6 @@ public partial class LoginManager : MonoBehaviour
 {
     private async void CheckVersion()
     {
-        loginState = LoginState.VersionCheck;
-
         var request = new Request_VersionCheck()
         {
             currentClientVersion = clientVersion
@@ -19,17 +17,12 @@ public partial class LoginManager : MonoBehaviour
         // 에러 발생시 호출
         UnityAction<string, int, string> failureCallback = (errorType, responseCode, errorMessage) =>
         {
-            loginState = LoginState.None;
-
             if (errorType.ToLower().Contains("http"))
             {
                 popup.confirm.onClick.RemoveAllListeners();
                 popup.title.text = $"에러";
                 popup.content.text = $"서버 에러: {responseCode}";
-                popup.confirm.onClick.AddListener(() =>
-                {
-                    popup.Close();
-                });
+                popup.confirm.onClick.AddListener(() => popup.Close());
             }
             else if (errorType.ToLower().Contains("network"))
             {

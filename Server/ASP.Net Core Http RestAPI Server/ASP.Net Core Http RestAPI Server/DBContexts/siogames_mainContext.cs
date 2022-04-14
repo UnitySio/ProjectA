@@ -65,6 +65,10 @@ namespace ASP.Net_Core_Http_RestAPI_Server.DBContexts
                     .HasColumnType("tinyint(3) unsigned")
                     .HasColumnName("account_authLv");
 
+                entity.Property(e => e.AccountState)
+                    .HasColumnType("int(10)")
+                    .HasColumnName("account_state");
+
                 entity.Property(e => e.AccountEmail)
                     .HasMaxLength(100)
                     .HasColumnName("account_email");

@@ -50,7 +50,7 @@ public partial class LoginManager : MonoBehaviour
             else
             {
                 registerAuthNumberRequest.interactable = false;
-                token = await RequestUnknownRegisterAuthNumber(email);
+                token = await RequestRegisterAuthNumber(email);
                 registerAuthNumberRequest.interactable = true;
             }
         });
@@ -67,46 +67,38 @@ public partial class LoginManager : MonoBehaviour
             {
                 if (string.IsNullOrEmpty(authNumber) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(passwordCheck))
                     registerResult.text = "모든 항목을 입력해 주세요.";
+                else if (!passwordPattern.IsMatch(registerPassword.text.Trim()))
+                    registerResult.text = "최소 특수문자 1개, 대소문자 1개, 숫자 1개, 8자 이상";
                 else if (!password.Equals(passwordCheck))
                     registerResult.text = "비밀번호가 일치하지 않습니다.";
                 else
                 {
                     register.interactable = false;
-                    await TryUnknownRegister(email, password, authNumber, token);
+                    await RequestRegister(email, password, authNumber, token);
                     register.interactable = true;
                 }
             }
         });
     }
 
-    private async Task<string> RequestUnknownRegisterAuthNumber(string email)
+    private async Task<string> RequestRegisterAuthNumber(string email)
     {
-        loginState = LoginState.RegisterRequest;
-        
         // 에러 발생시 호출
         UnityAction<string, int, string> failureCallback = (errorType, responseCode, errorMessage) =>
         {
-            loginState = LoginState.None;
-
             if (errorType.ToLower().Contains("http"))
             {
                 popup.confirm.onClick.RemoveAllListeners();
                 popup.title.text = $"에러";
                 popup.content.text = $"서버 에러: {responseCode}";
-                popup.confirm.onClick.AddListener(() =>
-                {
-                    popup.Close();
-                });
+                popup.confirm.onClick.AddListener(() => popup.Close());
             }
             else if (errorType.ToLower().Contains("network"))
             {
                 popup.confirm.onClick.RemoveAllListeners();
                 popup.title.text = $"에러";
                 popup.content.text = $"네트워크를 확인해 주세요.";
-                popup.confirm.onClick.AddListener(() =>
-                {
-                    popup.Close();
-                });
+                popup.confirm.onClick.AddListener(() => popup.Close());
             }
             else
             {
@@ -138,8 +130,6 @@ public partial class LoginManager : MonoBehaviour
         if (responseAuthNumberResult.result.Equals("ok"))
         {
             await Task.Delay(333);
-            loginState = LoginState.RegisterPending;
-            
             var token = responseAuthNumberResult.join_token;
             registerResult.text = "인증번호는 5분간 유효합니다.";
 
@@ -160,32 +150,24 @@ public partial class LoginManager : MonoBehaviour
         }
     }
     
-    private async Task TryUnknownRegister(string email, string password, string authNumber, string registerToken)
+    private async Task RequestRegister(string email, string password, string authNumber, string registerToken)
     {
         // 에러 발생시 호출
         UnityAction<string, int, string> failureCallback = (errorType, responseCode, errorMessage) =>
         {
-            loginState = LoginState.None;
-
             if (errorType.ToLower().Contains("http"))
             {
                 popup.confirm.onClick.RemoveAllListeners();
                 popup.title.text = $"에러";
                 popup.content.text = $"서버 에러: {responseCode}";
-                popup.confirm.onClick.AddListener(() =>
-                {
-                    popup.Close();
-                });
+                popup.confirm.onClick.AddListener(() => popup.Close());
             }
             else if (errorType.ToLower().Contains("network"))
             {
                 popup.confirm.onClick.RemoveAllListeners();
                 popup.title.text = $"에러";
                 popup.content.text = $"네트워크를 확인해 주세요.";
-                popup.confirm.onClick.AddListener(() =>
-                {
-                    popup.Close();
-                });
+                popup.confirm.onClick.AddListener(() => popup.Close());
             }
             else
             {
@@ -225,8 +207,6 @@ public partial class LoginManager : MonoBehaviour
             };
 
             await Task.Delay(333);
-            loginState = LoginState.RegisterPending;
-
             var response = await APIManager.SendAPIRequestAsync(API.auth_join, request, failureCallback);
 
             if (response != null)
@@ -240,17 +220,14 @@ public partial class LoginManager : MonoBehaviour
                     var jwtAccess = result.jwt_access;
                     var jwtRefresh = result.jwt_refresh;
 
-                    SecurityPlayerPrefs.SetString("jwt_access", jwtAccess);
-                    SecurityPlayerPrefs.SetString("jwt_refresh", jwtRefresh);
+                    SecurityPlayerPrefs.SetString("JWTAccess", jwtAccess);
+                    SecurityPlayerPrefs.SetString("JWTRefresh", jwtRefresh);
                     SecurityPlayerPrefs.Save();
 
                     SceneManager.LoadScene("BattleScene");
                 }
                 else
-                {
-                    loginState = LoginState.None;
                     registerResult.text = "이미 가입된 계정 정보입니다.";
-                }
             }
         }
         else

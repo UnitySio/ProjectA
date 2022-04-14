@@ -71,7 +71,12 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                 //클라이언트 버전 체크 및 업데이트 대상 파일의 목록, 다운로드 목록 URL등을 가공하여 client로 반환.
 
                 //디비나 설정파일에서 최신버전 정보를 불러온후, 최신버전인지 체크.
-                bool versionOK = true;
+                bool versionOK;
+                
+                if (versionData.currentClientVersion == "1.0.0")
+                    versionOK = true;
+                else
+                    versionOK = false;
 
                 //최신버전이라면
                 if (versionOK)

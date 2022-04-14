@@ -295,9 +295,6 @@
      <Reference Include="Microsoft.IdentityModel.Tokens">
      <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Assets\Plugins\jwt\Microsoft.IdentityModel.Tokens.dll</HintPath>
      </Reference>
-     <Reference Include="Unity.VisualScripting.IonicZip">
-     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\PackageCache\com.unity.visualscripting@1.7.7\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll</HintPath>
-     </Reference>
      <Reference Include="Microsoft.IdentityModel.Logging">
      <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Assets\Plugins\jwt\Microsoft.IdentityModel.Logging.dll</HintPath>
      </Reference>
@@ -305,7 +302,7 @@
      <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\PackageCache\com.unity.burst@1.6.4\Unity.Burst.CodeGen\Unity.Burst.Cecil.Pdb.dll</HintPath>
      </Reference>
      <Reference Include="log4netPlastic">
-     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\PackageCache\com.unity.collab-proxy@1.15.15\Lib\Editor\PlasticSCM\log4netPlastic.dll</HintPath>
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\PackageCache\com.unity.collab-proxy@1.15.16\Lib\Editor\PlasticSCM\log4netPlastic.dll</HintPath>
      </Reference>
      <Reference Include="clipper_library">
      <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\PackageCache\com.unity.cinemachine@2.8.4\Runtime\ThirdParty\clipper_library.dll</HintPath>
@@ -320,16 +317,13 @@
      <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Assets\Plugins\jwt\System.IdentityModel.Tokens.Jwt.dll</HintPath>
      </Reference>
      <Reference Include="Unity.Plastic.Newtonsoft.Json">
-     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\PackageCache\com.unity.collab-proxy@1.15.15\Lib\Editor\PlasticSCM\Unity.Plastic.Newtonsoft.Json.dll</HintPath>
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\PackageCache\com.unity.collab-proxy@1.15.16\Lib\Editor\PlasticSCM\Unity.Plastic.Newtonsoft.Json.dll</HintPath>
      </Reference>
      <Reference Include="Unity.Plastic.Antlr3.Runtime">
-     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\PackageCache\com.unity.collab-proxy@1.15.15\Lib\Editor\PlasticSCM\Unity.Plastic.Antlr3.Runtime.dll</HintPath>
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\PackageCache\com.unity.collab-proxy@1.15.16\Lib\Editor\PlasticSCM\Unity.Plastic.Antlr3.Runtime.dll</HintPath>
      </Reference>
-     <Reference Include="Unity.VisualScripting.YamlDotNet">
-     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\PackageCache\com.unity.visualscripting@1.7.7\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll</HintPath>
-     </Reference>
-     <Reference Include="unityplastic">
-     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\PackageCache\com.unity.collab-proxy@1.15.15\Lib\Editor\PlasticSCM\unityplastic.dll</HintPath>
+     <Reference Include="Unity.Burst.Unsafe">
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\PackageCache\com.unity.burst@1.6.4\Unity.Burst.Unsafe.dll</HintPath>
      </Reference>
      <Reference Include="Unity.Burst.Cecil.Mdb">
      <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\PackageCache\com.unity.burst@1.6.4\Unity.Burst.CodeGen\Unity.Burst.Cecil.Mdb.dll</HintPath>
@@ -337,23 +331,29 @@
      <Reference Include="Microsoft.IdentityModel.JsonWebTokens">
      <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Assets\Plugins\jwt\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
      </Reference>
-     <Reference Include="Unity.VisualScripting.TextureAssets">
-     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\PackageCache\com.unity.visualscripting@1.7.7\Editor\VisualScripting.Core\EditorAssetResources\Unity.VisualScripting.TextureAssets.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.Burst.Unsafe">
-     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\PackageCache\com.unity.burst@1.6.4\Unity.Burst.Unsafe.dll</HintPath>
-     </Reference>
      <Reference Include="Unity.Burst.Cecil">
      <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\PackageCache\com.unity.burst@1.6.4\Unity.Burst.CodeGen\Unity.Burst.Cecil.dll</HintPath>
      </Reference>
      <Reference Include="Unity.Burst.Cecil.Rocks">
      <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\PackageCache\com.unity.burst@1.6.4\Unity.Burst.CodeGen\Unity.Burst.Cecil.Rocks.dll</HintPath>
      </Reference>
-     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
-     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\PackageCache\com.unity.visualscripting@1.7.7\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
-     </Reference>
      <Reference Include="RainbowFolders">
      <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Assets\Plugins\RainbowAssets\RainbowFolders\Editor\Assemblies\RainbowFolders.dll</HintPath>
+     </Reference>
+     <Reference Include="unityplastic">
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\PackageCache\com.unity.collab-proxy@1.15.16\Lib\Editor\PlasticSCM\unityplastic.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.VisualScripting.IonicZip">
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\PackageCache\com.unity.visualscripting@1.7.7\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.VisualScripting.YamlDotNet">
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\PackageCache\com.unity.visualscripting@1.7.7\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.VisualScripting.TextureAssets">
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\PackageCache\com.unity.visualscripting@1.7.7\Editor\VisualScripting.Core\EditorAssetResources\Unity.VisualScripting.TextureAssets.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\PackageCache\com.unity.visualscripting@1.7.7\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
      </Reference>
      <Reference Include="netstandard">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2021.2.17f1\Editor\Data\NetStandard\ref\2.1.0\netstandard.dll</HintPath>

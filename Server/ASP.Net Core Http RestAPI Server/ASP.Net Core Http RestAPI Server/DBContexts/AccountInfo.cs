@@ -19,6 +19,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.DBContexts
         public string AccountGuestToken { get; set; }
         public string AccountOauthTokenGoogle { get; set; }
         public string AccountOauthTokenApple { get; set; }
+        public int AccountState { get; set; }
 
         public virtual PlayerInfo PlayerInfo { get; set; }
         public virtual ICollection<CharacterInfo> CharacterInfos { get; set; }

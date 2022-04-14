@@ -24,8 +24,6 @@ public partial class LoginManager : MonoBehaviour
 
     private void WaitingLogin()
     {
-        loginState = LoginState.LoginWaiting;
-
         loginTypeGroup.SetActive(true);
         unknown.onClick.RemoveAllListeners();
         unknown.onClick.AddListener(async () =>
@@ -64,7 +62,7 @@ public partial class LoginManager : MonoBehaviour
             else
             {
                 login.interactable = false;
-                await TryUnknownLogin(email, password);
+                await RequestLogin(email, password);
                 login.interactable = true;
             }
         });
@@ -92,10 +90,8 @@ public partial class LoginManager : MonoBehaviour
         });
     }
 
-    private async Task TryUnknownLogin(string email, string passwordHash)
+    private async Task RequestLogin(string email, string passwordHash)
     {
-        loginState = LoginState.LoginRequest;
-
         var request = new Request_Auth_Login()
         {
             authType = "account",
@@ -106,27 +102,19 @@ public partial class LoginManager : MonoBehaviour
         // 에러 발생시 호출
         UnityAction<string, int, string> failureCallback = (errorType, responseCode, errorMessage) =>
         {
-            loginState = LoginState.None;
-
             if (errorType.ToLower().Contains("http"))
             {
                 popup.confirm.onClick.RemoveAllListeners();
                 popup.title.text = $"에러";
                 popup.content.text = $"서버 에러: {responseCode}";
-                popup.confirm.onClick.AddListener(() =>
-                {
-                    popup.Close();
-                });
+                popup.confirm.onClick.AddListener(() => popup.Close());
             }
             else if (errorType.ToLower().Contains("network"))
             {
                 popup.confirm.onClick.RemoveAllListeners();
                 popup.title.text = $"에러";
                 popup.content.text = $"네트워크를 확인해 주세요.";
-                popup.confirm.onClick.AddListener(() =>
-                {
-                    popup.Close();
-                });
+                popup.confirm.onClick.AddListener(() => popup.Close());
             }
             else
             {
@@ -147,8 +135,6 @@ public partial class LoginManager : MonoBehaviour
 
 
         await Task.Delay(333);
-        loginState = LoginState.LoginPending;
-
         var response = await APIManager.SendAPIRequestAsync(API.auth_login, request, failureCallback);
 
         if (response != null)
@@ -162,18 +148,26 @@ public partial class LoginManager : MonoBehaviour
                 var jwtAccess = result.jwt_access;
                 var jwtRefresh = result.jwt_refresh;
 
-                SecurityPlayerPrefs.SetString("jwt_access", jwtAccess);
-                SecurityPlayerPrefs.SetString("jwt_refresh", jwtRefresh);
+                SecurityPlayerPrefs.SetString("JWTAccess", jwtAccess);
+                SecurityPlayerPrefs.SetString("JWTRefresh", jwtRefresh);
                 SecurityPlayerPrefs.Save();
 
                 SceneManager.LoadScene("BattleScene");
             }
-            else
+            else if (text.Equals("banned"))
             {
-                loginState = LoginState.LoginWaiting;
-
-                loginResult.text = "존재하지 않는 계정입니다.";
+                popup.confirm.onClick.RemoveAllListeners();
+                popup.title.text = $"계정";
+                popup.content.text = $"해당 계정은 영구정지되었습니다.";
+                popup.confirm.onClick.AddListener(() =>
+                {
+                    popup.Close();
+                });
+                
+                popup.Show();
             }
+            else
+                loginResult.text = "존재하지 않는 계정입니다.";
         }
     }
 }

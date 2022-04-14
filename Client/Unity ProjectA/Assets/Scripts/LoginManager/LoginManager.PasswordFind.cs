@@ -10,16 +10,17 @@ using UnityEngine.Events;
 
 public partial class LoginManager : MonoBehaviour
 {
-    [Header("LoginManager.PasswordFind")] [Header("Password Find")]
+    [Header("LoginManager.PasswordFind")]
+    [Header("Password Find")]
     public GameObject passwordFindGroup;
-
     public TextMeshProUGUI passwordFindResult;
     public TMP_InputField passwordFindEmail;
     public TMP_InputField passwordFindAuthNumber;
     public Button passwordFindAuthNumberRequest;
     public Button passwordFind;
 
-    [Header("Password Change")] public GameObject passwordChangeGroup;
+    [Header("Password Change")]
+    public GameObject passwordChangeGroup;
     public TextMeshProUGUI passwordChangeResult;
     public TMP_InputField passwordChangePassword;
     public TMP_InputField passwordChangePasswordCheck;
@@ -27,7 +28,7 @@ public partial class LoginManager : MonoBehaviour
 
     private void OpenUnknownPasswordFind()
     {
-        var result = "";
+        var token = "";
 
         passwordFindResult.text = string.Empty;
         passwordFindEmail.text = string.Empty;
@@ -52,14 +53,14 @@ public partial class LoginManager : MonoBehaviour
             else
             {
                 passwordFindAuthNumberRequest.interactable = false;
-                result = await RequestUnknownPasswordFindAuthNumber(email);
+                token = await RequestPasswordFindAuthNumber(email);
                 passwordFindAuthNumberRequest.interactable = true;
             }
         });
 
         passwordFind.onClick.AddListener(async () =>
         {
-            if (result.Equals("ok"))
+            if (token != "")
             {
                 var authNumber = passwordFindAuthNumber.text;
 
@@ -71,7 +72,7 @@ public partial class LoginManager : MonoBehaviour
                 else
                 {
                     passwordFind.interactable = false;
-                    await ConfirmUnknownPasswordFindAuthNumber(authNumber);
+                    await CheckPasswordFindAuthNumber(authNumber, token);
                     passwordFind.interactable = true;
                 }
             }
@@ -80,7 +81,7 @@ public partial class LoginManager : MonoBehaviour
         });
     }
 
-    private async Task<string> RequestUnknownPasswordFindAuthNumber(string email)
+    private async Task<string> RequestPasswordFindAuthNumber(string email)
     {
         var request = new Request_Auth_FindPassword_SendRequest()
         {
@@ -90,21 +91,19 @@ public partial class LoginManager : MonoBehaviour
         // 에러 발생시 호출
         UnityAction<string, int, string> failureCallback = (errorType, responseCode, errorMessage) =>
         {
-            loginState = LoginState.None;
-
             if (errorType.ToLower().Contains("http"))
             {
                 popup.confirm.onClick.RemoveAllListeners();
                 popup.title.text = $"에러";
                 popup.content.text = $"서버 에러: {responseCode}";
-                popup.confirm.onClick.AddListener(() => { popup.Close(); });
+                popup.confirm.onClick.AddListener(() => popup.Close());
             }
             else if (errorType.ToLower().Contains("network"))
             {
                 popup.confirm.onClick.RemoveAllListeners();
                 popup.title.text = $"에러";
                 popup.content.text = $"네트워크를 확인해 주세요.";
-                popup.confirm.onClick.AddListener(() => { popup.Close(); });
+                popup.confirm.onClick.AddListener(() => popup.Close());
             }
             else
             {
@@ -136,18 +135,14 @@ public partial class LoginManager : MonoBehaviour
             {
                 var token = result.findpassword_token;
 
-                SecurityPlayerPrefs.SetString("findpassword_token", token);
-                SecurityPlayerPrefs.Save();
-
                 passwordFindResult.text = "인증번호는 5분간 유효합니다.";
 
                 passwordFindEmail.interactable = false;
 
-                return text;
+                return token;
             }
             else
             {
-                loginState = LoginState.None;
                 passwordFindResult.text = "존재하지 않는 계정입니다.";
                 return "";
             }
@@ -156,9 +151,8 @@ public partial class LoginManager : MonoBehaviour
             return "";
     }
 
-    private async Task ConfirmUnknownPasswordFindAuthNumber(string authNumber)
+    private async Task CheckPasswordFindAuthNumber(string authNumber, string token)
     {
-        var token = SecurityPlayerPrefs.GetString("findpassword_token", null);
         var request = new Request_Auth_FindPassword_SendAuthNumber()
         {
             findpassword_token = token,
@@ -168,21 +162,19 @@ public partial class LoginManager : MonoBehaviour
         // 에러 발생시 호출
         UnityAction<string, int, string> failureCallback = (errorType, responseCode, errorMessage) =>
         {
-            loginState = LoginState.None;
-
             if (errorType.ToLower().Contains("http"))
             {
                 popup.confirm.onClick.RemoveAllListeners();
                 popup.title.text = $"에러";
                 popup.content.text = $"서버 에러: {responseCode}";
-                popup.confirm.onClick.AddListener(() => { popup.Close(); });
+                popup.confirm.onClick.AddListener(() => popup.Close());
             }
             else if (errorType.ToLower().Contains("network"))
             {
                 popup.confirm.onClick.RemoveAllListeners();
                 popup.title.text = $"에러";
                 popup.content.text = $"네트워크를 확인해 주세요.";
-                popup.confirm.onClick.AddListener(() => { popup.Close(); });
+                popup.confirm.onClick.AddListener(() => popup.Close());
             }
             else
             {
@@ -228,8 +220,8 @@ public partial class LoginManager : MonoBehaviour
 
                 passwordChange.onClick.AddListener(async () =>
                 {
-                    var password = HashManager.HashPassword(passwordChangePassword.text);
-                    var passwordCheck = HashManager.HashPassword(passwordChangePasswordCheck.text);
+                    var password = HashManager.HashPassword(passwordChangePassword.text.Trim());
+                    var passwordCheck = HashManager.HashPassword(passwordChangePasswordCheck.text.Trim());
 
                     passwordChangePassword.onValueChanged.RemoveAllListeners();
                     passwordChangePassword.onValueChanged.AddListener(
@@ -237,27 +229,25 @@ public partial class LoginManager : MonoBehaviour
 
                     if (string.IsNullOrEmpty(password) || string.IsNullOrEmpty(passwordCheck))
                         passwordChangeResult.text = "모든 항목을 입력해 주세요.";
+                    else if (!passwordPattern.IsMatch(passwordChangePassword.text.Trim()))
+                        passwordChangeResult.text = "최소 특수문자 1개, 대소문자 1개, 숫자 1개, 8자 이상";
                     else if (!password.Equals(passwordCheck))
                         passwordChangeResult.text = "비밀번호가 일치하지 않습니다.";
                     else
                     {
                         passwordChange.interactable = false;
-                        await ChangeUnknownPassword(password);
+                        await RequestPasswordChange(password, token);
                         passwordChange.interactable = true;
                     }
                 });
             }
             else
-            {
-                loginState = LoginState.None;
                 passwordFindResult.text = "인증번호를 확인해 주세요.";
-            }
         }
     }
 
-    private async Task ChangeUnknownPassword(string password)
+    private async Task RequestPasswordChange(string password, string token)
     {
-        var token = SecurityPlayerPrefs.GetString("findpassword_token", null);
         var request = new Request_Auth_FindPassword_UpdateAccountPassword()
         {
             findpassword_token = token,
@@ -267,21 +257,19 @@ public partial class LoginManager : MonoBehaviour
         // 에러 발생시 호출
         UnityAction<string, int, string> failureCallback = (errorType, responseCode, errorMessage) =>
         {
-            loginState = LoginState.None;
-
             if (errorType.ToLower().Contains("http"))
             {
                 popup.confirm.onClick.RemoveAllListeners();
                 popup.title.text = $"에러";
                 popup.content.text = $"서버 에러: {responseCode}";
-                popup.confirm.onClick.AddListener(() => { popup.Close(); });
+                popup.confirm.onClick.AddListener(() => popup.Close());
             }
             else if (errorType.ToLower().Contains("network"))
             {
                 popup.confirm.onClick.RemoveAllListeners();
                 popup.title.text = $"에러";
                 popup.content.text = $"네트워크를 확인해 주세요.";
-                popup.confirm.onClick.AddListener(() => { popup.Close(); });
+                popup.confirm.onClick.AddListener(() => popup.Close());
             }
             else
             {
@@ -321,10 +309,7 @@ public partial class LoginManager : MonoBehaviour
                 WaitingLogin();
             }
             else
-            {
-                loginState = LoginState.None;
                 passwordChangeResult.text = $"서버 에러: {text}";
-            }
         }
     }
 }
