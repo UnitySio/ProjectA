@@ -42,27 +42,66 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\HttpAPI\DBContexts\AccountInfo.cs" />
+     <Compile Include="Assets\Scripts\Entity\Friendly\Kuro\KuroStates.cs" />
+     <Compile Include="Assets\Scripts\LoginManager\LoginManager.cs" />
+     <Compile Include="Assets\Scripts\Entity\Enemy\ScoutTypeK\ScoutTypeKCtrl.cs" />
+     <Compile Include="Assets\AVProVideo\Scripts\Components\DisplayBackground.cs" />
+     <Compile Include="Assets\AVProVideo\Scripts\Components\Support\PlayMaker\Actions\AVProVideoControl.cs" />
+     <Compile Include="Assets\AVProVideo\Scripts\Internal\BaseMediaPlayer.cs" />
+     <Compile Include="Assets\AVProVideo\Scripts\Internal\WindowsMediaPlayer.cs" />
+     <Compile Include="Assets\AVProVideo\Scripts\Components\DebugOverlay.cs" />
+     <Compile Include="Assets\Scripts\LoginManager\LoginManager.JWT.cs" />
+     <Compile Include="Assets\AVProVideo\Scripts\Components\ApplyToMesh.cs" />
+     <Compile Include="Assets\Scripts\Entity\FloatingDamage.cs" />
+     <Compile Include="Assets\Scripts\Entity\Entity.cs" />
+     <Compile Include="Assets\AVProVideo\Scripts\Internal\Stream.cs" />
+     <Compile Include="Assets\Scripts\Entity\Friendly\Kuro\KuroCtrl.cs" />
+     <Compile Include="Assets\Scripts\HttpAPI\JsonModels\Request_JsonModel.cs" />
+     <Compile Include="Assets\Scripts\HttpAPI\DBContexts\CharacterInfo.cs" />
+     <Compile Include="Assets\Scripts\LoginManager\LoginManager.PasswordFind.cs" />
+     <Compile Include="Assets\AVProVideo\Scripts\Internal\Interfaces.cs" />
+     <Compile Include="Assets\AVProVideo\Scripts\Internal\AndroidMediaPlayer.cs" />
+     <Compile Include="Assets\AVProVideo\Scripts\Components\CubemapCube.cs" />
+     <Compile Include="Assets\Scripts\LoginManager\LoginManager.Login.cs" />
+     <Compile Include="Assets\AVProVideo\Scripts\Components\DisplayUGUI.cs" />
+     <Compile Include="Assets\AVProVideo\Scripts\Components\ApplyToMaterial.cs" />
+     <Compile Include="Assets\Scripts\Popup.cs" />
+     <Compile Include="Assets\Scripts\LoginManager\LoginManager.Register.cs" />
+     <Compile Include="Assets\AVProVideo\Scripts\Components\PlaylistMediaPlayer.cs" />
+     <Compile Include="Assets\AVProVideo\Scripts\Components\Support\PlayMaker\Actions\Internal\AVProVideoActionBase.cs" />
+     <Compile Include="Assets\Scripts\Entity\StateMachine\State.cs" />
+     <Compile Include="Assets\AVProVideo\Scripts\Components\Support\PlayMaker\Actions\AVProVideoEvent.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Components\Support\PlayMaker\Actions\AVProVideoInfo.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Internal\AudioOutputManager.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Components\UpdateStereoMaterial.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Internal\OSXMediaPlayer.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Components\Support\PlayMaker\Actions\AVProVideoDisplayUGUI.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Components\Support\NGUI\ApplyToTextureWidgetNGUI.cs" />
+<<<<<<< HEAD
      <Compile Include="Assets\Scripts\LoginManager.cs" />
+=======
+>>>>>>> f6db78a... 계정 정지 관련 기능 추가
      <Compile Include="Assets\AVProVideo\Scripts\Components\Support\PlayMaker\Actions\AVProVideoPlayer.cs" />
      <Compile Include="Assets\Scripts\HttpAPI\JsonModels\Response_JsonModel.cs" />
      <Compile Include="Assets\Scripts\Utils\SecurityPlayerPrefs.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Components\AudioOutput.cs" />
+<<<<<<< HEAD
      <Compile Include="Assets\AVProVideo\Scripts\Components\DisplayBackground.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Components\Support\PlayMaker\Actions\AVProVideoControl.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Internal\BaseMediaPlayer.cs" />
      <Compile Include="Assets\UI_OutGame\Buffering\BufferingAnimation.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Internal\WindowsMediaPlayer.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Components\DebugOverlay.cs" />
+=======
+     <Compile Include="Assets\Scripts\Entity\HPBar.cs" />
+     <Compile Include="Assets\UI_OutGame\Buffering\BufferingAnimation.cs" />
+     <Compile Include="Assets\Scripts\Entity\Enemy\ScoutTypeK\ScoutTypeKStates.cs" />
+>>>>>>> f6db78a... 계정 정지 관련 기능 추가
      <Compile Include="Assets\AVProVideo\Scripts\Internal\WebGLMediaPlayer.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Internal\HLSStream.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Components\MediaPlayer.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Components\StreamParser.cs" />
+<<<<<<< HEAD
      <Compile Include="Assets\AVProVideo\Scripts\Components\ApplyToMesh.cs" />
      <Compile Include="Assets\Scripts\HttpAPI\JWTManager.cs" />
      <Compile Include="Assets\Scripts\HttpAPI\JsonModels\UserData.cs" />
@@ -76,9 +115,23 @@
      <Compile Include="Assets\AVProVideo\Scripts\Internal\Interfaces.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Internal\Resampler.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Internal\AndroidMediaPlayer.cs" />
+=======
+     <Compile Include="Assets\Scripts\ObjectPoolManager\Poolable.cs" />
+     <Compile Include="Assets\Scripts\HttpAPI\JWTManager.cs" />
+     <Compile Include="Assets\Scripts\HttpAPI\JsonModels\UserData.cs" />
+     <Compile Include="Assets\Scripts\Utils\HashManager.cs" />
+     <Compile Include="Assets\Scripts\SpriteAnimator\SpriteAnimator.cs" />
+     <Compile Include="Assets\Scripts\Entity\StateMachine\StateMachine.cs" />
+     <Compile Include="Assets\AVProVideo\Scripts\Components\DisplayIMGUI.cs" />
+     <Compile Include="Assets\AVProVideo\Scripts\Components\AudioChannelMixer.cs" />
+     <Compile Include="Assets\AVProVideo\Scripts\Internal\Resampler.cs" />
+     <Compile Include="Assets\Scripts\CardManager.cs" />
+     <Compile Include="Assets\Scripts\Entity\EntityAttribute.cs" />
+>>>>>>> f6db78a... 계정 정지 관련 기능 추가
      <Compile Include="Assets\Scripts\HttpAPI\DBContexts\PlayerInfo.cs" />
      <Compile Include="Assets\Scripts\HttpAPI\APIManager.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Components\SubtitlesUGUI.cs" />
+<<<<<<< HEAD
      <Compile Include="Assets\AVProVideo\Scripts\Components\CubemapCube.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Components\DisplayUGUI.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Components\ApplyToMaterial.cs" />
@@ -87,6 +140,16 @@
      <Compile Include="Assets\AVProVideo\Scripts\Components\PlaylistMediaPlayer.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Components\Support\PlayMaker\Actions\Internal\AVProVideoActionBase.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Components\Support\PlayMaker\Actions\AVProVideoEvent.cs" />
+=======
+     <Compile Include="Assets\Scripts\PlayerController.cs" />
+     <Compile Include="Assets\Scripts\SoundManager.cs" />
+     <Compile Include="Assets\Scripts\SpriteAnimator\AnimClip.cs" />
+     <Compile Include="Assets\Scripts\SFX.cs" />
+     <Compile Include="Assets\Scripts\LoginManager\LoginManager.Version.cs" />
+     <Compile Include="Assets\AVProVideo\Scripts\Internal\NullMediaPlayer.cs" />
+     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
+     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
+>>>>>>> f6db78a... 계정 정지 관련 기능 추가
      <None Include="Assets\AVProVideo\Resources\Shaders\AVProVideo-VR-InsideSphere-Transparent-AndroidOES.shader" />
      <None Include="Assets\AVProVideo\Resources\Shaders\AVProVideo-UI-Default-Stereo.shader" />
      <None Include="Assets\AVProVideo\Resources\Shaders\AVProVideo-Background-FullScreen.shader" />
@@ -724,7 +787,35 @@
      <HintPath>C:/Users/NoTeShineL/Unity Project/ProjectA/Client/Unity ProjectA/Library/ScriptAssemblies/PsdPlugin.dll</HintPath>
      </Reference>
      <Reference Include="Unity.TextMeshPro.Editor">
+<<<<<<< HEAD
      <HintPath>C:/Users/NoTeShineL/Unity Project/ProjectA/Client/Unity ProjectA/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+=======
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.VisualScripting.State.Editor">
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.VisualScripting.State.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.Searcher.Editor">
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.Searcher.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.2D.IK.Editor">
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.2D.IK.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.2D.Path.Editor">
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.2D.Path.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="UnityEditor.UI">
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.VisualScripting.SettingsProvider.Editor">
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.VisualScripting.SettingsProvider.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.Rider.Editor">
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.RenderPipelines.Core.ShaderLibrary">
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.RenderPipelines.Core.ShaderLibrary.dll</HintPath>
+>>>>>>> f6db78a... 계정 정지 관련 기능 추가
      </Reference>
      <Reference Include="Unity.VisualStudio.Editor">
      <HintPath>C:/Users/NoTeShineL/Unity Project/ProjectA/Client/Unity ProjectA/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
@@ -738,11 +829,25 @@
      <Reference Include="Unity.TextMeshPro">
      <HintPath>C:/Users/NoTeShineL/Unity Project/ProjectA/Client/Unity ProjectA/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
      </Reference>
+<<<<<<< HEAD
      <Reference Include="Unity.VisualScripting.State.Editor">
      <HintPath>C:/Users/NoTeShineL/Unity Project/ProjectA/Client/Unity ProjectA/Library/ScriptAssemblies/Unity.VisualScripting.State.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.2D.IK.Editor">
      <HintPath>C:/Users/NoTeShineL/Unity Project/ProjectA/Client/Unity ProjectA/Library/ScriptAssemblies/Unity.2D.IK.Editor.dll</HintPath>
+=======
+     <Reference Include="Unity.VisualScripting.Flow.Editor">
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.VisualScripting.Flow.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.2D.Tilemap.Extras">
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.2D.Tilemap.Extras.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.VisualEffectGraph.Editor">
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.VisualEffectGraph.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.2D.Animation.Editor">
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.2D.Animation.Editor.dll</HintPath>
+>>>>>>> f6db78a... 계정 정지 관련 기능 추가
      </Reference>
      <Reference Include="Unity.2D.Sprite.Editor">
      <HintPath>C:/Users/NoTeShineL/Unity Project/ProjectA/Client/Unity ProjectA/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
@@ -756,11 +861,25 @@
      <Reference Include="VSSettingsProvider">
      <HintPath>C:/Users/NoTeShineL/Unity Project/ProjectA/Client/Unity ProjectA/Library/ScriptAssemblies/VSSettingsProvider.dll</HintPath>
      </Reference>
+<<<<<<< HEAD
      <Reference Include="Unity.VisualScripting.Flow">
      <HintPath>C:/Users/NoTeShineL/Unity Project/ProjectA/Client/Unity ProjectA/Library/ScriptAssemblies/Unity.VisualScripting.Flow.dll</HintPath>
      </Reference>
      <Reference Include="UnityEditor.UI">
      <HintPath>C:/Users/NoTeShineL/Unity Project/ProjectA/Client/Unity ProjectA/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+=======
+     <Reference Include="Unity.VisualEffectGraph.Runtime">
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.VisualEffectGraph.Runtime.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.Timeline">
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.Timeline.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.VisualScripting.Core.Editor">
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.VisualScripting.Core.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.TextMeshPro">
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
+>>>>>>> f6db78a... 계정 정지 관련 기능 추가
      </Reference>
      <Reference Include="Unity.PlasticSCM.Editor">
      <HintPath>C:/Users/NoTeShineL/Unity Project/ProjectA/Client/Unity ProjectA/Library/ScriptAssemblies/Unity.PlasticSCM.Editor.dll</HintPath>
@@ -774,8 +893,28 @@
      <Reference Include="Unity.InternalAPIEditorBridge.001">
      <HintPath>C:/Users/NoTeShineL/Unity Project/ProjectA/Client/Unity ProjectA/Library/ScriptAssemblies/Unity.InternalAPIEditorBridge.001.dll</HintPath>
      </Reference>
+<<<<<<< HEAD
      <Reference Include="Unity.VisualScripting.Core">
      <HintPath>C:/Users/NoTeShineL/Unity Project/ProjectA/Client/Unity ProjectA/Library/ScriptAssemblies/Unity.VisualScripting.Core.dll</HintPath>
+=======
+     <Reference Include="Unity.RenderPipelines.Core.Runtime">
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Runtime.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.ResourceManager">
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.ResourceManager.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.VisualScripting.Flow">
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.VisualScripting.Flow.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.PlasticSCM.Editor">
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.2D.Tilemap.Extras.Editor">
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.2D.Tilemap.Extras.Editor.dll</HintPath>
+>>>>>>> f6db78a... 계정 정지 관련 기능 추가
+     </Reference>
+     <Reference Include="Unity.VisualScripting.Core">
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.VisualScripting.Core.dll</HintPath>
      </Reference>
      <Reference Include="Unity.Mathematics">
      <HintPath>C:/Users/NoTeShineL/Unity Project/ProjectA/Client/Unity ProjectA/Library/ScriptAssemblies/Unity.Mathematics.dll</HintPath>
@@ -785,6 +924,9 @@
      </Reference>
      <Reference Include="Unity.2D.Animation.Triangle.Runtime">
      <HintPath>C:/Users/NoTeShineL/Unity Project/ProjectA/Client/Unity ProjectA/Library/ScriptAssemblies/Unity.2D.Animation.Triangle.Runtime.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.VisualScripting.Shared.Editor">
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.VisualScripting.Shared.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.2D.Animation.Runtime">
      <HintPath>C:/Users/NoTeShineL/Unity Project/ProjectA/Client/Unity ProjectA/Library/ScriptAssemblies/Unity.2D.Animation.Runtime.dll</HintPath>
@@ -808,10 +950,17 @@
      <HintPath>C:/Users/NoTeShineL/Unity Project/ProjectA/Client/Unity ProjectA/Library/ScriptAssemblies/Unity.2D.Common.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.2D.SpriteShape.Runtime">
+<<<<<<< HEAD
      <HintPath>C:/Users/NoTeShineL/Unity Project/ProjectA/Client/Unity ProjectA/Library/ScriptAssemblies/Unity.2D.SpriteShape.Runtime.dll</HintPath>
      </Reference>
      <Reference Include="Unity.VisualScripting.State">
      <HintPath>C:/Users/NoTeShineL/Unity Project/ProjectA/Client/Unity ProjectA/Library/ScriptAssemblies/Unity.VisualScripting.State.dll</HintPath>
+=======
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.2D.SpriteShape.Runtime.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.VisualScripting.State">
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.VisualScripting.State.dll</HintPath>
+>>>>>>> f6db78a... 계정 정지 관련 기능 추가
      </Reference>
   </ItemGroup>
   <ItemGroup>

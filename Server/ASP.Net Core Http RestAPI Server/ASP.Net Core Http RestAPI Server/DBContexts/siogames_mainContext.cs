@@ -64,6 +64,21 @@ namespace ASP.Net_Core_Http_RestAPI_Server.DBContexts
                 entity.Property(e => e.AccountAuthLv)
                     .HasColumnType("tinyint(3) unsigned")
                     .HasColumnName("account_authLv");
+<<<<<<< HEAD
+=======
+                
+                entity.Property(e => e.AccountBanReason)
+                    .HasColumnType("tinyint(1) unsigned")
+                    .HasColumnName("account_ban_reason");
+
+                entity.Property(e => e.AccountBanned)
+                    .HasColumnType("tinyint(1) unsigned")
+                    .HasColumnName("account_banned");
+                
+                entity.Property(e => e.AccountBanExpire)
+                    .HasColumnType("date")
+                    .HasColumnName("account_ban_expire");
+>>>>>>> f6db78a... 계정 정지 관련 기능 추가
 
                 entity.Property(e => e.AccountEmail)
                     .HasMaxLength(100)
