@@ -41,15 +41,15 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\AVProVideo\Scripts\Editor\DisplayUGUIEditor.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Editor\PlaylistMediaPlayerEditor.cs" />
+     <Compile Include="Assets\AVProVideo\Scripts\Components\Support\PlayMaker\Editor\AVProVideoActionHeaderPropertyDrawer.cs" />
+     <Compile Include="Assets\AVProVideo\Scripts\Editor\SupportWindow.cs" />
+     <Compile Include="Assets\AVProVideo\Scripts\Editor\ApplyToMeshEditor.cs" />
+     <Compile Include="Assets\AVProVideo\Scripts\Editor\DisplayUGUIEditor.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Editor\PostProcessBuild.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Editor\UpdateStereoMaterialEditor.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Editor\AudioOutputEditor.cs" />
-     <Compile Include="Assets\AVProVideo\Scripts\Components\Support\PlayMaker\Editor\AVProVideoActionHeaderPropertyDrawer.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Editor\MediaPlayerEditor.cs" />
-     <Compile Include="Assets\AVProVideo\Scripts\Editor\SupportWindow.cs" />
-     <Compile Include="Assets\AVProVideo\Scripts\Editor\ApplyToMeshEditor.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Editor\ApplyToMaterialEditor.cs" />
      <Reference Include="UnityEngine">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2021.2.17f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
@@ -306,6 +306,9 @@
      <Reference Include="Microsoft.IdentityModel.Tokens">
      <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Assets\Plugins\jwt\Microsoft.IdentityModel.Tokens.dll</HintPath>
      </Reference>
+     <Reference Include="Unity.VisualScripting.IonicZip">
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\PackageCache\com.unity.visualscripting@1.7.7\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll</HintPath>
+     </Reference>
      <Reference Include="Microsoft.IdentityModel.Logging">
      <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Assets\Plugins\jwt\Microsoft.IdentityModel.Logging.dll</HintPath>
      </Reference>
@@ -333,6 +336,9 @@
      <Reference Include="Unity.Plastic.Antlr3.Runtime">
      <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\PackageCache\com.unity.collab-proxy@1.15.16\Lib\Editor\PlasticSCM\Unity.Plastic.Antlr3.Runtime.dll</HintPath>
      </Reference>
+     <Reference Include="Unity.VisualScripting.YamlDotNet">
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\PackageCache\com.unity.visualscripting@1.7.7\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll</HintPath>
+     </Reference>
      <Reference Include="Unity.Burst.Unsafe">
      <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\PackageCache\com.unity.burst@1.6.4\Unity.Burst.Unsafe.dll</HintPath>
      </Reference>
@@ -342,29 +348,23 @@
      <Reference Include="Microsoft.IdentityModel.JsonWebTokens">
      <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Assets\Plugins\jwt\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
      </Reference>
+     <Reference Include="Unity.VisualScripting.TextureAssets">
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\PackageCache\com.unity.visualscripting@1.7.7\Editor\VisualScripting.Core\EditorAssetResources\Unity.VisualScripting.TextureAssets.dll</HintPath>
+     </Reference>
      <Reference Include="Unity.Burst.Cecil">
      <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\PackageCache\com.unity.burst@1.6.4\Unity.Burst.CodeGen\Unity.Burst.Cecil.dll</HintPath>
      </Reference>
      <Reference Include="Unity.Burst.Cecil.Rocks">
      <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\PackageCache\com.unity.burst@1.6.4\Unity.Burst.CodeGen\Unity.Burst.Cecil.Rocks.dll</HintPath>
      </Reference>
+     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\PackageCache\com.unity.visualscripting@1.7.7\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
+     </Reference>
      <Reference Include="RainbowFolders">
      <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Assets\Plugins\RainbowAssets\RainbowFolders\Editor\Assemblies\RainbowFolders.dll</HintPath>
      </Reference>
      <Reference Include="unityplastic">
      <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\PackageCache\com.unity.collab-proxy@1.15.16\Lib\Editor\PlasticSCM\unityplastic.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.VisualScripting.IonicZip">
-     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\PackageCache\com.unity.visualscripting@1.7.7\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.VisualScripting.YamlDotNet">
-     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\PackageCache\com.unity.visualscripting@1.7.7\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.VisualScripting.TextureAssets">
-     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\PackageCache\com.unity.visualscripting@1.7.7\Editor\VisualScripting.Core\EditorAssetResources\Unity.VisualScripting.TextureAssets.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
-     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\PackageCache\com.unity.visualscripting@1.7.7\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
      </Reference>
      <Reference Include="nunit.framework">
      <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\PackageCache\com.unity.ext.nunit@1.0.6\net35\unity-custom\nunit.framework.dll</HintPath>
@@ -999,6 +999,9 @@
      <Reference Include="Unity.TextMeshPro.Editor">
      <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll</HintPath>
      </Reference>
+     <Reference Include="Unity.VisualScripting.State.Editor">
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.VisualScripting.State.Editor.dll</HintPath>
+     </Reference>
      <Reference Include="Unity.Searcher.Editor">
      <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.Searcher.Editor.dll</HintPath>
      </Reference>
@@ -1010,6 +1013,9 @@
      </Reference>
      <Reference Include="UnityEditor.UI">
      <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.VisualScripting.SettingsProvider.Editor">
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.VisualScripting.SettingsProvider.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.Rider.Editor">
      <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
@@ -1044,8 +1050,14 @@
      <Reference Include="Unity.2D.Common.Editor">
      <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.2D.Common.Editor.dll</HintPath>
      </Reference>
+     <Reference Include="Unity.VisualScripting.Flow.Editor">
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.VisualScripting.Flow.Editor.dll</HintPath>
+     </Reference>
      <Reference Include="Unity.2D.Tilemap.Extras">
      <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.2D.Tilemap.Extras.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.VisualEffectGraph.Editor">
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.VisualEffectGraph.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.2D.Animation.Editor">
      <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.2D.Animation.Editor.dll</HintPath>
@@ -1062,8 +1074,14 @@
      <Reference Include="Unity.VisualStudio.Editor">
      <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll</HintPath>
      </Reference>
+     <Reference Include="Unity.VisualEffectGraph.Runtime">
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.VisualEffectGraph.Runtime.dll</HintPath>
+     </Reference>
      <Reference Include="Unity.Timeline">
      <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.Timeline.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.VisualScripting.Core.Editor">
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.VisualScripting.Core.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.TextMeshPro">
      <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
@@ -1086,11 +1104,17 @@
      <Reference Include="Unity.ResourceManager">
      <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.ResourceManager.dll</HintPath>
      </Reference>
+     <Reference Include="Unity.VisualScripting.Flow">
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.VisualScripting.Flow.dll</HintPath>
+     </Reference>
      <Reference Include="Unity.PlasticSCM.Editor">
      <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.2D.Tilemap.Extras.Editor">
      <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.2D.Tilemap.Extras.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.VisualScripting.Core">
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.VisualScripting.Core.dll</HintPath>
      </Reference>
      <Reference Include="Unity.Mathematics">
      <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.Mathematics.dll</HintPath>
@@ -1100,6 +1124,9 @@
      </Reference>
      <Reference Include="Unity.RenderPipelines.Universal.Editor">
      <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.VisualScripting.Shared.Editor">
+     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.VisualScripting.Shared.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.2D.Animation.Runtime">
      <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.2D.Animation.Runtime.dll</HintPath>
@@ -1131,35 +1158,8 @@
      <Reference Include="Unity.2D.SpriteShape.Runtime">
      <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.2D.SpriteShape.Runtime.dll</HintPath>
      </Reference>
-     <Reference Include="Unity.VisualScripting.Shared.Editor">
-     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.VisualScripting.Shared.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.VisualScripting.SettingsProvider.Editor">
-     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.VisualScripting.SettingsProvider.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.VisualScripting.Core">
-     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.VisualScripting.Core.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.VisualScripting.Core.Editor">
-     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.VisualScripting.Core.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.VisualScripting.Flow">
-     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.VisualScripting.Flow.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.VisualScripting.Flow.Editor">
-     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.VisualScripting.Flow.Editor.dll</HintPath>
-     </Reference>
      <Reference Include="Unity.VisualScripting.State">
      <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.VisualScripting.State.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.VisualScripting.State.Editor">
-     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.VisualScripting.State.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.VisualEffectGraph.Editor">
-     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.VisualEffectGraph.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.VisualEffectGraph.Runtime">
-     <HintPath>C:\Users\dnwls\Documents\Unity Projects\ProjectA\Client\Unity ProjectA\Library\ScriptAssemblies\Unity.VisualEffectGraph.Runtime.dll</HintPath>
      </Reference>
   </ItemGroup>
   <ItemGroup>

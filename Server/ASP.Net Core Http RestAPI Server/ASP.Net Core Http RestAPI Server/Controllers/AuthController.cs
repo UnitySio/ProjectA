@@ -107,14 +107,24 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                         dbPoolManager.Return(dbContext);
                         return response;
                     }
-
-                    // 계정이 정지 상태일 경우
-                    if (tableData.AccountState == 1)
+                    
+                    // 계정이 정지되었을 경우
+                    if (tableData.AccountBanned == 1)
                     {
-                        response.jwt_access = response.jwt_refresh = null;
-                        response.result = "banned";
-                        dbPoolManager.Return(dbContext);
-                        return response;
+                        var expire = DateTime.Compare(DateTime.UtcNow, tableData.AccountBanExpire);
+                        if (expire < 0) // 기간 만료 전
+                        {
+                            response.jwt_access = response.jwt_refresh = null;
+                            response.result = $"banned, {tableData.AccountBanExpire}, {tableData.AccountBanReason}";
+                            dbPoolManager.Return(dbContext);
+                            return response;
+                        }
+                        else if (expire > 0) // 기간 만료 후
+                        {
+                            tableData.AccountBanned = 0;
+                            dbContext.Entry(tableData).State = EntityState.Modified;
+                            var changedCount = await dbContext.SaveChangesAsync();
+                        }
                     }
 
                     UserData userdata = new UserData()
@@ -449,25 +459,56 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
 
                     object AccountUniqueId = jwt.Payload.GetValueOrDefault("AccountUniqueId");
 
-                    //전달된 로그인 정보로 db 조회후, 해당 정보를 db에서 가져온다.
-                    var result = dbContext.PlayerInfos
+                    var result = dbContext.AccountInfos
                         .Where(table =>
-                            //jwt 토큰에서 지정된 AccountUniqueId기준으로 테이블 검색.
                             table.AccountUniqueId.Equals(uint.Parse(AccountUniqueId.ToString()))
                         )
                         .AsNoTracking();
-
+                    
                     if (result.Count() == 1)
                     {
-                        var playerData = result.FirstOrDefault();
+                        var tableData = result.FirstOrDefault();
+                        
+                        // 계정이 정지되었을 경우
+                        if (tableData.AccountBanned == 1)
+                        {
+                            var expire = DateTime.Compare(DateTime.UtcNow, tableData.AccountBanExpire);
+                            if (expire < 0) // 기간 만료 전
+                            {
+                                response.jwt_access = response.jwt_refresh = null;
+                                response.result = $"banned, {tableData.AccountBanExpire}, {tableData.AccountBanReason}";
+                                dbPoolManager.Return(dbContext);
+                                return response;
+                            }
+                            else if (expire > 0) // 기간 만료 후
+                            {
+                                tableData.AccountBanned = 0;
+                                dbContext.Entry(tableData).State = EntityState.Modified;
+                                var changedCount = await dbContext.SaveChangesAsync();
+                            }
+                        }
 
                         //토큰 갱신작업이 완료되었다면, 로그인 중복방지를 위해 SessionManager에 JWT_AccessToken정보를 등록.
-                        if (SessionManager.RegisterToken(playerData.AccountUniqueId, request.jwt_refresh))
+                        if (SessionManager.RegisterToken(tableData.AccountUniqueId, request.jwt_refresh))
                         {
-                            //최종 로그인 일시를 UTC시간 기준으로 갱신.
-                            playerData.TimestampLastSignin = DateTime.UtcNow;
-                            dbContext.Entry(playerData).State = EntityState.Modified;
-                            var changedCount = await dbContext.SaveChangesAsync();
+                            //전달된 로그인 정보로 db 조회후, 해당 정보를 db에서 가져온다.
+                            var playerData = dbContext.PlayerInfos
+                                .Where(table =>
+                                    //jwt 토큰에서 지정된 AccountUniqueId기준으로 테이블 검색.
+                                    table.AccountUniqueId.Equals(uint.Parse(AccountUniqueId.ToString()))
+                                )
+                                .AsNoTracking();
+                            
+                            if (playerData.Count() == 1)
+                            {
+                                var player = playerData.FirstOrDefault();
+                                
+                                //최종 로그인 일시를 UTC시간 기준으로 갱신.
+                                player.TimestampLastSignin = DateTime.UtcNow;
+                                dbContext.Entry(player).State = EntityState.Modified;
+                                var changedCount = await dbContext.SaveChangesAsync();
+                                response.result = "ok";
+                            }
                         }
                     }
                     //잘못된 정보

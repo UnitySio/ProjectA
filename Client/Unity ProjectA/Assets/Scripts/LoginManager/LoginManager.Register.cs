@@ -5,7 +5,6 @@ using ASP.Net_Core_Http_RestAPI_Server.JsonDataModels;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public partial class LoginManager : MonoBehaviour
@@ -83,40 +82,6 @@ public partial class LoginManager : MonoBehaviour
 
     private async Task<string> RequestRegisterAuthNumber(string email)
     {
-        // 에러 발생시 호출
-        UnityAction<string, int, string> failureCallback = (errorType, responseCode, errorMessage) =>
-        {
-            if (errorType.ToLower().Contains("http"))
-            {
-                popup.confirm.onClick.RemoveAllListeners();
-                popup.title.text = $"에러";
-                popup.content.text = $"서버 에러: {responseCode}";
-                popup.confirm.onClick.AddListener(() => popup.Close());
-            }
-            else if (errorType.ToLower().Contains("network"))
-            {
-                popup.confirm.onClick.RemoveAllListeners();
-                popup.title.text = $"에러";
-                popup.content.text = $"네트워크를 확인해 주세요.";
-                popup.confirm.onClick.AddListener(() => popup.Close());
-            }
-            else
-            {
-                popup.confirm.onClick.RemoveAllListeners();
-                popup.title.text = $"에러";
-                popup.content.text = $"알 수 없는 에러";
-                popup.confirm.onClick.AddListener(async () =>
-                {
-                    popup.Close();
-
-                    await Task.Delay(500);
-                    Application.Quit();
-                });
-            }
-
-            popup.Show();
-        };
-
         var requestAuthNumber = new Request_Auth_Join_SendRequest()
         {
             account_email = email
@@ -152,40 +117,6 @@ public partial class LoginManager : MonoBehaviour
     
     private async Task RequestRegister(string email, string password, string authNumber, string registerToken)
     {
-        // 에러 발생시 호출
-        UnityAction<string, int, string> failureCallback = (errorType, responseCode, errorMessage) =>
-        {
-            if (errorType.ToLower().Contains("http"))
-            {
-                popup.confirm.onClick.RemoveAllListeners();
-                popup.title.text = $"에러";
-                popup.content.text = $"서버 에러: {responseCode}";
-                popup.confirm.onClick.AddListener(() => popup.Close());
-            }
-            else if (errorType.ToLower().Contains("network"))
-            {
-                popup.confirm.onClick.RemoveAllListeners();
-                popup.title.text = $"에러";
-                popup.content.text = $"네트워크를 확인해 주세요.";
-                popup.confirm.onClick.AddListener(() => popup.Close());
-            }
-            else
-            {
-                popup.confirm.onClick.RemoveAllListeners();
-                popup.title.text = $"에러";
-                popup.content.text = $"알 수 없는 에러";
-                popup.confirm.onClick.AddListener(async () =>
-                {
-                    popup.Close();
-
-                    await Task.Delay(500);
-                    Application.Quit();
-                });
-            }
-
-            popup.Show();
-        };
-
         var requestAuthNumber = new Request_Auth_Join_SendAuthNumber()
         {
             join_token = registerToken,

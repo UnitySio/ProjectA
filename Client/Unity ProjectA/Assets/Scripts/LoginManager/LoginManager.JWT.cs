@@ -1,11 +1,10 @@
-using ASP.Net_Core_Http_RestAPI_Server.JsonDataModels;
 using System.Collections;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using ASP.Net_Core_Http_RestAPI_Server.JsonDataModels;
 
 public partial class LoginManager : MonoBehaviour
 {
@@ -43,10 +42,32 @@ public partial class LoginManager : MonoBehaviour
                 jwt_refresh = jwtAccess
             };
 
-            var result = await APIManager.SendAPIRequestAsync(API.auth_login, requestCompleteAuthenticate, null);
+            var result = await APIManager.SendAPIRequestAsync(API.auth_login, requestCompleteAuthenticate, failureCallback);
 
-            // 게임 시작 버튼 표시 화면으로 이동
-            SceneManager.LoadScene("BattleScene");
+            var text = result.result;
+
+            if (text.ToLower().Contains("banned"))
+            {
+                popup.confirm.onClick.RemoveAllListeners();
+                popup.title.text = $"계정";
+                popup.content.text = $"{text}";
+                popup.confirm.onClick.AddListener(async () =>
+                {
+                    popup.Close();
+
+                    await Task.Delay(333);
+
+                    SecurityPlayerPrefs.DeleteKey("JWTAccess");
+                    SecurityPlayerPrefs.DeleteKey("JWTRefresh");
+                    SecurityPlayerPrefs.Save();
+                    
+                    WaitingLogin();
+                });
+
+                popup.Show();
+            }
+            else
+                SceneManager.LoadScene("BattleScene");
         }
         else if (JWTManager.checkValidateJWT(refreshToken)) // refreshToken이 유효하고 accessToken이 갱신이 필요하다면
             RefreshJWT(); // JWT 토큰 갱신
@@ -64,46 +85,6 @@ public partial class LoginManager : MonoBehaviour
         {
             authType = "jwt",
             jwt_refresh = refreshToken
-        };
-
-        // 에러 발생시 호출
-        UnityAction<string, int, string> failureCallback = (errorType, responseCode, errorMessage) =>
-        {
-            if (errorType.ToLower().Contains("http"))
-            {
-                popup.confirm.onClick.RemoveAllListeners();
-                popup.title.text = $"에러";
-                popup.content.text = $"서버 에러: {responseCode}";
-                popup.confirm.onClick.AddListener(() => popup.Close());
-            }
-            else if (errorType.ToLower().Contains("network"))
-            {
-                popup.confirm.onClick.RemoveAllListeners();
-                popup.title.text = $"에러";
-                popup.content.text = $"네트워크를 확인해 주세요.";
-                popup.confirm.onClick.AddListener(async () =>
-                {
-                    popup.Close();
-
-                    await Task.Delay(1000);
-                    RefreshJWT();
-                });
-            }
-            else
-            {
-                popup.confirm.onClick.RemoveAllListeners();
-                popup.title.text = $"에러";
-                popup.content.text = $"알 수 없는 에러";
-                popup.confirm.onClick.AddListener(async () =>
-                {
-                    popup.Close();
-
-                    await Task.Delay(500);
-                    Application.Quit();
-                });
-            }
-
-            popup.Show();
         };
 
         var response = await APIManager.SendAPIRequestAsync(API.auth_login, request, failureCallback);
@@ -128,7 +109,7 @@ public partial class LoginManager : MonoBehaviour
                 {
                     popup.Close();
 
-                    SceneManager.LoadScene("LoginScene");
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
                 });
 
                 popup.Show();

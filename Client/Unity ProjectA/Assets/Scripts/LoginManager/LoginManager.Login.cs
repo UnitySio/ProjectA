@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.Events;
 using ASP.Net_Core_Http_RestAPI_Server.JsonDataModels;
 using UnityEngine.SceneManagement;
 
@@ -99,41 +98,6 @@ public partial class LoginManager : MonoBehaviour
             account_password = passwordHash
         };
 
-        // 에러 발생시 호출
-        UnityAction<string, int, string> failureCallback = (errorType, responseCode, errorMessage) =>
-        {
-            if (errorType.ToLower().Contains("http"))
-            {
-                popup.confirm.onClick.RemoveAllListeners();
-                popup.title.text = $"에러";
-                popup.content.text = $"서버 에러: {responseCode}";
-                popup.confirm.onClick.AddListener(() => popup.Close());
-            }
-            else if (errorType.ToLower().Contains("network"))
-            {
-                popup.confirm.onClick.RemoveAllListeners();
-                popup.title.text = $"에러";
-                popup.content.text = $"네트워크를 확인해 주세요.";
-                popup.confirm.onClick.AddListener(() => popup.Close());
-            }
-            else
-            {
-                popup.confirm.onClick.RemoveAllListeners();
-                popup.title.text = $"에러";
-                popup.content.text = $"알 수 없는 에러";
-                popup.confirm.onClick.AddListener(async () =>
-                {
-                    popup.Close();
-
-                    await Task.Delay(500);
-                    Application.Quit();
-                });
-            }
-
-            popup.Show();
-        };
-
-
         await Task.Delay(333);
         var response = await APIManager.SendAPIRequestAsync(API.auth_login, request, failureCallback);
 
@@ -154,11 +118,11 @@ public partial class LoginManager : MonoBehaviour
 
                 SceneManager.LoadScene("BattleScene");
             }
-            else if (text.Equals("banned"))
+            else if (text.ToLower().Contains("banned"))
             {
                 popup.confirm.onClick.RemoveAllListeners();
                 popup.title.text = $"계정";
-                popup.content.text = $"해당 계정은 영구정지되었습니다.";
+                popup.content.text = $"{text}";
                 popup.confirm.onClick.AddListener(() =>
                 {
                     popup.Close();
