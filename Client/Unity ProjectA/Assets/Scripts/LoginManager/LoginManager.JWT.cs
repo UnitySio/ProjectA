@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 using System.IdentityModel.Tokens.Jwt;
 using System.Threading.Tasks;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 using ASP.Net_Core_Http_RestAPI_Server.JsonDataModels;
 
@@ -39,9 +39,9 @@ public partial class LoginManager : MonoBehaviour
             var requestCompleteAuthenticate = new Request_Auth_Login()
             {
                 authType = "update",
-                jwt_refresh = jwtAccess
+                jwt_refresh = jwtAccess,
             };
-
+            
             var result = await APIManager.SendAPIRequestAsync(API.auth_login, requestCompleteAuthenticate, failureCallback);
 
             var text = result.result;
@@ -49,7 +49,7 @@ public partial class LoginManager : MonoBehaviour
             if (text.ToLower().Contains("banned"))
             {
                 popup.confirm.onClick.RemoveAllListeners();
-                popup.title.text = $"계정";
+                popup.title.text = $"알림";
                 popup.content.text = $"{text}";
                 popup.confirm.onClick.AddListener(async () =>
                 {
@@ -88,6 +88,7 @@ public partial class LoginManager : MonoBehaviour
         };
 
         var response = await APIManager.SendAPIRequestAsync(API.auth_login, request, failureCallback);
+        
         if (response != null)
         {
             Response_Auth_Login result = response as Response_Auth_Login;

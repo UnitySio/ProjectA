@@ -43,7 +43,7 @@ public abstract class Entity : StateMachine
         attribute = attri;
     }
 
-    public virtual void Hurt(int damage)
+    public void Hurt(int damage)
     {
         attribute.hP -= damage;
         hPBarGroup.GetComponent<HPBar>().HP -= damage;
@@ -68,9 +68,6 @@ public abstract class Entity : StateMachine
         else if (gameObject.CompareTag("Enemy"))
             BattleManager.Instance.enemy.Remove(this);
     }
-
-    public abstract void Victory();
-    public abstract void Defeat();
 
     public void SetHPBar()
     {

@@ -88,9 +88,8 @@ public partial class LoginManager : MonoBehaviour
             account_email = email
         };
 
-        var response =
-            await APIManager.SendAPIRequestAsync(API.auth_findpassword_sendrequest, request, failureCallback);
-
+        var response = await APIManager.SendAPIRequestAsync(API.auth_findpassword_sendrequest, request, failureCallback);
+        
         if (response != null)
         {
             Response_Auth_FindPassword_SendRequest result = response as Response_Auth_FindPassword_SendRequest;
@@ -125,43 +124,9 @@ public partial class LoginManager : MonoBehaviour
             auth_number = authNumber
         };
 
-        // 에러 발생시 호출
-        UnityAction<string, int, string> failureCallback = (errorType, responseCode, errorMessage) =>
-        {
-            if (errorType.ToLower().Contains("http"))
-            {
-                popup.confirm.onClick.RemoveAllListeners();
-                popup.title.text = $"에러";
-                popup.content.text = $"서버 에러: {responseCode}";
-                popup.confirm.onClick.AddListener(() => popup.Close());
-            }
-            else if (errorType.ToLower().Contains("network"))
-            {
-                popup.confirm.onClick.RemoveAllListeners();
-                popup.title.text = $"에러";
-                popup.content.text = $"네트워크를 확인해 주세요.";
-                popup.confirm.onClick.AddListener(() => popup.Close());
-            }
-            else
-            {
-                popup.confirm.onClick.RemoveAllListeners();
-                popup.title.text = $"에러";
-                popup.content.text = $"알 수 없는 에러";
-                popup.confirm.onClick.AddListener(async () =>
-                {
-                    popup.Close();
-
-                    await Task.Delay(500);
-                    Application.Quit();
-                });
-            }
-
-            popup.Show();
-        };
-
-        var response =
-            await APIManager.SendAPIRequestAsync(API.auth_findpassword_sendauthnumber, request, failureCallback);
-
+        var response = await APIManager.SendAPIRequestAsync(API.auth_findpassword_sendauthnumber, request, failureCallback);
+        
+        
         if (response != null)
         {
             var result = response as Response_Auth_FindPassword_SendAuthNumber;
@@ -220,43 +185,9 @@ public partial class LoginManager : MonoBehaviour
             account_password = password
         };
 
-        // 에러 발생시 호출
-        UnityAction<string, int, string> failureCallback = (errorType, responseCode, errorMessage) =>
-        {
-            if (errorType.ToLower().Contains("http"))
-            {
-                popup.confirm.onClick.RemoveAllListeners();
-                popup.title.text = $"에러";
-                popup.content.text = $"서버 에러: {responseCode}";
-                popup.confirm.onClick.AddListener(() => popup.Close());
-            }
-            else if (errorType.ToLower().Contains("network"))
-            {
-                popup.confirm.onClick.RemoveAllListeners();
-                popup.title.text = $"에러";
-                popup.content.text = $"네트워크를 확인해 주세요.";
-                popup.confirm.onClick.AddListener(() => popup.Close());
-            }
-            else
-            {
-                popup.confirm.onClick.RemoveAllListeners();
-                popup.title.text = $"에러";
-                popup.content.text = $"알 수 없는 에러";
-                popup.confirm.onClick.AddListener(async () =>
-                {
-                    popup.Close();
-
-                    await Task.Delay(500);
-                    Application.Quit();
-                });
-            }
-
-            popup.Show();
-        };
-
-        var response =
-            await APIManager.SendAPIRequestAsync(API.auth_findpassword_updateaccountpassword, request, failureCallback);
-
+        var response = await APIManager.SendAPIRequestAsync(API.auth_findpassword_updateaccountpassword, request, failureCallback);
+        
+        
         if (response != null)
         {
             var result = response as Response_Auth_FindPassword_UpdateAccountPassword;

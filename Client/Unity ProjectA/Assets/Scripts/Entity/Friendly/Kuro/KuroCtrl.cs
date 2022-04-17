@@ -5,7 +5,7 @@ using KuroStates;
 using System.Threading;
 
 [RequireComponent(typeof(SpriteAnimator))]
-public partial class KuroCtrl : Entity
+public class KuroCtrl : Entity
 {
     public State[] states = new State[6];
 
@@ -31,22 +31,7 @@ public partial class KuroCtrl : Entity
         attribute.interval = 2f;
     }
 
-    protected override void Start()
-    {
-        base.Start();
-    }
-
-    protected override void Update()
-    {
-        base.Update();
-        if (BattleManager.Instance.isVictory && currentState != states[5])
-            Victory();
-    }
-
-    protected override State GetInitiateState()
-    {
-        return states[0];
-    }
+    protected override State GetInitiateState() => states[0];
 
     public override void Hit()
     {
@@ -59,15 +44,5 @@ public partial class KuroCtrl : Entity
     {
         base.Death();
         ChangeState(states[4]);
-    }
-
-    public override void Victory()
-    {
-        ChangeState(states[5]);
-    }
-
-    public override void Defeat()
-    {
-
     }
 }

@@ -14,9 +14,6 @@ public partial class BattleManager : MonoBehaviour
         }
     }
 
-    public bool isVictory;
-    public bool isDefeat;
-
     public List<Entity> friendly = new List<Entity>();
     public List<Entity> enemy = new List<Entity>();
 
@@ -29,14 +26,5 @@ public partial class BattleManager : MonoBehaviour
         }
         else if (instance != this)
             Destroy(gameObject);
-    }
-
-    private void Update()
-    {
-        if (isVictory != true || isDefeat != true)
-            if (enemy.Count == 0)
-                isVictory = true;
-            else if (friendly.Count == 0)
-                isDefeat = true;
     }
 }

@@ -29,20 +29,7 @@ public class ScoutTypeKCtrl : Entity
         attribute.interval = 0.2f;
     }
 
-    protected override void Start()
-    {
-        base.Start();
-    }
-
-    protected override void Update()
-    {
-        base.Update();
-    }
-
-    protected override State GetInitiateState()
-    {
-        return states[0];
-    }
+    protected override State GetInitiateState() => states[0];
 
     public override void Hit()
     {
@@ -55,15 +42,5 @@ public class ScoutTypeKCtrl : Entity
     {
         base.Death();
         ChangeState(states[4]);
-    }
-
-    public override void Victory()
-    {
-
-    }
-
-    public override void Defeat()
-    {
-
     }
 }

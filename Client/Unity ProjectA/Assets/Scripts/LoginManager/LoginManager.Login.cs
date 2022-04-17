@@ -99,6 +99,7 @@ public partial class LoginManager : MonoBehaviour
         };
 
         await Task.Delay(333);
+        
         var response = await APIManager.SendAPIRequestAsync(API.auth_login, request, failureCallback);
 
         if (response != null)
@@ -120,9 +121,11 @@ public partial class LoginManager : MonoBehaviour
             }
             else if (text.ToLower().Contains("banned"))
             {
+                var str = text.Split(",");
+                
                 popup.confirm.onClick.RemoveAllListeners();
-                popup.title.text = $"계정";
-                popup.content.text = $"{text}";
+                popup.title.text = $"알림";
+                popup.content.text = $"해당 계정은 게임 규정 위반으로\n{str[1]} 이후 부터\n로그인이 가능합니다.";
                 popup.confirm.onClick.AddListener(() =>
                 {
                     popup.Close();

@@ -12,8 +12,9 @@ public partial class LoginManager : MonoBehaviour
         {
             currentClientVersion = clientVersion
         };
-
+        
         var response = await APIManager.SendAPIRequestAsync(API.versioncheck, request, failureCallback);
+        
         if (response != null)
         {
             await Task.Delay(333);
@@ -26,9 +27,7 @@ public partial class LoginManager : MonoBehaviour
                     // 추후 업데이트 관련 함수 실행
                 }
                 else // 최신버전이여서 업데이트할 필요가 없다면
-                {
                     StartCoroutine(CheckAsset());
-                }
             else // 버전 데이터에 이상이 있다면
             {
                 popup.title.text = $"에러";

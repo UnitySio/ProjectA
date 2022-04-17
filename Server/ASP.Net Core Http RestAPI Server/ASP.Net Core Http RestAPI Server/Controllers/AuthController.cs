@@ -49,9 +49,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
 
         //이메일 정규식 (aaa@gmail.com)
         Regex emailPattern = new Regex("^([a-zA-Z0-9-]+\\@[a-zA-Z0-9-]+\\.[a-zA-Z]{2,10})*$");
-
-
-
+        
         #region 로그인 (계정입력 & OAuth) 및 JWT AccessToken 재발급
 
         //요청 URI
@@ -119,7 +117,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                             dbPoolManager.Return(dbContext);
                             return response;
                         }
-                        else if (expire > 0) // 기간 만료 후
+                        if (expire > 0) // 기간 만료 후
                         {
                             tableData.AccountBanned = 0;
                             dbContext.Entry(tableData).State = EntityState.Modified;
@@ -480,7 +478,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                                 dbPoolManager.Return(dbContext);
                                 return response;
                             }
-                            else if (expire > 0) // 기간 만료 후
+                            if (expire > 0) // 기간 만료 후
                             {
                                 tableData.AccountBanned = 0;
                                 dbContext.Entry(tableData).State = EntityState.Modified;
@@ -536,8 +534,6 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
         }
 
         #endregion
-
-
 
         #region 회원가입(계정입력) - 요청
 
@@ -611,8 +607,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
         }
 
         #endregion
-
-
+        
         #region 회원가입(계정입력) - 이메일 인증번호 인증
 
         //요청 URI
@@ -662,8 +657,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
         }
 
         #endregion
-
-
+        
         #region 회원가입 (계정입력 & OAuth)
 
         //요청 URI
@@ -960,8 +954,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
         }
 
         #endregion
-
-
+        
         #region 비밀번호 찾기(계정입력) - 요청
 
         //요청 URI
@@ -1033,8 +1026,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
         }
 
         #endregion
-
-
+        
         #region 비밀번호 찾기(계정입력) - 인증번호 인증
 
         //요청 URI
@@ -1085,8 +1077,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
         }
 
         #endregion
-
-
+        
         #region 비밀번호 찾기(계정입력) - 비밀번호 변경요청
 
         //요청 URI
