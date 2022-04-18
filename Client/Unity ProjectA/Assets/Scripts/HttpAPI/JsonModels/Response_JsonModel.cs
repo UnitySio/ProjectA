@@ -11,32 +11,6 @@ namespace ASP.Net_Core_Http_RestAPI_Server.JsonDataModels
         public string result { get; set; }
     }
 
-    public class Response_VersionUpdate : Response_JsonModel
-    {
-        public Response_VersionUpdate()
-        {
-            updateFileList = new List<UpdateFileData>();
-        }
-
-        //최신 버전이라면 false 반환, 업데이트가 필요한 버전이라면 true 반환 및 업데이트가 필요한 파일 목록 전달.
-        public bool needUpdate { get; set; }
-        //다운로드 파일명, 파일저장경로, 파일 무결성 해시값, 파일크기가 포함된 Json객체 목록을 Json문자열로 반환.
-        public List<UpdateFileData> updateFileList { get; set; }
-    }
-    public class UpdateFileData
-    {
-        //파일명.  testFile.assets
-        public string fileName { get; set; }
-        //파일경로.  Application.persistanceDataPath 경로뒤에 합쳐질 경로. ex)  /Assets/Data/Environment/Cube/{fileName}
-        public string filePath { get; set; }
-        //MD5나 SHA1 등으로 해시함수를 통하여 계산된 문자열 값. 비교하여 파일 무결성 체크.
-        public string fileHash { get; set; }
-        //byte[] 기준으로 체크한 bytes 값. 추후 값들을 합쳐서 남은 파일 용량 계산시 활용.
-        public int fileSize { get; set; }
-        //https:// 포함한 파일다운로드용 URL 정보.
-        public string fileURL { get; set; }
-    }
-
     public class Response_Auth_Login : Response_JsonModel
     {
         //JWT Access 토큰. 1시간 내외의 유효시간을 갖는 토큰. 로그인 과정 성공시 반환됨.
@@ -92,5 +66,10 @@ namespace ASP.Net_Core_Http_RestAPI_Server.JsonDataModels
     public class Response_User_Gamedata_UpdateUserName : Response_JsonModel
     {
 
+    }
+    
+    public class ResponseServer : Response_JsonModel
+    {
+        public int serverState { get; set; }
     }
 }

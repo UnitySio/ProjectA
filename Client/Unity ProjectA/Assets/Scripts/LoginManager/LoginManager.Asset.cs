@@ -15,11 +15,6 @@ public partial class LoginManager : MonoBehaviour
     public TextMeshProUGUI progressContent;
     public Image progressBar;
 
-    private void InitaiteAddressable()
-    {
-        Addressables.InitializeAsync().Completed += (op) => Addressables.Release(op);
-    }
-
     private IEnumerator CheckAsset()
     {
         long totalSize = 0;

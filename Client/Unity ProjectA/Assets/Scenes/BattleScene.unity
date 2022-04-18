@@ -728,7 +728,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UiScaleMode: 1
-  m_ReferencePixelsPerUnit: 100
+  m_ReferencePixelsPerUnit: 64
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1280, y: 720}
   m_ScreenMatchMode: 0
@@ -1061,8 +1061,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89913aaa5cf00814da545ae906c0cb76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isVictory: 0
-  isDefeat: 0
   friendly:
   - {fileID: 5726193759846763397}
   enemy:

@@ -87,7 +87,7 @@ public partial class LoginManager : MonoBehaviour
             account_email = email
         };
 
-        var responseAuthNumber = await APIManager.SendAPIRequestAsync(API.auth_join_sendrequest, requestAuthNumber, failureCallback);
+        var responseAuthNumber = await APIManager.SendAPIRequestAsync(API.auth_join_sendrequest, requestAuthNumber, ServerManager.Instance.failureCallback);
 
         Response_Auth_Join_SendRequest responseAuthNumberResult = responseAuthNumber as Response_Auth_Join_SendRequest;
 
@@ -122,7 +122,7 @@ public partial class LoginManager : MonoBehaviour
             auth_number = authNumber
         };
 
-        var responseAuthNumber = await APIManager.SendAPIRequestAsync(API.auth_join_sendauthnumber, requestAuthNumber, failureCallback) as Response_Auth_Join_SendAuthNumber;
+        var responseAuthNumber = await APIManager.SendAPIRequestAsync(API.auth_join_sendauthnumber, requestAuthNumber, ServerManager.Instance.failureCallback) as Response_Auth_Join_SendAuthNumber;
 
         if (responseAuthNumber.result.Equals("ok"))
         {
@@ -135,7 +135,7 @@ public partial class LoginManager : MonoBehaviour
             };
 
             await Task.Delay(333);
-            var response = await APIManager.SendAPIRequestAsync(API.auth_join, request, failureCallback);
+            var response = await APIManager.SendAPIRequestAsync(API.auth_join, request, ServerManager.Instance.failureCallback);
             
             if (response != null)
             {

@@ -88,7 +88,7 @@ public partial class LoginManager : MonoBehaviour
             account_email = email
         };
 
-        var response = await APIManager.SendAPIRequestAsync(API.auth_findpassword_sendrequest, request, failureCallback);
+        var response = await APIManager.SendAPIRequestAsync(API.auth_findpassword_sendrequest, request, ServerManager.Instance.failureCallback);
         
         if (response != null)
         {
@@ -124,7 +124,7 @@ public partial class LoginManager : MonoBehaviour
             auth_number = authNumber
         };
 
-        var response = await APIManager.SendAPIRequestAsync(API.auth_findpassword_sendauthnumber, request, failureCallback);
+        var response = await APIManager.SendAPIRequestAsync(API.auth_findpassword_sendauthnumber, request, ServerManager.Instance.failureCallback);
         
         
         if (response != null)
@@ -185,7 +185,7 @@ public partial class LoginManager : MonoBehaviour
             account_password = password
         };
 
-        var response = await APIManager.SendAPIRequestAsync(API.auth_findpassword_updateaccountpassword, request, failureCallback);
+        var response = await APIManager.SendAPIRequestAsync(API.auth_findpassword_updateaccountpassword, request, ServerManager.Instance.failureCallback);
         
         
         if (response != null)

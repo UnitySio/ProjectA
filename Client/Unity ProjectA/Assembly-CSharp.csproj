@@ -111,8 +111,10 @@
      <Compile Include="Assets\Scripts\SoundManager.cs" />
      <Compile Include="Assets\Scripts\SpriteAnimator\AnimClip.cs" />
      <Compile Include="Assets\Scripts\SFX.cs" />
-     <Compile Include="Assets\Scripts\LoginManager\LoginManager.Version.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Internal\NullMediaPlayer.cs" />
+     <Compile Include="Assets\Scripts\ServerManager.cs" />
+     <Compile Include="Assets\Scripts\GameManager.cs" />
+     <Compile Include="Assets\Scripts\Nickname.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\AVProVideo\Resources\Shaders\AVProVideo-VR-InsideSphere-Transparent-AndroidOES.shader" />

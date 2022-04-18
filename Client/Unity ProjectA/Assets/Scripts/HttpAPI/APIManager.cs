@@ -107,9 +107,6 @@ public class ServerAPI
     {
         switch (apiType)
         {
-            case API.versioncheck:
-                return $"{APIManager.serverAddress}/version-check";
-            
             case API.auth_login:
                 return $"{APIManager.serverAddress}/auth/login";
             
@@ -136,8 +133,7 @@ public class ServerAPI
             
             case API.user_gamedata_updateusername:
                 return $"{APIManager.serverAddress}/user/gamedata/update-username";
-            
-            
+
             default:
                 return String.Empty;
         }
@@ -147,9 +143,6 @@ public class ServerAPI
     {
         switch (apiType)
         {
-            case API.versioncheck:
-                return jsonObject.ToObject<Response_VersionUpdate>();
-            
             case API.auth_login:
                 return jsonObject.ToObject<Response_Auth_Login>();
             
@@ -176,8 +169,7 @@ public class ServerAPI
             
             case API.user_gamedata_updateusername:
                 return jsonObject.ToObject<Response_User_Gamedata_UpdateUserName>();
-            
-            
+
             default:
                 return null;
         }
@@ -186,7 +178,6 @@ public class ServerAPI
 
 public enum API
 {
-    versioncheck,
     auth_login,
     auth_join_sendrequest,
     auth_join_sendauthnumber,

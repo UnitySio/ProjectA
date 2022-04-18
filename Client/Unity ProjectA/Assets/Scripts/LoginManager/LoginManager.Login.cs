@@ -100,7 +100,7 @@ public partial class LoginManager : MonoBehaviour
 
         await Task.Delay(333);
         
-        var response = await APIManager.SendAPIRequestAsync(API.auth_login, request, failureCallback);
+        var response = await APIManager.SendAPIRequestAsync(API.auth_login, request, ServerManager.Instance.failureCallback);
 
         if (response != null)
         {
@@ -117,7 +117,7 @@ public partial class LoginManager : MonoBehaviour
                 SecurityPlayerPrefs.SetString("JWTRefresh", jwtRefresh);
                 SecurityPlayerPrefs.Save();
 
-                SceneManager.LoadScene("BattleScene");
+                SceneManager.LoadScene("LobbyScene");
             }
             else if (text.ToLower().Contains("banned"))
             {

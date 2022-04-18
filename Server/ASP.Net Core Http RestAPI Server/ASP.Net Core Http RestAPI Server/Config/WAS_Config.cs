@@ -16,7 +16,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server
         static string WebRootDir = string.Empty;
 
         //연동할 RDBMS관련 접속정보 설정
-        static string DBMSAddress = "db.wizard87.com";
+        static string DBMSAddress = "db.aruku.kro.kr";
         static string DBMSPort = "3333";
         static string DBMSUser = "siogames_admin";
         static string DBMSPassword = "qwert12345!Q";
@@ -89,7 +89,6 @@ Install-Package Microsoft.EntityFrameworkCore.Design
 Install-Package Microsoft.EntityFrameworkCore.Tools
 Install-Package Pomelo.EntityFrameworkCore.MySql
 Install-Package Pomelo.EntityFrameworkCore.MySql.Design
-Install-Package Microsoft.EntityFrameworkCore.Tools
 
 
 MySQL, MariaDB같은 디비에서 테이블을 생성.
@@ -97,7 +96,7 @@ MySQL, MariaDB같은 디비에서 테이블을 생성.
 DBContext 클래스 파일과, RDBMS의 테이블과 매핑되는 C# 클래스 파일을 자동생성.
 MySQL, MariaDB 테이블 -> C# EntityFrameworkCore DBContext 마이그레이션 툴 명령어.
 
-Scaffold-DbContext "server=db.wizard87.com;port=3333;user=siogames_admin;password=qwert12345!Q;database=siogames_main" Pomelo.EntityFrameworkCore.MySql -OutputDir DBContexts -Force
+Scaffold-DbContext "server=db.aruku.kro.kr;port=3333;user=siogames_admin;password=qwert12345!Q;database=siogames_main" Pomelo.EntityFrameworkCore.MySql -OutputDir DBContexts -Force
 
 
 ex) Scaffold-DbContext " [디비접속 문자열] " Pomelo.EntityFrameworkCore.MySql -OutputDir [출력 디렉토리 경로] -Force

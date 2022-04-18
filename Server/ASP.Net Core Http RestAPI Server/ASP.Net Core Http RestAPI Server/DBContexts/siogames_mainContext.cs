@@ -24,13 +24,8 @@ namespace ASP.Net_Core_Http_RestAPI_Server.DBContexts
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
-            {
                 optionsBuilder.UseMySql(WAS_Config.getDBConnInfo(),
-                    ServerVersion.AutoDetect(WAS_Config.getDBConnInfo()), builder =>
-                    {
-                        builder.EnableRetryOnFailure(10);
-                    });
-            }
+                    ServerVersion.AutoDetect(WAS_Config.getDBConnInfo()), builder => builder.EnableRetryOnFailure(10));
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -64,18 +59,20 @@ namespace ASP.Net_Core_Http_RestAPI_Server.DBContexts
                 entity.Property(e => e.AccountAuthLv)
                     .HasColumnType("tinyint(3) unsigned")
                     .HasColumnName("account_authLv");
-                
+
+                entity.Property(e => e.AccountBanExpire)
+                    .HasColumnType("datetime")
+                    .HasColumnName("account_ban_expire");
+
                 entity.Property(e => e.AccountBanReason)
                     .HasColumnType("tinyint(1) unsigned")
-                    .HasColumnName("account_ban_reason");
+                    .HasColumnName("account_ban_reason")
+                    .HasDefaultValueSql("'0'");
 
                 entity.Property(e => e.AccountBanned)
                     .HasColumnType("tinyint(1) unsigned")
-                    .HasColumnName("account_banned");
-                
-                entity.Property(e => e.AccountBanExpire)
-                    .HasColumnType("date")
-                    .HasColumnName("account_ban_expire");
+                    .HasColumnName("account_banned")
+                    .HasDefaultValueSql("'0'");
 
                 entity.Property(e => e.AccountEmail)
                     .HasMaxLength(100)
@@ -210,8 +207,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.DBContexts
 
                 entity.Property(e => e.TimestampLastSignin)
                     .HasColumnType("datetime")
-                    .HasColumnName("timestamp_last_signin")
-                    .HasDefaultValueSql("current_timestamp()");
+                    .HasColumnName("timestamp_last_signin");
 
                 entity.HasOne(d => d.AccountUnique)
                     .WithOne(p => p.PlayerInfo)

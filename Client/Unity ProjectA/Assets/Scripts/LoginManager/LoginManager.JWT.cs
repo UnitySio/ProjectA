@@ -39,10 +39,10 @@ public partial class LoginManager : MonoBehaviour
             var requestCompleteAuthenticate = new Request_Auth_Login()
             {
                 authType = "update",
-                jwt_refresh = jwtAccess,
+                jwt_refresh = jwtAccess
             };
             
-            var result = await APIManager.SendAPIRequestAsync(API.auth_login, requestCompleteAuthenticate, failureCallback);
+            var result = await APIManager.SendAPIRequestAsync(API.auth_login, requestCompleteAuthenticate, ServerManager.Instance.failureCallback);
 
             var text = result.result;
 
@@ -67,7 +67,7 @@ public partial class LoginManager : MonoBehaviour
                 popup.Show();
             }
             else
-                SceneManager.LoadScene("BattleScene");
+                SceneManager.LoadScene("LobbyScene");
         }
         else if (JWTManager.checkValidateJWT(refreshToken)) // refreshToken이 유효하고 accessToken이 갱신이 필요하다면
             RefreshJWT(); // JWT 토큰 갱신
@@ -87,7 +87,7 @@ public partial class LoginManager : MonoBehaviour
             jwt_refresh = refreshToken
         };
 
-        var response = await APIManager.SendAPIRequestAsync(API.auth_login, request, failureCallback);
+        var response = await APIManager.SendAPIRequestAsync(API.auth_login, request, ServerManager.Instance.failureCallback);
         
         if (response != null)
         {

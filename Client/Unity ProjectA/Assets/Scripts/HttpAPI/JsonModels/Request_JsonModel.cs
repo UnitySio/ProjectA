@@ -7,13 +7,6 @@ namespace ASP.Net_Core_Http_RestAPI_Server.JsonDataModels
 {
     public abstract class Request_JsonModel { }
 
-    // URL/VersionCheck
-    public class Request_VersionCheck : Request_JsonModel
-    {
-        //클라 버전 문자열. ex) (1.0.0)
-        public string currentClientVersion { get; set; }
-    }
-
     // URL/Auth/Login
     public class Request_Auth_Login : Request_JsonModel
     {

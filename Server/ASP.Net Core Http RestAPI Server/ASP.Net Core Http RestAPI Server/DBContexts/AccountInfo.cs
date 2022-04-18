@@ -20,8 +20,8 @@ namespace ASP.Net_Core_Http_RestAPI_Server.DBContexts
         public string AccountOauthTokenGoogle { get; set; }
         public string AccountOauthTokenApple { get; set; }
         public DateTime AccountBanExpire { get; set; }
-        public int AccountBanReason { get; set; }
-        public int AccountBanned { get; set; }
+        public byte? AccountBanReason { get; set; }
+        public byte? AccountBanned { get; set; }
 
         public virtual PlayerInfo PlayerInfo { get; set; }
         public virtual ICollection<CharacterInfo> CharacterInfos { get; set; }
