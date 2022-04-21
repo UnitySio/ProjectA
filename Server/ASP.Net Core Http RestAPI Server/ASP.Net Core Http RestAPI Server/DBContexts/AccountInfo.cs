@@ -19,7 +19,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.DBContexts
         public string AccountGuestToken { get; set; }
         public string AccountOauthTokenGoogle { get; set; }
         public string AccountOauthTokenApple { get; set; }
-        public DateTime AccountBanExpire { get; set; }
+        public DateTime? AccountBanExpire { get; set; }
         public byte? AccountBanReason { get; set; }
         public byte? AccountBanned { get; set; }
 

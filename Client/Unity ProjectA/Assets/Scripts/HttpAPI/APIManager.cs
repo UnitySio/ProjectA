@@ -29,10 +29,10 @@ public class APIManager
         catch (Exception e)
         {
             Debug.LogWarning($"{e.Message}\n{e.StackTrace}");
-            
-            if(failureAction != null)
+
+            if (failureAction != null)
                 failureAction("JsonSerializeError", 0, $"{e.Message}\n{e.StackTrace}");
-            
+
             return null;
         }
         
@@ -133,6 +133,9 @@ public class ServerAPI
             
             case API.user_gamedata_updateusername:
                 return $"{APIManager.serverAddress}/user/gamedata/update-username";
+            
+            case API.user_gamedata_checkusername:
+                return $"{APIManager.serverAddress}/user/gamedata/check-username";
 
             default:
                 return String.Empty;
@@ -169,6 +172,9 @@ public class ServerAPI
             
             case API.user_gamedata_updateusername:
                 return jsonObject.ToObject<Response_User_Gamedata_UpdateUserName>();
+            
+            case API.user_gamedata_checkusername:
+                return jsonObject.ToObject<Response_User_Gamedata_CheckUserName>();
 
             default:
                 return null;
@@ -186,5 +192,6 @@ public enum API
     auth_findpassword_sendauthnumber,
     auth_findpassword_updateaccountpassword,
     user_gamedata,
-    user_gamedata_updateusername
+    user_gamedata_updateusername,
+    user_gamedata_checkusername
 }

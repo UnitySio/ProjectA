@@ -109,7 +109,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                     // 계정이 정지되었을 경우
                     if (tableData.AccountBanned == 1)
                     {
-                        var expire = DateTime.Compare(DateTime.UtcNow, tableData.AccountBanExpire);
+                        var expire = DateTime.Compare(DateTime.UtcNow, (DateTime)tableData.AccountBanExpire);
                         if (expire < 0) // 기간 만료 전
                         {
                             response.jwt_access = response.jwt_refresh = null;
@@ -470,7 +470,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                         // 계정이 정지되었을 경우
                         if (tableData.AccountBanned == 1)
                         {
-                            var expire = DateTime.Compare(DateTime.UtcNow, tableData.AccountBanExpire);
+                            var expire = DateTime.Compare(DateTime.UtcNow, (DateTime)tableData.AccountBanExpire);
                             if (expire < 0) // 기간 만료 전
                             {
                                 response.jwt_access = response.jwt_refresh = null;
@@ -711,7 +711,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                     //MariaDB+EntityFramework조합 에서 Transaction사용시 CreateExecutionStrategy 활용하여 실행해야함.
                     var strategy = dbContext.Database.CreateExecutionStrategy();
 
-                    Func<Task> db_transaction_operation = async delegate
+                    Func<Task> db_transaction_operation = async () =>
                     {
                         using (var transaction = await dbContext.Database.BeginTransactionAsync())
                         {

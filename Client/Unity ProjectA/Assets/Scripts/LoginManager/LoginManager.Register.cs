@@ -82,36 +82,43 @@ public partial class LoginManager : MonoBehaviour
 
     private async Task<string> RequestRegisterAuthNumber(string email)
     {
-        var requestAuthNumber = new Request_Auth_Join_SendRequest()
+        var request = new Request_Auth_Join_SendRequest()
         {
             account_email = email
         };
 
-        var responseAuthNumber = await APIManager.SendAPIRequestAsync(API.auth_join_sendrequest, requestAuthNumber, ServerManager.Instance.failureCallback);
+        var response = await APIManager.SendAPIRequestAsync(API.auth_join_sendrequest, request, ServerManager.Instance.FailureCallback);
 
-        Response_Auth_Join_SendRequest responseAuthNumberResult = responseAuthNumber as Response_Auth_Join_SendRequest;
-
-        if (responseAuthNumberResult.result.Equals("ok"))
+        if (response != null)
         {
-            await Task.Delay(333);
-            var token = responseAuthNumberResult.join_token;
-            registerResult.text = "인증번호는 5분간 유효합니다.";
+            Response_Auth_Join_SendRequest result = response as Response_Auth_Join_SendRequest;
 
-            registerEmail.interactable = false;
+            var text = result.result;
+            
+            if (text.Equals("ok"))
+            {
+                await Task.Delay(333);
+                var token = result.join_token;
+                registerResult.text = "인증번호는 5분간 유효합니다.";
 
-            return token;
+                registerEmail.interactable = false;
 
+                return token;
+
+            }
+            else if (text.Equals("duplicate email"))
+            {
+                registerResult.text = "사용중인 이메일입니다.";
+                return "";
+            }
+            else
+            {
+                registerResult.text = "잘못된 데이터입니다.";
+                return "";
+            }
         }
-        else if (responseAuthNumberResult.result.Equals("duplicate email"))
-        {
-            registerResult.text = "사용중인 이메일입니다.";
-            return "";
-        }
-        else
-        {
-            registerResult.text = "잘못된 데이터입니다.";
-            return "";
-        }
+
+        return "";
     }
     
     private async Task RequestRegister(string email, string password, string authNumber, string registerToken)
@@ -122,7 +129,7 @@ public partial class LoginManager : MonoBehaviour
             auth_number = authNumber
         };
 
-        var responseAuthNumber = await APIManager.SendAPIRequestAsync(API.auth_join_sendauthnumber, requestAuthNumber, ServerManager.Instance.failureCallback) as Response_Auth_Join_SendAuthNumber;
+        var responseAuthNumber = await APIManager.SendAPIRequestAsync(API.auth_join_sendauthnumber, requestAuthNumber, ServerManager.Instance.FailureCallback) as Response_Auth_Join_SendAuthNumber;
 
         if (responseAuthNumber.result.Equals("ok"))
         {
@@ -135,7 +142,7 @@ public partial class LoginManager : MonoBehaviour
             };
 
             await Task.Delay(333);
-            var response = await APIManager.SendAPIRequestAsync(API.auth_join, request, ServerManager.Instance.failureCallback);
+            var response = await APIManager.SendAPIRequestAsync(API.auth_join, request, ServerManager.Instance.FailureCallback);
             
             if (response != null)
             {

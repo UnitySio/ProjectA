@@ -24,8 +24,11 @@ namespace ASP.Net_Core_Http_RestAPI_Server.DBContexts
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
+            {
                 optionsBuilder.UseMySql(WAS_Config.getDBConnInfo(),
-                    ServerVersion.AutoDetect(WAS_Config.getDBConnInfo()), builder => builder.EnableRetryOnFailure(10));
+                    ServerVersion.AutoDetect(WAS_Config.getDBConnInfo()), builder =>
+                    builder.EnableRetryOnFailure(10));
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -45,6 +45,7 @@
      <Compile Include="Assets\Scripts\HttpAPI\DBContexts\AccountInfo.cs" />
      <Compile Include="Assets\Scripts\Entity\Friendly\Kuro\KuroStates.cs" />
      <Compile Include="Assets\Scripts\LoginManager\LoginManager.cs" />
+     <Compile Include="Assets\Scripts\ServerManager.cs" />
      <Compile Include="Assets\Scripts\Entity\Enemy\ScoutTypeK\ScoutTypeKCtrl.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Components\DisplayBackground.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Components\Support\PlayMaker\Actions\AVProVideoControl.cs" />
@@ -97,6 +98,7 @@
      <Compile Include="Assets\Scripts\HttpAPI\JsonModels\UserData.cs" />
      <Compile Include="Assets\Scripts\Utils\HashManager.cs" />
      <Compile Include="Assets\Scripts\SpriteAnimator\SpriteAnimator.cs" />
+     <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\Entity\StateMachine\StateMachine.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Components\DisplayIMGUI.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Components\AudioChannelMixer.cs" />
@@ -112,8 +114,6 @@
      <Compile Include="Assets\Scripts\SpriteAnimator\AnimClip.cs" />
      <Compile Include="Assets\Scripts\SFX.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Internal\NullMediaPlayer.cs" />
-     <Compile Include="Assets\Scripts\ServerManager.cs" />
-     <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\Nickname.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />

@@ -67,9 +67,9 @@ namespace ASP.Net_Core_Http_RestAPI_Server.JsonDataModels
     {
 
     }
-    
-    public class ResponseServer : Response_JsonModel
+
+    public class Response_User_Gamedata_CheckUserName : Response_JsonModel
     {
-        public int serverState { get; set; }
+        
     }
 }

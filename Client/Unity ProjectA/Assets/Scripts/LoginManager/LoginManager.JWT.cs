@@ -42,32 +42,40 @@ public partial class LoginManager : MonoBehaviour
                 jwt_refresh = jwtAccess
             };
             
-            var result = await APIManager.SendAPIRequestAsync(API.auth_login, requestCompleteAuthenticate, ServerManager.Instance.failureCallback);
+            var response = await APIManager.SendAPIRequestAsync(API.auth_login, requestCompleteAuthenticate, ServerManager.Instance.FailureCallback);
 
-            var text = result.result;
-
-            if (text.ToLower().Contains("banned"))
+            if (response != null)
             {
-                popup.confirm.onClick.RemoveAllListeners();
-                popup.title.text = $"알림";
-                popup.content.text = $"{text}";
-                popup.confirm.onClick.AddListener(async () =>
+                Response_Auth_Login result = response as Response_Auth_Login;
+
+                var text = result.result;
+
+                if (text.Equals("ok"))
+                    SceneManager.LoadScene("LobbyScene");
+                else if (text.ToLower().Contains("banned"))
                 {
-                    popup.Close();
+                    var str = text.Split(",");
+                
+                    popup.confirm.onClick.RemoveAllListeners();
+                    popup.title.text = $"알림";
+                    popup.content.text = $"해당 계정은 게임 규정 위반으로\n{str[1]} 이후 부터\n로그인이 가능합니다.";
+                    popup.confirm.onClick.AddListener(async () =>
+                    {
+                        popup.Close();
+                        
+                        await Task.Delay(333);
+                        
+                        SecurityPlayerPrefs.DeleteKey("JWTAccess");
+                        SecurityPlayerPrefs.DeleteKey("JWTRefresh");
+                        SecurityPlayerPrefs.Save();
 
-                    await Task.Delay(333);
+                        WaitingLogin();
+                    });
+                
+                    popup.Show();
+                }
 
-                    SecurityPlayerPrefs.DeleteKey("JWTAccess");
-                    SecurityPlayerPrefs.DeleteKey("JWTRefresh");
-                    SecurityPlayerPrefs.Save();
-                    
-                    WaitingLogin();
-                });
-
-                popup.Show();
             }
-            else
-                SceneManager.LoadScene("LobbyScene");
         }
         else if (JWTManager.checkValidateJWT(refreshToken)) // refreshToken이 유효하고 accessToken이 갱신이 필요하다면
             RefreshJWT(); // JWT 토큰 갱신
@@ -87,7 +95,7 @@ public partial class LoginManager : MonoBehaviour
             jwt_refresh = refreshToken
         };
 
-        var response = await APIManager.SendAPIRequestAsync(API.auth_login, request, ServerManager.Instance.failureCallback);
+        var response = await APIManager.SendAPIRequestAsync(API.auth_login, request, ServerManager.Instance.FailureCallback);
         
         if (response != null)
         {

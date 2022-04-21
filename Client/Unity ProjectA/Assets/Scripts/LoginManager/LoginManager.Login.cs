@@ -100,7 +100,7 @@ public partial class LoginManager : MonoBehaviour
 
         await Task.Delay(333);
         
-        var response = await APIManager.SendAPIRequestAsync(API.auth_login, request, ServerManager.Instance.failureCallback);
+        var response = await APIManager.SendAPIRequestAsync(API.auth_login, request, ServerManager.Instance.FailureCallback);
 
         if (response != null)
         {

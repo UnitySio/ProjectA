@@ -108,4 +108,9 @@ namespace ASP.Net_Core_Http_RestAPI_Server.JsonDataModels
         //추후 서버에서 해당 계정이 닉네임을 변경할 권리 (닉네임 변경권 소유여부 등) 가 있는지 DB에서 조회후 판정하게끔 예정
         public string user_name { get; set; }
     }
+
+    public class Request_User_Gamedata_CheckUserName : Request_JsonModel
+    {
+        public string jwt_access { get; set; }
+    }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -18,8 +19,6 @@ public class ServerManager : MonoBehaviour
     }
     
     public string serverAddress = "http://127.0.0.1:5001";
-    
-    public UnityAction<string, int, string> failureCallback;
 
     [SerializeField]
     private Popup popup;
@@ -29,17 +28,15 @@ public class ServerManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
+            // DontDestroyOnLoad(gameObject);
         }
         else if (instance != this)
             Destroy(instance);
         
         if (!string.IsNullOrEmpty(serverAddress))
             APIManager.serverAddress = serverAddress;
-        
-        failureCallback = FailureCallback;
     }
-    
+
     // 에러 발생시 호출
     public void FailureCallback(string errorType, int responseCode, string errorMessage)
     {

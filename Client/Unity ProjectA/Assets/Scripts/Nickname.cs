@@ -10,13 +10,40 @@ public class Nickname : MonoBehaviour
 {
     private void Start()
     {
-        ChangeNickname("Guest001");
+        CheckNickname();
+    }
+
+    private async Task GetUserData()
+    {
+        var jwtAccess = SecurityPlayerPrefs.GetString("JWTAccess", null);
+        JwtSecurityToken accessToken = JWTManager.DecryptJWT(jwtAccess);
+
+        if (JWTManager.checkValidateJWT(accessToken))
+        {
+            var request = new Request_User_Gamedata()
+            {
+                jwt_access = jwtAccess
+            };
+
+            var response = await APIManager.SendAPIRequestAsync(API.user_gamedata, request, ServerManager.Instance.FailureCallback);
+
+            if (response != null)
+            {
+                var result = response as Response_User_Gamedata;
+
+                var text = result.result;
+
+                if (text.Equals("ok"))
+                {
+                    Debug.Log(result.userDataInfo.UserStamia);
+                }
+            }
+        }
     }
 
     private async Task ChangeNickname(string nickname)
     {
         var jwtAccess = SecurityPlayerPrefs.GetString("JWTAccess", null);
-
         JwtSecurityToken accessToken = JWTManager.DecryptJWT(jwtAccess);
 
         if (JWTManager.checkValidateJWT(accessToken))
@@ -27,13 +54,44 @@ public class Nickname : MonoBehaviour
                 user_name = nickname
             };
 
-            var result = await APIManager.SendAPIRequestAsync(API.user_gamedata_updateusername, request, ServerManager.Instance.failureCallback);
+            var response = await APIManager.SendAPIRequestAsync(API.user_gamedata_updateusername, request, ServerManager.Instance.FailureCallback);
 
-            var text = result.result;
-
-            if (text.Equals("ok"))
+            if (response != null)
             {
-                Debug.Log("닉네임을 변경했습니다.");
+                var result = response as Response_User_Gamedata_UpdateUserName;
+                
+                var text = result.result;
+
+                if (text.Equals("ok"))
+                {
+                    Debug.Log("닉네임을 변경했습니다.");
+                }
+            }
+        }
+    }
+    
+    private async Task CheckNickname()
+    {
+        var jwtAccess = SecurityPlayerPrefs.GetString("JWTAccess", null);
+        JwtSecurityToken accessToken = JWTManager.DecryptJWT(jwtAccess);
+
+        if (JWTManager.checkValidateJWT(accessToken))
+        {
+            var request = new Request_User_Gamedata_CheckUserName()
+            {
+                jwt_access = jwtAccess
+            };
+
+            var response = await APIManager.SendAPIRequestAsync(API.user_gamedata_checkusername, request, ServerManager.Instance.FailureCallback);
+
+            if (response != null)
+            {
+                var result = response as Response_User_Gamedata_CheckUserName;
+                
+                var text = result.result;
+
+                if (text.Equals("empty"))
+                    ChangeNickname("GameMaster");
             }
         }
     }

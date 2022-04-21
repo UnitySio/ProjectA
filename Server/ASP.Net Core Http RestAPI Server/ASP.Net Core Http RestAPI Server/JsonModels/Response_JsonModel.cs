@@ -93,4 +93,9 @@ namespace ASP.Net_Core_Http_RestAPI_Server.JsonDataModels
     {
 
     }
+
+    public class Response_User_Gamedata_CheckUserName : Response_JsonModel
+    {
+        
+    }
 }
