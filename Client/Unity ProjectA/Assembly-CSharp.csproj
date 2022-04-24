@@ -41,7 +41,11 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+<<<<<<< HEAD
      <Compile Include="Assets\Scripts\HttpAPI\DBContexts\AccountInfo.cs" />
+=======
+     <Compile Include="Assets\Scripts\LoginManager\LoginManager.Asset.cs" />
+>>>>>>> 029fd61... 리팩토링 1차 재작업
      <Compile Include="Assets\Scripts\Entity\Friendly\Kuro\KuroStates.cs" />
      <Compile Include="Assets\Scripts\LoginManager\LoginManager.cs" />
      <Compile Include="Assets\Scripts\Entity\Enemy\ScoutTypeK\ScoutTypeKCtrl.cs" />
@@ -56,8 +60,7 @@
      <Compile Include="Assets\Scripts\Entity\Entity.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Internal\Stream.cs" />
      <Compile Include="Assets\Scripts\Entity\Friendly\Kuro\KuroCtrl.cs" />
-     <Compile Include="Assets\Scripts\HttpAPI\JsonModels\Request_JsonModel.cs" />
-     <Compile Include="Assets\Scripts\HttpAPI\DBContexts\CharacterInfo.cs" />
+     <Compile Include="Assets\Scripts\HttpAPI\JsonModels\RequestJsonModel.cs" />
      <Compile Include="Assets\Scripts\LoginManager\LoginManager.PasswordFind.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Internal\Interfaces.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Internal\AndroidMediaPlayer.cs" />
@@ -82,7 +85,7 @@
 =======
 >>>>>>> f6db78a... 계정 정지 관련 기능 추가
      <Compile Include="Assets\AVProVideo\Scripts\Components\Support\PlayMaker\Actions\AVProVideoPlayer.cs" />
-     <Compile Include="Assets\Scripts\HttpAPI\JsonModels\Response_JsonModel.cs" />
+     <Compile Include="Assets\Scripts\HttpAPI\JsonModels\ResponseJsonModel.cs" />
      <Compile Include="Assets\Scripts\Utils\SecurityPlayerPrefs.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Components\AudioOutput.cs" />
 <<<<<<< HEAD
@@ -127,8 +130,11 @@
      <Compile Include="Assets\AVProVideo\Scripts\Internal\Resampler.cs" />
      <Compile Include="Assets\Scripts\CardManager.cs" />
      <Compile Include="Assets\Scripts\Entity\EntityAttribute.cs" />
+<<<<<<< HEAD
 >>>>>>> f6db78a... 계정 정지 관련 기능 추가
      <Compile Include="Assets\Scripts\HttpAPI\DBContexts\PlayerInfo.cs" />
+=======
+>>>>>>> 029fd61... 리팩토링 1차 재작업
      <Compile Include="Assets\Scripts\HttpAPI\APIManager.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Components\SubtitlesUGUI.cs" />
 <<<<<<< HEAD

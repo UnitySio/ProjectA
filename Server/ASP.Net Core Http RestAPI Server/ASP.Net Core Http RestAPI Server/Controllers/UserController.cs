@@ -33,14 +33,14 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private static DBContextPoolManager<siogames_mainContext> dbPoolManager;
-        private readonly ILogger<AuthController> debugLogger;
+        private static DBContextPoolManager<projectaContext> dbPoolManager;
+        private readonly ILogger<UserController> debugLogger;
 
-        public UserController(ILogger<AuthController> logger)
+        public UserController(ILogger<UserController> logger)
         {
-            this.debugLogger = logger;
+            debugLogger = logger;
             if (dbPoolManager == null)
-                dbPoolManager = new DBContextPoolManager<siogames_mainContext>();
+                dbPoolManager = new DBContextPoolManager<projectaContext>();
         }
 
 
@@ -50,23 +50,23 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
         // http://serverAddress/user/gamedata
         [HttpPost("user/gamedata")]
         [Consumes(MediaTypeNames.Application.Json)] // application/json
-        public async Task<Response_User_Gamedata> Post(Request_User_Gamedata request)
+        public async Task<ResponseUserData> Post(RequestUserData request)
         {
-            Response_User_Gamedata response = new Response_User_Gamedata();
+            var response = new ResponseUserData();
             //DB에 접속하여 데이터를 조작하는 DBContext객체.
             var dbContext = dbPoolManager.Rent();
 
             //jwt refresh 토큰 유효성 검사 및, jwt_access 토큰 재발급 준비.
-            if (JWTManager.checkValidationJWT(request.jwt_access, out SecurityToken tokenInfo))
+            if (JWTManager.CheckValidationJWT(request.jwtAccess, out SecurityToken tokenInfo))
             {
                 //유효성 검증이 완료된 토큰 정보.
-                JwtSecurityToken jwt = tokenInfo as JwtSecurityToken;
+                var jwt = tokenInfo as JwtSecurityToken;
 
-                object id = jwt.Payload.GetValueOrDefault("AccountUniqueId");
+                var id = jwt.Payload.GetValueOrDefault("AccountUniqueId");
 
-                uint AccountUniqueId = uint.Parse(id.ToString());
+                var accountUniqueId = uint.Parse(id.ToString());
                 
-                if (SessionManager.isDuplicate(AccountUniqueId, request.jwt_access))
+                if (SessionManager.isDuplicate(accountUniqueId, request.jwtAccess))
                 {
                     response.result = "Duplicate Session";
                     dbPoolManager.Return(dbContext);
@@ -74,27 +74,36 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                 }
 
                 //전달된 정보로 db 조회후, 해당 정보를 db에서 가져온다.
-                var playerData =
+                var userQuery =
                     //TableJoin
                     from account in dbContext.Set<AccountInfo>()
-                    join player in dbContext.Set<PlayerInfo>()
-                    on account.AccountUniqueId equals player.AccountUniqueId
-                    where account.AccountUniqueId.Equals(AccountUniqueId)
-                    select new { account, player };
+                    join user in dbContext.Set<UserInfo>()
+                    on account.AccountUniqueId equals user.AccountUniqueId
+                    where account.AccountUniqueId.Equals(accountUniqueId)
+                    select new { account, player = user };
 
-                if (playerData.Count() == 1)
+                if (userQuery.Count() == 1)
                 {
-                    var playerInfo = playerData.FirstOrDefault();
+                    var user = userQuery.FirstOrDefault();
                     
-
                     response.result = "ok";
-                    response.userDataInfo = new UserData()
+                    response.userData = new UserData()
                     {
+<<<<<<< HEAD
                         AccountUniqueId = playerInfo.account.AccountUniqueId,
                         AccountEmail = playerInfo.account.AccountEmail,
                         AuthLv = playerInfo.account.AccountAuthLv,
                         UserLv = (int)playerInfo.player.PlayerLv,
                         UserName = playerInfo.player.PlayerNickname
+=======
+                        AccountUniqueId = user.account.AccountUniqueId,
+                        AccountEmail = user.account.AccountEmail,
+                        AuthLv = user.account.AccountAuthLv,
+                        UserLv = (int)user.player.UserLv,
+                        UserNickname = user.player.UserNickname,
+                        UserStamia = (int)user.player.UserStamina
+                        
+>>>>>>> 029fd61... 리팩토링 1차 재작업
                     };
                 }
                 else
@@ -119,9 +128,9 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
         // http://serverAddress/user/gamedata/update-username
         [HttpPost("user/gamedata/update-username")]
         [Consumes(MediaTypeNames.Application.Json)] // application/json
-        public async Task<Response_User_Gamedata_UpdateUserName> Post(Request_User_Gamedata_UpdateUserName request)
+        public async Task<ResponseUserNicknameUpdate> Post(RequestUserNicknameUpdate request)
         {
-            Response_User_Gamedata_UpdateUserName response = new Response_User_Gamedata_UpdateUserName();
+            var response = new ResponseUserNicknameUpdate();
 
             //DB에 접속하여 데이터를 조작하는 DBContext객체.
             var dbContext = dbPoolManager.Rent();
@@ -135,7 +144,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
 
 
             //추후, 닉네임 변경권 소유여부나, 정규식 추가하여 판단
-            if (string.IsNullOrEmpty(request.user_name))
+            if (string.IsNullOrEmpty(request.userNickname))
             {
                 response.result = "invalid user_name data";
                 dbPoolManager.Return(dbContext);
@@ -146,25 +155,25 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
             //jwt refresh 토큰 유효성 검사 및, jwt_access 토큰 재발급 준비.
             SecurityToken tokenInfo = new JwtSecurityToken();
 
-            if (JWTManager.checkValidationJWT(request.jwt_access, out tokenInfo))
+            if (JWTManager.CheckValidationJWT(request.jwtAccess, out tokenInfo))
             {
                 //유효성 검증이 완료된 토큰 정보.
-                JwtSecurityToken jwt = tokenInfo as JwtSecurityToken;
+                var jwt = tokenInfo as JwtSecurityToken;
 
-                object AccountUniqueId = jwt.Payload.GetValueOrDefault("AccountUniqueId");
+                var accountUniqueId = jwt.Payload.GetValueOrDefault("AccountUniqueId");
 
                 //전달된 정보로 db 조회후, 해당 정보를 db에서 가져온다.
-                var accountData = dbContext.PlayerInfos
-                    .Where(table => table.AccountUniqueId.Equals(AccountUniqueId))
+                var userQuery = dbContext.UserInfos
+                    .Where(table => table.AccountUniqueId.Equals(accountUniqueId))
                     .AsNoTracking();
 
-                if (accountData.Count() == 1)
+                if (userQuery.Count() == 1)
                 {
-                    var playerInfo = accountData.FirstOrDefault();
+                    var user = userQuery.FirstOrDefault();
 
                     //닉네임 변경사항 반영
-                    playerInfo.PlayerNickname = request.user_name;
-                    dbContext.Entry(playerInfo).State = EntityState.Modified;
+                    user.UserNickname = request.userNickname;
+                    dbContext.Entry(user).State = EntityState.Modified;
                     var changedCount = await dbContext.SaveChangesAsync();
 
                     response.result = "ok";
@@ -184,5 +193,68 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
         }
 
         #endregion
+<<<<<<< HEAD
+=======
+        
+        #region 닉네임 확인
+
+        //요청 URI
+        // http://serverAddress/user/gamedata/check-username
+        [HttpPost("user/gamedata/check-username")]
+        [Consumes(MediaTypeNames.Application.Json)] // application/json
+        public async Task<ResponseUserNicknameCheck> Post(RequestUserNicknameCheck request)
+        {
+            var response = new ResponseUserNicknameCheck();
+
+            //DB에 접속하여 데이터를 조작하는 DBContext객체.
+            var dbContext = dbPoolManager.Rent();
+
+            if (request == null)
+            {
+                response.result = "invalid data";
+                dbPoolManager.Return(dbContext);
+                return response;
+            }
+            
+            //jwt refresh 토큰 유효성 검사 및, jwt_access 토큰 재발급 준비.
+            SecurityToken tokenInfo = new JwtSecurityToken();
+
+            if (JWTManager.CheckValidationJWT(request.jwtAccess, out tokenInfo))
+            {
+                //유효성 검증이 완료된 토큰 정보.
+                var jwt = tokenInfo as JwtSecurityToken;
+
+                var accountUniqueId = jwt.Payload.GetValueOrDefault("AccountUniqueId");
+
+                //전달된 정보로 db 조회후, 해당 정보를 db에서 가져온다.
+                var userQuery = dbContext.UserInfos
+                    .Where(table => table.AccountUniqueId.Equals(accountUniqueId))
+                    .AsNoTracking();
+
+                if (userQuery.Count() == 1)
+                {
+                    var user = userQuery.FirstOrDefault();
+
+                    if (string.IsNullOrEmpty(user.UserNickname))
+                        response.result = "empty";
+                    else
+                        response.result = "exist";
+                }
+                else
+                {
+                    response.result = "server Error.";
+                }
+            }
+            else
+            {
+                response.result = "invalid jwt";
+            }
+            
+            dbPoolManager.Return(dbContext);
+            return response;
+        }
+
+        #endregion
+>>>>>>> 029fd61... 리팩토링 1차 재작업
     }
 }

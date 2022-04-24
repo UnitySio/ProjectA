@@ -82,21 +82,41 @@ public partial class LoginManager : MonoBehaviour
 
     private async Task<string> RequestRegisterAuthNumber(string email)
     {
+<<<<<<< HEAD
         var requestAuthNumber = new Request_Auth_Join_SendRequest()
+=======
+        var request = new RequestRegisterAuthNumber()
+>>>>>>> 029fd61... ë¦¬íŒ©í† ë§ 1ì°¨ ì¬ì‘ì—…
         {
-            account_email = email
+            accountEmail = email
         };
 
+<<<<<<< HEAD
         var responseAuthNumber =
             await APIManager.SendAPIRequestAsync(API.auth_join_sendrequest, requestAuthNumber, failureCallback);
         
         Response_Auth_Join_SendRequest responseAuthNumberResult = responseAuthNumber as Response_Auth_Join_SendRequest;
+=======
+        var response = await APIManager.SendAPIRequestAsync(API.RegisterAuthNumber, request, ServerManager.Instance.FailureCallback);
+>>>>>>> 029fd61... ë¦¬íŒ©í† ë§ 1ì°¨ ì¬ì‘ì—…
 
         if (responseAuthNumberResult.result.Equals("ok"))
         {
+<<<<<<< HEAD
             await Task.Delay(333);
             var token = responseAuthNumberResult.join_token;
             registerResult.text = "ÀÎÁõ¹øÈ£´Â 5ºĞ°£ À¯È¿ÇÕ´Ï´Ù.";
+=======
+            ResponseRegisterAuthNumber result = response as ResponseRegisterAuthNumber;
+
+            var text = result.result;
+            
+            if (text.Equals("ok"))
+            {
+                await Task.Delay(333);
+                var token = result.registerToken;
+                registerResult.text = "ÀÎÁõ¹øÈ£´Â 5ºĞ°£ À¯È¿ÇÕ´Ï´Ù.";
+>>>>>>> 029fd61... ë¦¬íŒ©í† ë§ 1ì°¨ ì¬ì‘ì—…
 
             registerEmail.interactable = false;
 
@@ -117,39 +137,48 @@ public partial class LoginManager : MonoBehaviour
     
     private async Task RequestRegister(string email, string password, string authNumber, string registerToken)
     {
-        var requestAuthNumber = new Request_Auth_Join_SendAuthNumber()
+        var requestAuthNumber = new RequestRegisterAuthNumberCheck()
         {
-            join_token = registerToken,
-            auth_number = authNumber
+            registerToken = registerToken,
+            authNumber = authNumber
         };
 
+<<<<<<< HEAD
         var responseAuthNumber =
             await APIManager.SendAPIRequestAsync(API.auth_join_sendauthnumber, requestAuthNumber, failureCallback) as
                 Response_Auth_Join_SendAuthNumber;
+=======
+        var responseAuthNumber = await APIManager.SendAPIRequestAsync(API.RegisterAuthNumberCheck, requestAuthNumber, ServerManager.Instance.FailureCallback) as ResponseRegisterAuthNumberCheck;
+>>>>>>> 029fd61... ë¦¬íŒ©í† ë§ 1ì°¨ ì¬ì‘ì—…
 
         if (responseAuthNumber.result.Equals("ok"))
         {
-            var request = new Request_Auth_Join()
+            var request = new RequestRegister()
             {
                 authType = "account",
-                account_email = email,
-                account_password = password,
-                join_token = registerToken
+                accountEmail = email,
+                accountPassword = password,
+                registerToken = registerToken
             };
 
             await Task.Delay(333);
+<<<<<<< HEAD
             var response = await APIManager.SendAPIRequestAsync(API.auth_join, request, failureCallback);
 
+=======
+            var response = await APIManager.SendAPIRequestAsync(API.Register, request, ServerManager.Instance.FailureCallback);
+            
+>>>>>>> 029fd61... ë¦¬íŒ©í† ë§ 1ì°¨ ì¬ì‘ì—…
             if (response != null)
             {
-                Response_Auth_Join result = response as Response_Auth_Join;
+                ResponseRegister result = response as ResponseRegister;
 
                 var text = result.result;
 
                 if (text.Equals("ok"))
                 {
-                    var jwtAccess = result.jwt_access;
-                    var jwtRefresh = result.jwt_refresh;
+                    var jwtAccess = result.jwtAccess;
+                    var jwtRefresh = result.jwtRefresh;
 
                     SecurityPlayerPrefs.SetString("JWTAccess", jwtAccess);
                     SecurityPlayerPrefs.SetString("JWTRefresh", jwtRefresh);

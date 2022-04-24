@@ -27,7 +27,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server
                     builder =>
                     {
                         // 허용할 CORS 도메인 입력
-                        builder.WithOrigins(WAS_Config.getWAS_CORS_URL_List());
+                        builder.WithOrigins(WASConfig.GetWASCORSURLList());
                     });
             });
         }
@@ -40,7 +40,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server
                 app.UseDeveloperExceptionPage();
             }
 
-            env.WebRootPath = env.ContentRootPath = WAS_Config.getWebRootDir();
+            env.WebRootPath = env.ContentRootPath = WASConfig.GetWebRootDirectory();
 
             //WebRootPath의 정적인 파일들을 그대로 Url을 통하여 배포할건지 여부.
             app.UseStaticFiles();
@@ -52,10 +52,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
 }

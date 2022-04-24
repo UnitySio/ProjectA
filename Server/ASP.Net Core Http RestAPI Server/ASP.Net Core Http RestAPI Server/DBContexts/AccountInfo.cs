@@ -9,7 +9,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.DBContexts
     {
         public AccountInfo()
         {
-            CharacterInfos = new HashSet<CharacterInfo>();
+            UserLoginLogs = new HashSet<UserLoginLog>();
         }
 
         public uint AccountUniqueId { get; set; }
@@ -20,13 +20,19 @@ namespace ASP.Net_Core_Http_RestAPI_Server.DBContexts
         public string AccountOauthTokenGoogle { get; set; }
         public string AccountOauthTokenApple { get; set; }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         public DateTime AccountBanExpire { get; set; }
         public int AccountBanReason { get; set; }
         public int AccountBanned { get; set; }
 >>>>>>> f6db78a... 계정 정지 관련 기능 추가
+=======
+        public DateTime? AccountBanExpire { get; set; }
+        public byte AccountBanReason { get; set; }
+        public byte AccountBanned { get; set; }
+>>>>>>> 029fd61... 리팩토링 1차 재작업
 
-        public virtual PlayerInfo PlayerInfo { get; set; }
-        public virtual ICollection<CharacterInfo> CharacterInfos { get; set; }
+        public virtual UserInfo UserInfo { get; set; }
+        public virtual ICollection<UserLoginLog> UserLoginLogs { get; set; }
     }
 }

@@ -95,12 +95,15 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+<<<<<<< HEAD
           "downloadDependencies": [
             {
               "name": "Microsoft.NETCore.App.Host.win-x64",
               "version": "[3.1.21, 3.1.21]"
             }
           ],
+=======
+>>>>>>> 029fd61... 리팩토링 1차 재작업
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"

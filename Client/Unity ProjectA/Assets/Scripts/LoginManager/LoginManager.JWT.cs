@@ -33,16 +33,25 @@ public partial class LoginManager : MonoBehaviour
         await Task.Delay(333);
 
         // ¾ÆÁ÷ accessTokenÀÌ À¯È¿ÇÏ´Ù¸é
-        if (JWTManager.checkValidateJWT(accessToken))
+        if (JWTManager.CheckValidateJWT(accessToken))
         {
             // ·Î±×ÀÎ °»½Å½Ã°£ Àü´Ş¿ë
-            var requestCompleteAuthenticate = new Request_Auth_Login()
+            var requestCompleteAuthenticate = new RequestLogin()
             {
                 authType = "update",
-                jwt_refresh = jwtAccess
+                jwtRefresh = jwtAccess
             };
+<<<<<<< HEAD
 
             var result = await APIManager.SendAPIRequestAsync(API.auth_login, requestCompleteAuthenticate, failureCallback);
+=======
+            
+            var response = await APIManager.SendAPIRequestAsync(API.Login, requestCompleteAuthenticate, ServerManager.Instance.FailureCallback);
+
+            if (response != null)
+            {
+                ResponseLogin result = response as ResponseLogin;
+>>>>>>> 029fd61... ë¦¬íŒ©í† ë§ 1ì°¨ ì¬ì‘ì—…
 
             var text = result.result;
 
@@ -69,7 +78,7 @@ public partial class LoginManager : MonoBehaviour
             else
                 SceneManager.LoadScene("BattleScene");
         }
-        else if (JWTManager.checkValidateJWT(refreshToken)) // refreshTokenÀÌ À¯È¿ÇÏ°í accessTokenÀÌ °»½ÅÀÌ ÇÊ¿äÇÏ´Ù¸é
+        else if (JWTManager.CheckValidateJWT(refreshToken)) // refreshTokenÀÌ À¯È¿ÇÏ°í accessTokenÀÌ °»½ÅÀÌ ÇÊ¿äÇÏ´Ù¸é
             RefreshJWT(); // JWT ÅäÅ« °»½Å
         else // ¸ğµç ÅäÅ«ÀÌ ¸¸·áµÈ °æ¿ì
             WaitingLogin(); // ·Î±×ÀÎ ¹öÆ° Ç¥½Ã
@@ -81,23 +90,28 @@ public partial class LoginManager : MonoBehaviour
 
         var refreshToken = SecurityPlayerPrefs.GetString("JWTRefresh", null);
 
-        var request = new Request_Auth_Login()
+        var request = new RequestLogin()
         {
             authType = "jwt",
-            jwt_refresh = refreshToken
+            jwtRefresh = refreshToken
         };
 
+<<<<<<< HEAD
         var response = await APIManager.SendAPIRequestAsync(API.auth_login, request, failureCallback);
+=======
+        var response = await APIManager.SendAPIRequestAsync(API.Login, request, ServerManager.Instance.FailureCallback);
+        
+>>>>>>> 029fd61... ë¦¬íŒ©í† ë§ 1ì°¨ ì¬ì‘ì—…
         if (response != null)
         {
-            Response_Auth_Login result = response as Response_Auth_Login;
+            ResponseLogin result = response as ResponseLogin;
 
             var text = result.result;
 
             if (text.Equals("ok"))
             {
-                SecurityPlayerPrefs.SetString("JWTAccess", result.jwt_access);
-                SecurityPlayerPrefs.SetString("JWTRefresh", result.jwt_refresh);
+                SecurityPlayerPrefs.SetString("JWTAccess", result.jwtAccess);
+                SecurityPlayerPrefs.SetString("JWTRefresh", result.jwtRefresh);
                 SecurityPlayerPrefs.Save();
             }
             else

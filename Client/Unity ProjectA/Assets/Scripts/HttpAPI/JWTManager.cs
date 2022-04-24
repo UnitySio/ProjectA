@@ -6,13 +6,13 @@ using UnityEngine;
 
 public class JWTManager : MonoBehaviour
 {
-    public static JwtSecurityToken DecryptJWT(string jsonWebTokenStr)
+    public static JwtSecurityToken DecryptJWT(string jsonWebTokenString)
     {
         JwtSecurityToken jwt;
         JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
         try
         {
-            jwt = tokenHandler.ReadJwtToken(jsonWebTokenStr);
+            jwt = tokenHandler.ReadJwtToken(jsonWebTokenString);
             return jwt;
         }
         catch (Exception)
@@ -24,7 +24,7 @@ public class JWTManager : MonoBehaviour
             tokenHandler = null;
         }
         
-        string[] jwts = jsonWebTokenStr?.Split('.');
+        string[] jwts = jsonWebTokenString?.Split('.');
 
         if (jwts.Length != 3)
         {
@@ -32,8 +32,8 @@ public class JWTManager : MonoBehaviour
             return null;
         }
             
-        string header = Encoding.UTF8.GetString(Convert.FromBase64String(checkBase64(jwts[0])));
-        string payload = Encoding.UTF8.GetString(Convert.FromBase64String(checkBase64(jwts[1])));
+        string header = Encoding.UTF8.GetString(Convert.FromBase64String(CheckBase64(jwts[0])));
+        string payload = Encoding.UTF8.GetString(Convert.FromBase64String(CheckBase64(jwts[1])));
         //string sign = Encoding.UTF8.GetString(Convert.FromBase64String(checkBase64(jwts[2])));
             
         JObject resultheader = JObject.Parse(header);
@@ -75,7 +75,7 @@ public class JWTManager : MonoBehaviour
         "aud": "https://api.siogames.com"
     }    
     */
-    public static string parsingJWT(JwtSecurityToken jwt, string key)
+    public static string ParsingJWT(JwtSecurityToken jwt, string key)
     {
         object value;
         if (jwt.Payload.TryGetValue(key, out value))
@@ -90,7 +90,7 @@ public class JWTManager : MonoBehaviour
     
     
     //유효기간 체크용 jwt
-    public static bool checkValidateJWT(JwtSecurityToken jwt)
+    public static bool CheckValidateJWT(JwtSecurityToken jwt)
     {
         if (jwt == null)
         {
@@ -108,7 +108,7 @@ public class JWTManager : MonoBehaviour
         {
             long expTime = long.Parse(value.ToString());
 
-            if ((expTime - 300) > getUnixTimeNowSeconds())
+            if ((expTime - 300) > GetUnixTimeNowSeconds())
             {
                 return true;
             }
@@ -123,13 +123,13 @@ public class JWTManager : MonoBehaviour
         }
     }
     
-    static long getUnixTimeNowSeconds() //1 Sec단위.
+    static long GetUnixTimeNowSeconds() //1 Sec단위.
     {
         var timeSpan = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0);
         return (long)timeSpan.TotalSeconds;
     }
     
-    static string checkBase64(string inputBase64)
+    static string CheckBase64(string inputBase64)
     {
         int checkLength = inputBase64.Length % 4;
         if (checkLength != 0)

@@ -29,7 +29,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server
             {
                 sessionCheck.TryAdd(uniqueID, token);
             }
-            
+
             return sessionCheck.ContainsKey(uniqueID);
         }
 
