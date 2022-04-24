@@ -15,10 +15,10 @@ public class APIManager
 
     
     //API서버와 통신 하는 함수.
-    public static async Task<Response_JsonModel> SendAPIRequestAsync
-        (API apiType, Request_JsonModel request, UnityAction<string, int, string> failureAction)
+    public static async Task<ResponseJsonModel> SendAPIRequestAsync
+        (API apiType, RequestJsonModel request, UnityAction<string, int, string> failureAction)
     {
-        Response_JsonModel response = null;
+        ResponseJsonModel response = null;
 
         string jsonString = null;
 
@@ -107,34 +107,34 @@ public class ServerAPI
     {
         switch (apiType)
         {
-            case API.auth_login:
+            case API.Login:
                 return $"{APIManager.serverAddress}/auth/login";
             
-            case API.auth_join_sendrequest:
+            case API.RegisterAuthNumber:
                 return $"{APIManager.serverAddress}/auth/join/send-request";
             
-            case API.auth_join_sendauthnumber:
+            case API.RegisterAuthNumberCheck:
                 return $"{APIManager.serverAddress}/auth/join/send-auth-number";
             
-            case API.auth_join:
+            case API.Register:
                 return $"{APIManager.serverAddress}/auth/join";
             
-            case API.auth_findpassword_sendrequest:
+            case API.PasswordFindAuthNumber:
                 return $"{APIManager.serverAddress}/auth/findpassword/send-request";
             
-            case API.auth_findpassword_sendauthnumber:
+            case API.PasswordFindAuthNumberCheck:
                 return $"{APIManager.serverAddress}/auth/findpassword/send-auth-number";
             
-            case API.auth_findpassword_updateaccountpassword:
+            case API.PasswordChange:
                 return $"{APIManager.serverAddress}/auth/findpassword/update-account-password";
             
-            case API.user_gamedata:
+            case API.UserData:
                 return $"{APIManager.serverAddress}/user/gamedata";
             
-            case API.user_gamedata_updateusername:
+            case API.UserNicknameUpdate:
                 return $"{APIManager.serverAddress}/user/gamedata/update-username";
             
-            case API.user_gamedata_checkusername:
+            case API.UserNicknameCheck:
                 return $"{APIManager.serverAddress}/user/gamedata/check-username";
 
             default:
@@ -142,39 +142,39 @@ public class ServerAPI
         }
     }
     
-    public static Response_JsonModel parseJsonModel(API apiType, JObject jsonObject)
+    public static ResponseJsonModel parseJsonModel(API apiType, JObject jsonObject)
     {
         switch (apiType)
         {
-            case API.auth_login:
-                return jsonObject.ToObject<Response_Auth_Login>();
+            case API.Login:
+                return jsonObject.ToObject<ResponseLogin>();
             
-            case API.auth_join_sendrequest:
-                return jsonObject.ToObject<Response_Auth_Join_SendRequest>();
+            case API.RegisterAuthNumber:
+                return jsonObject.ToObject<ResponseRegisterAuthNumber>();
             
-            case API.auth_join_sendauthnumber:
-                return jsonObject.ToObject<Response_Auth_Join_SendAuthNumber>();
+            case API.RegisterAuthNumberCheck:
+                return jsonObject.ToObject<ResponseRegisterAuthNumberCheck>();
             
-            case API.auth_join:
-                return jsonObject.ToObject<Response_Auth_Join>();
+            case API.Register:
+                return jsonObject.ToObject<ResponseRegister>();
 
-            case API.auth_findpassword_sendrequest:
-                return jsonObject.ToObject<Response_Auth_FindPassword_SendRequest>();
+            case API.PasswordFindAuthNumber:
+                return jsonObject.ToObject<ResponsePasswordFindAuthNumber>();
             
-            case API.auth_findpassword_sendauthnumber:
-                return jsonObject.ToObject<Response_Auth_FindPassword_SendAuthNumber>();
+            case API.PasswordFindAuthNumberCheck:
+                return jsonObject.ToObject<ResponsePasswordFindAuthNumberCheck>();
             
-            case API.auth_findpassword_updateaccountpassword:
-                return jsonObject.ToObject<Response_Auth_FindPassword_UpdateAccountPassword>();
+            case API.PasswordChange:
+                return jsonObject.ToObject<ResponsePasswordChange>();
             
-            case API.user_gamedata:
-                return jsonObject.ToObject<Response_User_Gamedata>();
+            case API.UserData:
+                return jsonObject.ToObject<ResponseUserData>();
             
-            case API.user_gamedata_updateusername:
-                return jsonObject.ToObject<Response_User_Gamedata_UpdateUserName>();
+            case API.UserNicknameUpdate:
+                return jsonObject.ToObject<ResponseUserNiknameUpdate>();
             
-            case API.user_gamedata_checkusername:
-                return jsonObject.ToObject<Response_User_Gamedata_CheckUserName>();
+            case API.UserNicknameCheck:
+                return jsonObject.ToObject<ResponseUserNicknameCheck>();
 
             default:
                 return null;
@@ -184,14 +184,14 @@ public class ServerAPI
 
 public enum API
 {
-    auth_login,
-    auth_join_sendrequest,
-    auth_join_sendauthnumber,
-    auth_join,
-    auth_findpassword_sendrequest,
-    auth_findpassword_sendauthnumber,
-    auth_findpassword_updateaccountpassword,
-    user_gamedata,
-    user_gamedata_updateusername,
-    user_gamedata_checkusername
+    Login,
+    RegisterAuthNumber,
+    RegisterAuthNumberCheck,
+    Register,
+    PasswordFindAuthNumber,
+    PasswordFindAuthNumberCheck,
+    PasswordChange,
+    UserData,
+    UserNicknameUpdate,
+    UserNicknameCheck
 }

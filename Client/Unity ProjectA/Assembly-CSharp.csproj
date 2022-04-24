@@ -42,7 +42,6 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\LoginManager\LoginManager.Asset.cs" />
-     <Compile Include="Assets\Scripts\HttpAPI\DBContexts\AccountInfo.cs" />
      <Compile Include="Assets\Scripts\Entity\Friendly\Kuro\KuroStates.cs" />
      <Compile Include="Assets\Scripts\LoginManager\LoginManager.cs" />
      <Compile Include="Assets\Scripts\ServerManager.cs" />
@@ -58,8 +57,7 @@
      <Compile Include="Assets\Scripts\Entity\Entity.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Internal\Stream.cs" />
      <Compile Include="Assets\Scripts\Entity\Friendly\Kuro\KuroCtrl.cs" />
-     <Compile Include="Assets\Scripts\HttpAPI\JsonModels\Request_JsonModel.cs" />
-     <Compile Include="Assets\Scripts\HttpAPI\DBContexts\CharacterInfo.cs" />
+     <Compile Include="Assets\Scripts\HttpAPI\JsonModels\RequestJsonModel.cs" />
      <Compile Include="Assets\Scripts\LoginManager\LoginManager.PasswordFind.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Internal\Interfaces.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Internal\AndroidMediaPlayer.cs" />
@@ -83,7 +81,7 @@
      <Compile Include="Assets\Scripts\BattleManager\BattleManager.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Components\Support\NGUI\ApplyToTextureWidgetNGUI.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Components\Support\PlayMaker\Actions\AVProVideoPlayer.cs" />
-     <Compile Include="Assets\Scripts\HttpAPI\JsonModels\Response_JsonModel.cs" />
+     <Compile Include="Assets\Scripts\HttpAPI\JsonModels\ResponseJsonModel.cs" />
      <Compile Include="Assets\Scripts\Utils\SecurityPlayerPrefs.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Components\AudioOutput.cs" />
      <Compile Include="Assets\Scripts\Entity\HPBar.cs" />
@@ -105,7 +103,6 @@
      <Compile Include="Assets\AVProVideo\Scripts\Internal\Resampler.cs" />
      <Compile Include="Assets\Scripts\CardManager.cs" />
      <Compile Include="Assets\Scripts\Entity\EntityAttribute.cs" />
-     <Compile Include="Assets\Scripts\HttpAPI\DBContexts\PlayerInfo.cs" />
      <Compile Include="Assets\Scripts\HttpAPI\APIManager.cs" />
      <Compile Include="Assets\Scripts\SpriteAnimator\AnimClipInfo.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Components\SubtitlesUGUI.cs" />

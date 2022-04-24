@@ -20,9 +20,10 @@ namespace ASP.Net_Core_Http_RestAPI_Server
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureLogging(logBuilder => {
-                    //log clear
-                    //logBuilder.ClearProviders();
+                .ConfigureLogging(logBuilder =>
+                {
+                    logBuilder.ClearProviders();
+                    logBuilder.AddConsole();
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
@@ -30,7 +31,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server
                     {
                         serverOptions.Limits.MaxConcurrentConnections = null;
                         serverOptions.Limits.MaxConcurrentUpgradedConnections = null;
-                        serverOptions.Limits.MaxRequestBodySize = 1048576*1024; //1MB * 1024
+                        serverOptions.Limits.MaxRequestBodySize = 1048576 * 1024; //1MB * 1024
                         /*
                         serverOptions.Limits.MinRequestBodyDataRate =
                             new MinDataRate(bytesPerSecond: 100,
@@ -54,7 +55,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server
                         serverOptions.Limits.Http2.MaxFrameSize = 32768;*/
                     });
                     webBuilder.UseStartup<Startup>();
-                    webBuilder.UseUrls(WAS_Config.getWAS_URLInfo());
+                    webBuilder.UseUrls(WASConfig.GetWASURLInfo());
                 });
     }
 }

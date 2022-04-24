@@ -33,20 +33,20 @@ public partial class LoginManager : MonoBehaviour
         await Task.Delay(333);
 
         // 아직 accessToken이 유효하다면
-        if (JWTManager.checkValidateJWT(accessToken))
+        if (JWTManager.CheckValidateJWT(accessToken))
         {
             // 로그인 갱신시간 전달용
-            var requestCompleteAuthenticate = new Request_Auth_Login()
+            var requestCompleteAuthenticate = new RequestLogin()
             {
                 authType = "update",
-                jwt_refresh = jwtAccess
+                jwtRefresh = jwtAccess
             };
             
-            var response = await APIManager.SendAPIRequestAsync(API.auth_login, requestCompleteAuthenticate, ServerManager.Instance.FailureCallback);
+            var response = await APIManager.SendAPIRequestAsync(API.Login, requestCompleteAuthenticate, ServerManager.Instance.FailureCallback);
 
             if (response != null)
             {
-                Response_Auth_Login result = response as Response_Auth_Login;
+                ResponseLogin result = response as ResponseLogin;
 
                 var text = result.result;
 
@@ -77,7 +77,7 @@ public partial class LoginManager : MonoBehaviour
 
             }
         }
-        else if (JWTManager.checkValidateJWT(refreshToken)) // refreshToken이 유효하고 accessToken이 갱신이 필요하다면
+        else if (JWTManager.CheckValidateJWT(refreshToken)) // refreshToken이 유효하고 accessToken이 갱신이 필요하다면
             RefreshJWT(); // JWT 토큰 갱신
         else // 모든 토큰이 만료된 경우
             WaitingLogin(); // 로그인 버튼 표시
@@ -89,24 +89,24 @@ public partial class LoginManager : MonoBehaviour
 
         var refreshToken = SecurityPlayerPrefs.GetString("JWTRefresh", null);
 
-        var request = new Request_Auth_Login()
+        var request = new RequestLogin()
         {
             authType = "jwt",
-            jwt_refresh = refreshToken
+            jwtRefresh = refreshToken
         };
 
-        var response = await APIManager.SendAPIRequestAsync(API.auth_login, request, ServerManager.Instance.FailureCallback);
+        var response = await APIManager.SendAPIRequestAsync(API.Login, request, ServerManager.Instance.FailureCallback);
         
         if (response != null)
         {
-            Response_Auth_Login result = response as Response_Auth_Login;
+            ResponseLogin result = response as ResponseLogin;
 
             var text = result.result;
 
             if (text.Equals("ok"))
             {
-                SecurityPlayerPrefs.SetString("JWTAccess", result.jwt_access);
-                SecurityPlayerPrefs.SetString("JWTRefresh", result.jwt_refresh);
+                SecurityPlayerPrefs.SetString("JWTAccess", result.jwtAccess);
+                SecurityPlayerPrefs.SetString("JWTRefresh", result.jwtRefresh);
                 SecurityPlayerPrefs.Save();
             }
             else

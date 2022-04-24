@@ -9,32 +9,30 @@ namespace ASP.Net_Core_Http_RestAPI_Server
 {
     public class EmailManager
     {
-        static string GmailAddr = WAS_Config.getGmailAddr();
-        static string GmailPassword = WAS_Config.getGmailPassword();
+        static string gmailAddress = WASConfig.GetGmailAddress();
+        static string gmailPassword = WASConfig.GetGmailPassword();
 
         static ConcurrentQueue<MailMessage> mailQueue;
         static ConcurrentQueue<SmtpClient> gmailSmtpList;
 
         //비밀번호 찾기 인증메일 체크용
-        static ConcurrentDictionary<string, EmailValidationInfo> findPasswordValidationCheck;
+        static ConcurrentDictionary<string, EmailValidationInfo> passwordFindValidationCheck;
 
         //회원가입 인증메일 체크용
-        static ConcurrentDictionary<string, EmailValidationInfo> joinValidationCheck;
+        static ConcurrentDictionary<string, EmailValidationInfo> registerValidationCheck;
 
         public static async void Initialize()
         {
-            findPasswordValidationCheck = new ConcurrentDictionary<string, EmailValidationInfo>();
-            joinValidationCheck = new ConcurrentDictionary<string, EmailValidationInfo>();
+            passwordFindValidationCheck = new ConcurrentDictionary<string, EmailValidationInfo>();
+            registerValidationCheck = new ConcurrentDictionary<string, EmailValidationInfo>();
 
             mailQueue = new ConcurrentQueue<MailMessage>();
             gmailSmtpList = new ConcurrentQueue<SmtpClient>();
 
             for (int i = 0; i < 5; i++)
-            {
                 gmailSmtpList.Enqueue(CreateSMTPClient());
-            }
 
-            checkValidationListTask();
+            CheckValidationListTask();
 
             await Task.Run(async() =>
             {
@@ -98,55 +96,51 @@ namespace ASP.Net_Core_Http_RestAPI_Server
             gmailSmtp.UseDefaultCredentials = false; // 시스템에 설정된 인증 정보를 사용하지 않는다.
             gmailSmtp.EnableSsl = true; // SSL을 사용한다.
             gmailSmtp.DeliveryMethod = SmtpDeliveryMethod.Network; // 이걸 하지 않으면 Gmail에 인증을 받지 못한다.
-            gmailSmtp.Credentials = new System.Net.NetworkCredential(GmailAddr, GmailPassword); //Gmail 계정 정보.
+            gmailSmtp.Credentials = new System.Net.NetworkCredential(gmailAddress, gmailPassword); //Gmail 계정 정보.
 
             return gmailSmtp;
         }
 
 
-        public static void sendGmail_SMTP(string targetMailAddr, string senderName, string mailTitle, string mailContents)
+        public static void SendGmailSMTP(string targetMailAddress, string senderName, string mailTitle, string mailContents)
         {
-            MailAddress from = new MailAddress(GmailAddr, senderName, Encoding.UTF8);
-            MailAddress to = new MailAddress(targetMailAddr);
+            MailAddress from = new MailAddress(gmailAddress, senderName, Encoding.UTF8);
+            MailAddress to = new MailAddress(targetMailAddress);
 
             MailMessage message = new MailMessage(from, to);
             message.SubjectEncoding = message.BodyEncoding = Encoding.UTF8;
             message.Subject = mailTitle;
             message.Body = mailContents;
-            message.IsBodyHtml = false;
+            message.IsBodyHtml = true;
 
             mailQueue.Enqueue(message);
         }
 
 
         //만료기간이 1시간 넘는 오래된 항목들이 존재할 경우, 삭제한다.
-        static async void checkValidationListTask()
+        static async void CheckValidationListTask()
         {
             TimeSpan delay30Minutes = TimeSpan.FromMinutes(30);
 
             //설정된 주기마다 동작.
             while (true)
             {
-                var list = findPasswordValidationCheck.ToArray();
+                var list = passwordFindValidationCheck.ToArray();
 
                 foreach (var item in list)
                 {
                     var itemValue = item.Value;
                     if (itemValue.expirateTime.AddHours(1) <= DateTime.UtcNow)
-                    {
-                        findPasswordValidationCheck.TryRemove(itemValue.ValidateToken, out EmailValidationInfo var);
-                    }
+                        passwordFindValidationCheck.TryRemove(itemValue.validateToken, out EmailValidationInfo var);
                 }
 
-                var list2 = joinValidationCheck.ToArray();
+                var list2 = registerValidationCheck.ToArray();
 
                 foreach (var item in list2)
                 {
                     var itemValue = item.Value;
                     if (itemValue.expirateTime.AddHours(1) <= DateTime.UtcNow)
-                    {
-                        joinValidationCheck.TryRemove(itemValue.ValidateToken, out EmailValidationInfo var);
-                    }
+                        registerValidationCheck.TryRemove(itemValue.validateToken, out EmailValidationInfo var);
                 }
 
                 await Task.Delay(delay30Minutes);
@@ -154,82 +148,62 @@ namespace ASP.Net_Core_Http_RestAPI_Server
         }
 
         
-        public static bool RegisterFindPasswordInfo(string findToken, EmailValidationInfo info)
+        public static bool SetPasswordFindInfo(string findToken, EmailValidationInfo info)
         {
-            if (findPasswordValidationCheck.ContainsKey(findToken))
-            {
-                findPasswordValidationCheck[findToken] = info;
-            }
+            if (passwordFindValidationCheck.ContainsKey(findToken))
+                passwordFindValidationCheck[findToken] = info;
             else
-            {
-                findPasswordValidationCheck.TryAdd(findToken, info);
-            }
+                passwordFindValidationCheck.TryAdd(findToken, info);
 
-            return findPasswordValidationCheck.ContainsKey(findToken);
+            return passwordFindValidationCheck.ContainsKey(findToken);
         }
 
-        public static EmailValidationInfo GetFindPasswordInfo(string findToken)
+        public static EmailValidationInfo GetPasswordFindInfo(string findToken)
         {
-            if (findPasswordValidationCheck.ContainsKey(findToken))
-            {
-                return findPasswordValidationCheck[findToken];
-            }
+            if (passwordFindValidationCheck.ContainsKey(findToken))
+                return passwordFindValidationCheck[findToken];
             else
-            {
                 return null;
-            }
         }
 
-        public static void RemoveFindPasswordInfo(string findToken)
+        public static void RemovePasswordFindInfo(string findToken)
         {
-            if (findPasswordValidationCheck.ContainsKey(findToken))
-            {
-                findPasswordValidationCheck.TryRemove(findToken, out EmailValidationInfo var);
-            }
+            if (passwordFindValidationCheck.ContainsKey(findToken))
+                passwordFindValidationCheck.TryRemove(findToken, out EmailValidationInfo var);
         }
 
 
-        public static bool RegisterJoinInfo(string joinToken, EmailValidationInfo info)
+        public static bool SetRegisterInfo(string joinToken, EmailValidationInfo info)
         {
-            if (joinValidationCheck.ContainsKey(joinToken))
-            {
-                joinValidationCheck[joinToken] = info;
-            }
+            if (registerValidationCheck.ContainsKey(joinToken))
+                registerValidationCheck[joinToken] = info;
             else
-            {
-                joinValidationCheck.TryAdd(joinToken, info);
-            }
+                registerValidationCheck.TryAdd(joinToken, info);
 
-            return joinValidationCheck.ContainsKey(joinToken);
+            return registerValidationCheck.ContainsKey(joinToken);
         }
 
-        public static EmailValidationInfo GetJoinInfo(string joinToken)
+        public static EmailValidationInfo GetRegisterInfo(string joinToken)
         {
-            if (joinValidationCheck.ContainsKey(joinToken))
-            {
-                return joinValidationCheck[joinToken];
-            }
+            if (registerValidationCheck.ContainsKey(joinToken))
+                return registerValidationCheck[joinToken];
             else
-            {
                 return null;
-            }
         }
 
-        public static void RemoveJoinInfo(string joinToken)
+        public static void RemoveRegisterInfo(string joinToken)
         {
-            if (joinValidationCheck.ContainsKey(joinToken))
-            {
-                joinValidationCheck.TryRemove(joinToken, out EmailValidationInfo var);
-            }
+            if (registerValidationCheck.ContainsKey(joinToken))
+                registerValidationCheck.TryRemove(joinToken, out EmailValidationInfo var);
         }
     }
 
     //이메일 인증용 객체 정보.
     public class EmailValidationInfo
     {
-        public string ValidateToken;
-        public string EmailAddress;
-        public string EmailValidateConfirmNumber;
+        public string validateToken;
+        public string emailAddress;
+        public string emailValidateConfirmNumber;
         public DateTime expirateTime;
         public byte currentStep;
     }

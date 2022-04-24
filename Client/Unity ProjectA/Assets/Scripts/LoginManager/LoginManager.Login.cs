@@ -91,27 +91,27 @@ public partial class LoginManager : MonoBehaviour
 
     private async Task RequestLogin(string email, string passwordHash)
     {
-        var request = new Request_Auth_Login()
+        var request = new RequestLogin()
         {
             authType = "account",
-            account_email = email,
-            account_password = passwordHash
+            accountEmail = email,
+            accountPassword = passwordHash
         };
 
         await Task.Delay(333);
         
-        var response = await APIManager.SendAPIRequestAsync(API.auth_login, request, ServerManager.Instance.FailureCallback);
+        var response = await APIManager.SendAPIRequestAsync(API.Login, request, ServerManager.Instance.FailureCallback);
 
         if (response != null)
         {
-            Response_Auth_Login result = response as Response_Auth_Login;
+            ResponseLogin result = response as ResponseLogin;
 
             var text = result.result;
 
             if (text.Equals("ok"))
             {
-                var jwtAccess = result.jwt_access;
-                var jwtRefresh = result.jwt_refresh;
+                var jwtAccess = result.jwtAccess;
+                var jwtRefresh = result.jwtRefresh;
 
                 SecurityPlayerPrefs.SetString("JWTAccess", jwtAccess);
                 SecurityPlayerPrefs.SetString("JWTRefresh", jwtRefresh);

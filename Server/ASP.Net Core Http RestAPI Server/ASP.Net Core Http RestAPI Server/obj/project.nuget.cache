@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "1lAu3Kg7giMw0ta/8t/efOAQL3TmZh7weDpP8czNoyObjHodhyCytTt9kBctBUCm9WH6mypSThx7QO8l+k+kqA==",
+  "dgSpecHash": "oFSNvin+oyrQvti5+4VXjtgeobtAswr1l36kPK619gr0xVYjHXTTYbz8gQqsjxWRJd18Y7CWSyZzA8QG+Ii80A==",
   "success": true,
   "projectFilePath": "C:\\Users\\dnwls\\Documents\\Unity Projects\\ProjectA\\Server\\ASP.Net Core Http RestAPI Server\\ASP.Net Core Http RestAPI Server\\ASP.Net Core Http RestAPI Server.csproj",
   "expectedPackageFiles": [
@@ -170,8 +170,7 @@
     "C:\\Users\\dnwls\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\dnwls\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\dnwls\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\dnwls\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512",
-    "C:\\Users\\dnwls\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.24\\microsoft.netcore.app.host.win-x64.3.1.24.nupkg.sha512"
+    "C:\\Users\\dnwls\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512"
   ],
   "logs": []
 }

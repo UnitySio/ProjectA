@@ -18,24 +18,24 @@ public class Nickname : MonoBehaviour
         var jwtAccess = SecurityPlayerPrefs.GetString("JWTAccess", null);
         JwtSecurityToken accessToken = JWTManager.DecryptJWT(jwtAccess);
 
-        if (JWTManager.checkValidateJWT(accessToken))
+        if (JWTManager.CheckValidateJWT(accessToken))
         {
-            var request = new Request_User_Gamedata()
+            var request = new RequestUserData()
             {
-                jwt_access = jwtAccess
+                jwtAccess = jwtAccess
             };
 
-            var response = await APIManager.SendAPIRequestAsync(API.user_gamedata, request, ServerManager.Instance.FailureCallback);
+            var response = await APIManager.SendAPIRequestAsync(API.UserData, request, ServerManager.Instance.FailureCallback);
 
             if (response != null)
             {
-                var result = response as Response_User_Gamedata;
+                var result = response as ResponseUserData;
 
                 var text = result.result;
 
                 if (text.Equals("ok"))
                 {
-                    Debug.Log(result.userDataInfo.UserStamia);
+                    Debug.Log(result.userData.UserStamia);
                 }
             }
         }
@@ -46,19 +46,19 @@ public class Nickname : MonoBehaviour
         var jwtAccess = SecurityPlayerPrefs.GetString("JWTAccess", null);
         JwtSecurityToken accessToken = JWTManager.DecryptJWT(jwtAccess);
 
-        if (JWTManager.checkValidateJWT(accessToken))
+        if (JWTManager.CheckValidateJWT(accessToken))
         {
-            var request = new Request_User_Gamedata_UpdateUserName()
+            var request = new RequestUserNicknameUpdate()
             {
-                jwt_access = jwtAccess,
-                user_name = nickname
+                jwtAccess = jwtAccess,
+                userNickname = nickname
             };
 
-            var response = await APIManager.SendAPIRequestAsync(API.user_gamedata_updateusername, request, ServerManager.Instance.FailureCallback);
+            var response = await APIManager.SendAPIRequestAsync(API.UserNicknameUpdate, request, ServerManager.Instance.FailureCallback);
 
             if (response != null)
             {
-                var result = response as Response_User_Gamedata_UpdateUserName;
+                var result = response as ResponseUserNiknameUpdate;
                 
                 var text = result.result;
 
@@ -75,18 +75,18 @@ public class Nickname : MonoBehaviour
         var jwtAccess = SecurityPlayerPrefs.GetString("JWTAccess", null);
         JwtSecurityToken accessToken = JWTManager.DecryptJWT(jwtAccess);
 
-        if (JWTManager.checkValidateJWT(accessToken))
+        if (JWTManager.CheckValidateJWT(accessToken))
         {
-            var request = new Request_User_Gamedata_CheckUserName()
+            var request = new RequestUserNicknameCheck()
             {
-                jwt_access = jwtAccess
+                jwtAccess = jwtAccess
             };
 
-            var response = await APIManager.SendAPIRequestAsync(API.user_gamedata_checkusername, request, ServerManager.Instance.FailureCallback);
+            var response = await APIManager.SendAPIRequestAsync(API.UserNicknameCheck, request, ServerManager.Instance.FailureCallback);
 
             if (response != null)
             {
-                var result = response as Response_User_Gamedata_CheckUserName;
+                var result = response as ResponseUserNicknameCheck;
                 
                 var text = result.result;
 

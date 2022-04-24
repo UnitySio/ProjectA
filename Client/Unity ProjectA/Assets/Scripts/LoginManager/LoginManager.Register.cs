@@ -82,23 +82,23 @@ public partial class LoginManager : MonoBehaviour
 
     private async Task<string> RequestRegisterAuthNumber(string email)
     {
-        var request = new Request_Auth_Join_SendRequest()
+        var request = new RequestRegisterAuthNumber()
         {
-            account_email = email
+            accountEmail = email
         };
 
-        var response = await APIManager.SendAPIRequestAsync(API.auth_join_sendrequest, request, ServerManager.Instance.FailureCallback);
+        var response = await APIManager.SendAPIRequestAsync(API.RegisterAuthNumber, request, ServerManager.Instance.FailureCallback);
 
         if (response != null)
         {
-            Response_Auth_Join_SendRequest result = response as Response_Auth_Join_SendRequest;
+            ResponseRegisterAuthNumber result = response as ResponseRegisterAuthNumber;
 
             var text = result.result;
             
             if (text.Equals("ok"))
             {
                 await Task.Delay(333);
-                var token = result.join_token;
+                var token = result.registerToken;
                 registerResult.text = "인증번호는 5분간 유효합니다.";
 
                 registerEmail.interactable = false;
@@ -123,37 +123,37 @@ public partial class LoginManager : MonoBehaviour
     
     private async Task RequestRegister(string email, string password, string authNumber, string registerToken)
     {
-        var requestAuthNumber = new Request_Auth_Join_SendAuthNumber()
+        var requestAuthNumber = new RequestRegisterAuthNumberCheck()
         {
-            join_token = registerToken,
-            auth_number = authNumber
+            registerToken = registerToken,
+            authNumber = authNumber
         };
 
-        var responseAuthNumber = await APIManager.SendAPIRequestAsync(API.auth_join_sendauthnumber, requestAuthNumber, ServerManager.Instance.FailureCallback) as Response_Auth_Join_SendAuthNumber;
+        var responseAuthNumber = await APIManager.SendAPIRequestAsync(API.RegisterAuthNumberCheck, requestAuthNumber, ServerManager.Instance.FailureCallback) as ResponseRegisterAuthNumberCheck;
 
         if (responseAuthNumber.result.Equals("ok"))
         {
-            var request = new Request_Auth_Join()
+            var request = new RequestRegister()
             {
                 authType = "account",
-                account_email = email,
-                account_password = password,
-                join_token = registerToken
+                accountEmail = email,
+                accountPassword = password,
+                registerToken = registerToken
             };
 
             await Task.Delay(333);
-            var response = await APIManager.SendAPIRequestAsync(API.auth_join, request, ServerManager.Instance.FailureCallback);
+            var response = await APIManager.SendAPIRequestAsync(API.Register, request, ServerManager.Instance.FailureCallback);
             
             if (response != null)
             {
-                Response_Auth_Join result = response as Response_Auth_Join;
+                ResponseRegister result = response as ResponseRegister;
 
                 var text = result.result;
 
                 if (text.Equals("ok"))
                 {
-                    var jwtAccess = result.jwt_access;
-                    var jwtRefresh = result.jwt_refresh;
+                    var jwtAccess = result.jwtAccess;
+                    var jwtRefresh = result.jwtRefresh;
 
                     SecurityPlayerPrefs.SetString("JWTAccess", jwtAccess);
                     SecurityPlayerPrefs.SetString("JWTRefresh", jwtRefresh);

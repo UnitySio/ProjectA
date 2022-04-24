@@ -83,22 +83,22 @@ public partial class LoginManager : MonoBehaviour
 
     private async Task<string> RequestPasswordFindAuthNumber(string email)
     {
-        var request = new Request_Auth_FindPassword_SendRequest()
+        var request = new RequestPasswordFindAuthNumber()
         {
-            account_email = email
+            accountEmail = email
         };
 
-        var response = await APIManager.SendAPIRequestAsync(API.auth_findpassword_sendrequest, request, ServerManager.Instance.FailureCallback);
+        var response = await APIManager.SendAPIRequestAsync(API.PasswordFindAuthNumber, request, ServerManager.Instance.FailureCallback);
         
         if (response != null)
         {
-            Response_Auth_FindPassword_SendRequest result = response as Response_Auth_FindPassword_SendRequest;
+            ResponsePasswordFindAuthNumber result = response as ResponsePasswordFindAuthNumber;
 
             var text = result.result;
 
             if (text.Equals("ok"))
             {
-                var token = result.findpassword_token;
+                var token = result.passwordFindToken;
 
                 passwordFindResult.text = "인증번호는 5분간 유효합니다.";
 
@@ -118,18 +118,18 @@ public partial class LoginManager : MonoBehaviour
 
     private async Task CheckPasswordFindAuthNumber(string authNumber, string token)
     {
-        var request = new Request_Auth_FindPassword_SendAuthNumber()
+        var request = new RequestPasswordFindAuthNumberCheck()
         {
-            findpassword_token = token,
-            auth_number = authNumber
+            passwordFindToken = token,
+            authNumber = authNumber
         };
 
-        var response = await APIManager.SendAPIRequestAsync(API.auth_findpassword_sendauthnumber, request, ServerManager.Instance.FailureCallback);
+        var response = await APIManager.SendAPIRequestAsync(API.PasswordFindAuthNumberCheck, request, ServerManager.Instance.FailureCallback);
         
         
         if (response != null)
         {
-            var result = response as Response_Auth_FindPassword_SendAuthNumber;
+            var result = response as ResponsePasswordFindAuthNumberCheck;
 
             var text = result.result;
 
@@ -179,17 +179,17 @@ public partial class LoginManager : MonoBehaviour
 
     private async Task RequestPasswordChange(string password, string token)
     {
-        var request = new Request_Auth_FindPassword_UpdateAccountPassword()
+        var request = new RequestPasswordChange()
         {
-            findpassword_token = token,
-            account_password = password
+            passwordFindToken = token,
+            accountPassword = password
         };
 
-        var response = await APIManager.SendAPIRequestAsync(API.auth_findpassword_updateaccountpassword, request, ServerManager.Instance.FailureCallback);
+        var response = await APIManager.SendAPIRequestAsync(API.PasswordChange, request, ServerManager.Instance.FailureCallback);
         
         if (response != null)
         {
-            var result = response as Response_Auth_FindPassword_UpdateAccountPassword;
+            var result = response as ResponsePasswordChange;
 
             var text = result.result;
 
