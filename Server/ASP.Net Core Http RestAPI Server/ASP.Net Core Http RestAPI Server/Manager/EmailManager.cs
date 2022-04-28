@@ -19,12 +19,12 @@ namespace ASP.Net_Core_Http_RestAPI_Server
         static ConcurrentDictionary<string, EmailValidationInfo> passwordFindValidationCheck;
 
         //회원가입 인증메일 체크용
-        static ConcurrentDictionary<string, EmailValidationInfo> registerValidationCheck;
+        static ConcurrentDictionary<string, EmailValidationInfo> signUpValidationCheck;
 
         public static async void Initialize()
         {
             passwordFindValidationCheck = new ConcurrentDictionary<string, EmailValidationInfo>();
-            registerValidationCheck = new ConcurrentDictionary<string, EmailValidationInfo>();
+            signUpValidationCheck = new ConcurrentDictionary<string, EmailValidationInfo>();
 
             mailQueue = new ConcurrentQueue<MailMessage>();
             gmailSmtpList = new ConcurrentQueue<SmtpClient>();
@@ -34,7 +34,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server
 
             CheckValidationListTask();
 
-            await Task.Run(async() =>
+            await Task.Run(async () =>
             {
                 while (true)
                 {
@@ -44,7 +44,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server
                         await Task.Delay(500);
                         continue;
                     }
-                    
+
                     SmtpClient client;
                     if (!mailQueue.IsEmpty && gmailSmtpList.TryDequeue(out client))
                     {
@@ -102,7 +102,8 @@ namespace ASP.Net_Core_Http_RestAPI_Server
         }
 
 
-        public static void SendGmailSMTP(string targetMailAddress, string senderName, string mailTitle, string mailContents)
+        public static void SendGmailSMTP(string targetMailAddress, string senderName, string mailTitle,
+            string mailContents)
         {
             MailAddress from = new MailAddress(gmailAddress, senderName, Encoding.UTF8);
             MailAddress to = new MailAddress(targetMailAddress);
@@ -134,21 +135,21 @@ namespace ASP.Net_Core_Http_RestAPI_Server
                         passwordFindValidationCheck.TryRemove(itemValue.validateToken, out EmailValidationInfo var);
                 }
 
-                var list2 = registerValidationCheck.ToArray();
+                var list2 = signUpValidationCheck.ToArray();
 
                 foreach (var item in list2)
                 {
                     var itemValue = item.Value;
                     if (itemValue.expirateTime.AddHours(1) <= DateTime.UtcNow)
-                        registerValidationCheck.TryRemove(itemValue.validateToken, out EmailValidationInfo var);
+                        signUpValidationCheck.TryRemove(itemValue.validateToken, out EmailValidationInfo var);
                 }
 
                 await Task.Delay(delay30Minutes);
             }
         }
 
-        
-        public static bool SetPasswordFindInfo(string findToken, EmailValidationInfo info)
+
+        public static bool RegisterPasswordFindInfo(string findToken, EmailValidationInfo info)
         {
             if (passwordFindValidationCheck.ContainsKey(findToken))
                 passwordFindValidationCheck[findToken] = info;
@@ -173,28 +174,28 @@ namespace ASP.Net_Core_Http_RestAPI_Server
         }
 
 
-        public static bool SetRegisterInfo(string joinToken, EmailValidationInfo info)
+        public static bool RegisterSignUpInfo(string joinToken, EmailValidationInfo info)
         {
-            if (registerValidationCheck.ContainsKey(joinToken))
-                registerValidationCheck[joinToken] = info;
+            if (signUpValidationCheck.ContainsKey(joinToken))
+                signUpValidationCheck[joinToken] = info;
             else
-                registerValidationCheck.TryAdd(joinToken, info);
+                signUpValidationCheck.TryAdd(joinToken, info);
 
-            return registerValidationCheck.ContainsKey(joinToken);
+            return signUpValidationCheck.ContainsKey(joinToken);
         }
 
-        public static EmailValidationInfo GetRegisterInfo(string joinToken)
+        public static EmailValidationInfo GetSignUpInfo(string joinToken)
         {
-            if (registerValidationCheck.ContainsKey(joinToken))
-                return registerValidationCheck[joinToken];
+            if (signUpValidationCheck.ContainsKey(joinToken))
+                return signUpValidationCheck[joinToken];
             else
                 return null;
         }
 
-        public static void RemoveRegisterInfo(string joinToken)
+        public static void RemoveSignUpInfo(string joinToken)
         {
-            if (registerValidationCheck.ContainsKey(joinToken))
-                registerValidationCheck.TryRemove(joinToken, out EmailValidationInfo var);
+            if (signUpValidationCheck.ContainsKey(joinToken))
+                signUpValidationCheck.TryRemove(joinToken, out EmailValidationInfo var);
         }
     }
 

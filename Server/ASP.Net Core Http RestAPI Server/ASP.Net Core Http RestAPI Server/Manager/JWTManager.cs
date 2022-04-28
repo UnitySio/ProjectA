@@ -13,17 +13,22 @@ namespace ASP.Net_Core_Http_RestAPI_Server
     {
         //JsonWebToken 검증용 비밀 서명 키 (서버에만 보관)
         static string plainTextKey = "s54fdfsd5f56!4df3ef54s=f6ds!f456s4f65sd4!f65s4df564e53s4f56!=";
+
         //액세스 토큰 유효기간 (minute)
         static int accessTokenLifetimeMinute = 60;
+
         //리프레시 토큰 유효기간 (day)
         static int refreshTokenLifetimeDay = 15;
 
         //JsonWebToken 발급자명 (도메인)
         private static string issuerString = "siogames_authManager";
+
         //JsonWebToken 대상자명 (도메인)
         private static string audienceString = "https://api.siogames.com";
+
         //JsonWebToken 서명 키 기반 Credential 객체
         private static SigningCredentials jwtSigningCredentials;
+
         //JsonWebToken 유효성 체크용 파라메터
         static TokenValidationParameters tokenValidationParam;
 
@@ -33,7 +38,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server
                 new SymmetricSecurityKey(Encoding.UTF8.GetBytes(plainTextKey)),
                 SecurityAlgorithms.HmacSha256Signature,
                 SecurityAlgorithms.Sha256Digest
-                );
+            );
 
             tokenValidationParam = new TokenValidationParameters()
             {
@@ -56,9 +61,8 @@ namespace ASP.Net_Core_Http_RestAPI_Server
         }
 
 
-
         #region JWT_Logic
-        
+
         public static string CreateNewJWT(UserData user, JWTType type)
         {
             if (user == null || type == null)

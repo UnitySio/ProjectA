@@ -19,7 +19,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.DBContexts
 
         public virtual DbSet<AccountInfo> AccountInfos { get; set; }
         public virtual DbSet<UserInfo> UserInfos { get; set; }
-        public virtual DbSet<UserLoginLog> UserLoginLogs { get; set; }
+        public virtual DbSet<UserSigninLog> UserSigninLogs { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -117,9 +117,10 @@ namespace ASP.Net_Core_Http_RestAPI_Server.DBContexts
                     .HasColumnName("timestamp_created")
                     .HasDefaultValueSql("current_timestamp()");
 
-                entity.Property(e => e.TimestampLastLogin)
+                entity.Property(e => e.TimestampLastSignin)
                     .HasColumnType("datetime")
-                    .HasColumnName("timestamp_last_login");
+                    .HasColumnName("timestamp_last_signin")
+                    .HasDefaultValueSql("current_timestamp()");
 
                 entity.Property(e => e.UserExp)
                     .HasColumnType("int(10) unsigned")
@@ -146,14 +147,12 @@ namespace ASP.Net_Core_Http_RestAPI_Server.DBContexts
                     .HasConstraintName("user_info_account_info_account_unique_id_fk");
             });
 
-            modelBuilder.Entity<UserLoginLog>(entity =>
+            modelBuilder.Entity<UserSigninLog>(entity =>
             {
                 entity.HasKey(e => e.LogUniqueId)
                     .HasName("PRIMARY");
 
-                entity.ToTable("user_login_log");
-
-                entity.HasIndex(e => e.AccountUniqueId, "user_login_log_account_info_account_unique_id_fk");
+                entity.ToTable("user_signin_log");
 
                 entity.Property(e => e.LogUniqueId)
                     .HasColumnType("int(10) unsigned")
@@ -163,9 +162,10 @@ namespace ASP.Net_Core_Http_RestAPI_Server.DBContexts
                     .HasColumnType("int(10) unsigned")
                     .HasColumnName("account_unique_id");
 
-                entity.Property(e => e.TimestampLastLogin)
+                entity.Property(e => e.TimestampLastSignin)
                     .HasColumnType("datetime")
-                    .HasColumnName("timestamp_last_login");
+                    .HasColumnName("timestamp_last_signin")
+                    .HasDefaultValueSql("current_timestamp()");
 
                 entity.Property(e => e.UserIp)
                     .HasMaxLength(15)
@@ -174,12 +174,6 @@ namespace ASP.Net_Core_Http_RestAPI_Server.DBContexts
                 entity.Property(e => e.UserNickname)
                     .HasMaxLength(15)
                     .HasColumnName("user_nickname");
-
-                entity.HasOne(d => d.AccountUnique)
-                    .WithMany(p => p.UserLoginLogs)
-                    .HasForeignKey(d => d.AccountUniqueId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("user_login_log_account_info_account_unique_id_fk");
             });
 
             OnModelCreatingPartial(modelBuilder);

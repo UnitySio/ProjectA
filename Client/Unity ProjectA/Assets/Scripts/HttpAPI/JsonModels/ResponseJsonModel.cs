@@ -11,7 +11,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.JsonDataModels
         public string result { get; set; }
     }
 
-    public class ResponseLogin : ResponseJsonModel
+    public class ResponseSignIn : ResponseJsonModel
     {
         //JWT Access 토큰. 1시간 내외의 유효시간을 갖는 토큰. 로그인 과정 성공시 반환됨.
         public string jwtAccess { get; set; }
@@ -20,18 +20,18 @@ namespace ASP.Net_Core_Http_RestAPI_Server.JsonDataModels
         public string jwtRefresh { get; set; }
     }
 
-    public class ResponseRegisterAuthNumber : ResponseJsonModel
+    public class ResponseSignUpAuthNumber : ResponseJsonModel
     {
-        public string registerToken { get; set; }
+        public string signUpToken { get; set; }
     }
 
-    public class ResponseRegisterAuthNumberCheck : ResponseJsonModel
+    public class ResponseSignUpAuthNumberCheck : ResponseJsonModel
     {
         
     }
 
 
-    public class ResponseRegister : ResponseJsonModel
+    public class ResponseSignUp : ResponseJsonModel
     {
         //JWT Access 토큰. 1시간 내외의 유효시간을 갖는 토큰. 로그인 과정 성공시 반환됨.
         public string jwtAccess { get; set; }

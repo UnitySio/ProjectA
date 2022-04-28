@@ -14,7 +14,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.DBContexts
         public uint? UserStamina { get; set; }
         public string UserNickname { get; set; }
         public DateTime? TimestampCreated { get; set; }
-        public DateTime? TimestampLastLogin { get; set; }
+        public DateTime? TimestampLastSignin { get; set; }
 
         public virtual AccountInfo AccountUnique { get; set; }
     }

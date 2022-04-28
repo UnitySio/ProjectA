@@ -46,9 +46,9 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
 
         #region 유저 데이터 요청
 
-        //요청 URI
-        // http://serverAddress/user/gamedata
-        [HttpPost("user/gamedata")]
+        //요청 URL
+        // http://serverAddress/userdata
+        [HttpPost("userdata")]
         [Consumes(MediaTypeNames.Application.Json)] // application/json
         public async Task<ResponseUserData> Post(RequestUserData request)
         {
@@ -66,7 +66,8 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
 
                 var accountUniqueId = uint.Parse(id.ToString());
                 
-                if (SessionManager.isDuplicate(accountUniqueId, request.jwtAccess))
+                // 로그인 중복 체크
+                if (SessionManager.IsDuplicate(accountUniqueId, request.jwtAccess))
                 {
                     response.result = "Duplicate Session";
                     dbPoolManager.Return(dbContext);
@@ -95,7 +96,6 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                         UserLv = (int)user.player.UserLv,
                         UserNickname = user.player.UserNickname,
                         UserStamia = (int)user.player.UserStamina
-                        
                     };
                 }
                 else
@@ -116,9 +116,9 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
 
         #region 닉네임 생성 및 변경
 
-        //요청 URI
-        // http://serverAddress/user/gamedata/update-username
-        [HttpPost("user/gamedata/update-username")]
+        //요청 URL
+        // http://serverAddress/userdata/nickname/update
+        [HttpPost("userdata/nickname/update")]
         [Consumes(MediaTypeNames.Application.Json)] // application/json
         public async Task<ResponseUserNicknameUpdate> Post(RequestUserNicknameUpdate request)
         {
@@ -166,7 +166,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                     //닉네임 변경사항 반영
                     user.UserNickname = request.userNickname;
                     dbContext.Entry(user).State = EntityState.Modified;
-                    var changedCount = await dbContext.SaveChangesAsync();
+                    await dbContext.SaveChangesAsync();
 
                     response.result = "ok";
                 }
@@ -188,9 +188,9 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
         
         #region 닉네임 확인
 
-        //요청 URI
-        // http://serverAddress/user/gamedata/check-username
-        [HttpPost("user/gamedata/check-username")]
+        //요청 URL
+        // http://serverAddress/userdata/nickname/check
+        [HttpPost("userdata/nickname/check")]
         [Consumes(MediaTypeNames.Application.Json)] // application/json
         public async Task<ResponseUserNicknameCheck> Post(RequestUserNicknameCheck request)
         {

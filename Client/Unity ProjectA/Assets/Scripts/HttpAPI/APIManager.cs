@@ -107,35 +107,35 @@ public class ServerAPI
     {
         switch (apiType)
         {
-            case API.Login:
-                return $"{APIManager.serverAddress}/auth/login";
+            case API.SignIn:
+                return $"{APIManager.serverAddress}/signin";
             
-            case API.RegisterAuthNumber:
-                return $"{APIManager.serverAddress}/auth/join/send-request";
+            case API.SignUpAuthNumber:
+                return $"{APIManager.serverAddress}/signup/authnumber";
             
-            case API.RegisterAuthNumberCheck:
-                return $"{APIManager.serverAddress}/auth/join/send-auth-number";
+            case API.SignUpAuthNumberCheck:
+                return $"{APIManager.serverAddress}/signup/authnumber/check";
             
-            case API.Register:
-                return $"{APIManager.serverAddress}/auth/join";
+            case API.SignUp:
+                return $"{APIManager.serverAddress}/signup";
             
             case API.PasswordFindAuthNumber:
-                return $"{APIManager.serverAddress}/auth/findpassword/send-request";
+                return $"{APIManager.serverAddress}/passwordfind/authnumber";
             
             case API.PasswordFindAuthNumberCheck:
-                return $"{APIManager.serverAddress}/auth/findpassword/send-auth-number";
+                return $"{APIManager.serverAddress}/passwordfind/authnumber/check";
             
             case API.PasswordChange:
-                return $"{APIManager.serverAddress}/auth/findpassword/update-account-password";
+                return $"{APIManager.serverAddress}/passwordfind/change";
             
             case API.UserData:
-                return $"{APIManager.serverAddress}/user/gamedata";
+                return $"{APIManager.serverAddress}/userdata";
             
             case API.UserNicknameUpdate:
-                return $"{APIManager.serverAddress}/user/gamedata/update-username";
+                return $"{APIManager.serverAddress}/userdata/nickname/update";
             
             case API.UserNicknameCheck:
-                return $"{APIManager.serverAddress}/user/gamedata/check-username";
+                return $"{APIManager.serverAddress}/userdata/nickname/check";
 
             default:
                 return String.Empty;
@@ -146,17 +146,17 @@ public class ServerAPI
     {
         switch (apiType)
         {
-            case API.Login:
-                return jsonObject.ToObject<ResponseLogin>();
+            case API.SignIn:
+                return jsonObject.ToObject<ResponseSignIn>();
             
-            case API.RegisterAuthNumber:
-                return jsonObject.ToObject<ResponseRegisterAuthNumber>();
+            case API.SignUpAuthNumber:
+                return jsonObject.ToObject<ResponseSignUpAuthNumber>();
             
-            case API.RegisterAuthNumberCheck:
-                return jsonObject.ToObject<ResponseRegisterAuthNumberCheck>();
+            case API.SignUpAuthNumberCheck:
+                return jsonObject.ToObject<ResponseSignUpAuthNumberCheck>();
             
-            case API.Register:
-                return jsonObject.ToObject<ResponseRegister>();
+            case API.SignUp:
+                return jsonObject.ToObject<ResponseSignUp>();
 
             case API.PasswordFindAuthNumber:
                 return jsonObject.ToObject<ResponsePasswordFindAuthNumber>();
@@ -184,10 +184,10 @@ public class ServerAPI
 
 public enum API
 {
-    Login,
-    RegisterAuthNumber,
-    RegisterAuthNumberCheck,
-    Register,
+    SignIn,
+    SignUpAuthNumber,
+    SignUpAuthNumberCheck,
+    SignUp,
     PasswordFindAuthNumber,
     PasswordFindAuthNumberCheck,
     PasswordChange,

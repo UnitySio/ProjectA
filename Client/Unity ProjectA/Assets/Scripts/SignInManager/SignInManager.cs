@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Text.RegularExpressions;
 
-public partial class LoginManager : MonoBehaviour
+public partial class SignInManager : MonoBehaviour
 {
-    [Header("LoginManager")]
+    [Header("SignInManager")]
     [SerializeField]
     private Popup popup;
     

@@ -8,9 +8,9 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Events;
 
-public partial class LoginManager : MonoBehaviour
+public partial class SignInManager : MonoBehaviour
 {
-    [Header("LoginManager.PasswordFind")]
+    [Header("SignInManager.PasswordFind")]
     [Header("Password Find")]
     public GameObject passwordFindGroup;
     public TextMeshProUGUI passwordFindResult;
@@ -36,7 +36,7 @@ public partial class LoginManager : MonoBehaviour
         passwordFindAuthNumberRequest.onClick.RemoveAllListeners();
         passwordFind.onClick.RemoveAllListeners();
 
-        loginGroup.SetActive(false);
+        signInGroup.SetActive(false);
         passwordFindGroup.SetActive(true);
 
         passwordFindAuthNumberRequest.onClick.AddListener(async () =>
@@ -92,7 +92,7 @@ public partial class LoginManager : MonoBehaviour
         
         if (response != null)
         {
-            ResponsePasswordFindAuthNumber result = response as ResponsePasswordFindAuthNumber;
+            var result = response as ResponsePasswordFindAuthNumber;
 
             var text = result.result;
 
@@ -202,7 +202,7 @@ public partial class LoginManager : MonoBehaviour
 
                 passwordChangeGroup.SetActive(false);
 
-                WaitingLogin();
+                WaitingSignIn();
             }
             else
                 passwordChangeResult.text = $"서버 에러: {text}";

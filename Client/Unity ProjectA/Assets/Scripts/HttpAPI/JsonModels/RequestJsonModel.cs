@@ -8,7 +8,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.JsonDataModels
     public abstract class RequestJsonModel { }
 
     // URL/Auth/Login
-    public class RequestLogin : RequestJsonModel
+    public class RequestSignIn : RequestJsonModel
     {
         //authType을 나타냄. account, oauth, jwt 의 3가지. 
         //계정email, pw 입력시 account & google/apple oauth사용시 oauth, JWT AccessToken 갱신시 jwt
@@ -25,21 +25,23 @@ namespace ASP.Net_Core_Http_RestAPI_Server.JsonDataModels
 
         //authType이 jwt일때 송신. refreshToken을 확인후 새로 JWT AccessToken 발급하여 반환함.
         public string jwtRefresh { get; set; }
+        
+        public string userIP { get; set; }
     }
 
-    public class RequestRegisterAuthNumber : RequestJsonModel
+    public class RequestSignUpAuthNumber : RequestJsonModel
     {
         public string accountEmail { get; set; }
     }
 
-    public class RequestRegisterAuthNumberCheck : RequestJsonModel
+    public class RequestSignUpAuthNumberCheck : RequestJsonModel
     {
-        public string registerToken { get; set; }
+        public string signUpToken { get; set; }
 
         public string authNumber { get; set; }
     }
 
-    public class RequestRegister : RequestJsonModel
+    public class RequestSignUp : RequestJsonModel
     {
         //authType을 나타냄. account, oauth 의 2가지.    추후 연동과정 추가시 새로운 타입이 추가될 수 있음.
         //계정email, pw 입력시 account & google/apple oauth사용시 oauth
@@ -54,7 +56,9 @@ namespace ASP.Net_Core_Http_RestAPI_Server.JsonDataModels
         //authType이 account일때 송신. hash함수로 추출된 계정 password
         public string accountPassword { get; set; }
 
-        public string registerToken { get; set; }
+        public string signUpToken { get; set; }
+        
+        public string userIP { get; set; }
         /*
         siogames 이메일 계정
 

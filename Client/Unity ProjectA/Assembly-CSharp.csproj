@@ -41,9 +41,9 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\LoginManager\LoginManager.Asset.cs" />
+     <Compile Include="Assets\Scripts\SignInManager\SignInManager.Asset.cs" />
      <Compile Include="Assets\Scripts\Entity\Friendly\Kuro\KuroStates.cs" />
-     <Compile Include="Assets\Scripts\LoginManager\LoginManager.cs" />
+     <Compile Include="Assets\Scripts\SignInManager\SignInManager.cs" />
      <Compile Include="Assets\Scripts\ServerManager.cs" />
      <Compile Include="Assets\Scripts\Entity\Enemy\ScoutTypeK\ScoutTypeKCtrl.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Components\DisplayBackground.cs" />
@@ -51,22 +51,22 @@
      <Compile Include="Assets\AVProVideo\Scripts\Internal\BaseMediaPlayer.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Internal\WindowsMediaPlayer.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Components\DebugOverlay.cs" />
-     <Compile Include="Assets\Scripts\LoginManager\LoginManager.JWT.cs" />
+     <Compile Include="Assets\Scripts\SignInManager\SignInManager.JWT.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Components\ApplyToMesh.cs" />
      <Compile Include="Assets\Scripts\Entity\FloatingDamage.cs" />
      <Compile Include="Assets\Scripts\Entity\Entity.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Internal\Stream.cs" />
      <Compile Include="Assets\Scripts\Entity\Friendly\Kuro\KuroCtrl.cs" />
      <Compile Include="Assets\Scripts\HttpAPI\JsonModels\RequestJsonModel.cs" />
-     <Compile Include="Assets\Scripts\LoginManager\LoginManager.PasswordFind.cs" />
+     <Compile Include="Assets\Scripts\SignInManager\SignInManager.PasswordFind.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Internal\Interfaces.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Internal\AndroidMediaPlayer.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Components\CubemapCube.cs" />
-     <Compile Include="Assets\Scripts\LoginManager\LoginManager.Login.cs" />
+     <Compile Include="Assets\Scripts\SignInManager\SignInManager.SignIn.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Components\DisplayUGUI.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Components\ApplyToMaterial.cs" />
      <Compile Include="Assets\Scripts\Popup.cs" />
-     <Compile Include="Assets\Scripts\LoginManager\LoginManager.Register.cs" />
+     <Compile Include="Assets\Scripts\SignInManager\SignInManager.SignUp.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Components\PlaylistMediaPlayer.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Components\Support\PlayMaker\Actions\Internal\AVProVideoActionBase.cs" />
      <Compile Include="Assets\Scripts\Entity\StateMachine\State.cs" />

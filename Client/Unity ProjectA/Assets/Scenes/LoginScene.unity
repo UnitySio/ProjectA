@@ -1431,7 +1431,7 @@ GameObject:
   - component: {fileID: 233305335}
   - component: {fileID: 233305334}
   m_Layer: 5
-  m_Name: Login
+  m_Name: Sign In
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2998,7 +2998,7 @@ GameObject:
   - component: {fileID: 433752872}
   - component: {fileID: 433752871}
   m_Layer: 5
-  m_Name: Register Group
+  m_Name: Sign Up
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3256,7 +3256,7 @@ GameObject:
   - component: {fileID: 498919174}
   - component: {fileID: 498919173}
   m_Layer: 5
-  m_Name: Register
+  m_Name: Sign Up
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10299,7 +10299,7 @@ GameObject:
   - component: {fileID: 1719648361}
   - component: {fileID: 1719648360}
   m_Layer: 5
-  m_Name: Login Group
+  m_Name: Sign In Group
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10379,7 +10379,7 @@ GameObject:
   - component: {fileID: 1732412351}
   - component: {fileID: 1732412352}
   m_Layer: 5
-  m_Name: Login Type Group
+  m_Name: Sign In Type Group
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10563,7 +10563,6 @@ GameObject:
   - component: {fileID: 1755339337}
   - component: {fileID: 1755339340}
   - component: {fileID: 1755339339}
-  - component: {fileID: 1755339338}
   m_Layer: 5
   m_Name: Terms Of Service Group
   m_TagString: Untagged
@@ -10595,21 +10594,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 400, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1755339338
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1755339336}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0677972bf42d313408c1c3d764ee7587, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  title: {fileID: 802010693}
-  content: {fileID: 0}
-  confirm: {fileID: 0}
 --- !u!114 &1755339339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11404,7 +11388,7 @@ GameObject:
   - component: {fileID: 1920495865}
   - component: {fileID: 1920495866}
   m_Layer: 0
-  m_Name: Login Manager
+  m_Name: Sign In Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11444,15 +11428,6 @@ MonoBehaviour:
   progressContent: {fileID: 526857546}
   progressBar: {fileID: 1545172174}
   popup: {fileID: 442368869}
-  loginTypeGroup: {fileID: 1732412350}
-  unknown: {fileID: 1988130634}
-  loginGroup: {fileID: 1719648357}
-  loginResult: {fileID: 1675525546}
-  loginEmail: {fileID: 889716984}
-  loginPassword: {fileID: 518882307}
-  login: {fileID: 233305334}
-  loginRegister: {fileID: 498919173}
-  loginPasswordFind: {fileID: 1201715236}
   passwordFindGroup: {fileID: 1193326983}
   passwordFindResult: {fileID: 791358046}
   passwordFindEmail: {fileID: 356408065}
@@ -11464,14 +11439,23 @@ MonoBehaviour:
   passwordChangePassword: {fileID: 2068858991}
   passwordChangePasswordCheck: {fileID: 796762208}
   passwordChange: {fileID: 526020622}
-  registerGroup: {fileID: 433752868}
-  registerResult: {fileID: 1153491736}
-  registerEmail: {fileID: 1698899967}
-  registerAuthNumber: {fileID: 759517198}
-  registerPassword: {fileID: 213274133}
-  registerPasswordCheck: {fileID: 1918904309}
-  registerAuthNumberRequest: {fileID: 605960949}
-  register: {fileID: 2102823213}
+  signInTypeGroup: {fileID: 1732412350}
+  unknown: {fileID: 1988130634}
+  signInGroup: {fileID: 1719648357}
+  signInResult: {fileID: 1675525546}
+  signInEmail: {fileID: 889716984}
+  signInPassword: {fileID: 518882307}
+  signIn: {fileID: 233305334}
+  signInSignUp: {fileID: 498919173}
+  signInPasswordFind: {fileID: 1201715236}
+  signUpGroup: {fileID: 433752868}
+  signUpResult: {fileID: 1153491736}
+  signUpEmail: {fileID: 1698899967}
+  signUpAuthNumber: {fileID: 759517198}
+  signUpPassword: {fileID: 213274133}
+  signUpPasswordCheck: {fileID: 1918904309}
+  signUpAuthNumberRequest: {fileID: 605960949}
+  signUp: {fileID: 2102823213}
 --- !u!1 &1934847167
 GameObject:
   m_ObjectHideFlags: 0
@@ -12532,7 +12516,7 @@ GameObject:
   - component: {fileID: 2102823214}
   - component: {fileID: 2102823213}
   m_Layer: 5
-  m_Name: Register
+  m_Name: Sign Up
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

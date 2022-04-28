@@ -7,9 +7,9 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 using TMPro;
 
-public partial class LoginManager : MonoBehaviour
+public partial class SignInManager : MonoBehaviour
 {
-    [Header("LoginManager.Asset")]
+    [Header("SignInManager.Asset")]
     public List<string> assetKeys = new List<string>();
     public GameObject progressBarGroup;
     public TextMeshProUGUI progressContent;

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
@@ -72,5 +73,11 @@ public class ServerManager : MonoBehaviour
         }
 
         popup.Show();
+    }
+
+    public string GetPublicIP()
+    {
+        var ip = new WebClient().DownloadString("http://ipinfo.io/ip");
+        return ip;
     }
 }

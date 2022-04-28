@@ -5,8 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace ASP.Net_Core_Http_RestAPI_Server
 {
     public class DBContextPoolManager<T> where T : DbContext, new()
-    {//where T : DbContext, new() => 제네릭 T는 DbContext를 상속받아야 하고 new생성이 가능.
-        
+    {
+        //where T : DbContext, new() => 제네릭 T는 DbContext를 상속받아야 하고 new생성이 가능.
+
         //Pool용 DBContext객체를 담아둘 ConcurrentQueue.
         private ConcurrentQueue<T> ctxQueue;
 
@@ -23,8 +24,11 @@ namespace ASP.Net_Core_Http_RestAPI_Server
                 T result = null;
 
                 if (ctxQueue.TryDequeue(out result))
-                {result = null;}
+                {
+                    result = null;
+                }
             }
+
             ctxQueue = null;
         }
 

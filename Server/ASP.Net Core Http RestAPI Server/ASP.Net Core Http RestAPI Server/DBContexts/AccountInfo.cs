@@ -7,11 +7,6 @@ namespace ASP.Net_Core_Http_RestAPI_Server.DBContexts
 {
     public partial class AccountInfo
     {
-        public AccountInfo()
-        {
-            UserLoginLogs = new HashSet<UserLoginLog>();
-        }
-
         public uint AccountUniqueId { get; set; }
         public byte AccountAuthLv { get; set; }
         public string AccountEmail { get; set; }
@@ -24,6 +19,5 @@ namespace ASP.Net_Core_Http_RestAPI_Server.DBContexts
         public byte AccountBanned { get; set; }
 
         public virtual UserInfo UserInfo { get; set; }
-        public virtual ICollection<UserLoginLog> UserLoginLogs { get; set; }
     }
 }
