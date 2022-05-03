@@ -16,14 +16,14 @@ namespace ASP.Net_Core_Http_RestAPI_Server
         static ConcurrentQueue<SmtpClient> gmailSmtpList;
 
         //비밀번호 찾기 인증메일 체크용
-        static ConcurrentDictionary<string, EmailValidationInfo> passwordFindValidationCheck;
+        static ConcurrentDictionary<string, EmailValidationInfo> findPasswordValidationCheck;
 
         //회원가입 인증메일 체크용
         static ConcurrentDictionary<string, EmailValidationInfo> signUpValidationCheck;
 
         public static async void Initialize()
         {
-            passwordFindValidationCheck = new ConcurrentDictionary<string, EmailValidationInfo>();
+            findPasswordValidationCheck = new ConcurrentDictionary<string, EmailValidationInfo>();
             signUpValidationCheck = new ConcurrentDictionary<string, EmailValidationInfo>();
 
             mailQueue = new ConcurrentQueue<MailMessage>();
@@ -126,13 +126,13 @@ namespace ASP.Net_Core_Http_RestAPI_Server
             //설정된 주기마다 동작.
             while (true)
             {
-                var list = passwordFindValidationCheck.ToArray();
+                var list = findPasswordValidationCheck.ToArray();
 
                 foreach (var item in list)
                 {
                     var itemValue = item.Value;
                     if (itemValue.expirateTime.AddHours(1) <= DateTime.UtcNow)
-                        passwordFindValidationCheck.TryRemove(itemValue.validateToken, out EmailValidationInfo var);
+                        findPasswordValidationCheck.TryRemove(itemValue.validateToken, out EmailValidationInfo var);
                 }
 
                 var list2 = signUpValidationCheck.ToArray();
@@ -149,28 +149,28 @@ namespace ASP.Net_Core_Http_RestAPI_Server
         }
 
 
-        public static bool RegisterPasswordFindInfo(string findToken, EmailValidationInfo info)
+        public static bool RegisterFindPasswordInfo(string findToken, EmailValidationInfo info)
         {
-            if (passwordFindValidationCheck.ContainsKey(findToken))
-                passwordFindValidationCheck[findToken] = info;
+            if (findPasswordValidationCheck.ContainsKey(findToken))
+                findPasswordValidationCheck[findToken] = info;
             else
-                passwordFindValidationCheck.TryAdd(findToken, info);
+                findPasswordValidationCheck.TryAdd(findToken, info);
 
-            return passwordFindValidationCheck.ContainsKey(findToken);
+            return findPasswordValidationCheck.ContainsKey(findToken);
         }
 
-        public static EmailValidationInfo GetPasswordFindInfo(string findToken)
+        public static EmailValidationInfo GetFindPasswordInfo(string findToken)
         {
-            if (passwordFindValidationCheck.ContainsKey(findToken))
-                return passwordFindValidationCheck[findToken];
+            if (findPasswordValidationCheck.ContainsKey(findToken))
+                return findPasswordValidationCheck[findToken];
             else
                 return null;
         }
 
-        public static void RemovePasswordFindInfo(string findToken)
+        public static void RemoveFindPasswordInfo(string findToken)
         {
-            if (passwordFindValidationCheck.ContainsKey(findToken))
-                passwordFindValidationCheck.TryRemove(findToken, out EmailValidationInfo var);
+            if (findPasswordValidationCheck.ContainsKey(findToken))
+                findPasswordValidationCheck.TryRemove(findToken, out EmailValidationInfo var);
         }
 
 

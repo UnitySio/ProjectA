@@ -15,7 +15,7 @@ public partial class SignInManager : MonoBehaviour
     public TMP_InputField signUpEmail;
     public TMP_InputField signUpAuthNumber;
     public TMP_InputField signUpPassword;
-    public TMP_InputField signUpPasswordCheck;
+    public TMP_InputField signUpCofirmPassword;
     public Button signUpAuthNumberRequest;
     public Button signUp;
 
@@ -28,7 +28,7 @@ public partial class SignInManager : MonoBehaviour
         signUpEmail.text = string.Empty;
         signUpAuthNumber.text = string.Empty;
         signUpPassword.text = string.Empty;
-        signUpPasswordCheck.text = string.Empty;
+        signUpCofirmPassword.text = string.Empty;
         signUpAuthNumberRequest.onClick.RemoveAllListeners();
         signUp.onClick.RemoveAllListeners();
         
@@ -58,7 +58,7 @@ public partial class SignInManager : MonoBehaviour
         {
             var authNumber = signUpAuthNumber.text;
             var password = HashManager.HashPassword(signUpPassword.text.Trim());
-            var passwordCheck = HashManager.HashPassword(signUpPasswordCheck.text.Trim());
+            var passwordCheck = HashManager.HashPassword(signUpCofirmPassword.text.Trim());
 
             if (token == "")
                 signUpResult.text = "이메일 인증을 해주세요.";

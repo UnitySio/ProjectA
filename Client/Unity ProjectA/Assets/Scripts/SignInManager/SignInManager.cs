@@ -7,7 +7,6 @@ using System.Text.RegularExpressions;
 public partial class SignInManager : MonoBehaviour
 {
     [Header("SignInManager")]
-    [SerializeField]
     private Popup popup;
     
     private Regex emailPattern = new Regex("^([a-zA-Z0-9-]+\\@[a-zA-Z0-9-]+\\.[a-zA-Z]{2,10})*$");
@@ -15,11 +14,7 @@ public partial class SignInManager : MonoBehaviour
 
     private void Awake()
     {
-        Caching.ClearCache();
-        
-        SecurityPlayerPrefs.DeleteKey("JWTAccess");
-        SecurityPlayerPrefs.DeleteKey("JWTRefresh");
-        SecurityPlayerPrefs.Save();
+        popup = ServerManager.Instance.Popup;
     }
 
     private void Start()

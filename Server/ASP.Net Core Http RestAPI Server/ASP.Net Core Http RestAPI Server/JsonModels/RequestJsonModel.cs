@@ -78,25 +78,25 @@ namespace ASP.Net_Core_Http_RestAPI_Server.JsonDataModels
         */
     }
 
-    public class RequestPasswordFindAuthNumber : RequestJsonModel
+    public class RequestFindPasswordAuthNumber : RequestJsonModel
     {
         //비밀번호를 찾을 email 주소값.
         public string accountEmail { get; set; }
     }
 
-    public class RequestPasswordFindAuthNumberCheck : RequestJsonModel
+    public class RequestFindPasswordAuthNumberCheck : RequestJsonModel
     {
         //이전단계 확인용 고유 token. 이 값은 반드시 필요함. (추후 db에서 해당 토큰을 가지고 진행함. 유효기간 체크도 진행) 
-        public string passwordFindToken { get; set; }
+        public string findPasswordToken { get; set; }
 
         //인증메일로 발송된 고유 문자열번호. 반드시 포함해야함. 
         public string authNumber { get; set; }
     }
 
-    public class RequestPasswordChange : RequestJsonModel
+    public class RequestResetPassword : RequestJsonModel
     {
         //이전단계 확인용 고유 token. 이 값은 반드시 필요함. (추후 db에서 해당 토큰을 가지고 진행함. 유효기간 체크도 진행) 
-        public string passwordFindToken { get; set; }
+        public string findPasswordToken { get; set; }
 
         //변경할 계정 비밀번호 값.
         public string accountPassword { get; set; }

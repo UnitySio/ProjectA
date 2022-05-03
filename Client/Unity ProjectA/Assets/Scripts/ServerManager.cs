@@ -21,8 +21,8 @@ public class ServerManager : MonoBehaviour
     
     public string serverAddress = "http://127.0.0.1:5001";
 
-    [SerializeField]
-    private Popup popup;
+    [field: SerializeField]
+    public Popup Popup { get; private set; }
 
     private void Awake()
     {
@@ -41,20 +41,20 @@ public class ServerManager : MonoBehaviour
     // 에러 발생시 호출
     public void FailureCallback(string errorType, int responseCode, string errorMessage)
     {
-        popup.confirm.onClick.RemoveAllListeners();
-        popup.title.text = $"에러";
+        Popup.confirm.onClick.RemoveAllListeners();
+        Popup.title.text = $"에러";
         
         if (errorType.ToLower().Contains("http"))
         {
-            popup.content.text = $"서버 에러: {responseCode}";
-            popup.confirm.onClick.AddListener(() => popup.Close());
+            Popup.content.text = $"서버 에러: {responseCode}";
+            Popup.confirm.onClick.AddListener(() => Popup.Close());
         }
         else if (errorType.ToLower().Contains("network"))
         {
-            popup.content.text = $"네트워크를 확인해 주세요.";
-            popup.confirm.onClick.AddListener(async () =>
+            Popup.content.text = $"네트워크를 확인해 주세요.";
+            Popup.confirm.onClick.AddListener(async () =>
             {
-                popup.Close();
+                Popup.Close();
 
                 await Task.Delay(1000);
                 SceneManager.LoadScene("LoginScene");
@@ -62,17 +62,17 @@ public class ServerManager : MonoBehaviour
         }
         else
         {
-            popup.content.text = $"알 수 없는 에러";
-            popup.confirm.onClick.AddListener(async () =>
+            Popup.content.text = $"알 수 없는 에러";
+            Popup.confirm.onClick.AddListener(async () =>
             {
-                popup.Close();
+                Popup.Close();
 
                 await Task.Delay(500);
                 Application.Quit();
             });
         }
 
-        popup.Show();
+        Popup.Show();
     }
 
     public string GetPublicIP()

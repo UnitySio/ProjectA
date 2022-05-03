@@ -1131,7 +1131,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uB85C\uADF8\uC778"
+  m_text: Sign In
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1b7e64c57d4857a44927db42798c4e59, type: 2}
   m_sharedMaterial: {fileID: 7702092979886511691, guid: 1b7e64c57d4857a44927db42798c4e59, type: 2}
@@ -2909,7 +2909,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC774\uBA54\uC77C"
+  m_text: Email
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1b7e64c57d4857a44927db42798c4e59, type: 2}
   m_sharedMaterial: {fileID: 7702092979886511691, guid: 1b7e64c57d4857a44927db42798c4e59, type: 2}
@@ -3003,7 +3003,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &433752869
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4227,7 +4227,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uD68C\uC6D0\uAC00\uC785"
+  m_text: Sign Up
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1b7e64c57d4857a44927db42798c4e59, type: 2}
   m_sharedMaterial: {fileID: 7702092979886511691, guid: 1b7e64c57d4857a44927db42798c4e59, type: 2}
@@ -4334,7 +4334,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serverAddress: http://127.0.0.1:5001
-  popup: {fileID: 442368869}
+  <Popup>k__BackingField: {fileID: 442368869}
 --- !u!4 &679434874
 Transform:
   m_ObjectHideFlags: 0
@@ -6760,7 +6760,7 @@ GameObject:
   - component: {fileID: 1201715237}
   - component: {fileID: 1201715236}
   m_Layer: 5
-  m_Name: Password Find
+  m_Name: Find Password
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6927,7 +6927,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uBE44\uBC00\uBC88\uD638 \uCC3E\uAE30"
+  m_text: Find Password
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1b7e64c57d4857a44927db42798c4e59, type: 2}
   m_sharedMaterial: {fileID: 7702092979886511691, guid: 1b7e64c57d4857a44927db42798c4e59, type: 2}
@@ -7550,7 +7550,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC778\uC99D\uBC88\uD638 \uC694\uCCAD"
+  m_text: Auth Email
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1b7e64c57d4857a44927db42798c4e59, type: 2}
   m_sharedMaterial: {fileID: 7702092979886511691, guid: 1b7e64c57d4857a44927db42798c4e59, type: 2}
@@ -8206,7 +8206,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC774\uBA54\uC77C"
+  m_text: Email
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1b7e64c57d4857a44927db42798c4e59, type: 2}
   m_sharedMaterial: {fileID: 7702092979886511691, guid: 1b7e64c57d4857a44927db42798c4e59, type: 2}
@@ -8402,7 +8402,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uBE44\uBC00\uBC88\uD638 \uD655\uC778"
+  m_text: Confirm Password
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1b7e64c57d4857a44927db42798c4e59, type: 2}
   m_sharedMaterial: {fileID: 7702092979886511691, guid: 1b7e64c57d4857a44927db42798c4e59, type: 2}
@@ -9441,7 +9441,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uD68C\uC6D0\uAC00\uC785"
+  m_text: Sign Up
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1b7e64c57d4857a44927db42798c4e59, type: 2}
   m_sharedMaterial: {fileID: 7702092979886511691, guid: 1b7e64c57d4857a44927db42798c4e59, type: 2}
@@ -10812,7 +10812,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uB85C\uADF8\uC778"
+  m_text: Sign In
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1b7e64c57d4857a44927db42798c4e59, type: 2}
   m_sharedMaterial: {fileID: 7702092979886511691, guid: 1b7e64c57d4857a44927db42798c4e59, type: 2}
@@ -10968,7 +10968,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uBE44\uBC00\uBC88\uD638"
+  m_text: Password
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1b7e64c57d4857a44927db42798c4e59, type: 2}
   m_sharedMaterial: {fileID: 7702092979886511691, guid: 1b7e64c57d4857a44927db42798c4e59, type: 2}
@@ -11214,7 +11214,7 @@ GameObject:
   - component: {fileID: 1918904310}
   - component: {fileID: 1918904309}
   m_Layer: 5
-  m_Name: Password Check
+  m_Name: Confirm Password
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11427,18 +11427,17 @@ MonoBehaviour:
   progressBarGroup: {fileID: 12811732}
   progressContent: {fileID: 526857546}
   progressBar: {fileID: 1545172174}
-  popup: {fileID: 442368869}
-  passwordFindGroup: {fileID: 1193326983}
-  passwordFindResult: {fileID: 791358046}
-  passwordFindEmail: {fileID: 356408065}
-  passwordFindAuthNumber: {fileID: 1285779328}
-  passwordFindAuthNumberRequest: {fileID: 2027719220}
-  passwordFind: {fileID: 1776486077}
-  passwordChangeGroup: {fileID: 1355365365}
-  passwordChangeResult: {fileID: 1216150681}
-  passwordChangePassword: {fileID: 2068858991}
-  passwordChangePasswordCheck: {fileID: 796762208}
-  passwordChange: {fileID: 526020622}
+  findPasswordGroup: {fileID: 0}
+  findPasswordResult: {fileID: 0}
+  findPasswordEmail: {fileID: 0}
+  findPasswordAuthNumber: {fileID: 0}
+  findPasswordAuthNumberRequest: {fileID: 0}
+  findPassword: {fileID: 0}
+  resetPasswordGroup: {fileID: 0}
+  resetPasswordResult: {fileID: 0}
+  resetPasswordNewPassword: {fileID: 0}
+  resetPasswordCofirmNewPassword: {fileID: 0}
+  resetPassword: {fileID: 0}
   signInTypeGroup: {fileID: 1732412350}
   unknown: {fileID: 1988130634}
   signInGroup: {fileID: 1719648357}
@@ -11447,13 +11446,13 @@ MonoBehaviour:
   signInPassword: {fileID: 518882307}
   signIn: {fileID: 233305334}
   signInSignUp: {fileID: 498919173}
-  signInPasswordFind: {fileID: 1201715236}
+  signInFindPassword: {fileID: 1201715236}
   signUpGroup: {fileID: 433752868}
   signUpResult: {fileID: 1153491736}
   signUpEmail: {fileID: 1698899967}
   signUpAuthNumber: {fileID: 759517198}
   signUpPassword: {fileID: 213274133}
-  signUpPasswordCheck: {fileID: 1918904309}
+  signUpCofirmPassword: {fileID: 1918904309}
   signUpAuthNumberRequest: {fileID: 605960949}
   signUp: {fileID: 2102823213}
 --- !u!1 &1934847167
@@ -11535,7 +11534,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uBE44\uBC00\uBC88\uD638"
+  m_text: Password
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1b7e64c57d4857a44927db42798c4e59, type: 2}
   m_sharedMaterial: {fileID: 7702092979886511691, guid: 1b7e64c57d4857a44927db42798c4e59, type: 2}
@@ -12115,7 +12114,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uD68C\uC6D0\uAC00\uC785"
+  m_text: Sign Up
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1b7e64c57d4857a44927db42798c4e59, type: 2}
   m_sharedMaterial: {fileID: 7702092979886511691, guid: 1b7e64c57d4857a44927db42798c4e59, type: 2}

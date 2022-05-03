@@ -119,13 +119,13 @@ public class ServerAPI
             case API.SignUp:
                 return $"{APIManager.serverAddress}/signup";
             
-            case API.PasswordFindAuthNumber:
+            case API.FindPasswordAuthNumber:
                 return $"{APIManager.serverAddress}/passwordfind/authnumber";
             
-            case API.PasswordFindAuthNumberCheck:
+            case API.FindPasswordAuthNumberCheck:
                 return $"{APIManager.serverAddress}/passwordfind/authnumber/check";
             
-            case API.PasswordChange:
+            case API.ResetPassword:
                 return $"{APIManager.serverAddress}/passwordfind/change";
             
             case API.UserData:
@@ -158,14 +158,14 @@ public class ServerAPI
             case API.SignUp:
                 return jsonObject.ToObject<ResponseSignUp>();
 
-            case API.PasswordFindAuthNumber:
-                return jsonObject.ToObject<ResponsePasswordFindAuthNumber>();
+            case API.FindPasswordAuthNumber:
+                return jsonObject.ToObject<ResponseFindPasswordAuthNumber>();
             
-            case API.PasswordFindAuthNumberCheck:
-                return jsonObject.ToObject<ResponsePasswordFindAuthNumberCheck>();
+            case API.FindPasswordAuthNumberCheck:
+                return jsonObject.ToObject<ResponseFindPasswordAuthNumberCheck>();
             
-            case API.PasswordChange:
-                return jsonObject.ToObject<ResponsePasswordChange>();
+            case API.ResetPassword:
+                return jsonObject.ToObject<ResponseResetPassword>();
             
             case API.UserData:
                 return jsonObject.ToObject<ResponseUserData>();
@@ -188,9 +188,9 @@ public enum API
     SignUpAuthNumber,
     SignUpAuthNumberCheck,
     SignUp,
-    PasswordFindAuthNumber,
-    PasswordFindAuthNumberCheck,
-    PasswordChange,
+    FindPasswordAuthNumber,
+    FindPasswordAuthNumberCheck,
+    ResetPassword,
     UserData,
     UserNicknameUpdate,
     UserNicknameCheck

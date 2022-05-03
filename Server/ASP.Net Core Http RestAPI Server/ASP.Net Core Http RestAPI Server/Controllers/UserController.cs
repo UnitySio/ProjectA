@@ -29,7 +29,6 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
     */
 
 
-
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -65,7 +64,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                 var id = jwt.Payload.GetValueOrDefault("AccountUniqueId");
 
                 var accountUniqueId = uint.Parse(id.ToString());
-                
+
                 // 로그인 중복 체크
                 if (SessionManager.IsDuplicate(accountUniqueId, request.jwtAccess))
                 {
@@ -79,14 +78,14 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                     //TableJoin
                     from account in dbContext.Set<AccountInfo>()
                     join user in dbContext.Set<UserInfo>()
-                    on account.AccountUniqueId equals user.AccountUniqueId
+                        on account.AccountUniqueId equals user.AccountUniqueId
                     where account.AccountUniqueId.Equals(accountUniqueId)
                     select new { account, player = user };
 
                 if (userQuery.Count() == 1)
                 {
                     var user = userQuery.FirstOrDefault();
-                    
+
                     response.result = "ok";
                     response.userData = new UserData()
                     {
@@ -95,7 +94,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                         AuthLv = user.account.AccountAuthLv,
                         UserLv = (int)user.player.UserLv,
                         UserNickname = user.player.UserNickname,
-                        UserStamia = (int)user.player.UserStamina
+                        UserStamina = (int)user.player.UserStamina
                     };
                 }
                 else
@@ -179,13 +178,13 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
             {
                 response.result = "invalid jwt";
             }
-            
+
             dbPoolManager.Return(dbContext);
             return response;
         }
 
         #endregion
-        
+
         #region 닉네임 확인
 
         //요청 URL
@@ -205,7 +204,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                 dbPoolManager.Return(dbContext);
                 return response;
             }
-            
+
             //jwt refresh 토큰 유효성 검사 및, jwt_access 토큰 재발급 준비.
             SecurityToken tokenInfo = new JwtSecurityToken();
 
@@ -239,7 +238,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
             {
                 response.result = "invalid jwt";
             }
-            
+
             dbPoolManager.Return(dbContext);
             return response;
         }

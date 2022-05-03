@@ -9,8 +9,7 @@ using UnityEngine.SceneManagement;
 
 public partial class SignInManager : MonoBehaviour
 {
-    [Header("SignInManager.SignIn")]
-    public GameObject signInTypeGroup;
+    [Header("SignInManager.SignIn")] public GameObject signInTypeGroup;
     public Button unknown;
 
     public GameObject signInGroup;
@@ -19,7 +18,7 @@ public partial class SignInManager : MonoBehaviour
     public TMP_InputField signInPassword;
     public Button signIn;
     public Button signInSignUp;
-    public Button signInPasswordFind;
+    public Button signInFindPassword;
 
     private void WaitingSignIn()
     {
@@ -40,7 +39,7 @@ public partial class SignInManager : MonoBehaviour
         signInPassword.text = string.Empty;
         signIn.onClick.RemoveAllListeners();
         signInSignUp.onClick.RemoveAllListeners();
-        signInPasswordFind.onClick.RemoveAllListeners();
+        signInFindPassword.onClick.RemoveAllListeners();
 
         signInTypeGroup.SetActive(false);
         signInGroup.SetActive(true);
@@ -58,7 +57,7 @@ public partial class SignInManager : MonoBehaviour
                 signInResult.text = $"이메일 또는 비밀번호가 비어있습니다.";
             else if (!emailPattern.IsMatch(email))
                 signInResult.text = "잘못된 이메일 형식입니다.";
-            else if (!passwordPattern.IsMatch(signUpPassword.text.Trim()))
+            else if (!passwordPattern.IsMatch(signInPassword.text.Trim()))
                 signUpResult.text = "최소 특수문자 1개, 대소문자 1개, 숫자 1개, 8자 이상";
             else
             {
@@ -74,20 +73,20 @@ public partial class SignInManager : MonoBehaviour
             signInPassword.text = string.Empty;
             signIn.onClick.RemoveAllListeners();
             signInSignUp.onClick.RemoveAllListeners();
-            signInPasswordFind.onClick.RemoveAllListeners();
+            signInFindPassword.onClick.RemoveAllListeners();
 
             OpenUnknownSignUp();
         });
 
-        signInPasswordFind.onClick.AddListener(() =>
+        signInFindPassword.onClick.AddListener(() =>
         {
             signInEmail.text = string.Empty;
             signInPassword.text = string.Empty;
             signIn.onClick.RemoveAllListeners();
             signInSignUp.onClick.RemoveAllListeners();
-            signInPasswordFind.onClick.RemoveAllListeners();
+            signInFindPassword.onClick.RemoveAllListeners();
 
-            OpenUnknownPasswordFind();
+            OpenUnknownFindPassword();
         });
     }
 
@@ -103,7 +102,8 @@ public partial class SignInManager : MonoBehaviour
 
         await Task.Delay(333);
 
-        var response = await APIManager.SendAPIRequestAsync(API.SignIn, request, ServerManager.Instance.FailureCallback);
+        var response =
+            await APIManager.SendAPIRequestAsync(API.SignIn, request, ServerManager.Instance.FailureCallback);
 
         if (response != null)
         {

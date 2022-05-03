@@ -1034,30 +1034,30 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
         #region 비밀번호 찾기(계정입력) - 요청
 
         //요청 URL
-        // http://serverAddress/passwordfind/authnumber
-        [HttpPost("passwordfind/authnumber")]
+        // http://serverAddress/findpassword/authnumber
+        [HttpPost("findpassword/authnumber")]
         [Consumes(MediaTypeNames.Application.Json)] // application/json
-        public async Task<ResponsePasswordFindAuthNumber> Post(RequestPasswordFindAuthNumber request)
+        public async Task<ResponseFindPasswordAuthNumber> Post(RequestFindPasswordAuthNumber request)
         {
-            var responsePasswordFind = new ResponsePasswordFindAuthNumber();
+            var response = new ResponseFindPasswordAuthNumber();
             //DB에 접속하여 데이터를 조작하는 DBContext객체.
             var dbContext = dbPoolManager.Rent();
 
             if (request == null)
             {
-                responsePasswordFind.passwordFindToken = null;
-                responsePasswordFind.result = "invalid data";
+                response.findPasswordToken = null;
+                response.result = "invalid data";
                 dbPoolManager.Return(dbContext);
-                return responsePasswordFind;
+                return response;
             }
 
             //입력된 값이 이메일 값이 아닌 경우.
             if (emailPattern.IsMatch(request.accountEmail) == false)
             {
-                responsePasswordFind.passwordFindToken = null;
-                responsePasswordFind.result = "invalid email address";
+                response.findPasswordToken = null;
+                response.result = "invalid email address";
                 dbPoolManager.Return(dbContext);
-                return responsePasswordFind;
+                return response;
             }
 
             //전달된 정보로 db 조회후, 해당 정보를 db에서 가져온다.
@@ -1081,24 +1081,24 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                 info.validateToken = JWTManager.CreateNewJWT(new UserData(), JWTManager.JWTType.AccessToken);
                 info.emailValidateConfirmNumber = new Random().Next(100000, 999998).ToString();
 
-                EmailManager.RegisterPasswordFindInfo(info.validateToken, info);
+                EmailManager.RegisterFindPasswordInfo(info.validateToken, info);
 
                 EmailManager.SendGmailSMTP(info.emailAddress
                     , "siogames 인증메일"
                     , "비밀번호 찾기 인증 메일 안내"
                     , $"\n\n\n\n\n인증번호 : {info.emailValidateConfirmNumber}");
 
-                responsePasswordFind.passwordFindToken = info.validateToken;
-                responsePasswordFind.result = "ok";
+                response.findPasswordToken = info.validateToken;
+                response.result = "ok";
             }
             else
             {
-                responsePasswordFind.passwordFindToken = null;
-                responsePasswordFind.result = "not find email";
+                response.findPasswordToken = null;
+                response.result = "not find email";
             }
 
             dbPoolManager.Return(dbContext);
-            return responsePasswordFind;
+            return response;
         }
 
         #endregion
@@ -1106,24 +1106,24 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
         #region 비밀번호 찾기(계정입력) - 인증번호 인증
 
         //요청 URL
-        // http://serverAddress/passwordfind/authnumber/check
-        [HttpPost("passwordfind/authnumber/check")]
+        // http://serverAddress/findpassword/authnumber/check
+        [HttpPost("findpassword/authnumber/check")]
         [Consumes(MediaTypeNames.Application.Json)] // application/json
-        public async Task<ResponsePasswordFindAuthNumberCheck> Post(RequestPasswordFindAuthNumberCheck request)
+        public async Task<ResponseFindPasswordAuthNumberCheck> Post(RequestFindPasswordAuthNumberCheck request)
         {
-            var responsePasswordFind = new ResponsePasswordFindAuthNumberCheck();
+            var response = new ResponseFindPasswordAuthNumberCheck();
 
             //DB에 접속하여 데이터를 조작하는 DBContext객체.
             var dbContext = dbPoolManager.Rent();
 
             if (request == null)
             {
-                responsePasswordFind.result = "invalid data";
+                response.result = "invalid data";
                 dbPoolManager.Return(dbContext);
-                return responsePasswordFind;
+                return response;
             }
 
-            var result = EmailManager.GetPasswordFindInfo(request.passwordFindToken);
+            var result = EmailManager.GetFindPasswordInfo(request.findPasswordToken);
 
             //진행단계, 유효기간 체크.
             if (result != null && result.currentStep == 1 && result.expirateTime > DateTime.UtcNow)
@@ -1131,24 +1131,24 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                 if (result.emailValidateConfirmNumber.Equals(request.authNumber))
                 {
                     result.currentStep = 2;
-                    EmailManager.RegisterPasswordFindInfo(request.passwordFindToken, result);
-                    responsePasswordFind.result = "ok";
+                    EmailManager.RegisterFindPasswordInfo(request.findPasswordToken, result);
+                    response.result = "ok";
                 }
                 else
                 {
                     //인증번호 재입력 필요.
-                    responsePasswordFind.result = "incorrect auth_number";
+                    response.result = "incorrect auth_number";
                 }
             }
             //잘못된 데이터
             else
             {
-                responsePasswordFind.result = "invalid token.";
+                response.result = "invalid token.";
             }
 
 
             dbPoolManager.Return(dbContext);
-            return responsePasswordFind;
+            return response;
         }
 
         #endregion
@@ -1156,12 +1156,12 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
         #region 비밀번호 찾기(계정입력) - 비밀번호 변경요청
 
         //요청 URL
-        // http://serverAddress/passwordfind/change
-        [HttpPost("passwordfind/change")]
+        // http://serverAddress/findpassword/reset
+        [HttpPost("findpassword/reset")]
         [Consumes(MediaTypeNames.Application.Json)] // application/json
-        public async Task<ResponsePasswordChange> Post(RequestPasswordChange request)
+        public async Task<ResponseResetPassword> Post(RequestResetPassword request)
         {
-            var response = new ResponsePasswordChange();
+            var response = new ResponseResetPassword();
 
             //DB에 접속하여 데이터를 조작하는 DBContext객체.
             var dbContext = dbPoolManager.Rent();
@@ -1180,7 +1180,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                 return response;
             }
 
-            var result = EmailManager.GetPasswordFindInfo(request.passwordFindToken);
+            var result = EmailManager.GetFindPasswordInfo(request.findPasswordToken);
 
             //진행단계, 유효기간 체크.
             if (result != null && result.currentStep == 2)
@@ -1209,7 +1209,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                     response.result = "server Error.";
                 }
 
-                EmailManager.RemovePasswordFindInfo(request.passwordFindToken);
+                EmailManager.RemoveFindPasswordInfo(request.findPasswordToken);
             }
             //잘못된 데이터
             else

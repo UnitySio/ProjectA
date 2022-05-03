@@ -982,6 +982,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1427831126}
   - component: {fileID: 1427831125}
+  - component: {fileID: 1427831127}
   m_Layer: 0
   m_Name: Server Manager
   m_TagString: Untagged
@@ -1002,7 +1003,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serverAddress: http://127.0.0.1:5001
-  popup: {fileID: 1613289452}
+  <Popup>k__BackingField: {fileID: 1613289452}
 --- !u!4 &1427831126
 Transform:
   m_ObjectHideFlags: 0
@@ -1018,6 +1019,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1427831127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1427831124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae5d6b2e5f9d9dd4eaf7e9aa9d06b723, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <UserNickname>k__BackingField: 
+  <UserLv>k__BackingField: 0
+  <UserStamina>k__BackingField: 0
 --- !u!1 &1552641252
 GameObject:
   m_ObjectHideFlags: 0
@@ -1890,7 +1906,6 @@ GameObject:
   - component: {fileID: 1104643758305733980}
   - component: {fileID: 1104643758305733983}
   - component: {fileID: 1104643758305733982}
-  - component: {fileID: 1104643758305733984}
   m_Layer: 5
   m_Name: Nickname Group
   m_TagString: Untagged
@@ -1959,15 +1974,3 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1104643758305733979}
   m_CullTransparentMesh: 1
---- !u!114 &1104643758305733984
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1104643758305733979}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 539713fcafd8ac84596137a4c08a4e3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
