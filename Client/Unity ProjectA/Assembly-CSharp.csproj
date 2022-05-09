@@ -58,7 +58,7 @@
      <Compile Include="Assets\AVProVideo\Scripts\Internal\Stream.cs" />
      <Compile Include="Assets\Scripts\Entity\Friendly\Kuro\KuroCtrl.cs" />
      <Compile Include="Assets\Scripts\HttpAPI\JsonModels\RequestJsonModel.cs" />
-     <Compile Include="Assets\Scripts\SignInManager\SignInManager.PasswordFind.cs" />
+     <Compile Include="Assets\Scripts\SignInManager\SignInManager.FindPassword.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Internal\Interfaces.cs" />
      <Compile Include="Assets\Scripts\SetUserData.cs" />
      <Compile Include="Assets\AVProVideo\Scripts\Internal\AndroidMediaPlayer.cs" />

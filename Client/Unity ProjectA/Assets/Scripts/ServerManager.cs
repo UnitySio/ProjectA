@@ -38,20 +38,20 @@ public class ServerManager : MonoBehaviour
             APIManager.serverAddress = serverAddress;
     }
 
-    // ¿¡·¯ ¹ß»ý½Ã È£Ãâ
+    // ì—ëŸ¬ ë°œìƒì‹œ í˜¸ì¶œ
     public void FailureCallback(string errorType, int responseCode, string errorMessage)
     {
         Popup.confirm.onClick.RemoveAllListeners();
-        Popup.title.text = $"¿¡·¯";
+        Popup.title.text = $"Error";
         
         if (errorType.ToLower().Contains("http"))
         {
-            Popup.content.text = $"¼­¹ö ¿¡·¯: {responseCode}";
+            Popup.content.text = $"Error Server: {responseCode}";
             Popup.confirm.onClick.AddListener(() => Popup.Close());
         }
         else if (errorType.ToLower().Contains("network"))
         {
-            Popup.content.text = $"³×Æ®¿öÅ©¸¦ È®ÀÎÇØ ÁÖ¼¼¿ä.";
+            Popup.content.text = $"";
             Popup.confirm.onClick.AddListener(async () =>
             {
                 Popup.Close();
@@ -62,7 +62,7 @@ public class ServerManager : MonoBehaviour
         }
         else
         {
-            Popup.content.text = $"¾Ë ¼ö ¾ø´Â ¿¡·¯";
+            Popup.content.text = $"An unknown error has occurred.";
             Popup.confirm.onClick.AddListener(async () =>
             {
                 Popup.Close();

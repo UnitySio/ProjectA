@@ -35,8 +35,8 @@ public partial class SignInManager : MonoBehaviour
             else if (sizeHandle.Status == AsyncOperationStatus.Failed)
             {
                 popup.confirm.onClick.RemoveAllListeners();
-                popup.title.text = $"¿¡·¯";
-                popup.content.text = $"Ãß°¡ µ¥ÀÌÅÍ ÆÄÀÏÀÇ ¿ë·®À» È®ÀÎÇÏ´ø µµÁß ¹®Á¦°¡ ¹ß»ýÇß½À´Ï´Ù.";
+                popup.title.text = $"ì—ëŸ¬";
+                popup.content.text = $"ì¶”ê°€ ë°ì´í„° íŒŒì¼ì˜ ìš©ëŸ‰ì„ í™•ì¸í•˜ë˜ ë„ì¤‘ ë¬¸ì œê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤.";
                 popup.confirm.onClick.AddListener(async () =>
                 {
                     popup.Close();
@@ -49,8 +49,8 @@ public partial class SignInManager : MonoBehaviour
 
         if (totalSize > 0)
         {
-            popup.title.text = $"µ¥ÀÌÅÍ ´Ù¿î·Îµå";
-            popup.content.text = $"Ãß°¡ µ¥ÀÌÅÍ {FomulaBytes(totalSize)}¸¦ ¹ß°ßÇß½À´Ï´Ù.\nWIFI È¯°æ¿¡¼­ ´Ù¿î·Îµå ÁøÇàÀ» ±ÇÀåÇÕ´Ï´Ù.";
+            popup.title.text = $"ë°ì´í„° ë‹¤ìš´ë¡œë“œ";
+            popup.content.text = $"ì¶”ê°€ ë°ì´í„° {FomulaBytes(totalSize)}ë¥¼ ë°œê²¬í–ˆìŠµë‹ˆë‹¤.\nWIFI í™˜ê²½ì—ì„œ ë‹¤ìš´ë¡œë“œ ì§„í–‰ì„ ê¶Œìž¥í•©ë‹ˆë‹¤.";
             popup.confirm.onClick.AddListener(() =>
             {
                 popup.Close();
@@ -88,8 +88,8 @@ public partial class SignInManager : MonoBehaviour
                         else if (downloadHandle.Status == AsyncOperationStatus.Failed)
                         {
                             popup.confirm.onClick.RemoveAllListeners();
-                            popup.title.text = $"¿¡·¯";
-                            popup.content.text = $"Ãß°¡ µ¥ÀÌÅÍ ÆÄÀÏÀ» ´Ù¿î·ÎµåÇÏ´ø µµÁß ¹®Á¦°¡ ¹ß»ýÇß½À´Ï´Ù.";
+                            popup.title.text = $"ì—ëŸ¬";
+                            popup.content.text = $"ì¶”ê°€ ë°ì´í„° íŒŒì¼ì„ ë‹¤ìš´ë¡œë“œí•˜ë˜ ë„ì¤‘ ë¬¸ì œê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤.";
                             popup.confirm.onClick.AddListener(async () =>
                             {
                                 popup.Close();
@@ -102,7 +102,7 @@ public partial class SignInManager : MonoBehaviour
 
                     while (!downloadHandle.IsDone)
                     {
-                        progressContent.text = $"Ãß°¡ µ¥ÀÌÅÍ ´Ù¿î·Îµå Áß {(int)(downloadHandle.GetDownloadStatus().Percent * 100)}% {FomulaBytes((long)Mathf.Lerp(0, sizeHandle.Result, downloadHandle.GetDownloadStatus().Percent))}/{FomulaBytes(sizeHandle.Result)} ({i + 1}/{assetKeys.Count})";
+                        progressContent.text = $"ì¶”ê°€ ë°ì´í„° ë‹¤ìš´ë¡œë“œ ì¤‘ {(int)(downloadHandle.GetDownloadStatus().Percent * 100)}% {FomulaBytes((long)Mathf.Lerp(0, sizeHandle.Result, downloadHandle.GetDownloadStatus().Percent))}/{FomulaBytes(sizeHandle.Result)} ({i + 1}/{assetKeys.Count})";
                         progressBar.fillAmount = downloadHandle.GetDownloadStatus().Percent;
                         yield return null;
                     }
@@ -113,8 +113,8 @@ public partial class SignInManager : MonoBehaviour
             else if (sizeHandle.Status == AsyncOperationStatus.Failed)
             {
                 popup.confirm.onClick.RemoveAllListeners();
-                popup.title.text = $"¿¡·¯";
-                popup.content.text = $"Ãß°¡ µ¥ÀÌÅÍ ÆÄÀÏÀÇ ¿ë·®À» È®ÀÎÇÏ´ø µµÁß ¹®Á¦°¡ ¹ß»ýÇß½À´Ï´Ù.";
+                popup.title.text = $"ì—ëŸ¬";
+                popup.content.text = $"ì¶”ê°€ ë°ì´í„° íŒŒì¼ì˜ ìš©ëŸ‰ì„ í™•ì¸í•˜ë˜ ë„ì¤‘ ë¬¸ì œê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤.";
                 popup.confirm.onClick.AddListener(async () =>
                 {
                     popup.Close();

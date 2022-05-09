@@ -113,20 +113,20 @@ public class ServerAPI
             case API.SignUpAuthNumber:
                 return $"{APIManager.serverAddress}/signup/authnumber";
             
-            case API.SignUpAuthNumberCheck:
-                return $"{APIManager.serverAddress}/signup/authnumber/check";
+            case API.SignUpAuthNumberVerify:
+                return $"{APIManager.serverAddress}/signup/authnumber/verify";
             
             case API.SignUp:
                 return $"{APIManager.serverAddress}/signup";
             
             case API.FindPasswordAuthNumber:
-                return $"{APIManager.serverAddress}/passwordfind/authnumber";
+                return $"{APIManager.serverAddress}/findpassword/authnumber";
             
-            case API.FindPasswordAuthNumberCheck:
-                return $"{APIManager.serverAddress}/passwordfind/authnumber/check";
+            case API.FindPasswordAuthNumberVerify:
+                return $"{APIManager.serverAddress}/findpassword/authnumber/verify";
             
             case API.ResetPassword:
-                return $"{APIManager.serverAddress}/passwordfind/change";
+                return $"{APIManager.serverAddress}/findpassword/change";
             
             case API.UserData:
                 return $"{APIManager.serverAddress}/userdata";
@@ -152,8 +152,8 @@ public class ServerAPI
             case API.SignUpAuthNumber:
                 return jsonObject.ToObject<ResponseSignUpAuthNumber>();
             
-            case API.SignUpAuthNumberCheck:
-                return jsonObject.ToObject<ResponseSignUpAuthNumberCheck>();
+            case API.SignUpAuthNumberVerify:
+                return jsonObject.ToObject<ResponseSignUpAuthNumberVerify>();
             
             case API.SignUp:
                 return jsonObject.ToObject<ResponseSignUp>();
@@ -161,8 +161,8 @@ public class ServerAPI
             case API.FindPasswordAuthNumber:
                 return jsonObject.ToObject<ResponseFindPasswordAuthNumber>();
             
-            case API.FindPasswordAuthNumberCheck:
-                return jsonObject.ToObject<ResponseFindPasswordAuthNumberCheck>();
+            case API.FindPasswordAuthNumberVerify:
+                return jsonObject.ToObject<ResponseFindPasswordAuthNumberVerify>();
             
             case API.ResetPassword:
                 return jsonObject.ToObject<ResponseResetPassword>();
@@ -186,10 +186,10 @@ public enum API
 {
     SignIn,
     SignUpAuthNumber,
-    SignUpAuthNumberCheck,
+    SignUpAuthNumberVerify,
     SignUp,
     FindPasswordAuthNumber,
-    FindPasswordAuthNumberCheck,
+    FindPasswordAuthNumberVerify,
     ResetPassword,
     UserData,
     UserNicknameUpdate,

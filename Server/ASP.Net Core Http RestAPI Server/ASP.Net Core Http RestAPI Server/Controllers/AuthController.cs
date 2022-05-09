@@ -674,12 +674,12 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
         #region 회원가입(계정입력) - 이메일 인증번호 인증
 
         //요청 URL
-        // http://serverAddress/signup/authnumber/check
-        [HttpPost("signup/authnumber/check")]
+        // http://serverAddress/signup/authnumber/verify
+        [HttpPost("signup/authnumber/verify")]
         [Consumes(MediaTypeNames.Application.Json)] // application/json
-        public async Task<ResponseSignUpAuthNumberCheck> Post(RequestSignUpAuthNumberCheck request)
+        public async Task<ResponseSignUpAuthNumberVerify> Post(RequestSignUpAuthNumberVerify request)
         {
-            var response = new ResponseSignUpAuthNumberCheck();
+            var response = new ResponseSignUpAuthNumberVerify();
 
             //DB에 접속하여 데이터를 조작하는 DBContext객체.
             var dbContext = dbPoolManager.Rent();
@@ -1106,12 +1106,12 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
         #region 비밀번호 찾기(계정입력) - 인증번호 인증
 
         //요청 URL
-        // http://serverAddress/findpassword/authnumber/check
-        [HttpPost("findpassword/authnumber/check")]
+        // http://serverAddress/findpassword/authnumber/verify
+        [HttpPost("findpassword/authnumber/verify")]
         [Consumes(MediaTypeNames.Application.Json)] // application/json
-        public async Task<ResponseFindPasswordAuthNumberCheck> Post(RequestFindPasswordAuthNumberCheck request)
+        public async Task<ResponseFindPasswordAuthNumberVerify> Post(RequestFindPasswordAuthNumberVerify request)
         {
-            var response = new ResponseFindPasswordAuthNumberCheck();
+            var response = new ResponseFindPasswordAuthNumberVerify();
 
             //DB에 접속하여 데이터를 조작하는 DBContext객체.
             var dbContext = dbPoolManager.Rent();

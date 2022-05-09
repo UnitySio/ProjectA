@@ -36,7 +36,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.JsonDataModels
         public string accountEmail { get; set; }
     }
 
-    public class RequestSignUpAuthNumberCheck : RequestJsonModel
+    public class RequestSignUpAuthNumberVerify : RequestJsonModel
     {
         public string signUpToken { get; set; }
 
@@ -84,7 +84,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.JsonDataModels
         public string accountEmail { get; set; }
     }
 
-    public class RequestFindPasswordAuthNumberCheck : RequestJsonModel
+    public class RequestFindPasswordAuthNumberVerify : RequestJsonModel
     {
         //이전단계 확인용 고유 token. 이 값은 반드시 필요함. (추후 db에서 해당 토큰을 가지고 진행함. 유효기간 체크도 진행) 
         public string findPasswordToken { get; set; }

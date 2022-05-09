@@ -10,28 +10,28 @@ public partial class BattleManager : MonoBehaviour
     public int levelDifference = 10;
     public int hitDifference = 20;
 
-    // ¹æ¾î·Â(¹æ¾îÀÚ ¹æ¾î·Â)
+    // ë°©ì–´ë ¥(ë°©ì–´ì ë°©ì–´ë ¥)
     public float Defense(int defense)
     {
         float result = (float)standardDefense / (defense + standardDefense);
         return result;
     }
 
-    // µ¥¹ÌÁö(°ø°İÀÚ °ø°İ·Â, °ø°İÀÚ °ø°İ·Â ¹èÀ², ¹æ¾îÀÚ ¹æ¾î·Â)
+    // ë°ë¯¸ì§€(ê³µê²©ì ê³µê²©ë ¥, ê³µê²©ì ê³µê²©ë ¥ ë°°ìœ¨, ë°©ì–´ì ë°©ì–´ë ¥)
     public float Damage(int attack, int attackRate, int defense)
     {
         float result = (attack * attackRate) * Defense(defense);
         return result;
     }
 
-    // µ¥¹ÌÁö º¸Á¤(°ø°İÀÚ °ø°İ·Â, °ø°İÀÚ °ø°İ·Â ¹èÀ², °ø°İÀÚ °ø°İ·Â º¸Á¤)
+    // ë°ë¯¸ì§€ ë³´ì •(ê³µê²©ì ê³µê²©ë ¥, ê³µê²©ì ê³µê²©ë ¥ ë°°ìœ¨, ê³µê²©ì ê³µê²©ë ¥ ë³´ì •)
     public float DamageCorrection(int attack, int attackRate, int attackCorrection)
     {
         float result = (attack * attackRate) * ((float)attackCorrection / 100);
         return result;
     }
 
-    // ·¹º§ ÆíÂ÷ °¡ÁßÄ¡(°ø°İÀÚ ·¹º§, ¹æ¾îÀÚ ·¹º§)
+    // ë ˆë²¨ í¸ì°¨ ê°€ì¤‘ì¹˜(ê³µê²©ì ë ˆë²¨, ë°©ì–´ì ë ˆë²¨)
     public float LevelWeight(int level, int defenderLevel)
     {
         float result = 0;
@@ -42,14 +42,14 @@ public partial class BattleManager : MonoBehaviour
         return result;
     }
 
-    // ÃÖÁÁ µ¥¹ÌÁö(°ø°İÀÚ °ø°İ·Â, °ø°İÀÚ °ø°İ·Â ¹èÀ², ¹æ¾îÀÚ ¹æ¾î·Â, °ø°İÀÚ °ø°İ·Â º¸Á¤, °ø°İÀÚ ·¹º§, ¹æ¾îÀÚ ·¹º§)
+    // ìµœì¢‹ ë°ë¯¸ì§€(ê³µê²©ì ê³µê²©ë ¥, ê³µê²©ì ê³µê²©ë ¥ ë°°ìœ¨, ë°©ì–´ì ë°©ì–´ë ¥, ê³µê²©ì ê³µê²©ë ¥ ë³´ì •, ê³µê²©ì ë ˆë²¨, ë°©ì–´ì ë ˆë²¨)
     public int FinalDamage(Entity attacker, int attackRate, Entity defender)
     {
         float result = (Damage(attacker.attribute.attack, attackRate, defender.attribute.defense) + DamageCorrection(attacker.attribute.attack, attackRate, attacker.attribute.attackCorrection)) * LevelWeight(attacker.attribute.level, defender.attribute.level);
         return (int)Mathf.Round(result);
     }
 
-    // ÀûÁß·ü(¹æ¾îÀÚ È¸ÇÇ, °ø°İÀÚ ÀûÁß)
+    // ì ì¤‘ë¥ (ë°©ì–´ì íšŒí”¼, ê³µê²©ì ì ì¤‘)
     public int HitRate(Entity attacker, Entity defender)
     {
         float result = ((float)hitDifference / (hitDifference + Mathf.Clamp(defender.attribute.dodge - attacker.attribute.hit, 0, defender.attribute.dodge - attacker.attribute.hit))) * 100;

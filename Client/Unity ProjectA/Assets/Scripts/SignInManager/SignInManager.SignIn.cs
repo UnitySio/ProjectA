@@ -54,11 +54,11 @@ public partial class SignInManager : MonoBehaviour
             signInEmail.onValueChanged.AddListener((args) => signInResult.text = string.Empty);
 
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
-                signInResult.text = $"ÀÌ¸ÞÀÏ ¶Ç´Â ºñ¹Ð¹øÈ£°¡ ºñ¾îÀÖ½À´Ï´Ù.";
+                signInResult.text = $"ì´ë©”ì¼ ë˜ëŠ” ë¹„ë°€ë²ˆí˜¸ê°€ ë¹„ì–´ìžˆìŠµë‹ˆë‹¤.";
             else if (!emailPattern.IsMatch(email))
-                signInResult.text = "Àß¸øµÈ ÀÌ¸ÞÀÏ Çü½ÄÀÔ´Ï´Ù.";
+                signInResult.text = "ìž˜ëª»ëœ ì´ë©”ì¼ í˜•ì‹ìž…ë‹ˆë‹¤.";
             else if (!passwordPattern.IsMatch(signInPassword.text.Trim()))
-                signUpResult.text = "ÃÖ¼Ò Æ¯¼ö¹®ÀÚ 1°³, ´ë¼Ò¹®ÀÚ 1°³, ¼ýÀÚ 1°³, 8ÀÚ ÀÌ»ó";
+                signUpResult.text = "ìµœì†Œ íŠ¹ìˆ˜ë¬¸ìž 1ê°œ, ëŒ€ì†Œë¬¸ìž 1ê°œ, ìˆ«ìž 1ê°œ, 8ìž ì´ìƒ";
             else
             {
                 signIn.interactable = false;
@@ -127,14 +127,14 @@ public partial class SignInManager : MonoBehaviour
                 var str = text.Split(",");
 
                 popup.confirm.onClick.RemoveAllListeners();
-                popup.title.text = $"¾Ë¸²";
-                popup.content.text = $"ÇØ´ç °èÁ¤Àº °ÔÀÓ ±ÔÁ¤ À§¹ÝÀ¸·Î\n{str[1]} ÀÌÈÄ ºÎÅÍ\n·Î±×ÀÎÀÌ °¡´ÉÇÕ´Ï´Ù.";
+                popup.title.text = $"ì•Œë¦¼";
+                popup.content.text = $"í•´ë‹¹ ê³„ì •ì€ ê²Œìž„ ê·œì • ìœ„ë°˜ìœ¼ë¡œ\n{str[1]} ì´í›„ ë¶€í„°\në¡œê·¸ì¸ì´ ê°€ëŠ¥í•©ë‹ˆë‹¤.";
                 popup.confirm.onClick.AddListener(() => { popup.Close(); });
 
                 popup.Show();
             }
             else
-                signInResult.text = "Á¸ÀçÇÏÁö ¾Ê´Â °èÁ¤ÀÔ´Ï´Ù.";
+                signInResult.text = "ì¡´ìž¬í•˜ì§€ ì•ŠëŠ” ê³„ì •ìž…ë‹ˆë‹¤.";
         }
     }
 }

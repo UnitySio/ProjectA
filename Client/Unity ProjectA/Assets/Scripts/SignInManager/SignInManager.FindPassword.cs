@@ -72,7 +72,7 @@ public partial class SignInManager : MonoBehaviour
                 else
                 {
                     findPassword.interactable = false;
-                    await CheckFindPasswordAuthNumber(authNumber, token);
+                    await VerifyFindPasswordAuthNumber(authNumber, token);
                     findPassword.interactable = true;
                 }
             }
@@ -116,20 +116,20 @@ public partial class SignInManager : MonoBehaviour
             return "";
     }
 
-    private async Task CheckFindPasswordAuthNumber(string authNumber, string token)
+    private async Task VerifyFindPasswordAuthNumber(string authNumber, string token)
     {
-        var request = new RequestFindPasswordAuthaNumberCheck()
+        var request = new RequestFindPasswordAuthaNumberVerify()
         {
             findPasswordToken = token,
             authNumber = authNumber
         };
 
-        var response = await APIManager.SendAPIRequestAsync(API.FindPasswordAuthNumberCheck, request, ServerManager.Instance.FailureCallback);
+        var response = await APIManager.SendAPIRequestAsync(API.FindPasswordAuthNumberVerify, request, ServerManager.Instance.FailureCallback);
         
         
         if (response != null)
         {
-            var result = response as ResponseFindPasswordAuthNumberCheck;
+            var result = response as ResponseFindPasswordAuthNumberVerify;
 
             var text = result.result;
 

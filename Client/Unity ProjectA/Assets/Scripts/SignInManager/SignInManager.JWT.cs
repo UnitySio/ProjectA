@@ -15,10 +15,10 @@ public partial class SignInManager : MonoBehaviour
 
         await Task.Delay(333);
 
-        // ÅäÅ«ÀÌ ¾øÀ¸¹Ç·Î ·Î±×ÀÎ È­¸éÀ¸·Î ÀÌµ¿
+        // í† í°ì´ ì—†ìœ¼ë¯€ë¡œ ë¡œê·¸ì¸ í™”ë©´ìœ¼ë¡œ ì´ë™
         if (string.IsNullOrEmpty(jwtAccess) || string.IsNullOrEmpty(jwtRefresh))
             WaitingSignIn();
-        else // ÅäÅ«ÀÌ ÀÖ´Ù¸é À¯È¿¼º Ã¼Å©´Ü°è·Î ÀÌµ¿
+        else // í† í°ì´ ìžˆë‹¤ë©´ ìœ íš¨ì„± ì²´í¬ë‹¨ê³„ë¡œ ì´ë™
             CheckValidateJWT();
     }
 
@@ -32,10 +32,10 @@ public partial class SignInManager : MonoBehaviour
 
         await Task.Delay(333);
 
-        // ¾ÆÁ÷ accessTokenÀÌ À¯È¿ÇÏ´Ù¸é
+        // ì•„ì§ accessTokenì´ ìœ íš¨í•˜ë‹¤ë©´
         if (JWTManager.CheckValidateJWT(accessToken))
         {
-            // ·Î±×ÀÎ °»½Å½Ã°£ Àü´Þ¿ë
+            // ë¡œê·¸ì¸ ê°±ì‹ ì‹œê°„ ì „ë‹¬ìš©
             var requestCompleteAuthenticate = new RequestSignIn()
             {
                 authType = "update",
@@ -59,8 +59,8 @@ public partial class SignInManager : MonoBehaviour
                     var str = text.Split(",");
 
                     popup.confirm.onClick.RemoveAllListeners();
-                    popup.title.text = $"¾Ë¸²";
-                    popup.content.text = $"ÇØ´ç °èÁ¤Àº °ÔÀÓ ±ÔÁ¤ À§¹ÝÀ¸·Î\n{str[1]} ÀÌÈÄ ºÎÅÍ\n·Î±×ÀÎÀÌ °¡´ÉÇÕ´Ï´Ù.";
+                    popup.title.text = $"ì•Œë¦¼";
+                    popup.content.text = $"í•´ë‹¹ ê³„ì •ì€ ê²Œìž„ ê·œì • ìœ„ë°˜ìœ¼ë¡œ\n{str[1]} ì´í›„ ë¶€í„°\në¡œê·¸ì¸ì´ ê°€ëŠ¥í•©ë‹ˆë‹¤.";
                     popup.confirm.onClick.AddListener(async () =>
                     {
                         popup.Close();
@@ -78,10 +78,10 @@ public partial class SignInManager : MonoBehaviour
                 }
             }
         }
-        else if (JWTManager.CheckValidateJWT(refreshToken)) // refreshTokenÀÌ À¯È¿ÇÏ°í accessTokenÀÌ °»½ÅÀÌ ÇÊ¿äÇÏ´Ù¸é
-            RefreshJWT(); // JWT ÅäÅ« °»½Å
-        else // ¸ðµç ÅäÅ«ÀÌ ¸¸·áµÈ °æ¿ì
-            WaitingSignIn(); // ·Î±×ÀÎ ¹öÆ° Ç¥½Ã
+        else if (JWTManager.CheckValidateJWT(refreshToken)) // refreshTokenì´ ìœ íš¨í•˜ê³  accessTokenì´ ê°±ì‹ ì´ í•„ìš”í•˜ë‹¤ë©´
+            RefreshJWT(); // JWT í† í° ê°±ì‹ 
+        else // ëª¨ë“  í† í°ì´ ë§Œë£Œëœ ê²½ìš°
+            WaitingSignIn(); // ë¡œê·¸ì¸ ë²„íŠ¼ í‘œì‹œ
     }
 
     private async void RefreshJWT()
@@ -118,8 +118,8 @@ public partial class SignInManager : MonoBehaviour
                 var str = text.Split(",");
 
                 popup.confirm.onClick.RemoveAllListeners();
-                popup.title.text = $"¾Ë¸²";
-                popup.content.text = $"ÇØ´ç °èÁ¤Àº °ÔÀÓ ±ÔÁ¤ À§¹ÝÀ¸·Î\n{str[1]} ÀÌÈÄ ºÎÅÍ\n·Î±×ÀÎÀÌ °¡´ÉÇÕ´Ï´Ù.";
+                popup.title.text = $"ì•Œë¦¼";
+                popup.content.text = $"í•´ë‹¹ ê³„ì •ì€ ê²Œìž„ ê·œì • ìœ„ë°˜ìœ¼ë¡œ\n{str[1]} ì´í›„ ë¶€í„°\në¡œê·¸ì¸ì´ ê°€ëŠ¥í•©ë‹ˆë‹¤.";
                 popup.confirm.onClick.AddListener(async () =>
                 {
                     popup.Close();
@@ -137,9 +137,9 @@ public partial class SignInManager : MonoBehaviour
             }
             else
             {
-                // ¿¡·¯ ¹ß»ý
-                popup.title.text = $"¿¡·¯";
-                popup.content.text = $"¿¡·¯: {text}";
+                // ì—ëŸ¬ ë°œìƒ
+                popup.title.text = $"ì—ëŸ¬";
+                popup.content.text = $"ì—ëŸ¬: {text}";
                 popup.confirm.onClick.AddListener(() =>
                 {
                     popup.Close();

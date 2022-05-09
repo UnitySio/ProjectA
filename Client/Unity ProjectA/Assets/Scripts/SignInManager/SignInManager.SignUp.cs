@@ -43,9 +43,9 @@ public partial class SignInManager : MonoBehaviour
             signUpEmail.onValueChanged.AddListener((args) => signUpResult.text = string.Empty);
 
             if (string.IsNullOrEmpty(email))
-                signUpResult.text = "ÀÌ¸ŞÀÏÀ» ÀÔ·ÂÇØ ÁÖ¼¼¿ä.";
+                signUpResult.text = "ì´ë©”ì¼ì„ ì…ë ¥í•´ ì£¼ì„¸ìš”.";
             else if (!emailPattern.IsMatch(email))
-                signUpResult.text = "ÀÌ¸ŞÀÏ Çü½ÄÀÌ ¾Æ´Õ´Ï´Ù.";
+                signUpResult.text = "ì´ë©”ì¼ í˜•ì‹ì´ ì•„ë‹™ë‹ˆë‹¤.";
             else
             {
                 signUpAuthNumberRequest.interactable = false;
@@ -61,15 +61,15 @@ public partial class SignInManager : MonoBehaviour
             var passwordCheck = HashManager.HashPassword(signUpCofirmPassword.text.Trim());
 
             if (token == "")
-                signUpResult.text = "ÀÌ¸ŞÀÏ ÀÎÁõÀ» ÇØÁÖ¼¼¿ä.";
+                signUpResult.text = "ì´ë©”ì¼ ì¸ì¦ì„ í•´ì£¼ì„¸ìš”.";
             else
             {
                 if (string.IsNullOrEmpty(authNumber) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(passwordCheck))
-                    signUpResult.text = "¸ğµç Ç×¸ñÀ» ÀÔ·ÂÇØ ÁÖ¼¼¿ä.";
+                    signUpResult.text = "ëª¨ë“  í•­ëª©ì„ ì…ë ¥í•´ ì£¼ì„¸ìš”.";
                 else if (!passwordPattern.IsMatch(signUpPassword.text.Trim()))
-                    signUpResult.text = "ÃÖ¼Ò Æ¯¼ö¹®ÀÚ 1°³, ´ë¼Ò¹®ÀÚ 1°³, ¼ıÀÚ 1°³, 8ÀÚ ÀÌ»ó";
+                    signUpResult.text = "ìµœì†Œ íŠ¹ìˆ˜ë¬¸ì 1ê°œ, ëŒ€ì†Œë¬¸ì 1ê°œ, ìˆ«ì 1ê°œ, 8ì ì´ìƒ";
                 else if (!password.Equals(passwordCheck))
-                    signUpResult.text = "ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.";
+                    signUpResult.text = "ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.";
                 else
                 {
                     signUp.interactable = false;
@@ -99,7 +99,7 @@ public partial class SignInManager : MonoBehaviour
             {
                 await Task.Delay(333);
                 var token = result.signUpToken;
-                signUpResult.text = "ÀÎÁõ¹øÈ£´Â 5ºĞ°£ À¯È¿ÇÕ´Ï´Ù.";
+                signUpResult.text = "ì¸ì¦ë²ˆí˜¸ëŠ” 5ë¶„ê°„ ìœ íš¨í•©ë‹ˆë‹¤.";
 
                 signUpEmail.interactable = false;
 
@@ -108,12 +108,12 @@ public partial class SignInManager : MonoBehaviour
             }
             else if (text.Equals("duplicate email"))
             {
-                signUpResult.text = "»ç¿ëÁßÀÎ ÀÌ¸ŞÀÏÀÔ´Ï´Ù.";
+                signUpResult.text = "ì‚¬ìš©ì¤‘ì¸ ì´ë©”ì¼ì…ë‹ˆë‹¤.";
                 return "";
             }
             else
             {
-                signUpResult.text = "Àß¸øµÈ µ¥ÀÌÅÍÀÔ´Ï´Ù.";
+                signUpResult.text = "ì˜ëª»ëœ ë°ì´í„°ì…ë‹ˆë‹¤.";
                 return "";
             }
         }
@@ -123,13 +123,13 @@ public partial class SignInManager : MonoBehaviour
     
     private async Task RequestSignUp(string email, string password, string authNumber, string registerToken)
     {
-        var requestAuthNumber = new RequestSignUpAuthNumberCheck()
+        var requestAuthNumber = new RequestSignUpAuthNumberVerify()
         {
             signUpToken = registerToken,
             authNumber = authNumber
         };
 
-        var responseAuthNumber = await APIManager.SendAPIRequestAsync(API.SignUpAuthNumberCheck, requestAuthNumber, ServerManager.Instance.FailureCallback) as ResponseSignUpAuthNumberCheck;
+        var responseAuthNumber = await APIManager.SendAPIRequestAsync(API.SignUpAuthNumberVerify, requestAuthNumber, ServerManager.Instance.FailureCallback) as ResponseSignUpAuthNumberVerify;
 
         if (responseAuthNumber.result.Equals("ok"))
         {
@@ -163,10 +163,10 @@ public partial class SignInManager : MonoBehaviour
                     SceneManager.LoadScene("LobbyScene");
                 }
                 else
-                    signUpResult.text = "ÀÌ¹Ì °¡ÀÔµÈ °èÁ¤ Á¤º¸ÀÔ´Ï´Ù.";
+                    signUpResult.text = "ì´ë¯¸ ê°€ì…ëœ ê³„ì • ì •ë³´ì…ë‹ˆë‹¤.";
             }
         }
         else
-            signUpResult.text = "ÀÎÁõ¹øÈ£¸¦ È®ÀÎÇØ ÁÖ¼¼¿ä.";
+            signUpResult.text = "ì¸ì¦ë²ˆí˜¸ë¥¼ í™•ì¸í•´ ì£¼ì„¸ìš”.";
     }
 }

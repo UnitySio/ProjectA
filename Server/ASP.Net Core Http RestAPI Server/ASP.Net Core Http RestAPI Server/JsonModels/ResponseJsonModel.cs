@@ -26,7 +26,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.JsonDataModels
         public string signUpToken { get; set; }
     }
 
-    public class ResponseSignUpAuthNumberCheck : ResponseJsonModel
+    public class ResponseSignUpAuthNumberVerify : ResponseJsonModel
     {
     }
 
@@ -48,7 +48,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.JsonDataModels
         public string findPasswordToken { get; set; }
     }
 
-    public class ResponseFindPasswordAuthNumberCheck : ResponseJsonModel
+    public class ResponseFindPasswordAuthNumberVerify : ResponseJsonModel
     {
     }
 
