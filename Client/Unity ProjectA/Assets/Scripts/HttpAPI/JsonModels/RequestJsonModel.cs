@@ -29,12 +29,12 @@ namespace ASP.Net_Core_Http_RestAPI_Server.JsonDataModels
         public string userIP { get; set; }
     }
 
-    public class RequestSignUpAuthNumber : RequestJsonModel
+    public class RequestSendSignUpAuthNumber : RequestJsonModel
     {
         public string accountEmail { get; set; }
     }
 
-    public class RequestSignUpAuthNumberVerify : RequestJsonModel
+    public class RequestVerifySignUpAuthNumber : RequestJsonModel
     {
         public string signUpToken { get; set; }
 
@@ -76,13 +76,13 @@ namespace ASP.Net_Core_Http_RestAPI_Server.JsonDataModels
         */
     }
 
-    public class RequestFindPasswordAuthaNumber : RequestJsonModel
+    public class RequestSendFindPasswordAuthaNumber : RequestJsonModel
     {
         //비밀번호를 찾을 email 주소값.
         public string accountEmail { get; set; }
     }
 
-    public class RequestFindPasswordAuthaNumberVerify : RequestJsonModel
+    public class RequestVerifyFindPasswordAuthaNumber : RequestJsonModel
     {
         //이전단계 확인용 고유 token. 이 값은 반드시 필요함. (추후 db에서 해당 토큰을 가지고 진행함. 유효기간 체크도 진행) 
         public string findPasswordToken { get; set; }
@@ -104,7 +104,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.JsonDataModels
         public string jwtAccess { get; set; }
     }
 
-    public class RequestUserNicknameUpdate : RequestJsonModel
+    public class RequestUpdateUserNickname : RequestJsonModel
     {
         //JWT Access 토큰. 1시간 내외의 유효시간을 갖는 토큰. 로그인 과정 성공시 반환됨. 요청한 사용자 구분용도. 
         public string jwtAccess { get; set; }
@@ -113,7 +113,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.JsonDataModels
         public string userNickname { get; set; }
     }
 
-    public class RequestUserNicknameCheck : RequestJsonModel
+    public class RequestCheckUserNickname : RequestJsonModel
     {
         public string jwtAccess { get; set; }
     }

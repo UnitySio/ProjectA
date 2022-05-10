@@ -12,7 +12,7 @@ public class SetUserData : MonoBehaviour
         popup = ServerManager.Instance.Popup;
     }
 
-    public async Task NicknameUpdate()
+    public async Task UpdateNickname()
     {
     }
 }

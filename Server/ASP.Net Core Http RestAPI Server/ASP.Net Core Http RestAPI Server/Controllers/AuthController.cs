@@ -604,13 +604,13 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
         // http://serverAddress/signup/authnumber
         [HttpPost("signup/authnumber")]
         [Consumes(MediaTypeNames.Application.Json)] // application/json
-        public async Task<ResponseSignUpAuthNumber> Post(RequestSignUpAuthNumber request)
+        public async Task<ResponseSendSignUpAuthNumber> Post(RequestSendSignUpAuthNumber requestSend)
         {
-            var response = new ResponseSignUpAuthNumber();
+            var response = new ResponseSendSignUpAuthNumber();
             //DB에 접속하여 데이터를 조작하는 DBContext객체.
             var dbContext = dbPoolManager.Rent();
 
-            if (request == null)
+            if (requestSend == null)
             {
                 response.signUpToken = null;
                 response.result = "invalid data";
@@ -619,7 +619,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
             }
 
             //입력된 값이 이메일 값이 아닌 경우.
-            if (emailPattern.IsMatch(request.accountEmail) == false)
+            if (emailPattern.IsMatch(requestSend.accountEmail) == false)
             {
                 response.signUpToken = null;
                 response.result = "invalid email address";
@@ -631,7 +631,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
             var accountQuery = dbContext.AccountInfos
                 .Where(table =>
                     //email주소가 일치하는 row를 검색.
-                    table.AccountEmail.Equals(request.accountEmail)
+                    table.AccountEmail.Equals(requestSend.accountEmail)
                 )
                 .AsNoTracking();
 
@@ -649,7 +649,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                 info.expirateTime = DateTime.UtcNow.AddMinutes(5);
                 //찾기 현재 진행 단계.
                 info.currentStep = 1;
-                info.emailAddress = request.accountEmail;
+                info.emailAddress = requestSend.accountEmail;
                 info.validateToken = JWTManager.CreateNewJWT(new UserData(), JWTManager.JWTType.AccessToken);
                 info.emailValidateConfirmNumber = new Random().Next(100000, 999998).ToString();
 
@@ -677,29 +677,29 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
         // http://serverAddress/signup/authnumber/verify
         [HttpPost("signup/authnumber/verify")]
         [Consumes(MediaTypeNames.Application.Json)] // application/json
-        public async Task<ResponseSignUpAuthNumberVerify> Post(RequestSignUpAuthNumberVerify request)
+        public async Task<ResponseVerifySignUpAuthNumber> Post(RequestVerifySignUpAuthNumber requestVerify)
         {
-            var response = new ResponseSignUpAuthNumberVerify();
+            var response = new ResponseVerifySignUpAuthNumber();
 
             //DB에 접속하여 데이터를 조작하는 DBContext객체.
             var dbContext = dbPoolManager.Rent();
 
-            if (request == null)
+            if (requestVerify == null)
             {
                 response.result = "invalid data";
                 dbPoolManager.Return(dbContext);
                 return response;
             }
 
-            var result = EmailManager.GetSignUpInfo(request.signUpToken);
+            var result = EmailManager.GetSignUpInfo(requestVerify.signUpToken);
 
             //진행단계, 유효기간 체크.
             if (result != null && result.currentStep == 1 && result.expirateTime > DateTime.UtcNow)
             {
-                if (result.emailValidateConfirmNumber.Equals(request.authNumber))
+                if (result.emailValidateConfirmNumber.Equals(requestVerify.authNumber))
                 {
                     result.currentStep = 2;
-                    EmailManager.RegisterSignUpInfo(request.signUpToken, result);
+                    EmailManager.RegisterSignUpInfo(requestVerify.signUpToken, result);
                     response.result = "ok";
                 }
                 else
@@ -1037,13 +1037,13 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
         // http://serverAddress/findpassword/authnumber
         [HttpPost("findpassword/authnumber")]
         [Consumes(MediaTypeNames.Application.Json)] // application/json
-        public async Task<ResponseFindPasswordAuthNumber> Post(RequestFindPasswordAuthNumber request)
+        public async Task<ResponseSendFindPasswordAuthNumber> Post(RequestSendFindPasswordAuthNumber requestSend)
         {
-            var response = new ResponseFindPasswordAuthNumber();
+            var response = new ResponseSendFindPasswordAuthNumber();
             //DB에 접속하여 데이터를 조작하는 DBContext객체.
             var dbContext = dbPoolManager.Rent();
 
-            if (request == null)
+            if (requestSend == null)
             {
                 response.findPasswordToken = null;
                 response.result = "invalid data";
@@ -1052,7 +1052,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
             }
 
             //입력된 값이 이메일 값이 아닌 경우.
-            if (emailPattern.IsMatch(request.accountEmail) == false)
+            if (emailPattern.IsMatch(requestSend.accountEmail) == false)
             {
                 response.findPasswordToken = null;
                 response.result = "invalid email address";
@@ -1064,7 +1064,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
             var accountQuery = dbContext.AccountInfos
                 .Where(table =>
                     //email주소가 일치하는 row를 검색.
-                    table.AccountEmail.Equals(request.accountEmail)
+                    table.AccountEmail.Equals(requestSend.accountEmail)
                 )
                 .AsNoTracking();
 
@@ -1077,7 +1077,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                 info.expirateTime = DateTime.UtcNow.AddMinutes(5);
                 //찾기 현재 진행 단계.
                 info.currentStep = 1;
-                info.emailAddress = request.accountEmail;
+                info.emailAddress = requestSend.accountEmail;
                 info.validateToken = JWTManager.CreateNewJWT(new UserData(), JWTManager.JWTType.AccessToken);
                 info.emailValidateConfirmNumber = new Random().Next(100000, 999998).ToString();
 
@@ -1109,29 +1109,29 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
         // http://serverAddress/findpassword/authnumber/verify
         [HttpPost("findpassword/authnumber/verify")]
         [Consumes(MediaTypeNames.Application.Json)] // application/json
-        public async Task<ResponseFindPasswordAuthNumberVerify> Post(RequestFindPasswordAuthNumberVerify request)
+        public async Task<ResponseVerifyFindPasswordAuthNumber> Post(RequestVerifyFindPasswordAuthNumber requestVerify)
         {
-            var response = new ResponseFindPasswordAuthNumberVerify();
+            var response = new ResponseVerifyFindPasswordAuthNumber();
 
             //DB에 접속하여 데이터를 조작하는 DBContext객체.
             var dbContext = dbPoolManager.Rent();
 
-            if (request == null)
+            if (requestVerify == null)
             {
                 response.result = "invalid data";
                 dbPoolManager.Return(dbContext);
                 return response;
             }
 
-            var result = EmailManager.GetFindPasswordInfo(request.findPasswordToken);
+            var result = EmailManager.GetFindPasswordInfo(requestVerify.findPasswordToken);
 
             //진행단계, 유효기간 체크.
             if (result != null && result.currentStep == 1 && result.expirateTime > DateTime.UtcNow)
             {
-                if (result.emailValidateConfirmNumber.Equals(request.authNumber))
+                if (result.emailValidateConfirmNumber.Equals(requestVerify.authNumber))
                 {
                     result.currentStep = 2;
-                    EmailManager.RegisterFindPasswordInfo(request.findPasswordToken, result);
+                    EmailManager.RegisterFindPasswordInfo(requestVerify.findPasswordToken, result);
                     response.result = "ok";
                 }
                 else

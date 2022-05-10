@@ -10,6 +10,7 @@ using UnityEngine.SceneManagement;
 public class ServerManager : MonoBehaviour
 {
     private static ServerManager instance;
+
     public static ServerManager Instance
     {
         get
@@ -18,11 +19,10 @@ public class ServerManager : MonoBehaviour
             return instance;
         }
     }
-    
+
     public string serverAddress = "http://127.0.0.1:5001";
 
-    [field: SerializeField]
-    public Popup Popup { get; private set; }
+    [field: SerializeField] public Popup Popup { get; private set; }
 
     private void Awake()
     {
@@ -33,7 +33,7 @@ public class ServerManager : MonoBehaviour
         }
         else if (instance != this)
             Destroy(instance);
-        
+
         if (!string.IsNullOrEmpty(serverAddress))
             APIManager.serverAddress = serverAddress;
     }
@@ -43,7 +43,7 @@ public class ServerManager : MonoBehaviour
     {
         Popup.confirm.onClick.RemoveAllListeners();
         Popup.title.text = $"Error";
-        
+
         if (errorType.ToLower().Contains("http"))
         {
             Popup.content.text = $"Error Server: {responseCode}";
@@ -51,7 +51,7 @@ public class ServerManager : MonoBehaviour
         }
         else if (errorType.ToLower().Contains("network"))
         {
-            Popup.content.text = $"";
+            Popup.content.text = $"Please, Check your network.";
             Popup.confirm.onClick.AddListener(async () =>
             {
                 Popup.Close();

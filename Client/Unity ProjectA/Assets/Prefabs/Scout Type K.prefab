@@ -130,10 +130,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ca3c7c6d372cc445bf1faa00f7c6890, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hP: 0
+  hp: 0
   maxHP: 0
-  hPBar: {fileID: 2912596431065880396}
-  hPBarMask: {fileID: 2912596430148262896}
+  hpBar: {fileID: 2912596431065880396}
+  hpBarMask: {fileID: 2912596430148262896}
 --- !u!1 &2912596431065880396
 GameObject:
   m_ObjectHideFlags: 0
@@ -500,20 +500,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attribute:
-    uID: 0
+    uid: 0
     name: 
     level: 0
-    hP: 0
+    hp: 0
     attack: 0
     attackCorrection: 0
     defense: 0
     dodge: 0
     hit: 0
     interval: 0
-  anim: {fileID: 0}
+  animator: {fileID: 0}
   material: {fileID: 0}
   fade: 0
-  sFXClips:
+  sfxClips:
   - key: Attack
     audioClip: {fileID: 8300000, guid: c430bfd6cd925c245b5473a25a1049ff, type: 3}
   - key: Hit

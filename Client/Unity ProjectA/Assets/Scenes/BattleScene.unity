@@ -2004,8 +2004,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdfefde1f76fef341bbbdb875cac2f10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sFXChannel: 0
-  sFXChannels:
+  sfxChannel: 0
+  sfxChannels:
   - {fileID: 54302945}
   - {fileID: 779034094}
   - {fileID: 1315189311}

@@ -17,10 +17,10 @@ public class ScoutTypeKCtrl : Entity
         states[3] = new Hit(this);
         states[4] = new Death(this);
 
-        attribute.uID = 0;
+        attribute.uid = 0;
         attribute.name = "Scout Type K";
         attribute.level = 25;
-        attribute.hP = 999999999;
+        attribute.hp = 999999999;
         attribute.attack = 6140000;
         attribute.attackCorrection = 1;
         attribute.defense = 100;

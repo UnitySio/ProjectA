@@ -14,8 +14,8 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public int sFXChannel;
-    public AudioSource[] sFXChannels;
+    public int sfxChannel;
+    public AudioSource[] sfxChannels;
 
     private void Awake()
     {
@@ -30,10 +30,10 @@ public class SoundManager : MonoBehaviour
 
     public void PlaySFX(AudioClip audioClip)
     {
-        if (sFXChannels[sFXChannel].isPlaying)
-            sFXChannel = (sFXChannel + 1) % sFXChannels.Length;
+        if (sfxChannels[sfxChannel].isPlaying)
+            sfxChannel = (sfxChannel + 1) % sfxChannels.Length;
 
-        sFXChannels[sFXChannel].clip = audioClip;
-        sFXChannels[sFXChannel].Play();
+        sfxChannels[sfxChannel].clip = audioClip;
+        sfxChannels[sfxChannel].Play();
     }
 }

@@ -6,7 +6,6 @@ public class SpriteAnimator : MonoBehaviour
 {
     private Entity owner;
     private SpriteRenderer spriteRenderer;
-    private AudioSource audioSource;
 
     private Coroutine coroutine;
 
@@ -53,7 +52,6 @@ public class SpriteAnimator : MonoBehaviour
     {
         owner = GetComponent<Entity>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        audioSource = GetComponent<AudioSource>();
     }
 
     private IEnumerator Play()
@@ -63,7 +61,7 @@ public class SpriteAnimator : MonoBehaviour
             spriteRenderer.sprite = animationClips[CurrentClip].animationClip[currentFrame].sprite;
 
             if (animationClips[CurrentClip].animationClip[currentFrame].sFXKey != "")
-                SoundManager.Instance.PlaySFX(owner.sFXClipDictionary[animationClips[CurrentClip].animationClip[currentFrame].sFXKey]);
+                SoundManager.Instance.PlaySFX(owner.sfxClipDictionary[animationClips[CurrentClip].animationClip[currentFrame].sFXKey]);
 
             if (!loop && currentFrame == animationClips[CurrentClip].animationClip.Count - 1)
             {

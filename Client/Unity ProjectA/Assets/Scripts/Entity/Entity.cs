@@ -7,7 +7,7 @@ public abstract class Entity : StateMachine
     public EntityAttribute attribute;
 
     [HideInInspector]
-    public SpriteAnimator anim;
+    public SpriteAnimator animator;
 
     [HideInInspector]
     public Material material;
@@ -15,45 +15,45 @@ public abstract class Entity : StateMachine
     [HideInInspector]
     public float fade;
 
-    private GameObject hPBarGroup;
+    private GameObject hpBarGroup;
 
     public Coroutine coroutine;
 
-    public List<SFX> sFXClips = new List<SFX>();
-    public Dictionary<string, AudioClip> sFXClipDictionary = new Dictionary<string, AudioClip>();
+    public List<SFX> sfxClips = new List<SFX>();
+    public Dictionary<string, AudioClip> sfxClipDictionary = new Dictionary<string, AudioClip>();
 
     protected virtual void Awake()
     {
-        anim = GetComponent<SpriteAnimator>();
+        animator = GetComponent<SpriteAnimator>();
         material = GetComponent<SpriteRenderer>().material;
-        hPBarGroup = gameObject.transform.GetChild(0).gameObject;
+        hpBarGroup = gameObject.transform.GetChild(0).gameObject;
 
-        foreach (SFX sFX in sFXClips)
-            sFXClipDictionary.Add(sFX.key, sFX.audioClip);
+        foreach (SFX sfx in sfxClips)
+            sfxClipDictionary.Add(sfx.key, sfx.audioClip);
     }
 
     protected override void Start()
     {
         base.Start();
-        hPBarGroup.SetActive(false);
+        hpBarGroup.SetActive(false);
     }
 
-    public void Setup(EntityAttribute attri)
+    public void Setup(EntityAttribute attribute)
     {
-        attribute = attri;
+        this.attribute = attribute;
     }
 
     public void Hurt(int damage)
     {
-        attribute.hP -= damage;
-        hPBarGroup.GetComponent<HPBar>().HP -= damage;
+        attribute.hp -= damage;
+        hpBarGroup.GetComponent<HPBar>().HP -= damage;
 
         if (damage > 0)
             FloatingDamage(damage.ToString());
         else
             FloatingDamage("MISS!");
 
-        if (attribute.hP <= 0)
+        if (attribute.hp <= 0)
             Death();
     }
 
@@ -62,7 +62,7 @@ public abstract class Entity : StateMachine
 
     public virtual void Death()
     {
-        hPBarGroup.SetActive(false);
+        hpBarGroup.SetActive(false);
         if (gameObject.CompareTag("Friendly"))
             BattleManager.Instance.friendly.Remove(this);
         else if (gameObject.CompareTag("Enemy"))
@@ -71,9 +71,9 @@ public abstract class Entity : StateMachine
 
     public void SetHPBar()
     {
-        hPBarGroup.SetActive(true);
-        hPBarGroup.transform.localPosition = SetLocalPosition();
-        hPBarGroup.GetComponent<HPBar>().Setup(attribute.hP);
+        hpBarGroup.SetActive(true);
+        hpBarGroup.transform.localPosition = SetLocalPosition();
+        hpBarGroup.GetComponent<HPBar>().Setup(attribute.hp);
     }
 
     public void FloatingDamage(string damage)
@@ -89,6 +89,11 @@ public abstract class Entity : StateMachine
         return new Vector3(0, GetComponent<SpriteRenderer>().bounds.size.y, 0);
     }
 
+    public void PlaySFX(string key)
+    {
+        SoundManager.Instance.PlaySFX(sfxClipDictionary[key]);
+    }
+
     public IEnumerator Attack(State state)
     {
         yield return new WaitForSeconds(attribute.interval);
@@ -99,7 +104,7 @@ public abstract class Entity : StateMachine
     public IEnumerator HitTimes(int hitTimes, int damage)
     {
         Hit();
-        SoundManager.Instance.PlaySFX(sFXClipDictionary["Hit"]);
+        PlaySFX("Hit");
 
         if (hitTimes == 0 || hitTimes == 1)
             Hurt(damage);
@@ -107,7 +112,7 @@ public abstract class Entity : StateMachine
         {
             for (int i = 0; i < hitTimes; i++)
             {
-                if (attribute.hP > 0)
+                if (attribute.hp > 0)
                     Hurt(damage);
                 else
                     yield break;

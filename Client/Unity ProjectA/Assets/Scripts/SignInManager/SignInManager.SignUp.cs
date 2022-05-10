@@ -82,16 +82,16 @@ public partial class SignInManager : MonoBehaviour
 
     private async Task<string> RequestSignUpAuthNumber(string email)
     {
-        var request = new RequestSignUpAuthNumber()
+        var request = new RequestSendSignUpAuthNumber()
         {
             accountEmail = email
         };
 
-        var response = await APIManager.SendAPIRequestAsync(API.SignUpAuthNumber, request, ServerManager.Instance.FailureCallback);
+        var response = await APIManager.SendAPIRequestAsync(API.SendSignUpAuthNumber, request, ServerManager.Instance.FailureCallback);
 
         if (response != null)
         {
-            var result = response as ResponseSignUpAuthNumber;
+            var result = response as ResponseSendSignUpAuthNumber;
 
             var text = result.result;
             
@@ -123,13 +123,13 @@ public partial class SignInManager : MonoBehaviour
     
     private async Task RequestSignUp(string email, string password, string authNumber, string registerToken)
     {
-        var requestAuthNumber = new RequestSignUpAuthNumberVerify()
+        var requestAuthNumber = new RequestVerifySignUpAuthNumber()
         {
             signUpToken = registerToken,
             authNumber = authNumber
         };
 
-        var responseAuthNumber = await APIManager.SendAPIRequestAsync(API.SignUpAuthNumberVerify, requestAuthNumber, ServerManager.Instance.FailureCallback) as ResponseSignUpAuthNumberVerify;
+        var responseAuthNumber = await APIManager.SendAPIRequestAsync(API.VerifySignUpAuthNumber, requestAuthNumber, ServerManager.Instance.FailureCallback) as ResponseVerifySignUpAuthNumber;
 
         if (responseAuthNumber.result.Equals("ok"))
         {

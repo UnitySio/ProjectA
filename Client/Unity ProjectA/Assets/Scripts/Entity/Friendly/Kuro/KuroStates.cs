@@ -48,7 +48,7 @@ namespace KuroStates
 
         public override void Enter()
         {
-            owner.anim.Animate(0, true);
+            owner.animator.Animate(0, true);
             if (BattleManager.Instance.enemy.Count != 0 && owner.coroutine == null)
                 owner.coroutine = owner.StartCoroutine(owner.Attack(owner.states[2]));
         }
@@ -76,15 +76,15 @@ namespace KuroStates
 
         public override void Enter()
         {
-            owner.anim.Animate(1, true);
+            owner.animator.Animate(1, true);
             hitRate = Random.Range(0, 101);
         }
 
         public override void Update()
         {
-            if (owner.anim.currentFrame == 4 && owner.anim.isExecute == false)
+            if (owner.animator.currentFrame == 4 && owner.animator.isExecute == false)
             {
-                owner.anim.isExecute = true;
+                owner.animator.isExecute = true;
                 if (BattleManager.Instance.enemy.Count != 0)
                 {
                     Entity target = BattleManager.Instance.enemy[0];
@@ -95,7 +95,7 @@ namespace KuroStates
                 }
             }
 
-            if (owner.anim.IsPlay == false)
+            if (owner.animator.IsPlay == false)
                 owner.ChangeState(owner.states[1]);
         }
 
@@ -116,12 +116,12 @@ namespace KuroStates
 
         public override void Enter()
         {
-            owner.anim.Animate(2, true);
+            owner.animator.Animate(2, true);
         }
 
         public override void Update()
         {
-            if (owner.anim.IsPlay == false)
+            if (owner.animator.IsPlay == false)
                 owner.ChangeState(owner.states[1]);
         }
 
@@ -142,7 +142,7 @@ namespace KuroStates
 
         public override void Enter()
         {
-            owner.anim.Animate(3, true);
+            owner.animator.Animate(3, true);
 
             if (owner.coroutine != null)
                 owner.StopCoroutine(owner.coroutine);
@@ -150,7 +150,7 @@ namespace KuroStates
 
         public override void Update()
         {
-            if (owner.anim.IsPlay == false)
+            if (owner.animator.IsPlay == false)
             {
                 owner.fade -= Time.deltaTime;
 
@@ -178,7 +178,7 @@ namespace KuroStates
 
         public override void Enter()
         {
-            owner.anim.Animate(4, true);
+            owner.animator.Animate(4, true);
 
             if (owner.coroutine != null)
                 owner.StopCoroutine(owner.coroutine);

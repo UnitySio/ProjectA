@@ -527,7 +527,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC774\uBA54\uC77C"
+  m_text: Email
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1b7e64c57d4857a44927db42798c4e59, type: 2}
   m_sharedMaterial: {fileID: 7702092979886511691, guid: 1b7e64c57d4857a44927db42798c4e59, type: 2}
@@ -662,7 +662,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uBE44\uBC00\uBC88\uD638 \uCC3E\uAE30"
+  m_text: Find Password
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1b7e64c57d4857a44927db42798c4e59, type: 2}
   m_sharedMaterial: {fileID: 7702092979886511691, guid: 1b7e64c57d4857a44927db42798c4e59, type: 2}
@@ -2998,12 +2998,12 @@ GameObject:
   - component: {fileID: 433752872}
   - component: {fileID: 433752871}
   m_Layer: 5
-  m_Name: Sign Up
+  m_Name: Sign Up Group
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &433752869
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3630,7 +3630,7 @@ GameObject:
   - component: {fileID: 526020623}
   - component: {fileID: 526020622}
   m_Layer: 5
-  m_Name: Password Change
+  m_Name: Reset Password
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3941,7 +3941,7 @@ GameObject:
   - component: {fileID: 605960950}
   - component: {fileID: 605960949}
   m_Layer: 5
-  m_Name: Auth Number Request
+  m_Name: Send
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4408,7 +4408,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uBE44\uBC00\uBC88\uD638 \uBCC0\uACBD"
+  m_text: Reset Password
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1b7e64c57d4857a44927db42798c4e59, type: 2}
   m_sharedMaterial: {fileID: 7702092979886511691, guid: 1b7e64c57d4857a44927db42798c4e59, type: 2}
@@ -4564,7 +4564,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC778\uC99D\uBC88\uD638"
+  m_text: 6-digit code
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1b7e64c57d4857a44927db42798c4e59, type: 2}
   m_sharedMaterial: {fileID: 7702092979886511691, guid: 1b7e64c57d4857a44927db42798c4e59, type: 2}
@@ -6627,7 +6627,7 @@ GameObject:
   - component: {fileID: 1193326987}
   - component: {fileID: 1193326986}
   m_Layer: 5
-  m_Name: Password Find Group
+  m_Name: Find Password Group
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7197,7 +7197,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uBE44\uBC00\uBC88\uD638 \uCC3E\uAE30"
+  m_text: Verify
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1b7e64c57d4857a44927db42798c4e59, type: 2}
   m_sharedMaterial: {fileID: 7702092979886511691, guid: 1b7e64c57d4857a44927db42798c4e59, type: 2}
@@ -7769,7 +7769,7 @@ GameObject:
   - component: {fileID: 1355365369}
   - component: {fileID: 1355365368}
   m_Layer: 5
-  m_Name: Password Change Group
+  m_Name: Reset Password Group
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7915,7 +7915,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uBE44\uBC00\uBC88\uD638"
+  m_text: Password
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1b7e64c57d4857a44927db42798c4e59, type: 2}
   m_sharedMaterial: {fileID: 7702092979886511691, guid: 1b7e64c57d4857a44927db42798c4e59, type: 2}
@@ -8672,7 +8672,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uBE44\uBC00\uBC88\uD638 \uCC3E\uAE30"
+  m_text: Find Password
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1b7e64c57d4857a44927db42798c4e59, type: 2}
   m_sharedMaterial: {fileID: 7702092979886511691, guid: 1b7e64c57d4857a44927db42798c4e59, type: 2}
@@ -9846,7 +9846,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC778\uC99D\uBC88\uD638 \uC694\uCCAD"
+  m_text: Send
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1b7e64c57d4857a44927db42798c4e59, type: 2}
   m_sharedMaterial: {fileID: 7702092979886511691, guid: 1b7e64c57d4857a44927db42798c4e59, type: 2}
@@ -10645,7 +10645,7 @@ GameObject:
   - component: {fileID: 1776486078}
   - component: {fileID: 1776486077}
   m_Layer: 5
-  m_Name: Password Find
+  m_Name: Verify
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11124,7 +11124,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uBE44\uBC00\uBC88\uD638 \uD655\uC778"
+  m_text: Confirm Password
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1b7e64c57d4857a44927db42798c4e59, type: 2}
   m_sharedMaterial: {fileID: 7702092979886511691, guid: 1b7e64c57d4857a44927db42798c4e59, type: 2}
@@ -11947,7 +11947,7 @@ GameObject:
   - component: {fileID: 2027719221}
   - component: {fileID: 2027719220}
   m_Layer: 5
-  m_Name: Auth Number Request
+  m_Name: Send
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12735,7 +12735,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC0C8\uB85C\uC6B4 \uBE44\uBC00\uBC88\uD638\uB97C \uC785\uB825\uD574 \uC8FC\uC138\uC694."
+  m_text: Please, Enter a new password.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1b7e64c57d4857a44927db42798c4e59, type: 2}
   m_sharedMaterial: {fileID: 7702092979886511691, guid: 1b7e64c57d4857a44927db42798c4e59, type: 2}

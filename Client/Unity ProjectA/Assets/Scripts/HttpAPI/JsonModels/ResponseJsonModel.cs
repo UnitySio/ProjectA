@@ -20,12 +20,12 @@ namespace ASP.Net_Core_Http_RestAPI_Server.JsonDataModels
         public string jwtRefresh { get; set; }
     }
 
-    public class ResponseSignUpAuthNumber : ResponseJsonModel
+    public class ResponseSendSignUpAuthNumber : ResponseJsonModel
     {
         public string signUpToken { get; set; }
     }
 
-    public class ResponseSignUpAuthNumberVerify : ResponseJsonModel
+    public class ResponseVerifySignUpAuthNumber : ResponseJsonModel
     {
         
     }
@@ -40,14 +40,14 @@ namespace ASP.Net_Core_Http_RestAPI_Server.JsonDataModels
         public string jwtRefresh { get; set; }
     }
 
-    public class ResponseFindPasswordAuthNumber : ResponseJsonModel
+    public class ResponseSendFindPasswordAuthNumber : ResponseJsonModel
     {
         //다음 단계를 진행하기 위한 고유 토큰.  1개의 email에 대해서 고유함. 
         //(이후에 다른 요청이 오면 이전 요청의 findpassword_token은 취소됨.즉 만료처리 됨)
         public string findPasswordToken { get; set; }
     }
 
-    public class ResponseFindPasswordAuthNumberVerify : ResponseJsonModel
+    public class ResponseVerifyFindPasswordAuthNumber : ResponseJsonModel
     {
 
     }
@@ -63,12 +63,12 @@ namespace ASP.Net_Core_Http_RestAPI_Server.JsonDataModels
         public UserData userData { get; set; }
     }
 
-    public class ResponseUserNiknameUpdate : ResponseJsonModel
+    public class ResponseUpdateUserNikname : ResponseJsonModel
     {
 
     }
 
-    public class ResponseUserNicknameCheck : ResponseJsonModel
+    public class ResponseCheckUserNickname : ResponseJsonModel
     {
         
     }

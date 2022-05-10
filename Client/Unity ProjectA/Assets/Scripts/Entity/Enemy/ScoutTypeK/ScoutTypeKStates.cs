@@ -49,7 +49,7 @@ namespace ScoutTypeKStates
 
         public override void Enter()
         {
-            owner.anim.Animate(0, true);
+            owner.animator.Animate(0, true);
             if (BattleManager.Instance.friendly.Count != 0 && owner.coroutine == null)
                 owner.coroutine = owner.StartCoroutine(owner.Attack(owner.states[2]));
         }
@@ -77,15 +77,15 @@ namespace ScoutTypeKStates
 
         public override void Enter()
         {
-            owner.anim.Animate(1, true);
+            owner.animator.Animate(1, true);
             hitRate = Random.Range(0, 101);
         }
 
         public override void Update()
         {
-            if ((owner.anim.currentFrame == 10 || owner.anim.currentFrame == 11 || owner.anim.currentFrame == 12 || owner.anim.currentFrame == 13) && owner.anim.isExecute == false)
+            if ((owner.animator.currentFrame == 10 || owner.animator.currentFrame == 11 || owner.animator.currentFrame == 12 || owner.animator.currentFrame == 13) && owner.animator.isExecute == false)
             {
-                owner.anim.isExecute = true;
+                owner.animator.isExecute = true;
                 if (BattleManager.Instance.friendly.Count != 0)
                 {
                     Entity target = BattleManager.Instance.friendly[0];
@@ -96,7 +96,7 @@ namespace ScoutTypeKStates
                 }
             }
 
-            if (owner.anim.IsPlay == false)
+            if (owner.animator.IsPlay == false)
                 owner.ChangeState(owner.states[1]);
         }
 
@@ -117,12 +117,12 @@ namespace ScoutTypeKStates
 
         public override void Enter()
         {
-            owner.anim.Animate(2, true);
+            owner.animator.Animate(2, true);
         }
 
         public override void Update()
         {
-            if (owner.anim.IsPlay == false)
+            if (owner.animator.IsPlay == false)
                 owner.ChangeState(owner.states[1]);
         }
 
@@ -144,7 +144,7 @@ namespace ScoutTypeKStates
         public override void Enter()
         {
             owner.material.SetColor("_EmissionColor", Color.black);
-            owner.anim.Animate(3, true);
+            owner.animator.Animate(3, true);
 
             if (owner.coroutine != null)
                 owner.StopCoroutine(owner.coroutine);
@@ -152,7 +152,7 @@ namespace ScoutTypeKStates
 
         public override void Update()
         {
-            if (owner.anim.IsPlay == false)
+            if (owner.animator.IsPlay == false)
             {
                 owner.fade -= Time.deltaTime;
 

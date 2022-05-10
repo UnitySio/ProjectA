@@ -5,10 +5,10 @@ using UnityEngine;
 [System.Serializable]
 public class EntityAttribute
 {
-    public int uID;
+    public int uid;
     public string name;
     public int level;
-    public int hP;
+    public int hp;
     public int attack;
     public int attackCorrection;
     public int defense;

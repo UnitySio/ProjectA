@@ -53,7 +53,7 @@ public partial class SignInManager : MonoBehaviour
             else
             {
                 findPasswordAuthNumberRequest.interactable = false;
-                token = await RequestFindPasswordAuthNumber(email);
+                token = await RequestSendFindPasswordAuthNumber(email);
                 findPasswordAuthNumberRequest.interactable = true;
             }
         });
@@ -81,18 +81,18 @@ public partial class SignInManager : MonoBehaviour
         });
     }
 
-    private async Task<string> RequestFindPasswordAuthNumber(string email)
+    private async Task<string> RequestSendFindPasswordAuthNumber(string email)
     {
-        var request = new RequestFindPasswordAuthaNumber()
+        var request = new RequestSendFindPasswordAuthaNumber()
         {
             accountEmail = email
         };
 
-        var response = await APIManager.SendAPIRequestAsync(API.FindPasswordAuthNumber, request, ServerManager.Instance.FailureCallback);
+        var response = await APIManager.SendAPIRequestAsync(API.SendFindPasswordAuthNumber, request, ServerManager.Instance.FailureCallback);
         
         if (response != null)
         {
-            var result = response as ResponseFindPasswordAuthNumber;
+            var result = response as ResponseSendFindPasswordAuthNumber;
 
             var text = result.result;
 
@@ -118,18 +118,18 @@ public partial class SignInManager : MonoBehaviour
 
     private async Task VerifyFindPasswordAuthNumber(string authNumber, string token)
     {
-        var request = new RequestFindPasswordAuthaNumberVerify()
+        var request = new RequestVerifyFindPasswordAuthaNumber()
         {
             findPasswordToken = token,
             authNumber = authNumber
         };
 
-        var response = await APIManager.SendAPIRequestAsync(API.FindPasswordAuthNumberVerify, request, ServerManager.Instance.FailureCallback);
+        var response = await APIManager.SendAPIRequestAsync(API.VerifyFindPasswordAuthNumber, request, ServerManager.Instance.FailureCallback);
         
         
         if (response != null)
         {
-            var result = response as ResponseFindPasswordAuthNumberVerify;
+            var result = response as ResponseVerifyFindPasswordAuthNumber;
 
             var text = result.result;
 

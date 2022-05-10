@@ -19,10 +19,10 @@ public class KuroCtrl : Entity
         states[4] = new Death(this);
         states[5] = new Victory(this);
 
-        attribute.uID = 0;
+        attribute.uid = 0;
         attribute.name = "Kuro";
         attribute.level = 30;
-        attribute.hP = 999999999;
+        attribute.hp = 999999999;
         attribute.attack = 6140000;
         attribute.attackCorrection = 1;
         attribute.defense = 100;

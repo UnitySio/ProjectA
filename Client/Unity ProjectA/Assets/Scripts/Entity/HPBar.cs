@@ -5,14 +5,14 @@ using UnityEngine;
 public class HPBar : MonoBehaviour
 {
     [SerializeField]
-    private float hP;
+    private float hp;
     public float HP
     {
-        get { return hP; }
+        get { return hp; }
         set
         {
-            hP = value;
-            if (hP < 0) hP = 0;
+            hp = value;
+            if (hp < 0) hp = 0;
         }
     }
 
@@ -20,31 +20,31 @@ public class HPBar : MonoBehaviour
     private float origin;
     private float offset;
 
-    public GameObject hPBar;
-    public GameObject hPBarMask;
+    public GameObject hpBar;
+    public GameObject hpBarMask;
 
     private void Awake()
     {
-        origin = hPBarMask.transform.localScale.x;
+        origin = hpBarMask.transform.localScale.x;
     }
 
     private void Start()
     {
         if (gameObject.transform.parent.CompareTag("Friendly"))
-            hPBar.GetComponent<SpriteRenderer>().color = Color.green;
+            hpBar.GetComponent<SpriteRenderer>().color = Color.green;
         else if (gameObject.transform.parent.CompareTag("Enemy"))
-            hPBar.GetComponent<SpriteRenderer>().color = Color.red;
+            hpBar.GetComponent<SpriteRenderer>().color = Color.red;
     }
 
     private void Update()
     {
-        offset = (hP / maxHP) * origin;
-        hPBarMask.transform.localScale = new Vector3(offset, hPBarMask.transform.localScale.y, hPBarMask.transform.localScale.z);
+        offset = (hp / maxHP) * origin;
+        hpBarMask.transform.localScale = new Vector3(offset, hpBarMask.transform.localScale.y, hpBarMask.transform.localScale.z);
     }
 
     public void Setup(int hP)
     {
-        this.hP = hP;
+        this.hp = hP;
         this.maxHP = hP;
     }
 }
