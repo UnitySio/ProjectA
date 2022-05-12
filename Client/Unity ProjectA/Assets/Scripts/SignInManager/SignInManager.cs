@@ -19,6 +19,7 @@ public partial class SignInManager : MonoBehaviour
 
     private void Start()
     {
+        
         StartCoroutine(CheckAsset());
     }
 }
