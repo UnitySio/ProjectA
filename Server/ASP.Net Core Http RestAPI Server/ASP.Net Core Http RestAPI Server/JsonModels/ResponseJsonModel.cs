@@ -65,8 +65,4 @@ namespace ASP.Net_Core_Http_RestAPI_Server.JsonDataModels
     public class ResponseUpdateUserNickname : ResponseJsonModel
     {
     }
-
-    public class ResponseCheckUserNickname : ResponseJsonModel
-    {
-    }
 }

@@ -49,6 +49,7 @@ public partial class SignInManager : MonoBehaviour
 
         if (totalSize > 0)
         {
+            popup.confirm.onClick.RemoveAllListeners();
             popup.title.text = $"데이터 다운로드";
             popup.content.text = $"추가 데이터 {FomulaBytes(totalSize)}를 발견했습니다.\nWIFI 환경에서 다운로드 진행을 권장합니다.";
             popup.confirm.onClick.AddListener(() =>
@@ -97,6 +98,8 @@ public partial class SignInManager : MonoBehaviour
                                 await Task.Delay(500);
                                 Application.Quit();
                             });
+                            
+                            popup.Show();
                         }
                     };
 
@@ -122,6 +125,8 @@ public partial class SignInManager : MonoBehaviour
                     await Task.Delay(500);
                     Application.Quit();
                 });
+                
+                popup.Show();
             }
         }
 

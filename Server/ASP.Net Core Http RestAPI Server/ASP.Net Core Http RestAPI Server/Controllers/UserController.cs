@@ -119,14 +119,14 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
         // http://serverAddress/userdata/nickname/update
         [HttpPost("userdata/nickname/update")]
         [Consumes(MediaTypeNames.Application.Json)] // application/json
-        public async Task<ResponseUpdateUserNickname> Post(RequestUpdateUserNickname requestUpdate)
+        public async Task<ResponseUpdateUserNickname> Post(RequestUpdateUserNickname request)
         {
             var response = new ResponseUpdateUserNickname();
 
             //DB에 접속하여 데이터를 조작하는 DBContext객체.
             var dbContext = dbPoolManager.Rent();
 
-            if (requestUpdate == null)
+            if (request == null)
             {
                 response.result = "invalid data";
                 dbPoolManager.Return(dbContext);
@@ -135,7 +135,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
 
 
             //추후, 닉네임 변경권 소유여부나, 정규식 추가하여 판단
-            if (string.IsNullOrEmpty(requestUpdate.userNickname))
+            if (string.IsNullOrEmpty(request.userNickname))
             {
                 response.result = "invalid user_name data";
                 dbPoolManager.Return(dbContext);
@@ -146,7 +146,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
             //jwt refresh 토큰 유효성 검사 및, jwt_access 토큰 재발급 준비.
             SecurityToken tokenInfo = new JwtSecurityToken();
 
-            if (JWTManager.CheckValidationJWT(requestUpdate.jwtAccess, out tokenInfo))
+            if (JWTManager.CheckValidationJWT(request.jwtAccess, out tokenInfo))
             {
                 //유효성 검증이 완료된 토큰 정보.
                 var jwt = tokenInfo as JwtSecurityToken;
@@ -163,71 +163,11 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                     var user = userQuery.FirstOrDefault();
 
                     //닉네임 변경사항 반영
-                    user.UserNickname = requestUpdate.userNickname;
+                    user.UserNickname = request.userNickname;
                     dbContext.Entry(user).State = EntityState.Modified;
                     await dbContext.SaveChangesAsync();
 
                     response.result = "ok";
-                }
-                else
-                {
-                    response.result = "server Error.";
-                }
-            }
-            else
-            {
-                response.result = "invalid jwt";
-            }
-
-            dbPoolManager.Return(dbContext);
-            return response;
-        }
-
-        #endregion
-
-        #region 닉네임 확인
-
-        //요청 URL
-        // http://serverAddress/userdata/nickname/check
-        [HttpPost("userdata/nickname/check")]
-        [Consumes(MediaTypeNames.Application.Json)] // application/json
-        public async Task<ResponseCheckUserNickname> Post(RequestCheckUserNickname requestCheck)
-        {
-            var response = new ResponseCheckUserNickname();
-
-            //DB에 접속하여 데이터를 조작하는 DBContext객체.
-            var dbContext = dbPoolManager.Rent();
-
-            if (requestCheck == null)
-            {
-                response.result = "invalid data";
-                dbPoolManager.Return(dbContext);
-                return response;
-            }
-
-            //jwt refresh 토큰 유효성 검사 및, jwt_access 토큰 재발급 준비.
-            SecurityToken tokenInfo = new JwtSecurityToken();
-
-            if (JWTManager.CheckValidationJWT(requestCheck.jwtAccess, out tokenInfo))
-            {
-                //유효성 검증이 완료된 토큰 정보.
-                var jwt = tokenInfo as JwtSecurityToken;
-
-                var accountUniqueId = jwt.Payload.GetValueOrDefault("AccountUniqueId");
-
-                //전달된 정보로 db 조회후, 해당 정보를 db에서 가져온다.
-                var userQuery = dbContext.UserInfos
-                    .Where(table => table.AccountUniqueId.Equals(accountUniqueId))
-                    .AsNoTracking();
-
-                if (userQuery.Count() == 1)
-                {
-                    var user = userQuery.FirstOrDefault();
-
-                    if (string.IsNullOrEmpty(user.UserNickname))
-                        response.result = "empty";
-                    else
-                        response.result = "exist";
                 }
                 else
                 {
