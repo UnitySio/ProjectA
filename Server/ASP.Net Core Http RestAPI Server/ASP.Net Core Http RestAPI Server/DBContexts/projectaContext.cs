@@ -18,6 +18,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.DBContexts
         }
 
         public virtual DbSet<AccountInfo> AccountInfos { get; set; }
+        public virtual DbSet<UserCharacterInfo> UserCharacterInfos { get; set; }
         public virtual DbSet<UserInfo> UserInfos { get; set; }
         public virtual DbSet<UserSigninLog> UserSigninLogs { get; set; }
 
@@ -92,6 +93,31 @@ namespace ASP.Net_Core_Http_RestAPI_Server.DBContexts
                 entity.Property(e => e.AccountPassword)
                     .HasMaxLength(256)
                     .HasColumnName("account_password");
+            });
+
+            modelBuilder.Entity<UserCharacterInfo>(entity =>
+            {
+                entity.HasKey(e => e.InfoUniqueId)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("user_character_info");
+
+                entity.Property(e => e.InfoUniqueId)
+                    .HasColumnType("int(10) unsigned")
+                    .HasColumnName("info_unique_id");
+
+                entity.Property(e => e.AccountUniqueId)
+                    .HasColumnType("int(10) unsigned")
+                    .HasColumnName("account_unique_id");
+
+                entity.Property(e => e.CharacterLv)
+                    .HasColumnType("int(10) unsigned")
+                    .HasColumnName("character_lv")
+                    .HasDefaultValueSql("'1'");
+
+                entity.Property(e => e.CharacterUniqueId)
+                    .HasColumnType("int(10) unsigned")
+                    .HasColumnName("character_unique_id");
             });
 
             modelBuilder.Entity<UserInfo>(entity =>
