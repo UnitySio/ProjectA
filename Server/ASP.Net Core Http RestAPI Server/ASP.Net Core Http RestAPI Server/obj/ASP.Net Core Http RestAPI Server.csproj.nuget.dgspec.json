@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "/Users/woojinchoi/Documents/ProjectA/Server/ASP.Net Core Http RestAPI Server/ASP.Net Core Http RestAPI Server/ASP.Net Core Http RestAPI Server.csproj": {}
+    "C:\\Users\\dnwls\\Documents\\Unity Projects\\ProjectA\\Server\\ASP.Net Core Http RestAPI Server\\ASP.Net Core Http RestAPI Server\\ASP.Net Core Http RestAPI Server.csproj": {}
   },
   "projects": {
-    "/Users/woojinchoi/Documents/ProjectA/Server/ASP.Net Core Http RestAPI Server/ASP.Net Core Http RestAPI Server/ASP.Net Core Http RestAPI Server.csproj": {
+    "C:\\Users\\dnwls\\Documents\\Unity Projects\\ProjectA\\Server\\ASP.Net Core Http RestAPI Server\\ASP.Net Core Http RestAPI Server\\ASP.Net Core Http RestAPI Server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/woojinchoi/Documents/ProjectA/Server/ASP.Net Core Http RestAPI Server/ASP.Net Core Http RestAPI Server/ASP.Net Core Http RestAPI Server.csproj",
+        "projectUniqueName": "C:\\Users\\dnwls\\Documents\\Unity Projects\\ProjectA\\Server\\ASP.Net Core Http RestAPI Server\\ASP.Net Core Http RestAPI Server\\ASP.Net Core Http RestAPI Server.csproj",
         "projectName": "ASP.Net Core Http RestAPI Server",
-        "projectPath": "/Users/woojinchoi/Documents/ProjectA/Server/ASP.Net Core Http RestAPI Server/ASP.Net Core Http RestAPI Server/ASP.Net Core Http RestAPI Server.csproj",
-        "packagesPath": "/Users/woojinchoi/.nuget/packages/",
-        "outputPath": "/Users/woojinchoi/Documents/ProjectA/Server/ASP.Net Core Http RestAPI Server/ASP.Net Core Http RestAPI Server/obj/",
+        "projectPath": "C:\\Users\\dnwls\\Documents\\Unity Projects\\ProjectA\\Server\\ASP.Net Core Http RestAPI Server\\ASP.Net Core Http RestAPI Server\\ASP.Net Core Http RestAPI Server.csproj",
+        "packagesPath": "C:\\Users\\dnwls\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\dnwls\\Documents\\Unity Projects\\ProjectA\\Server\\ASP.Net Core Http RestAPI Server\\ASP.Net Core Http RestAPI Server\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/woojinchoi/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\dnwls\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -101,7 +103,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/x64/sdk/6.0.105/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
         }
       }
     }

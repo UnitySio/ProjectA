@@ -110,6 +110,11 @@ namespace ASP.Net_Core_Http_RestAPI_Server.DBContexts
                     .HasColumnType("int(10) unsigned")
                     .HasColumnName("account_unique_id");
 
+                entity.Property(e => e.CharacterGrade)
+                    .HasColumnType("int(3) unsigned")
+                    .HasColumnName("character_grade")
+                    .HasDefaultValueSql("'1'");
+
                 entity.Property(e => e.CharacterLv)
                     .HasColumnType("int(10) unsigned")
                     .HasColumnName("character_lv")
@@ -118,6 +123,11 @@ namespace ASP.Net_Core_Http_RestAPI_Server.DBContexts
                 entity.Property(e => e.CharacterUniqueId)
                     .HasColumnType("int(10) unsigned")
                     .HasColumnName("character_unique_id");
+
+                entity.Property(e => e.TimestampCreated)
+                    .HasColumnType("datetime")
+                    .HasColumnName("timestamp_created")
+                    .HasDefaultValueSql("current_timestamp()");
             });
 
             modelBuilder.Entity<UserInfo>(entity =>
