@@ -19,10 +19,9 @@ public class ScoutTypeKCtrl : Entity
 
         attribute.uid = 0;
         attribute.name = "Scout Type K";
-        attribute.level = 25;
+        attribute.lv = 25;
         attribute.hp = 999999999;
         attribute.attack = 6140000;
-        attribute.attackCorrection = 1;
         attribute.defense = 100;
         attribute.dodge = 20;
         attribute.hit = 15;

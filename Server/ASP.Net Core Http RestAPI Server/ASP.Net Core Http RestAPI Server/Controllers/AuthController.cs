@@ -604,13 +604,13 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
         // http://serverAddress/signup/authnumber
         [HttpPost("signup/authnumber")]
         [Consumes(MediaTypeNames.Application.Json)] // application/json
-        public async Task<ResponseSendSignUpAuthNumber> Post(RequestSendSignUpAuthNumber requestSend)
+        public async Task<ResponseSendSignUpAuthNumber> Post(RequestSendSignUpAuthNumber request)
         {
             var response = new ResponseSendSignUpAuthNumber();
             //DB에 접속하여 데이터를 조작하는 DBContext객체.
             var dbContext = dbPoolManager.Rent();
 
-            if (requestSend == null)
+            if (request == null)
             {
                 response.signUpToken = null;
                 response.result = "invalid data";
@@ -619,7 +619,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
             }
 
             //입력된 값이 이메일 값이 아닌 경우.
-            if (emailPattern.IsMatch(requestSend.accountEmail) == false)
+            if (emailPattern.IsMatch(request.accountEmail) == false)
             {
                 response.signUpToken = null;
                 response.result = "invalid email address";
@@ -631,7 +631,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
             var accountQuery = dbContext.AccountInfos
                 .Where(table =>
                     //email주소가 일치하는 row를 검색.
-                    table.AccountEmail.Equals(requestSend.accountEmail)
+                    table.AccountEmail.Equals(request.accountEmail)
                 )
                 .AsNoTracking();
 
@@ -649,7 +649,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                 info.expirateTime = DateTime.UtcNow.AddMinutes(5);
                 //찾기 현재 진행 단계.
                 info.currentStep = 1;
-                info.emailAddress = requestSend.accountEmail;
+                info.emailAddress = request.accountEmail;
                 info.validateToken = JWTManager.CreateNewJWT(new UserData(), JWTManager.JWTType.AccessToken);
                 info.emailValidateConfirmNumber = new Random().Next(100000, 999998).ToString();
 

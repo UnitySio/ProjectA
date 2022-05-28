@@ -7,10 +7,9 @@ public class EntityAttribute
 {
     public int uid;
     public string name;
-    public int level;
+    public int lv;
     public int hp;
     public int attack;
-    public int attackCorrection;
     public int defense;
     public int dodge;
     public int hit;

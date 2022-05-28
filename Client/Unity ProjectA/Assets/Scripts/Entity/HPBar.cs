@@ -8,7 +8,7 @@ public class HPBar : MonoBehaviour
     private float hp;
     public float HP
     {
-        get { return hp; }
+        get => hp;
         set
         {
             hp = value;
@@ -42,9 +42,9 @@ public class HPBar : MonoBehaviour
         hpBarMask.transform.localScale = new Vector3(offset, hpBarMask.transform.localScale.y, hpBarMask.transform.localScale.z);
     }
 
-    public void Setup(int hP)
+    public void Setup(int hp)
     {
-        this.hp = hP;
-        this.maxHP = hP;
+        this.hp = hp;
+        maxHP = hp;
     }
 }

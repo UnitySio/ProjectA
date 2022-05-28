@@ -133,6 +133,9 @@ public class ServerAPI
             
             case API.UpdateUserNickname:
                 return $"{APIManager.serverAddress}/userdata/nickname/update";
+            
+            case API.AddCharacter:
+                return $"{APIManager.serverAddress}/userdata/character/add";
 
             default:
                 return String.Empty;
@@ -169,6 +172,9 @@ public class ServerAPI
             
             case API.UpdateUserNickname:
                 return jsonObject.ToObject<ResponseUpdateUserNikname>();
+            
+            case API.AddCharacter:
+                return jsonObject.ToObject<ResponseAddCharacter>();
 
             default:
                 return null;
@@ -186,5 +192,6 @@ public enum API
     VerifyFindPasswordAuthNumber,
     ResetPassword,
     UserData,
-    UpdateUserNickname
+    UpdateUserNickname,
+    AddCharacter
 }

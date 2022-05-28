@@ -21,13 +21,13 @@ namespace ASP.Net_Core_Http_RestAPI_Server
         {
             services.AddControllers();
 
-            //CORS(Cross-Origin Resource Sharing) 설정
+            //CORS(Cross-Origin Resource Sharing) ????
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(
                     builder =>
                     {
-                        // 허용할 CORS 도메인 입력
+                        // ????? CORS ?????? ???
                         builder.WithOrigins(WASConfig.GetWASCORSURLList());
                     });
             });
@@ -43,10 +43,10 @@ namespace ASP.Net_Core_Http_RestAPI_Server
 
             env.WebRootPath = env.ContentRootPath = WASConfig.GetWebRootDirectory();
 
-            //WebRootPath의 정적인 파일들을 그대로 Url을 통하여 배포할건지 여부.
+            //WebRootPath?? ?????? ??????? ???? Url?? ????? ????????? ????.
             app.UseStaticFiles();
 
-            //본 앱의 통신범위는 내부망으로만 한정되어 있으므로 https연결은 비활성화.
+            //?? ???? ???????? ?????????? ??????? ??????? https?????? ??????.
             //app.UseHttpsRedirection();
 
             app.UseRouting();

@@ -13,6 +13,8 @@ public partial class BattleManager : MonoBehaviour
     private int levelDifference = 10;
     [SerializeField]
     private int hitDifference = 20;
+    [SerializeField]
+    public int attackCorrection = 5;
 
     /// <summary>
     /// 방어력
@@ -43,9 +45,8 @@ public partial class BattleManager : MonoBehaviour
     /// </summary>
     /// <param name="attack">공격자의 공격력</param>
     /// <param name="attackRate">공격자의 공격력 배율</param>
-    /// <param name="attackCorrection">공격자의 공격력 보정값</param>
     /// <returns>float</returns>
-    public float DamageCorrection(int attack, int attackRate, int attackCorrection)
+    public float DamageCorrection(int attack, int attackRate)
     {
         float result = (attack * attackRate) * ((float)attackCorrection / 100);
         return result;
@@ -76,7 +77,7 @@ public partial class BattleManager : MonoBehaviour
     /// <returns>int</returns>
     public int FinalDamage(Entity attacker, int attackRate, Entity defender)
     {
-        float result = (Damage(attacker.attribute.attack, attackRate, defender.attribute.defense) + DamageCorrection(attacker.attribute.attack, attackRate, attacker.attribute.attackCorrection)) * LevelWeight(attacker.attribute.level, defender.attribute.level);
+        float result = (Damage(attacker.attribute.attack, attackRate, defender.attribute.defense) + DamageCorrection(attacker.attribute.attack, attackRate)) * LevelWeight(attacker.attribute.lv, defender.attribute.lv);
         return (int)Mathf.Round(result);
     }
 

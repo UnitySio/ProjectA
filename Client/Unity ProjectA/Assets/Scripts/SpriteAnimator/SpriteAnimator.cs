@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,11 +12,11 @@ public class SpriteAnimator : MonoBehaviour
 
     public bool isExecute;
 
-    [SerializeField]
-    private bool isPlay;
+    [SerializeField] private bool isPlay;
+
     public bool IsPlay
     {
-        get { return isPlay; }
+        get => isPlay;
         set
         {
             isPlay = value;
@@ -32,11 +33,11 @@ public class SpriteAnimator : MonoBehaviour
     private bool loop;
     public float frameRate;
 
-    [SerializeField]
-    private int currentClip;
+    [SerializeField] private int currentClip;
+
     public int CurrentClip
     {
-        get { return currentClip; }
+        get => currentClip;
         set
         {
             currentClip = value;
@@ -54,6 +55,11 @@ public class SpriteAnimator : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
+    private void Start()
+    {
+        if (isPlay) Animate(currentClip, true);
+    }
+
     private IEnumerator Play()
     {
         while (IsPlay)
@@ -61,14 +67,12 @@ public class SpriteAnimator : MonoBehaviour
             spriteRenderer.sprite = animationClips[CurrentClip].animationClip[currentFrame].sprite;
 
             if (animationClips[CurrentClip].animationClip[currentFrame].sFXKey != "")
-                SoundManager.Instance.PlaySFX(owner.sfxClipDictionary[animationClips[CurrentClip].animationClip[currentFrame].sFXKey]);
+                SoundManager.Instance.PlaySFX(
+                    owner.sfxClipDictionary[animationClips[CurrentClip].animationClip[currentFrame].sFXKey]);
 
             if (!loop && currentFrame == animationClips[CurrentClip].animationClip.Count - 1)
             {
                 isPlay = false;
-                if (animationClips[CurrentClip].isNextClip)
-                    Animate(animationClips[CurrentClip].nextClip, true);
-
                 isExecute = false;
             }
 

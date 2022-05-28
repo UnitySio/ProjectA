@@ -60,11 +60,9 @@
      <Compile Include="Assets/Scripts/HttpAPI/JsonModels/RequestJsonModel.cs" />
      <Compile Include="Assets/Scripts/SignInManager/SignInManager.FindPassword.cs" />
      <Compile Include="Assets/AVProVideo/Scripts/Internal/Interfaces.cs" />
-     <Compile Include="Assets/Scripts/SetUserData.cs" />
      <Compile Include="Assets/AVProVideo/Scripts/Internal/AndroidMediaPlayer.cs" />
      <Compile Include="Assets/AVProVideo/Scripts/Components/CubemapCube.cs" />
      <Compile Include="Assets/Scripts/SignInManager/SignInManager.SignIn.cs" />
-     <Compile Include="Assets/Scripts/GetUserData.cs" />
      <Compile Include="Assets/Scripts/CSV.cs" />
      <Compile Include="Assets/AVProVideo/Scripts/Components/DisplayUGUI.cs" />
      <Compile Include="Assets/AVProVideo/Scripts/Components/ApplyToMaterial.cs" />
@@ -77,6 +75,7 @@
      <Compile Include="Assets/AVProVideo/Scripts/Components/Support/PlayMaker/Actions/AVProVideoInfo.cs" />
      <Compile Include="Assets/Scripts/ObjectPoolManager/ObjectPoolManager.cs" />
      <Compile Include="Assets/AVProVideo/Scripts/Internal/AudioOutputManager.cs" />
+     <Compile Include="Assets/Scripts/GetCharacter.cs" />
      <Compile Include="Assets/AVProVideo/Scripts/Components/UpdateStereoMaterial.cs" />
      <Compile Include="Assets/Scripts/BattleManager/BattleManager.Fomula.cs" />
      <Compile Include="Assets/AVProVideo/Scripts/Internal/OSXMediaPlayer.cs" />
