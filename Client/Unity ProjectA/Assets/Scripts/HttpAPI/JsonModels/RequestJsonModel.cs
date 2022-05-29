@@ -119,4 +119,9 @@ namespace ASP.Net_Core_Http_RestAPI_Server.JsonDataModels
         public int characterUniqueID { get; set; }
         public int characterLv { get; set; }
     }
+    
+    public class RequestGetCharacter : RequestJsonModel
+    {
+        public string jwtAccess { get; set; }
+    }
 }

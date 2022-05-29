@@ -89,7 +89,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                     response.result = "ok";
                     response.userData = new UserData()
                     {
-                        AccountUniqueId = user.account.AccountUniqueId,
+                        AccountUniqueID = user.account.AccountUniqueId,
                         AccountEmail = user.account.AccountEmail,
                         AuthLv = user.account.AccountAuthLv,
                         UserLv = (int)user.player.UserLv,

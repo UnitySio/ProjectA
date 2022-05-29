@@ -136,6 +136,9 @@ public class ServerAPI
             
             case API.AddCharacter:
                 return $"{APIManager.serverAddress}/userdata/character/add";
+            
+            case API.GetCharacter:
+                return $"{APIManager.serverAddress}/userdata/character";
 
             default:
                 return String.Empty;
@@ -175,6 +178,9 @@ public class ServerAPI
             
             case API.AddCharacter:
                 return jsonObject.ToObject<ResponseAddCharacter>();
+            
+            case API.GetCharacter:
+                return jsonObject.ToObject<ResponseGetCharacter>();
 
             default:
                 return null;
@@ -193,5 +199,6 @@ public enum API
     ResetPassword,
     UserData,
     UpdateUserNickname,
-    AddCharacter
+    AddCharacter,
+    GetCharacter
 }

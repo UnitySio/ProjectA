@@ -97,5 +97,71 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
             return response;
         }
         #endregion
+        
+        #region 캐릭터 목록 요청
+        //요청 URL
+        // http://serverAddress/userdata/character
+        [HttpPost("userdata/character")]
+        [Consumes(MediaTypeNames.Application.Json)]
+        public async Task<ResponseGetCharacter> Post(RequestGetCharacter request)
+        {
+            var response = new ResponseGetCharacter();
+            var dbContext = dbPoolManager.Rent();
+
+            if (request == null)
+            {
+                response.result = "invalid data";
+                dbPoolManager.Return(dbContext);
+                return response;
+            }
+
+            SecurityToken tokenInfo = new JwtSecurityToken();
+
+            if (JWTManager.CheckValidationJWT(request.jwtAccess, out tokenInfo))
+            {
+                var jwt = tokenInfo as JwtSecurityToken;
+                var id = jwt.Payload.GetValueOrDefault("AccountUniqueId");
+                var accountUniqueId = uint.Parse(id.ToString());
+
+                // 로그인 중복 체크
+                if (SessionManager.IsDuplicate(accountUniqueId, request.jwtAccess))
+                {
+                    response.result = "Duplicate Session";
+                    dbPoolManager.Return(dbContext);
+                    return response;
+                }
+
+                var accountQuery = dbContext.AccountInfos
+                    .Where(table => table.AccountUniqueId.Equals(accountUniqueId))
+                    .AsNoTracking();
+
+                if (accountQuery.Count() == 1)
+                {
+                    var account = accountQuery.FirstOrDefault();
+
+                    var characterQuery = dbContext.UserCharacterInfos
+                        .Where(table => table.AccountUniqueId.Equals(account.AccountUniqueId))
+                        .AsNoTracking();
+
+                    var characters = characterQuery.ToList();
+                    var characterData = new List<CharacterData>();
+                    for (int i = 0; i < characters.Count(); i++)
+                    {
+                        characterData.Add(new CharacterData()
+                        {
+                            CharacterUniqueID = characters[i].CharacterUniqueId,
+                            CharacterGrade = (int)characters[i].CharacterGrade,
+                            CharacterLv = (int)characters[i].CharacterLv
+                        });
+                    }
+
+                    response.result = "ok";
+                    response.characterData = characterData;
+                }
+            }
+
+            return response;
+        }
+        #endregion
     }
 }

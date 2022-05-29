@@ -8,11 +8,36 @@ using UnityEngine;
 
 public class GetCharacter : MonoBehaviour
 {
-    private async Task Start()
+    public List<CharacterData> characterData;
+    
+    private void Start()
     {
-        for (int i = 0; i < 10; i++)
+        GetCharacters();
+    }
+
+    public async Task GetCharacters()
+    {
+        var jwtAccess = SecurityPlayerPrefs.GetString("JWTAccess", null);
+        JwtSecurityToken accessToken = JWTManager.DecryptJWT(jwtAccess);
+
+        if (JWTManager.CheckValidateJWT(accessToken))
         {
-            await AddCharacter();
+            var request = new RequestGetCharacter()
+            {
+                jwtAccess = jwtAccess
+            };
+
+            var response =
+                await APIManager.SendAPIRequestAsync(API.GetCharacter, request, ServerManager.Instance.FailureCallback);
+
+            if (response != null)
+            {
+                var result = response as ResponseGetCharacter;
+
+                var text = result.result;
+
+                characterData = result.characterData;
+            }
         }
     }
 

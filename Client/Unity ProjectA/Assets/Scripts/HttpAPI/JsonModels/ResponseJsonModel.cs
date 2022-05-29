@@ -70,4 +70,9 @@ namespace ASP.Net_Core_Http_RestAPI_Server.JsonDataModels
     public class ResponseAddCharacter : ResponseJsonModel
     {
     }
+
+    public class ResponseGetCharacter : ResponseJsonModel
+    {
+        public List<CharacterData> characterData { get; set; }
+    }
 }

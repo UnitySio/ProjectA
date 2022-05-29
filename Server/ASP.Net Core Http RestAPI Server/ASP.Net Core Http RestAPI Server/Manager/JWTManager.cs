@@ -75,7 +75,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server
                 Subject = new ClaimsIdentity(new List<Claim>()
                 {
                     new Claim("JWTType", type.ToString()),
-                    new Claim("AccountUniqueId", user.AccountUniqueId.ToString()),
+                    new Claim("AccountUniqueId", user.AccountUniqueID.ToString()),
                     new Claim("AuthLv", user.AuthLv.ToString())
                 }),
                 Audience = audienceString, //대상자

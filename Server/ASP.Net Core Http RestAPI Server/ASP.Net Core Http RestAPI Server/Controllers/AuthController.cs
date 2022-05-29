@@ -129,7 +129,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
 
                     var userData = new UserData()
                     {
-                        AccountUniqueId = account.AccountUniqueId,
+                        AccountUniqueID = account.AccountUniqueId,
                         AccountEmail = account.AccountEmail,
                         AuthLv = account.AccountAuthLv,
                         //UserLv = (int)tableData.PlayerInfos.FirstOrDefault().PlayerLv,
@@ -160,7 +160,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                         var userQuery = dbContext.UserInfos
                             .Where(table =>
                                 //email주소가 일치하는 row를 검색.
-                                table.AccountUniqueId.Equals(userData.AccountUniqueId)
+                                table.AccountUniqueId.Equals(userData.AccountUniqueID)
                             )
                             .AsNoTracking();
 
@@ -235,7 +235,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
 
                     var userData = new UserData()
                     {
-                        AccountUniqueId = account.AccountUniqueId,
+                        AccountUniqueID = account.AccountUniqueId,
                         AccountEmail = account.AccountEmail,
                         AuthLv = account.AccountAuthLv,
                         //UserLv = (int)tableData.PlayerInfos.FirstOrDefault().PlayerLv,
@@ -265,7 +265,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                         var userQuery = dbContext.UserInfos
                             .Where(table =>
                                 //email주소가 일치하는 row를 검색.
-                                table.AccountUniqueId.Equals(userData.AccountUniqueId)
+                                table.AccountUniqueId.Equals(userData.AccountUniqueID)
                             )
                             .AsNoTracking();
 
@@ -333,7 +333,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
 
                         var userData = new UserData()
                         {
-                            AccountUniqueId = account.AccountUniqueId,
+                            AccountUniqueID = account.AccountUniqueId,
                             AccountEmail = account.AccountEmail,
                             AuthLv = account.AccountAuthLv,
                             //UserLv = (int)tableData.PlayerInfos.FirstOrDefault().PlayerLv,
@@ -364,7 +364,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                             var userQuery = dbContext.UserInfos
                                 .Where(table =>
                                     //email주소가 일치하는 row를 검색.
-                                    table.AccountUniqueId.Equals(userData.AccountUniqueId)
+                                    table.AccountUniqueId.Equals(userData.AccountUniqueID)
                                 )
                                 .AsNoTracking();
 
@@ -425,7 +425,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
 
                     var userData = new UserData()
                     {
-                        AccountUniqueId = account.AccountUniqueId,
+                        AccountUniqueID = account.AccountUniqueId,
                         AccountEmail = account.AccountEmail,
                         AuthLv = account.AccountAuthLv,
                         //UserLv = (int)tableData.PlayerInfos.FirstOrDefault().PlayerLv,
@@ -455,7 +455,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                         var userQuery = dbContext.UserInfos
                             .Where(table =>
                                 //email주소가 일치하는 row를 검색.
-                                table.AccountUniqueId.Equals(userData.AccountUniqueId)
+                                table.AccountUniqueId.Equals(userData.AccountUniqueID)
                             )
                             .AsNoTracking();
 
@@ -811,7 +811,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
 
                                 UserData userdata = new UserData()
                                 {
-                                    AccountUniqueId = newAccount.AccountUniqueId,
+                                    AccountUniqueID = newAccount.AccountUniqueId,
                                     AuthLv = newAccount.AccountAuthLv
                                 };
 
@@ -920,7 +920,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
 
                             var userData = new UserData()
                             {
-                                AccountUniqueId = newAccount.AccountUniqueId,
+                                AccountUniqueID = newAccount.AccountUniqueId,
                                 AuthLv = newAccount.AccountAuthLv
                             };
 
@@ -990,7 +990,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
 
                             var userData = new UserData()
                             {
-                                AccountUniqueId = newAccount.AccountUniqueId,
+                                AccountUniqueID = newAccount.AccountUniqueId,
                                 AuthLv = newAccount.AccountAuthLv
                             };
 
