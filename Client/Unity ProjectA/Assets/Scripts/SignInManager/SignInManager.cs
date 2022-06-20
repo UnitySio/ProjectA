@@ -19,7 +19,8 @@ public partial class SignInManager : MonoBehaviour
 
     private void Start()
     {
-        
+        Caching.ClearCache();
+        SecurityPlayerPrefs.DeleteAll();
         StartCoroutine(CheckAsset());
     }
 }

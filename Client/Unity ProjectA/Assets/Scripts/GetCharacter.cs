@@ -9,6 +9,9 @@ using UnityEngine;
 public class GetCharacter : MonoBehaviour
 {
     public List<CharacterData> characterData;
+
+    public RectTransform content;
+    public CharacterListItem item;
     
     private void Start()
     {
@@ -26,7 +29,7 @@ public class GetCharacter : MonoBehaviour
             {
                 jwtAccess = jwtAccess
             };
-
+            
             var response =
                 await APIManager.SendAPIRequestAsync(API.GetCharacter, request, ServerManager.Instance.FailureCallback);
 
@@ -36,8 +39,24 @@ public class GetCharacter : MonoBehaviour
 
                 var text = result.result;
 
-                characterData = result.characterData;
+                if (text.Equals("ok"))
+                    if (result.characterData.Count > 0)
+                    {
+                        characterData = result.characterData;
+                        CharacterList();
+                    }
             }
+        }
+    }
+
+    public void CharacterList()
+    {
+        for (int i = 0; i < characterData.Count; i++)
+        {
+            var inst = Instantiate(item, content);
+            inst.uid = (int)characterData[i].CharacterUniqueID;
+            inst.grade = characterData[i].CharacterGrade;
+            inst.lv = characterData[i].CharacterLv;
         }
     }
 
