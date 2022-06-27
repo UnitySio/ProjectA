@@ -15,16 +15,11 @@ namespace ASP.Net_Core_Http_RestAPI_Server
         static ConcurrentQueue<MailMessage> mailQueue;
         static ConcurrentQueue<SmtpClient> gmailSmtpList;
 
-        //비밀번호 찾기 인증메일 체크용
-        static ConcurrentDictionary<string, EmailValidationInfo> findPasswordValidationCheck;
-
-        //회원가입 인증메일 체크용
-        static ConcurrentDictionary<string, EmailValidationInfo> signUpValidationCheck;
+        static ConcurrentDictionary<string, EmailValidationInfo> signInValidationCheck;
 
         public static async void Initialize()
         {
-            findPasswordValidationCheck = new ConcurrentDictionary<string, EmailValidationInfo>();
-            signUpValidationCheck = new ConcurrentDictionary<string, EmailValidationInfo>();
+            signInValidationCheck = new ConcurrentDictionary<string, EmailValidationInfo>();
 
             mailQueue = new ConcurrentQueue<MailMessage>();
             gmailSmtpList = new ConcurrentQueue<SmtpClient>();
@@ -126,76 +121,41 @@ namespace ASP.Net_Core_Http_RestAPI_Server
             //설정된 주기마다 동작.
             while (true)
             {
-                var list = findPasswordValidationCheck.ToArray();
-
+                var list = signInValidationCheck.ToArray();
+                
                 foreach (var item in list)
                 {
                     var itemValue = item.Value;
                     if (itemValue.expirateTime.AddHours(1) <= DateTime.UtcNow)
-                        findPasswordValidationCheck.TryRemove(itemValue.validateToken, out EmailValidationInfo var);
-                }
-
-                var list2 = signUpValidationCheck.ToArray();
-
-                foreach (var item in list2)
-                {
-                    var itemValue = item.Value;
-                    if (itemValue.expirateTime.AddHours(1) <= DateTime.UtcNow)
-                        signUpValidationCheck.TryRemove(itemValue.validateToken, out EmailValidationInfo var);
+                        signInValidationCheck.TryRemove(itemValue.validateToken, out EmailValidationInfo var);
                 }
 
                 await Task.Delay(delay30Minutes);
             }
         }
-
-
-        public static bool RegisterFindPasswordInfo(string findToken, EmailValidationInfo info)
+        
+        public static bool RegisterSignInInfo(string signInToken, EmailValidationInfo info)
         {
-            if (findPasswordValidationCheck.ContainsKey(findToken))
-                findPasswordValidationCheck[findToken] = info;
+            if (signInValidationCheck.ContainsKey(signInToken))
+                signInValidationCheck[signInToken] = info;
             else
-                findPasswordValidationCheck.TryAdd(findToken, info);
+                signInValidationCheck.TryAdd(signInToken, info);
 
-            return findPasswordValidationCheck.ContainsKey(findToken);
+            return signInValidationCheck.ContainsKey(signInToken);
         }
-
-        public static EmailValidationInfo GetFindPasswordInfo(string findToken)
+        
+        public static EmailValidationInfo GetSignInInfo(string signInToken)
         {
-            if (findPasswordValidationCheck.ContainsKey(findToken))
-                return findPasswordValidationCheck[findToken];
-            else
-                return null;
-        }
-
-        public static void RemoveFindPasswordInfo(string findToken)
-        {
-            if (findPasswordValidationCheck.ContainsKey(findToken))
-                findPasswordValidationCheck.TryRemove(findToken, out EmailValidationInfo var);
-        }
-
-
-        public static bool RegisterSignUpInfo(string joinToken, EmailValidationInfo info)
-        {
-            if (signUpValidationCheck.ContainsKey(joinToken))
-                signUpValidationCheck[joinToken] = info;
-            else
-                signUpValidationCheck.TryAdd(joinToken, info);
-
-            return signUpValidationCheck.ContainsKey(joinToken);
-        }
-
-        public static EmailValidationInfo GetSignUpInfo(string joinToken)
-        {
-            if (signUpValidationCheck.ContainsKey(joinToken))
-                return signUpValidationCheck[joinToken];
+            if (signInValidationCheck.ContainsKey(signInToken))
+                return signInValidationCheck[signInToken];
             else
                 return null;
         }
-
-        public static void RemoveSignUpInfo(string joinToken)
+        
+        public static void RemoveSignInInfo(string signInToken)
         {
-            if (signUpValidationCheck.ContainsKey(joinToken))
-                signUpValidationCheck.TryRemove(joinToken, out EmailValidationInfo var);
+            if (signInValidationCheck.ContainsKey(signInToken))
+                signInValidationCheck.TryRemove(signInToken, out EmailValidationInfo var);
         }
     }
 
@@ -204,7 +164,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server
     {
         public string validateToken;
         public string emailAddress;
-        public string emailValidateConfirmNumber;
+        public string emailValidateAuthNumber;
         public DateTime expirateTime;
         public byte currentStep;
     }

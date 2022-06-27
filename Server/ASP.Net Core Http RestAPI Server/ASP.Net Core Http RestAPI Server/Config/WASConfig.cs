@@ -28,7 +28,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server
 
         //SMTP 인증메일용 Gmail 계정 정보
         static string gmailAddress = "siogames2020@gmail.com";
-        static string gmailPassword = "siogames!";
+        static string gmailPassword = "sfqptbcaqrpnkqra";
 
         //리슨 URL
         public static string GetWASURLInfo()

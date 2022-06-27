@@ -54,27 +54,13 @@ public partial class SignInManager : MonoBehaviour
 
                 if (text.Equals("ok"))
                     SceneManager.LoadScene("LobbyScene");
-                else if (text.ToLower().Contains("banned"))
+                else if (text.Equals("account banned"))
                 {
-                    var str = text.Split(",");
+                    SecurityPlayerPrefs.DeleteKey("JWTAccess");
+                    SecurityPlayerPrefs.DeleteKey("JWTRefresh");
+                    SecurityPlayerPrefs.Save();
 
-                    popup.confirm.onClick.RemoveAllListeners();
-                    popup.title.text = $"알림";
-                    popup.content.text = $"해당 계정은 게임 규정 위반으로\n{str[1]} 이후 부터\n로그인이 가능합니다.";
-                    popup.confirm.onClick.AddListener(async () =>
-                    {
-                        popup.Close();
-
-                        await Task.Delay(333);
-
-                        SecurityPlayerPrefs.DeleteKey("JWTAccess");
-                        SecurityPlayerPrefs.DeleteKey("JWTRefresh");
-                        SecurityPlayerPrefs.Save();
-
-                        WaitingSignIn();
-                    });
-
-                    popup.Show();
+                    WaitingSignIn();
                 }
             }
         }
@@ -97,7 +83,8 @@ public partial class SignInManager : MonoBehaviour
             userIP = ServerManager.Instance.GetPublicIP()
         };
 
-        var response = await APIManager.SendAPIRequestAsync(API.SignIn, request, ServerManager.Instance.FailureCallback);
+        var response =
+            await APIManager.SendAPIRequestAsync(API.SignIn, request, ServerManager.Instance.FailureCallback);
 
         if (response != null)
         {
@@ -113,33 +100,19 @@ public partial class SignInManager : MonoBehaviour
 
                 SceneManager.LoadScene("LobbyScene");
             }
-            else if (text.ToLower().Contains("banned"))
+            else if (text.Equals("account banned"))
             {
-                var str = text.Split(",");
+                SecurityPlayerPrefs.DeleteKey("JWTAccess");
+                SecurityPlayerPrefs.DeleteKey("JWTRefresh");
+                SecurityPlayerPrefs.Save();
 
-                popup.confirm.onClick.RemoveAllListeners();
-                popup.title.text = $"알림";
-                popup.content.text = $"해당 계정은 게임 규정 위반으로\n{str[1]} 이후 부터\n로그인이 가능합니다.";
-                popup.confirm.onClick.AddListener(async () =>
-                {
-                    popup.Close();
-
-                    await Task.Delay(333);
-
-                    SecurityPlayerPrefs.DeleteKey("JWTAccess");
-                    SecurityPlayerPrefs.DeleteKey("JWTRefresh");
-                    SecurityPlayerPrefs.Save();
-
-                    WaitingSignIn();
-                });
-
-                popup.Show();
+                WaitingSignIn();
             }
             else
             {
                 // 에러 발생
-                popup.title.text = $"에러";
-                popup.content.text = $"에러: {text}";
+                popup.title.text = $"Error";
+                popup.content.text = $"Error: {text}";
                 popup.confirm.onClick.AddListener(() =>
                 {
                     popup.Close();

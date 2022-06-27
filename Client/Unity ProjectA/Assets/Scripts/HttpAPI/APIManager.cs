@@ -107,27 +107,15 @@ public class ServerAPI
     {
         switch (apiType)
         {
+            case API.SendSignInAuthNumber:
+                return $"{APIManager.serverAddress}/signin/authnumber";
+            
+            case API.VerifySignInAuthNumber:
+                return $"{APIManager.serverAddress}/signin/authnumber/verify";
+            
             case API.SignIn:
                 return $"{APIManager.serverAddress}/signin";
-            
-            case API.SendSignUpAuthNumber:
-                return $"{APIManager.serverAddress}/signup/authnumber";
-            
-            case API.VerifySignUpAuthNumber:
-                return $"{APIManager.serverAddress}/signup/authnumber/verify";
-            
-            case API.SignUp:
-                return $"{APIManager.serverAddress}/signup";
-            
-            case API.SendFindPasswordAuthNumber:
-                return $"{APIManager.serverAddress}/findpassword/authnumber";
-            
-            case API.VerifyFindPasswordAuthNumber:
-                return $"{APIManager.serverAddress}/findpassword/authnumber/verify";
-            
-            case API.ResetPassword:
-                return $"{APIManager.serverAddress}/findpassword/change";
-            
+
             case API.UserData:
                 return $"{APIManager.serverAddress}/userdata";
             
@@ -149,32 +137,20 @@ public class ServerAPI
     {
         switch (apiType)
         {
+            case API.SendSignInAuthNumber:
+                return jsonObject.ToObject<ResponseSendSignInAuthNumber>();
+            
+            case API.VerifySignInAuthNumber:
+                return jsonObject.ToObject<ResponseVerifySignInAuthNumber>();
+            
             case API.SignIn:
                 return jsonObject.ToObject<ResponseSignIn>();
-            
-            case API.SendSignUpAuthNumber:
-                return jsonObject.ToObject<ResponseSendSignUpAuthNumber>();
-            
-            case API.VerifySignUpAuthNumber:
-                return jsonObject.ToObject<ResponseVerifySignUpAuthNumber>();
-            
-            case API.SignUp:
-                return jsonObject.ToObject<ResponseSignUp>();
-
-            case API.SendFindPasswordAuthNumber:
-                return jsonObject.ToObject<ResponseSendFindPasswordAuthNumber>();
-            
-            case API.VerifyFindPasswordAuthNumber:
-                return jsonObject.ToObject<ResponseVerifyFindPasswordAuthNumber>();
-            
-            case API.ResetPassword:
-                return jsonObject.ToObject<ResponseResetPassword>();
             
             case API.UserData:
                 return jsonObject.ToObject<ResponseUserData>();
             
             case API.UpdateUserNickname:
-                return jsonObject.ToObject<ResponseUpdateUserNikname>();
+                return jsonObject.ToObject<ResponseUpdateUserNickname>();
             
             case API.AddCharacter:
                 return jsonObject.ToObject<ResponseAddCharacter>();
@@ -190,13 +166,9 @@ public class ServerAPI
 
 public enum API
 {
+    SendSignInAuthNumber,
+    VerifySignInAuthNumber,
     SignIn,
-    SendSignUpAuthNumber,
-    VerifySignUpAuthNumber,
-    SignUp,
-    SendFindPasswordAuthNumber,
-    VerifyFindPasswordAuthNumber,
-    ResetPassword,
     UserData,
     UpdateUserNickname,
     AddCharacter,

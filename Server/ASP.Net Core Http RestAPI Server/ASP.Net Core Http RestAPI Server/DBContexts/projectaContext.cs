@@ -89,10 +89,6 @@ namespace ASP.Net_Core_Http_RestAPI_Server.DBContexts
                 entity.Property(e => e.AccountOauthTokenGoogle)
                     .HasMaxLength(50)
                     .HasColumnName("account_oauth_token_google");
-
-                entity.Property(e => e.AccountPassword)
-                    .HasMaxLength(256)
-                    .HasColumnName("account_password");
             });
 
             modelBuilder.Entity<UserCharacterInfo>(entity =>
