@@ -197,7 +197,8 @@ public partial class SignInManager : MonoBehaviour
         var request = new RequestSignIn()
         {
             authType = "guest",
-            oauthToken = null
+            oauthToken = null,
+            userIP = ServerManager.Instance.GetPublicIP()
         };
         
         var response = await APIManager.SendAPIRequestAsync(API.SignIn, request,

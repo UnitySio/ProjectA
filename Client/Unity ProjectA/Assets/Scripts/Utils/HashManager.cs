@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
@@ -11,13 +12,13 @@ public class HashManager
         if (string.IsNullOrEmpty(plainText))
             return string.Empty;
         
-        using (SHA512CryptoServiceProvider sha512 = new SHA512CryptoServiceProvider())
+        using (var sha512 = new SHA512CryptoServiceProvider())
         {
-            byte[] bytes = Encoding.UTF8.GetBytes(plainText);
+            var bytes = Encoding.UTF8.GetBytes(plainText);
             
-            byte[] hashBytes = sha512.ComputeHash(bytes);
+            var hashBytes = sha512.ComputeHash(bytes);
 
-            string hashToString = "";
+            var hashToString = "";
             for (int i = 0; i < hashBytes.Length; ++i)
                 hashToString += hashBytes[i].ToString("x2");
 

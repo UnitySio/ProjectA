@@ -341,63 +341,12 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
             else if (authType.Equals("guest")) // 게스트 로그인의 경우, 일단 임시 발급된 jwt로 계정정보를 판단
             {
                 var guestToken = request.oauthToken;
+                
+                // 전달된 게스트 토큰이 없을 경우
+                if (string.IsNullOrEmpty(guestToken))
+                    guestToken = Guid.NewGuid().ToString();
 
-                // 전달된 로그인 정보로 db 조회후, 해당 정보를 db에서 가져온다.
-                var accountQuery = dbContext.AccountInfos
-                    .Where(table =>
-                        table.AccountGuestToken.Equals(guestToken)
-                    ).AsNoTracking();
-
-                if (accountQuery.Any())
-                {
-                    var account = accountQuery.FirstOrDefault();
-
-                    var userData = new UserData()
-                    {
-                        AccountUniqueID = account.AccountUniqueId,
-                        AuthLv = account.AccountAuthLv
-                    };
-
-                    // 새로운 jwt 토큰 발행후 반환
-                    response.jwtAccess = JWTManager.CreateNewJWT(userData, JWTManager.JWTType.AccessToken);
-                    response.jwtRefresh = JWTManager.CreateNewJWT(userData, JWTManager.JWTType.RefreshToken);
-                    response.result = "ok";
-
-                    // 로그인 과정이 성공적으로 완료되었다면, 로그인 중복방지를 위해 SessionManager에 정보를 등록
-                    if (SessionManager.RegisterToken(account.AccountUniqueId, response.jwtAccess))
-                    {
-                        var userQuery = dbContext.UserInfos
-                            .Where(table =>
-                                table.AccountUniqueId.Equals(userData.AccountUniqueID)
-                            ).AsNoTracking();
-
-                        if (userQuery.Any())
-                        {
-                            var user = userQuery.FirstOrDefault();
-
-                            // 로그인 기록
-                            var newLog = new UserSigninLog()
-                            {
-                                AccountUniqueId = account.AccountUniqueId,
-                                UserNickname = user.UserNickname,
-                                UserIp = request.userIP,
-                                TimestampLastSignin = DateTime.UtcNow
-                            };
-
-                            await dbContext.UserSigninLogs.AddAsync(newLog);
-                            dbContext.Entry(newLog).State = EntityState.Added;
-                            await dbContext.SaveChangesAsync();
-
-                            // 최종 로그인 일시 갱신
-                            user.TimestampLastSignin = DateTime.UtcNow;
-                            dbContext.Entry(user).State = EntityState.Modified;
-                            await dbContext.SaveChangesAsync();
-                        }
-                    }
-                }
-                else
-                {
-                    var strategy = dbContext.Database.CreateExecutionStrategy();
+                var strategy = dbContext.Database.CreateExecutionStrategy();
 
                     Func<Task> dbTransactionOperation = async () =>
                     {
@@ -408,9 +357,6 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                                 AccountAuthLv = (byte)AuthLv.UserGuest,
                                 AccountGuestToken = guestToken
                             };
-
-                            if (string.IsNullOrEmpty(guestToken))
-                                newAccount.AccountGuestToken = Guid.NewGuid().ToString();
 
                             // 전달된 회원가입 정보로 db insert 실행
                             try
@@ -474,7 +420,6 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                     };
 
                     await strategy.ExecuteAsync(dbTransactionOperation);
-                }
             }
             else if (authType.Equals("update")) // 로그인 일시 갱신
             {
