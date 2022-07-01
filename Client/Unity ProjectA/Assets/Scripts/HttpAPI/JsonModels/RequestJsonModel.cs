@@ -12,22 +12,9 @@ namespace ASP.Net_Core_Http_RestAPI_Server.JsonDataModels
     public class RequestSignIn : RequestJsonModel
     {
         public string authType { get; set; }
-        public string accountEmail { get; set; }
-        public string signInToken { get; set; }
         public string oauthToken { get; set; }
         public string jwtRefresh { get; set; }
         public string userIP { get; set; }
-    }
-
-    public class RequestSendSignInAuthNumber : RequestJsonModel
-    {
-        public string accountEmail { get; set; }
-    }
-
-    public class RequestVerifySignInAuthNumber : RequestJsonModel
-    {
-        public string signInToken { get; set; }
-        public string authNumber { get; set; }
     }
 
     public class RequestUserData : RequestJsonModel

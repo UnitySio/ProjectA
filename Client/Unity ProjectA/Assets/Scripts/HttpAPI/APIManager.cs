@@ -7,12 +7,12 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Networking;
 using Newtonsoft.Json.Linq;
+using UnityEngine.SceneManagement;
 
 public class APIManager
 {
     //서버 주소.
     public static string serverAddress = "https://api.wizard87.com";
-
     
     //API서버와 통신 하는 함수.
     public static async Task<ResponseJsonModel> SendAPIRequestAsync
@@ -41,7 +41,7 @@ public class APIManager
             unityWebRequest.SetRequestHeader("Content-Type", "application/json");
             unityWebRequest.timeout = 15;
             
-            byte[] jsonStringBinary = Encoding.UTF8.GetBytes(jsonString);
+            var jsonStringBinary = Encoding.UTF8.GetBytes(jsonString);
             unityWebRequest.uploadHandler = new UploadHandlerRaw(jsonStringBinary);
             unityWebRequest.downloadHandler = new DownloadHandlerBuffer();
 
@@ -107,12 +107,6 @@ public class ServerAPI
     {
         switch (apiType)
         {
-            case API.SendSignInAuthNumber:
-                return $"{APIManager.serverAddress}/signin/authnumber";
-            
-            case API.VerifySignInAuthNumber:
-                return $"{APIManager.serverAddress}/signin/authnumber/verify";
-            
             case API.SignIn:
                 return $"{APIManager.serverAddress}/signin";
 
@@ -137,12 +131,6 @@ public class ServerAPI
     {
         switch (apiType)
         {
-            case API.SendSignInAuthNumber:
-                return jsonObject.ToObject<ResponseSendSignInAuthNumber>();
-            
-            case API.VerifySignInAuthNumber:
-                return jsonObject.ToObject<ResponseVerifySignInAuthNumber>();
-            
             case API.SignIn:
                 return jsonObject.ToObject<ResponseSignIn>();
             
@@ -166,8 +154,6 @@ public class ServerAPI
 
 public enum API
 {
-    SendSignInAuthNumber,
-    VerifySignInAuthNumber,
     SignIn,
     UserData,
     UpdateUserNickname,

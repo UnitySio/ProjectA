@@ -16,15 +16,6 @@ namespace ASP.Net_Core_Http_RestAPI_Server.JsonDataModels
         public string jwtAccess { get; set; }
         public string jwtRefresh { get; set; }
     }
-    
-    public class ResponseSendSignInAuthNumber : ResponseJsonModel
-    {
-        public string signInToken { get; set; }
-    }
-    
-    public class ResponseVerifySignInAuthNumber : ResponseJsonModel
-    {
-    }
 
     public class ResponseUserData : ResponseJsonModel
     {

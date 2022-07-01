@@ -9,7 +9,6 @@ namespace ASP.Net_Core_Http_RestAPI_Server.DBContexts
     {
         public uint AccountUniqueId { get; set; }
         public byte AccountAuthLv { get; set; }
-        public string AccountEmail { get; set; }
         public string AccountGuestToken { get; set; }
         public string AccountOauthTokenGoogle { get; set; }
         public string AccountOauthTokenApple { get; set; }

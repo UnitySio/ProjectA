@@ -22,8 +22,6 @@ public class ServerManager : MonoBehaviour
 
     public string serverAddress = "http://127.0.0.1:5001";
 
-    [field: SerializeField] public Popup Popup { get; private set; }
-
     private void Awake()
     {
         if (instance == null)
@@ -41,38 +39,26 @@ public class ServerManager : MonoBehaviour
     // 에러 발생시 호출
     public void FailureCallback(string errorType, int responseCode, string errorMessage)
     {
-        Popup.confirm.onClick.RemoveAllListeners();
-        Popup.title.text = $"Error";
-
         if (errorType.ToLower().Contains("http"))
         {
-            Popup.content.text = $"Error Server: {responseCode}";
-            Popup.confirm.onClick.AddListener(() => Popup.Close());
+            PopupManager.Instance.Show("Error", $"Error Server: {responseCode}");
         }
         else if (errorType.ToLower().Contains("network"))
         {
-            Popup.content.text = $"Please, Check your network.";
-            Popup.confirm.onClick.AddListener(async () =>
+            PopupManager.Instance.Show("Error", "Please, Check your network.", async () =>
             {
-                Popup.Close();
-
                 await Task.Delay(1000);
-                SceneManager.LoadScene("LoginScene");
+                SceneManager.LoadScene("SignInScene");
             });
         }
         else
         {
-            Popup.content.text = $"An unknown error has occurred.";
-            Popup.confirm.onClick.AddListener(async () =>
+            PopupManager.Instance.Show("Error", "An unknown error has occurred.", async () =>
             {
-                Popup.Close();
-
                 await Task.Delay(500);
                 Application.Quit();
             });
         }
-
-        Popup.Show();
     }
 
     public string GetPublicIP()

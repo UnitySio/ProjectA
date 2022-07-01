@@ -9,7 +9,7 @@ public class JWTManager : MonoBehaviour
     public static JwtSecurityToken DecryptJWT(string jsonWebTokenString)
     {
         JwtSecurityToken jwt;
-        JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+        var tokenHandler = new JwtSecurityTokenHandler();
         try
         {
             jwt = tokenHandler.ReadJwtToken(jsonWebTokenString);
@@ -23,7 +23,7 @@ public class JWTManager : MonoBehaviour
             tokenHandler = null;
         }
 
-        string[] jwts = jsonWebTokenString?.Split('.');
+        var jwts = jsonWebTokenString?.Split('.');
 
         if (jwts.Length != 3)
         {
@@ -31,12 +31,12 @@ public class JWTManager : MonoBehaviour
             return null;
         }
 
-        string header = Encoding.UTF8.GetString(Convert.FromBase64String(CheckBase64(jwts[0])));
-        string payload = Encoding.UTF8.GetString(Convert.FromBase64String(CheckBase64(jwts[1])));
+        var header = Encoding.UTF8.GetString(Convert.FromBase64String(CheckBase64(jwts[0])));
+        var payload = Encoding.UTF8.GetString(Convert.FromBase64String(CheckBase64(jwts[1])));
         //string sign = Encoding.UTF8.GetString(Convert.FromBase64String(checkBase64(jwts[2])));
 
-        JObject resultheader = JObject.Parse(header);
-        JObject resultpayload = JObject.Parse(payload);
+        var resultheader = JObject.Parse(header);
+        var resultpayload = JObject.Parse(payload);
 
         //Debug.LogWarning($"1 -> {resultheader}\n2 -> {resultpayload}");
 
@@ -105,7 +105,7 @@ public class JWTManager : MonoBehaviour
 
         if (jwt.Payload.TryGetValue("exp", out object value))
         {
-            long expTime = long.Parse(value.ToString());
+            var expTime = long.Parse(value.ToString());
 
             if ((expTime - 300) > GetUnixTimeNowSeconds())
             {
@@ -130,7 +130,7 @@ public class JWTManager : MonoBehaviour
 
     static string CheckBase64(string inputBase64)
     {
-        int checkLength = inputBase64.Length % 4;
+        var checkLength = inputBase64.Length % 4;
         if (checkLength != 0)
         {
             int padding = 4 - checkLength;

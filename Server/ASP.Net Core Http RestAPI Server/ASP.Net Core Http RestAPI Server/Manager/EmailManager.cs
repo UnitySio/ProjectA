@@ -15,12 +15,8 @@ namespace ASP.Net_Core_Http_RestAPI_Server
         static ConcurrentQueue<MailMessage> mailQueue;
         static ConcurrentQueue<SmtpClient> gmailSmtpList;
 
-        static ConcurrentDictionary<string, EmailValidationInfo> signInValidationCheck;
-
         public static async void Initialize()
         {
-            signInValidationCheck = new ConcurrentDictionary<string, EmailValidationInfo>();
-
             mailQueue = new ConcurrentQueue<MailMessage>();
             gmailSmtpList = new ConcurrentQueue<SmtpClient>();
 
@@ -121,41 +117,8 @@ namespace ASP.Net_Core_Http_RestAPI_Server
             //설정된 주기마다 동작.
             while (true)
             {
-                var list = signInValidationCheck.ToArray();
-                
-                foreach (var item in list)
-                {
-                    var itemValue = item.Value;
-                    if (itemValue.expirateTime.AddHours(1) <= DateTime.UtcNow)
-                        signInValidationCheck.TryRemove(itemValue.validateToken, out EmailValidationInfo var);
-                }
-
                 await Task.Delay(delay30Minutes);
             }
-        }
-        
-        public static bool RegisterSignInInfo(string signInToken, EmailValidationInfo info)
-        {
-            if (signInValidationCheck.ContainsKey(signInToken))
-                signInValidationCheck[signInToken] = info;
-            else
-                signInValidationCheck.TryAdd(signInToken, info);
-
-            return signInValidationCheck.ContainsKey(signInToken);
-        }
-        
-        public static EmailValidationInfo GetSignInInfo(string signInToken)
-        {
-            if (signInValidationCheck.ContainsKey(signInToken))
-                return signInValidationCheck[signInToken];
-            else
-                return null;
-        }
-        
-        public static void RemoveSignInInfo(string signInToken)
-        {
-            if (signInValidationCheck.ContainsKey(signInToken))
-                signInValidationCheck.TryRemove(signInToken, out EmailValidationInfo var);
         }
     }
 

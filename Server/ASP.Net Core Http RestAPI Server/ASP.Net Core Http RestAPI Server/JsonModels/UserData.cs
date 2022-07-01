@@ -9,7 +9,6 @@ namespace ASP.Net_Core_Http_RestAPI_Server.JsonDataModels
     {
         public uint AccountUniqueID { get; set; }
         public int AuthLv { get; set; }
-        public string AccountEmail { get; set; }
         public string UserNickname { get; set; }
         public int UserLv { get; set; }
         public int UserStamina { get; set; }
@@ -18,7 +17,6 @@ namespace ASP.Net_Core_Http_RestAPI_Server.JsonDataModels
     public enum AuthLv
     {
         UserGuest,
-        UserAccount,
         UserEvent,
         AdminGM,
         AdminChiefGM,

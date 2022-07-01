@@ -42,9 +42,6 @@ namespace ASP.Net_Core_Http_RestAPI_Server.DBContexts
 
                 entity.ToTable("account_info");
 
-                entity.HasIndex(e => e.AccountEmail, "account_info_account_email_uindex")
-                    .IsUnique();
-
                 entity.HasIndex(e => e.AccountGuestToken, "account_info_account_guest_token_uindex")
                     .IsUnique();
 
@@ -73,10 +70,6 @@ namespace ASP.Net_Core_Http_RestAPI_Server.DBContexts
                 entity.Property(e => e.AccountBanned)
                     .HasColumnType("tinyint(3) unsigned")
                     .HasColumnName("account_banned");
-
-                entity.Property(e => e.AccountEmail)
-                    .HasMaxLength(100)
-                    .HasColumnName("account_email");
 
                 entity.Property(e => e.AccountGuestToken)
                     .HasMaxLength(50)
