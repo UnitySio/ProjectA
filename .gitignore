@@ -19,7 +19,8 @@
 
 .idea/
 
-netcoreapp3.1/
+bin/
+obj/
 
 *.log
 
