@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace ASP.Net_Core_Http_RestAPI_Server.DBContexts
+namespace ASP.Net_Core_Http_RestAPI_Server.DBContexts.Models
 {
     public partial class AccountInfo
     {

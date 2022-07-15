@@ -3,28 +3,99 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net.Mime;
+using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using ASP.Net_Core_Http_RestAPI_Server.DBContexts;
+using ASP.Net_Core_Http_RestAPI_Server.DBContexts.Models;
 using ASP.Net_Core_Http_RestAPI_Server.JsonDataModels;
+using ASP.Net_Core_Http_RestAPI_Server.Services;
+using Microsoft.Data.SqlClient.Server;
+using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
 {
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private static DBContextPoolManager<projectaContext> dbPoolManager;
-        public static ILogger<AuthController> debugLogger;
+        private ILogger<AuthController> log;
+        private AuthService authService;
+        private IDbContextFactory<PrimaryDataSource> dbContextFactory;
 
-        public AuthController(ILogger<AuthController> logger)
+        //Construct Dependency Injections
+        public AuthController(ILogger<AuthController> logger, AuthService authService, IDbContextFactory<PrimaryDataSource> dbContextFactory)
         {
-            debugLogger = logger;
-            if (dbPoolManager == null)
-                dbPoolManager = new DBContextPoolManager<projectaContext>();
+            this.authService = authService;
+            this.log = logger;
+            this.dbContextFactory = dbContextFactory;
         }
+
+        [SqlMethod()] 
+        void test()
+        {
+        
+        }
+
+        
+		// private static string ConvertToInsertIntoSQL(object obj)
+		// {
+  //           PrimaryDataSource dbContext = dbContextFactory.CreateDbContext();
+  //
+  //           var aa = dbContext.UserInfos.FromSqlInterpolated($"select * from user_info where 1=1").ToList();
+  //
+  //           int affectRows = dbContext.Database.ExecuteSqlInterpolated($"insert into (a,b,c) values ()");
+  //
+  //
+  //           var firstName = "John";
+  //           var id = 12;
+  //           int affectRow1 = dbContext.Database.ExecuteSqlInterpolated($"Update [User] SET FirstName = {firstName} WHERE Id = {id}");
+  //
+  //
+  //           var test = dbContext.GetType().GetCustomAttribute(typeof(HttpPostAttribute)) as HttpPostAttribute;
+  //
+  //           var test2 = response.GetType().GetMethod("").GetCustomAttribute(typeof(HttpPostAttribute)) as HttpPostAttribute;
+  //
+  //           var data = test2.Template;
+  //
+  //           var property = response.GetType().GetProperties();
+  //
+  //           var attr = property[0].GetCustomAttribute(typeof(HttpPostAttribute)) as HttpPostAttribute;
+  //
+  //
+  //
+  //
+  //
+  //
+  //           var table = obj.GetType().GetCustomAttribute(typeof(Table)) as Table;
+		// 	var sql = "insert into " + table.Name + "(";
+		// 	var columns = new List<string>();
+		// 	var values = new List<object>();
+		// 	foreach (var propertyInfo in obj.GetType().GetProperties())
+		// 	{
+		// 		var column = propertyInfo.GetCustomAttribute(typeof(Column)) as Column;
+		// 		columns.Add(column.Name);
+		// 		if (propertyInfo.PropertyType.Name == "String" || propertyInfo.PropertyType.Name == "Boolean")
+		// 		{
+		// 			values.Add("\"" + propertyInfo.GetValue(obj).ToString() + "\"");
+		// 		}
+		// 		else if (propertyInfo.PropertyType.Name == "DateTime")
+		// 		{
+		// 			var dateTime = (DateTime)propertyInfo.GetValue(obj);
+		// 			values.Add("\"" + dateTime.ToString("yyyy-MM-dd") + "\"");
+		// 		}
+		// 		else
+		// 		{
+		// 			values.Add(propertyInfo.GetValue(obj).ToString());
+		// 		}
+		// 	}
+		// 	sql += string.Join(", ", columns) + ") values(";
+		// 	sql += string.Join(", ", values) + ")";
+		// 	return sql;
+		// }
 
         #region 로그인
 
@@ -32,16 +103,16 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
         // https://serverAddress/signin
         [HttpPost("signin")]
         [Consumes(MediaTypeNames.Application.Json)]
+        [Produces(MediaTypeNames.Application.Json)]
         public async Task<ResponseSignIn> Post(RequestSignIn request)
         {
             var response = new ResponseSignIn();
-            // DB에 접속하여 데이터를 조작하는 DBContext객체
-            var dbContext = dbPoolManager.Rent();
+
+            PrimaryDataSource dbContext = dbContextFactory.CreateDbContext();
 
             if (request == null || string.IsNullOrEmpty(request.authType))
             {
                 response.result = "invalid data";
-                dbPoolManager.Return(dbContext);
                 return response;
             }
 
@@ -80,7 +151,6 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                             response.jwtAccess = null;
                             response.jwtRefresh = null;
                             response.result = "account banned";
-                            dbPoolManager.Return(dbContext);
                             return response;
                         }
                     }
@@ -197,7 +267,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                                 else
                                 {
                                     response.result = "db error";
-                                    debugLogger.LogError($"signup exception: {e}");
+                                    log.LogError($"signup exception: {e}");
                                 }
                             }
                         }
@@ -242,7 +312,6 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                                 response.jwtAccess = null;
                                 response.jwtRefresh = null;
                                 response.result = "account banned";
-                                dbPoolManager.Return(dbContext);
                                 return response;
                             }
                         }
@@ -329,7 +398,6 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                                 response.jwtAccess = null;
                                 response.jwtRefresh = null;
                                 response.result = "account banned";
-                                dbPoolManager.Return(dbContext);
                                 return response;
                             }
                         }
@@ -399,10 +467,9 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
                 response.result = "invalid auth type";
             }
 
-            dbPoolManager.Return(dbContext);
+            dbContext.Dispose();
             return response;
         }
-
         #endregion
     }
 }

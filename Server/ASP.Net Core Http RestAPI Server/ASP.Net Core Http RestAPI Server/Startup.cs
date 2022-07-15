@@ -1,5 +1,8 @@
+using ASP.Net_Core_Http_RestAPI_Server.DBContexts;
+using ASP.Net_Core_Http_RestAPI_Server.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -19,6 +22,20 @@ namespace ASP.Net_Core_Http_RestAPI_Server
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddSingleton<AuthService>();
+            services.AddPooledDbContextFactory<PrimaryDataSource>((provider, options) =>
+            {
+                if (!options.IsConfigured)
+                {
+                    options.UseMySql(
+                        WASConfig.GetDBConnectionInfo(),
+                        ServerVersion.AutoDetect(WASConfig.GetDBConnectionInfo()),
+                        builder =>
+                        {
+                            builder.EnableRetryOnFailure(5);
+                        }).EnableServiceProviderCaching(false);
+                }
+            }, 5000);
 
             //CORS(Cross-Origin Resource Sharing) 설정
             services.AddCors(options =>
