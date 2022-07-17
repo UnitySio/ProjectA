@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace ASP.Net_Core_Http_RestAPI_Server.DBContexts.Models
+namespace ASP.Net_Core_Http_RestAPI_Server.DBContexts
 {
     public partial class UserCharacterInfo
     {

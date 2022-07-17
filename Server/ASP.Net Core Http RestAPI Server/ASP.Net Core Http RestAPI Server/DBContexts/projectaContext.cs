@@ -1,5 +1,4 @@
 ﻿using System;
-using ASP.Net_Core_Http_RestAPI_Server.DBContexts.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -7,9 +6,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace ASP.Net_Core_Http_RestAPI_Server.DBContexts
 {
-    public partial class PrimaryDataSource : DbContext
+    public partial class projectaContext : DbContext
     {
-        public PrimaryDataSource(DbContextOptions<PrimaryDataSource> options)
+        public projectaContext()
+        {
+        }
+
+        public projectaContext(DbContextOptions<projectaContext> options)
             : base(options)
         {
         }
@@ -18,8 +21,6 @@ namespace ASP.Net_Core_Http_RestAPI_Server.DBContexts
         public virtual DbSet<UserCharacterInfo> UserCharacterInfos { get; set; }
         public virtual DbSet<UserInfo> UserInfos { get; set; }
         public virtual DbSet<UserSigninLog> UserSigninLogs { get; set; }
-
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -32,9 +33,6 @@ namespace ASP.Net_Core_Http_RestAPI_Server.DBContexts
                     .HasName("PRIMARY");
 
                 entity.ToTable("account_info");
-
-                entity.HasCharSet("latin1")
-                    .UseCollation("latin1_swedish_ci");
 
                 entity.HasIndex(e => e.AccountGuestToken, "account_info_account_guest_token_uindex")
                     .IsUnique();
@@ -85,9 +83,6 @@ namespace ASP.Net_Core_Http_RestAPI_Server.DBContexts
 
                 entity.ToTable("user_character_info");
 
-                entity.HasCharSet("latin1")
-                    .UseCollation("latin1_swedish_ci");
-
                 entity.Property(e => e.InfoUniqueId)
                     .HasColumnType("int(10) unsigned")
                     .HasColumnName("info_unique_id");
@@ -122,9 +117,6 @@ namespace ASP.Net_Core_Http_RestAPI_Server.DBContexts
                     .HasName("PRIMARY");
 
                 entity.ToTable("user_info");
-
-                entity.HasCharSet("latin1")
-                    .UseCollation("latin1_swedish_ci");
 
                 entity.HasIndex(e => e.AccountUniqueId, "user_info_account_unique_id_uindex")
                     .IsUnique();
@@ -178,9 +170,6 @@ namespace ASP.Net_Core_Http_RestAPI_Server.DBContexts
                     .HasName("PRIMARY");
 
                 entity.ToTable("user_signin_log");
-
-                entity.HasCharSet("latin1")
-                    .UseCollation("latin1_swedish_ci");
 
                 entity.Property(e => e.LogUniqueId)
                     .HasColumnType("int(10) unsigned")

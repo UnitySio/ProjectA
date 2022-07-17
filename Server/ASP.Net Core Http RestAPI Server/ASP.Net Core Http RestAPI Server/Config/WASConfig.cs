@@ -101,4 +101,11 @@ Scaffold-DbContext "server=projecta.cmn63t9z8mgo.ap-northeast-2.rds.amazonaws.co
 
 ex) Scaffold-DbContext " [디비접속 문자열] " Pomelo.EntityFrameworkCore.MySql -OutputDir [출력 디렉토리 경로] -Force
 
+
+//Nuget Package Manager Console 이 아닌 dotnet cli 의 dotnet ef 로 scaffold 생성시 사용 명령어 
+(Jetbrains Rider로도 실행 가능. 단 아래 명령어 실행시, dotnet ef관련 설정, 터미널 PATH추가세팅이 완료되어있어야 하고 .net 프로젝트가 컴파일 오류없이 빌드가 가능한 상태여야 가능.)
+dotnet ef dbcontext scaffold "디비접속문자열" Pomelo.EntityFrameworkCore.MySql --project "프로젝트 경로" --output-dir [출력 디렉토리 경로] --force --no-onconfiguring
+
+dotnet ef dbcontext scaffold "server=projecta.cmn63t9z8mgo.ap-northeast-2.rds.amazonaws.com;port=3306;user=admin;password=dnwls3388;database=projecta" Pomelo.EntityFrameworkCore.MySql --output-dir DBContexts --force --no-onconfiguring --project "ASP.Net Core Http RestAPI Server"
+
 */

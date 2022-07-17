@@ -8874,26 +8874,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\NoTeShineL\\.nuget\\packages\\": {}
+    "/Users/sooheonlee/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\NoTeShineL\\Unity Project\\ProjectA\\Server\\ASP.Net Core Http RestAPI Server\\ASP.Net Core Http RestAPI Server\\ASP.Net Core Http RestAPI Server.csproj",
+      "projectUniqueName": "/Users/sooheonlee/UnityProjects/ProjectA/Server/ASP.Net Core Http RestAPI Server/ASP.Net Core Http RestAPI Server/ASP.Net Core Http RestAPI Server.csproj",
       "projectName": "ASP.Net Core Http RestAPI Server",
-      "projectPath": "C:\\Users\\NoTeShineL\\Unity Project\\ProjectA\\Server\\ASP.Net Core Http RestAPI Server\\ASP.Net Core Http RestAPI Server\\ASP.Net Core Http RestAPI Server.csproj",
-      "packagesPath": "C:\\Users\\NoTeShineL\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\NoTeShineL\\Unity Project\\ProjectA\\Server\\ASP.Net Core Http RestAPI Server\\ASP.Net Core Http RestAPI Server\\obj\\",
+      "projectPath": "/Users/sooheonlee/UnityProjects/ProjectA/Server/ASP.Net Core Http RestAPI Server/ASP.Net Core Http RestAPI Server/ASP.Net Core Http RestAPI Server.csproj",
+      "packagesPath": "/Users/sooheonlee/.nuget/packages/",
+      "outputPath": "/Users/sooheonlee/UnityProjects/ProjectA/Server/ASP.Net Core Http RestAPI Server/ASP.Net Core Http RestAPI Server/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\NoTeShineL\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/Users/sooheonlee/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -8975,7 +8973,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/Users/sooheonlee/.dotnet/sdk/6.0.302/RuntimeIdentifierGraph.json"
       }
     }
   }

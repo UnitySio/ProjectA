@@ -1,4 +1,5 @@
 using ASP.Net_Core_Http_RestAPI_Server.DBContexts;
+using ASP.Net_Core_Http_RestAPI_Server.DBContexts.Mappers;
 using ASP.Net_Core_Http_RestAPI_Server.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -18,15 +19,31 @@ namespace ASP.Net_Core_Http_RestAPI_Server
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        
         public void ConfigureServices(IServiceCollection services)
         {
+            //ControllerBase 를 상속받는 모든 Controller객체 주입.
             services.AddControllers();
+            
+            //로직 처리용 Service객체 싱글톤으로 주입.
             services.AddSingleton<AuthService>();
-            services.AddPooledDbContextFactory<PrimaryDataSource>((provider, options) =>
+            services.AddSingleton<CharacterService>();
+            services.AddSingleton<UserService>();
+            services.AddSingleton<TransactionService>();
+            
+            //DB 접근용 Mapper객체 싱글톤으로 주입. 
+            services.AddSingleton<AccountInfoMapper>();
+            services.AddSingleton<UserCharacterInfoMapper>();
+            services.AddSingleton<UserInfoMapper>();
+            services.AddSingleton<UserSigninLogMapper>();
+            
+            
+            //DB 접근용 dbcontext의 pooling factory객체  주입.
+            services.AddPooledDbContextFactory<projectaContext>((provider, options) =>
             {
                 if (!options.IsConfigured)
                 {
+                    //db 접속 설정
                     options.UseMySql(
                         WASConfig.GetDBConnectionInfo(),
                         ServerVersion.AutoDetect(WASConfig.GetDBConnectionInfo()),

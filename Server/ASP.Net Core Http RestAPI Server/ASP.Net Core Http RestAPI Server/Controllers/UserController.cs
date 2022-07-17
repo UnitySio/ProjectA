@@ -32,7 +32,6 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        //private static DBContextPoolManager<PrimaryDataSource> dbPoolManager;
         private readonly ILogger<UserController> debugLogger;
 
 
@@ -42,7 +41,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Controllers
         }
 
 
-        //
+        
         //
         // #region 유저 데이터 요청
         //
