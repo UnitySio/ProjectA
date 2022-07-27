@@ -10,19 +10,18 @@ namespace ASP.Net_Core_Http_RestAPI_Server
 
         static string[] wasCORSURLList =
         {
-            "https://api.wizard87.com",
-            "http://api.wizard87.com"
+            "http://ec2-3-37-249-132.ap-northeast-2.compute.amazonaws.com"
         };
 
         //WebRootDirectory 경로 설정
         static string webRootDirectory = string.Empty;
 
         //연동할 RDBMS관련 접속정보 설정
-        static string dbMSAddress = "projecta.cmn63t9z8mgo.ap-northeast-2.rds.amazonaws.com";
+        static string dbMSAddress =  "projecta-db.cg3bjjuf20iq.ap-northeast-2.rds.amazonaws.com";
         static string dbMSPort = "3306";
         static string dbMSUser = "admin";
         static string dbMSPassword = "dnwls3388";
-        static string targetDatabaseName = "projecta";
+        static string targetDatabaseName = "projectadb";
         static string dbMSMaxConnectionPoolSize = "1000";
 
 
@@ -97,7 +96,7 @@ DBContext 클래스 파일과, RDBMS의 테이블과 매핑되는 C# 클래스 �
 MySQL, MariaDB 테이블 -> C# EntityFrameworkCore DBContext 마이그레이션 툴 명령어.
 
 Scaffold-DbContext "server=db.aruku.kro.kr;port=3333;user=siogames_admin;password=qwert12345!Q;database=siogames_main" Pomelo.EntityFrameworkCore.MySql -OutputDir DBContexts -Force
-Scaffold-DbContext "server=projecta.cmn63t9z8mgo.ap-northeast-2.rds.amazonaws.com;port=3306;user=admin;password=dnwls3388;database=projecta" Pomelo.EntityFrameworkCore.MySql -OutputDir DBContexts -Force
+Scaffold-DbContext "server=projecta-db.cg3bjjuf20iq.ap-northeast-2.rds.amazonaws.com;port=3306;user=admin;password=dnwls3388;database=projecta" Pomelo.EntityFrameworkCore.MySql -OutputDir DBContexts -Force
 
 ex) Scaffold-DbContext " [디비접속 문자열] " Pomelo.EntityFrameworkCore.MySql -OutputDir [출력 디렉토리 경로] -Force
 
@@ -106,6 +105,6 @@ ex) Scaffold-DbContext " [디비접속 문자열] " Pomelo.EntityFrameworkCore.M
 (Jetbrains Rider로도 실행 가능. 단 아래 명령어 실행시, dotnet ef관련 설정, 터미널 PATH추가세팅이 완료되어있어야 하고 .net 프로젝트가 컴파일 오류없이 빌드가 가능한 상태여야 가능.)
 dotnet ef dbcontext scaffold "디비접속문자열" Pomelo.EntityFrameworkCore.MySql --project "프로젝트 경로" --output-dir [출력 디렉토리 경로] --force --no-onconfiguring
 
-dotnet ef dbcontext scaffold "server=projecta.cmn63t9z8mgo.ap-northeast-2.rds.amazonaws.com;port=3306;user=admin;password=dnwls3388;database=projecta" Pomelo.EntityFrameworkCore.MySql --output-dir DBContexts --force --no-onconfiguring --project "ASP.Net Core Http RestAPI Server"
+dotnet ef dbcontext scaffold "server=projecta-db.cg3bjjuf20iq.ap-northeast-2.rds.amazonaws.com;port=3306;user=admin;password=dnwls3388;database=projecta" Pomelo.EntityFrameworkCore.MySql --output-dir DBContexts --force --no-onconfiguring --project "ASP.Net Core Http RestAPI Server"
 
 */

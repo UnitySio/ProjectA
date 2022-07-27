@@ -32,7 +32,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Services
         }
 
         
-        public async Task<ResponseSignIn> signin(RequestSignIn request)
+        public async Task<ResponseSignIn> SignIn(RequestSignIn request)
         {
             var response = new ResponseSignIn();
 
@@ -71,7 +71,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Services
                             int affectRows = await accountInfoMapper.UpdateAccountInfo(account);
                             if (affectRows != 1)
                             {
-                                throw new Exception("AuthService::signin() db update failure! accountInfoMapper.GetAccountInfoByGuestToken() ");
+                                throw new Exception("AuthService::SignIn() db update failure! accountInfoMapper.GetAccountInfoByGuestToken() ");
                             }
                         }
                         else
@@ -115,7 +115,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Services
                             int affectRows = await userSigninLogMapper.InsertUserSigninLog(newLog);
                             if (affectRows != 1)
                             {
-                                throw new Exception("AuthService::signin() db insert failure! userSigninLogMapper.InsertUserSigninLog() ");
+                                throw new Exception("AuthService::SignIn() db insert failure! userSigninLogMapper.InsertUserSigninLog() ");
                             }
                             
                             
@@ -125,7 +125,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Services
                             affectRows = await userInfoMapper.UpdateUserInfo(user);
                             if (affectRows != 1)
                             {
-                                throw new Exception("AuthService::signin() db update failure! userInfoMapper.UpdateUserInfo() ");
+                                throw new Exception("AuthService::SignIn() db update failure! userInfoMapper.UpdateUserInfo() ");
                             }
                         }
                     }
@@ -135,7 +135,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Services
                     try
                     {
                         //로그인 처리 관련 transaction method
-                        transactionService.RunTaskWithTx(async delegate
+                        await transactionService.RunTaskWithTx(async delegate
                         {
                             var newAccount = new AccountInfo()
                             {
@@ -147,7 +147,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Services
                             int affectRows = await accountInfoMapper.InsertAccountInfo(newAccount);
                             if (affectRows != 1)
                             {
-                                throw new Exception("AuthService::signin() db insert failure! accountInfoMapper.InsertAccountInfo() ");
+                                throw new Exception("AuthService::SignIn() db insert failure! accountInfoMapper.InsertAccountInfo() ");
                             }
                             
                             
@@ -161,7 +161,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Services
                             affectRows = await userInfoMapper.InsertUserInfo(newUser);
                             if (affectRows != 1)
                             {
-                                throw new Exception("AuthService::signin() db insert failure! userInfoMapper.InsertUserInfo() ");
+                                throw new Exception("AuthService::SignIn() db insert failure! userInfoMapper.InsertUserInfo() ");
                             }
 
                             var userData = new UserData()
@@ -187,8 +187,13 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Services
                             affectRows = await userSigninLogMapper.InsertUserSigninLog(newLog);
                             if (affectRows != 1)
                             {
-                                throw new Exception("AuthService::signin() db insert failure! userSigninLogMapper.InsertUserSigninLog(2) ");
+                                throw new Exception("AuthService::SignIn() db insert failure! userSigninLogMapper.InsertUserSigninLog(2) ");
                             }
+                            
+                            // 새로운 jwt 토큰 발행후 반환
+                            response.jwtAccess = JWTManager.CreateNewJWT(userData, JWTManager.JWTType.AccessToken);
+                            response.jwtRefresh = JWTManager.CreateNewJWT(userData, JWTManager.JWTType.RefreshToken);
+                            response.result = "ok";
                         });
                     }
                     catch (Exception e)
@@ -235,7 +240,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.Services
                                 int affectRows = await accountInfoMapper.UpdateAccountInfo(account);
                                 if (affectRows != 1)
                                 {
-                                    throw new Exception("AuthService::signin() db update failure! accountInfoMapper.GetAccountInfoByGuestToken() ");
+                                    throw new Exception("AuthService::SignIn() db update failure! accountInfoMapper.GetAccountInfoByGuestToken() ");
                                 }
                             }
                             else

@@ -8,10 +8,6 @@ namespace ASP.Net_Core_Http_RestAPI_Server.DBContexts
 {
     public partial class projectaContext : DbContext
     {
-        public projectaContext()
-        {
-        }
-
         public projectaContext(DbContextOptions<projectaContext> options)
             : base(options)
         {
