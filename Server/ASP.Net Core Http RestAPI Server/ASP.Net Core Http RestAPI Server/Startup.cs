@@ -1,5 +1,9 @@
+using ASP.Net_Core_Http_RestAPI_Server.DBContexts;
+using ASP.Net_Core_Http_RestAPI_Server.DBContexts.Mappers;
+using ASP.Net_Core_Http_RestAPI_Server.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -15,18 +19,48 @@ namespace ASP.Net_Core_Http_RestAPI_Server
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        
         public void ConfigureServices(IServiceCollection services)
         {
+            //ControllerBase ë¥¼ ìƒì†ë°›ëŠ” ëª¨ë“  Controllerê°ì²´ ì£¼ì….
             services.AddControllers();
+            
+            //ë¡œì§ ì²˜ë¦¬ìš© Serviceê°ì²´ ì‹±ê¸€í†¤ìœ¼ë¡œ ì£¼ì….
+            services.AddSingleton<AuthService>();
+            services.AddSingleton<CharacterService>();
+            services.AddSingleton<UserService>();
+            services.AddSingleton<TransactionService>();
+            
+            //DB ì ‘ê·¼ìš© Mapperê°ì²´ ì‹±ê¸€í†¤ìœ¼ë¡œ ì£¼ì…. 
+            services.AddSingleton<AccountInfoMapper>();
+            services.AddSingleton<UserCharacterInfoMapper>();
+            services.AddSingleton<UserInfoMapper>();
+            services.AddSingleton<UserSigninLogMapper>();
+            
+            
+            //DB ì ‘ê·¼ìš© dbcontextì˜ pooling factoryê°ì²´  ì£¼ì….
+            services.AddPooledDbContextFactory<projectaContext>((provider, options) =>
+            {
+                if (!options.IsConfigured)
+                {
+                    //db ì ‘ì† ì„¤ì •
+                    options.UseMySql(
+                        WASConfig.GetDBConnectionInfo(),
+                        ServerVersion.AutoDetect(WASConfig.GetDBConnectionInfo()),
+                        builder =>
+                        {
+                            builder.EnableRetryOnFailure(5);
+                        }).EnableServiceProviderCaching(false);
+                }
+            }, 5000);
 
-            //CORS(Cross-Origin Resource Sharing) ¼³Á¤
+            //CORS(Cross-Origin Resource Sharing) ì„¤ì •
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(
                     builder =>
                     {
-                        // Çã¿ëÇÒ CORS µµ¸ŞÀÎ ÀÔ·Â
+                        // í—ˆìš©í•  CORS ë„ë©”ì¸ ì…ë ¥
                         builder.WithOrigins(WASConfig.GetWASCORSURLList());
                     });
             });
@@ -42,10 +76,10 @@ namespace ASP.Net_Core_Http_RestAPI_Server
 
             env.WebRootPath = env.ContentRootPath = WASConfig.GetWebRootDirectory();
 
-            //WebRootPathÀÇ Á¤ÀûÀÎ ÆÄÀÏµéÀ» ±×´ë·Î UrlÀ» ÅëÇÏ¿© ¹èÆ÷ÇÒ°ÇÁö ¿©ºÎ.
+            //WebRootPathì˜ ì •ì ì¸ íŒŒì¼ë“¤ì„ ê·¸ëŒ€ë¡œ Urlì„ í†µí•˜ì—¬ ë°°í¬í• ê±´ì§€ ì—¬ë¶€.
             app.UseStaticFiles();
 
-            //º» ¾ÛÀÇ Åë½Å¹üÀ§´Â ³»ºÎ¸ÁÀ¸·Î¸¸ ÇÑÁ¤µÇ¾î ÀÖÀ¸¹Ç·Î https¿¬°áÀº ºñÈ°¼ºÈ­.
+            //ë³¸ ì•±ì˜ í†µì‹ ë²”ìœ„ëŠ” ë‚´ë¶€ë§ìœ¼ë¡œë§Œ í•œì •ë˜ì–´ ìˆìœ¼ë¯€ë¡œ httpsì—°ê²°ì€ ë¹„í™œì„±í™”.
             //app.UseHttpsRedirection();
 
             app.UseRouting();

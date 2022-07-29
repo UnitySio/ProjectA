@@ -13,17 +13,22 @@ namespace ASP.Net_Core_Http_RestAPI_Server
     {
         //JsonWebToken 검증용 비밀 서명 키 (서버에만 보관)
         static string plainTextKey = "s54fdfsd5f56!4df3ef54s=f6ds!f456s4f65sd4!f65s4df564e53s4f56!=";
+
         //액세스 토큰 유효기간 (minute)
         static int accessTokenLifetimeMinute = 60;
+
         //리프레시 토큰 유효기간 (day)
         static int refreshTokenLifetimeDay = 15;
 
         //JsonWebToken 발급자명 (도메인)
         private static string issuerString = "siogames_authManager";
+
         //JsonWebToken 대상자명 (도메인)
         private static string audienceString = "https://api.siogames.com";
+
         //JsonWebToken 서명 키 기반 Credential 객체
         private static SigningCredentials jwtSigningCredentials;
+
         //JsonWebToken 유효성 체크용 파라메터
         static TokenValidationParameters tokenValidationParam;
 
@@ -33,7 +38,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server
                 new SymmetricSecurityKey(Encoding.UTF8.GetBytes(plainTextKey)),
                 SecurityAlgorithms.HmacSha256Signature,
                 SecurityAlgorithms.Sha256Digest
-                );
+            );
 
             tokenValidationParam = new TokenValidationParameters()
             {
@@ -55,23 +60,21 @@ namespace ASP.Net_Core_Http_RestAPI_Server
             };
         }
 
-
-
         #region JWT_Logic
-        
+
         public static string CreateNewJWT(UserData user, JWTType type)
         {
             if (user == null || type == null)
-                throw new NullReferenceException("createNewJWT()에는 null 인자값이 들어올 수 없습니다.");
+                throw new NullReferenceException("CreateNewJWT()에는 null 인자값이 들어올 수 없습니다.");
 
-            DateTime utcNow = DateTime.UtcNow;
+            var utcNow = DateTime.UtcNow;
 
             var securityTokenDescriptor = new SecurityTokenDescriptor()
             {
                 Subject = new ClaimsIdentity(new List<Claim>()
                 {
                     new Claim("JWTType", type.ToString()),
-                    new Claim("AccountUniqueId", user.AccountUniqueId.ToString()),
+                    new Claim("AccountUniqueId", user.AccountUniqueID.ToString()),
                     new Claim("AuthLv", user.AuthLv.ToString())
                 }),
                 Audience = audienceString, //대상자
@@ -92,9 +95,9 @@ namespace ASP.Net_Core_Http_RestAPI_Server
                     break;
             }
 
-            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+            var tokenHandler = new JwtSecurityTokenHandler();
 
-            SecurityToken plainToken = tokenHandler.CreateToken(securityTokenDescriptor);
+            var plainToken = tokenHandler.CreateToken(securityTokenDescriptor);
             string signedAndEncodedToken = tokenHandler.WriteToken(plainToken);
 
             return signedAndEncodedToken;
@@ -103,25 +106,10 @@ namespace ASP.Net_Core_Http_RestAPI_Server
 
         public static bool CheckValidationJWT(string tokenString, out SecurityToken tokenInfo)
         {
-            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+            var tokenHandler = new JwtSecurityTokenHandler();
             try
             {
                 tokenHandler.ValidateToken(tokenString, tokenValidationParam, out tokenInfo);
-
-                /*JwtSecurityToken jwt = tokenInfo as JwtSecurityToken;
-
-                object AccountUniqueId, AuthLv;
-
-                if (jwt.Payload.TryGetValue("AccountUniqueId", out AccountUniqueId))
-                {
-                    Console.WriteLine($"AccountUniqueId = \n{AccountUniqueId.ToString()}");
-                }
-
-                if (jwt.Payload.TryGetValue("AuthLv", out AuthLv))
-                {
-                    Console.WriteLine($"AuthLv = \n{AuthLv.ToString()}");
-                }*/
-
                 return true;
             }
             catch (Exception)

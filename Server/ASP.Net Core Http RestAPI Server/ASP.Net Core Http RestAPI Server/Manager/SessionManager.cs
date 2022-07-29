@@ -35,7 +35,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server
 
 
         //다른 기기에서 로그인 중인지 체크.
-        public static bool isDuplicate(uint uniqueID, string token)
+        public static bool IsDuplicate(uint uniqueID, string token)
         {
             if (sessionCheck.TryGetValue(uniqueID, out var currentToken))
             {

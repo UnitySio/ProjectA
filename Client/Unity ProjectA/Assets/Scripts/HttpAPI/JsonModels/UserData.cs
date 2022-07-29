@@ -12,6 +12,7 @@ namespace ASP.Net_Core_Http_RestAPI_Server.JsonDataModels
         public string AccountEmail { get; set; }
         public string UserNickname { get; set; }
         public int UserLv { get; set; }
+        public int UserStamina { get; set; }
     }
 
     public enum AuthLv
